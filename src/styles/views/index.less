@@ -1,0 +1,268 @@
+@import './help.less';
+@import './tasks.less';
+@import './notifications.less';
+@import './search.less';
+
+.screen {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  .transition();
+
+  &.fadeInUp {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  li[data-node-id],
+  li[data-url] {
+    cursor: pointer;
+  }
+
+  .refProduct {
+    padding: 16px 0;
+    position: relative;
+    .transition();
+
+    &:hover {
+      background: var(--primary100);
+
+      .refIcon {
+        i {
+          color: var(--primary);
+        }
+        svg {
+          path {
+            fill: var(--primary);
+          }
+          polygon {
+            fill: var(--primary);
+          }
+        }
+        svg.stroke {
+          path {
+            stroke: var(--primary);
+          }
+        }
+      }
+      .share {
+        right: 0;
+        opacity: 1;
+      }
+    }
+  }
+  .refGrid {
+    display: flex;
+    width: 100%;
+    position: relative;
+
+    .columnLeft {
+      display: inline-block;
+      align-self: flex-start;
+      // vertical-align: top;
+      width: 33px;
+    }
+    .columnRight {
+      display: inline-block;
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .title {
+      display: flex;
+      align-items: center;
+
+      &.title-column {
+        flex-flow: column nowrap;
+        align-items: flex-start;
+
+        .desc {
+          padding-left: 0;
+        }
+        .textMin {
+          padding-left: 0;
+        }
+      }
+      a {
+        color: var(--neutral900);
+        .fBold();
+        font-size: 15px;
+        vertical-align: bottom;
+        .transition();
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &:hover {
+          color: var(--primary);
+        }
+      }
+      span {
+        padding-left: 16px;
+      }
+    }
+    span.textMin {
+      color: var(--secondary500);
+      font-family: 'Roboto';
+      font-weight: 100;
+      white-space: nowrap;
+    }
+    .desc {
+      font-size: 13px;
+      padding-top: 4px;
+      line-height: 1.6;
+    }
+    .refIcon {
+      font-size: 15px;
+      text-align: center;
+      width: 16px;
+
+      i {
+        color: var(--secondary500);
+        .transition();
+        font-weight: 400;
+
+        &.fa-telegram-plane {
+          font-size: 18px;
+        }
+        &.fa-bell {
+          font-weight: 900;
+        }
+      }
+      svg {
+        width: 15px;
+
+        path {
+          fill: var(--secondary500);
+          .transition();
+        }
+        polygon {
+          fill: var(--secondary500);
+          .transition();
+        }
+      }
+      svg.stroke {
+        path {
+          fill: none;
+          stroke: var(--secondary500);
+        }
+      }
+      .notificationDot {
+        transform: translate(12px, -18px);
+        animation: none;
+      }
+    }
+  }
+  .checkboxContainer {
+    margin: 14px 0 0 30px;
+    text-align: left;
+    position: relative;
+    padding-bottom: 8px;
+    @labelPaddingLeft: 30px;
+
+    input[type='checkbox'] {
+      display: none;
+    }
+    input[type='checkbox'] + label {
+      line-height: 15px;
+      font-size: 15px;
+      padding-left: @labelPaddingLeft;
+      .transition();
+      color: var(--neutral900);
+      display: inline-block;
+      position: relative;
+      cursor: default;
+
+      &::before {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: @labelPaddingLeft;
+        height: 20px;
+        background: var(--background);
+        content: ' ';
+        display: block;
+        z-index: 9;
+      }
+    }
+    input[type='checkbox']:enabled + label {
+      &:hover {
+        color: var(--primary);
+        cursor: pointer;
+      }
+    }
+    input[type='checkbox'] + label span.img {
+      display: inline-block;
+      width: 14px;
+      height: 12px;
+      margin: 0;
+      vertical-align: middle;
+      // background: url("../../images/checkbox.svg") left top no-repeat;
+      // background-size: auto 12px;
+      -webkit-mask: url('../../images/checkbox.svg') left top no-repeat;
+      mask: url('../../images/checkbox.svg') left top no-repeat;
+      -webkit-mask-size: auto 12px;
+      mask-size: auto 12px;
+      background-color: var(--primary);
+
+      cursor: pointer;
+      position: absolute;
+      left: 0;
+      top: 2px;
+      z-index: 10;
+    }
+    input[type='checkbox']:checked + label span.img {
+      // background: url("../../images/checkbox.svg") -14px top no-repeat;
+      // background-size: auto 12px;
+      -webkit-mask: url('../../images/checkbox.svg') -14px top no-repeat;
+      mask: url('../../images/checkbox.svg') -14px top no-repeat;
+      -webkit-mask-size: auto 12px;
+      mask-size: auto 12px;
+      background-color: var(--primary);
+    }
+    input[type='checkbox']:disabled + label span.img {
+      background-color: var(--neutral500);
+      cursor: default;
+    }
+    input[type="checkbox"][data-crossed-off]:disabled + label {
+      color: var(--neutral500);
+    }
+    span.hidden {
+      display: none;
+    }
+    input[type='checkbox'] + label span.line {
+      position: absolute;
+      left: 0;
+      height: 1px;
+      width: 0;
+      background: var(--neutral500);
+      top: 8px;
+      .transition();
+      opacity: 0.5;
+    }
+    input[type='checkbox'][data-crossed-off] + label span.line {
+      position: absolute;
+      left: 0;
+      height: 1px;
+      width: 100%;
+      background: var(--neutral500);
+      top: 8px;
+    }
+    input[type="checkbox"][data-crossed-off]:enabled + label {
+      &:hover {
+        span.line {
+          background: var(--primary);
+        }
+      }
+    }
+    input[type="checkbox"][data-crossed-off]:disabled + label span.life {
+      background: var(--neutral500);
+    }
+  }
+}

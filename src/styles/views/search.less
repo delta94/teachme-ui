@@ -1,0 +1,55 @@
+.screen {
+  &.screenResults {
+    ul.screenList {
+      .listClear();
+
+      & > li {
+        .listClear();
+        opacity: 0;
+        .transition();
+
+        &.fadeInUp {
+          opacity: 1;
+        }
+      }
+    }
+    .return {
+      padding-bottom: 20px;
+
+      a {
+        display: inline-block;
+        vertical-align: middle;
+        .transition();
+        color: var(--neutral500);
+        .fItalic();
+
+        &:hover {
+          color: var(--primary);
+        }
+        svg {
+          display: inline-block;
+          vertical-align: middle;
+          width: 16px;
+          padding-right: 20px;
+          position: relative;
+          margin-top: -2px;
+
+          path {
+            fill-rule: evenodd;
+            clip-rule: evenodd;
+            fill: var(--primary);
+            .transition();
+          }
+        }
+      }
+    }
+    .preloader {
+      display: inline-block;
+      width: 48px;
+      height: 48px;
+      margin-left: 30px;
+      background: url('../../images/preloader.gif') no-repeat;
+      background-size: contain;
+    }
+  }
+}
