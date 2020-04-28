@@ -1,0 +1,50 @@
+body,
+html {
+  .fRegular();
+  background: transparent;
+  color: var(--neutral500);
+  margin: 0;
+  position: relative;
+  font-size: 12px;
+  line-height: 1.2 !important;
+  overflow: hidden;
+  height: 100%;
+}
+.wrapper {
+  margin: 0 30px;
+}
+h1 {
+  .fBold();
+  font-size: 50px;
+  line-height: 1.2 !important;
+}
+h2 {
+  .fBold();
+  font-size: 50px;
+  line-height: 1.2 !important;
+}
+
+.appWindow {
+  position: absolute;
+  height: 100vh;
+  background: var(--background);
+  width: 100%;
+  max-width: 100%;
+  min-width: 550px;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  opacity: 1;
+  -webkit-transition: all 500ms cubic-bezier(0.68, 0, 0.265, 1);
+  -webkit-transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.2);
+  -moz-transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.2);
+  -o-transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.2);
+  transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.2);
+
+  -webkit-transition-timing-function: cubic-bezier(0.68, 0, 0.265, 1);
+  -webkit-transition-timing-function: cubic-bezier(0.68, -0.2, 0.265, 1.2);
+  -moz-transition-timing-function: cubic-bezier(0.68, -0.2, 0.265, 1.2);
+  -o-transition-timing-function: cubic-bezier(0.68, -0.2, 0.265, 1.2);
+  transition-timing-function: cubic-bezier(0.68, -0.2, 0.265, 1.2);
+}
