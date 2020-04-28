@@ -1,0 +1,20 @@
+{
+  "name": "teachme-ui",
+  "version": "1.0.0",
+  "description": "UI for teach me application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo Tests TBD",
+    "build": "build TBD"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WalkMe/teachme-ui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WalkMe/teachme-ui/issues"
+  },
+  "homepage": "https://github.com/WalkMe/teachme-ui#readme"
+}
