@@ -1,5 +1,4 @@
 import React from "react";
-import "../../../styles/components/progress-bar.less";
 
 export function ProgressBar({
   percentCompletion,
