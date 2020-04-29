@@ -34,38 +34,46 @@ export default function ListItem<T>({
     onSelect(item);
   };
 
+  if (itemComponent) {
+    return (
+      <li className={`list-item ${className}`}>
+        {itemComponent({
+          onSelect: listItemClick,
+          item,
+        })}
+      </li>
+    );
+  }
+
   return (
     <li
       className={`list-item ${className}`}
-      onClick={() => !item.primaryBtn && listItemClick}
+      onClick={() => {
+        if (!item.primaryBtn) {
+          listItemClick();
+        }
+      }}
     >
-      {itemComponent ? (
-        itemComponent({
-          onSelect: listItemClick,
-          item,
-        })
-      ) : (
-        <div className="item">
-          {thumbnailSrc && (
-            <picture className="thumb">
-              <img src={thumbnailSrc} alt={title} title={title} />
-            </picture>
+      <div className="item">
+        {thumbnailSrc && (
+          <picture className="thumb">
+            <img src={thumbnailSrc} alt={title} title={title} />
+          </picture>
+        )}
+        <article className="item-info">
+          <span className="title">{title}</span>
+          {subTitle && <span className="sub-title">{subTitle}</span>}
+          {primaryBtn && (
+            <button
+              type="button"
+              className="primary-button"
+              onClick={listItemClick}
+            >
+              {primaryBtn.label}
+            </button>
           )}
-          <article className="item-info">
-            <span className="title">{title}</span>
-            {subTitle && <span className="sub-title">{subTitle}</span>}
-            {primaryBtn && (
-              <button
-                type="button"
-                className="primary-button"
-                onClick={listItemClick}
-              >
-                {primaryBtn.label}
-              </button>
-            )}
-          </article>
-        </div>
-      )}
+        </article>
+      </div>
     </li>
   );
 }
