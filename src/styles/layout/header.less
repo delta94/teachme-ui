@@ -4,9 +4,37 @@
   .wrapper {
     position: relative;
   }
+
+  .general-header {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-template-areas: "logo details";
+  }
+
+  .details {
+    color: var(--neutral900);
+
+    .greeting {
+      .fLight();
+      font-size: 22px;
+      margin-block-start: 0;
+      margin-block-end: 0;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      .title {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
   .logo {
-    position: absolute;
-    left: 0;
+    grid-area: logo;
     filter: drop-shadow(0 0 3px #00000050);
     width: var(--logoWidth);
     height: calc(var(--logoHeight) + 26px);
@@ -46,7 +74,7 @@
   .minimize {
     position: absolute;
     right: 0;
-    top: 24px;
+    top: 0;
     display: inline-block;
     vertical-align: middle;
     width: 40px;
@@ -149,6 +177,7 @@
       }
     }
   }
+
   .topElement {
     -webkit-user-select: none;
     -moz-user-select: none;

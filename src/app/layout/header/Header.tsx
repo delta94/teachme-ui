@@ -1,8 +1,27 @@
 import React, { useEffect, useRef, useContext } from "react";
 import useViewManager from "../../hooks/useViewManager";
 import { TeachMeContext } from "../../App";
+import Minimize from "../../components/buttons/minimize/Minimize";
+import { ProgressBar } from "../../components/progress-bar/ProgressBar";
+interface IUser {
+  firstName: string;
+  LastName: string;
+}
+interface IData {
+  user: IUser;
+  progressBar: number;
+}
+
+const defaultData: IData = {
+  user: {
+    firstName: "Dan",
+    LastName: "Israeli",
+  },
+  progressBar: 20,
+};
 
 export default function Header() {
+  const { user, progressBar } = defaultData;
   const tmContext = useContext(TeachMeContext);
   const { includeLayout } = tmContext.tmState;
   const logo = useRef();
@@ -32,30 +51,18 @@ export default function Header() {
   return (
     <div className="header">
       <div className="wrapper">
-        <div ref={logo} className="logo topElement">
-          <a href="#" draggable="true"></a>
+        <div className="general-header">
+          <div ref={logo} className="logo topElement">
+            <a href="#" draggable="true"></a>
+          </div>
+          <div className="details">
+            <h2 className="greeting">Welcome Back, {user.firstName}</h2>
+            <ProgressBar percentCompletion={progressBar} showTitle />
+          </div>
         </div>
-        <div ref={minimize} className="minimize topElement">
-          <a>
-            <div className="circle"></div>
-            <svg
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              x="0px"
-              y="0px"
-              viewBox="0 0 20.2 19.4"
-            >
-              <g id="right">
-                <polygon className="st0" points="11,1.8 18.2,9.1 11,9.2" />
-                <path className="st1" d="M13,6.9l5.2-5.1" />
-              </g>
-              <g id="left">
-                <polygon className="st0" points="9.3,10.7 2,10.8 9.3,18" />
-                <path className="st1" d="M7.1,12.9l-5,5.1" />
-              </g>
-            </svg>
-          </a>
-        </div>
+      </div>
+      <div ref={minimize} className="minimize topElement">
+        <Minimize />
       </div>
     </div>
   );
