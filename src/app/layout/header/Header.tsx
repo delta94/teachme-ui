@@ -25,6 +25,7 @@ export default function Header() {
   const tmContext = useContext(TeachMeContext);
   const { includeLayout } = tmContext.tmState;
   const logo = useRef();
+  const details = useRef();
   const minimize = useRef();
 
   const { animateCoreElements } = useViewManager();
@@ -37,7 +38,7 @@ export default function Header() {
         timeout: 0,
       });
       animateCoreElements({
-        elements: [minimize.current],
+        elements: [minimize.current, details.current],
         animateClassName: "fadeInDown",
         timeout: 200,
       });
@@ -55,7 +56,7 @@ export default function Header() {
           <div ref={logo} className="logo topElement">
             <a href="#" draggable="true"></a>
           </div>
-          <div className="details">
+          <div ref={details} className="details topElement">
             <h2 className="greeting">Welcome Back, {user.firstName}</h2>
             <ProgressBar percentCompletion={progressBar} showTitle />
           </div>
