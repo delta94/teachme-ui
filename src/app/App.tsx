@@ -28,10 +28,10 @@ export interface IWMState {
 }
 
 const initialState = {
-  wmSearch: {} as WalkMeApp,
-  wmNotification: {} as WalkMeApp,
-  wmUiTree: [] as ContentItem[],
-  wmLanguages: {} as LanguageItem[],
+  // wmSearch: {} as WalkMeApp,
+  // wmNotification: {} as WalkMeApp,
+  // wmUiTree: [] as ContentItem[],
+  // wmLanguages: {} as LanguageItem[],
   initiated: false,
   debugError: "",
   platformType: "",
@@ -102,10 +102,8 @@ export default function App() {
       let timeout;
 
       try {
-        console.log("WalkMe ready");
-
         await walkme.init();
-        console.log("walkme =>", walkme);
+        console.log("WalkMe ready =>", walkme);
 
         if (walkme) {
           setWalkmeSDK(walkme);
@@ -121,28 +119,16 @@ export default function App() {
         const platform = String(searchParams.get("platform"));
         const type = String(searchParams.get("tm-type"));
 
-        const [
-          search,
-          notifications,
-          uiTreeSDK,
-          languagesSDK,
-        ] = await Promise.all([
-          walkme.apps.getApp("search"),
-          walkme.apps.getApp("notifications"),
-          walkme.content.getContentUITree(),
-          walkme.language.getLanguagesList(),
-        ]);
-
-        if (!uiTreeSDK.length || !languagesSDK)
-          throw new Error("Some content couldn't be loaded");
+        // const [
+        //   languagesSDK,
+        // ] = await Promise.all([
+        //   walkme.content.getContentUITree(),
+        //   walkme.language.getLanguagesList(),
+        // ]);
 
         clearTimeout(timeout);
         setWMState({
           ...tmState,
-          wmSearch: search,
-          wmNotification: notifications,
-          wmUiTree: uiTreeSDK,
-          wmLanguages: languagesSDK,
           initiated: true,
           platformType: platform,
           includeLayout: type === tmPlatformType.Web,
