@@ -1,0 +1,28 @@
+.main {
+  padding: 50px 20px 0;
+
+  .list.courses {
+    .list-item {
+      .item {
+        display: grid;
+        grid-template-rows: 1fr auto;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+          "thumb article"
+          "progressBar progressBar";
+
+        .thumb {
+          grid-area: thumb;
+        }
+
+        article {
+          grid-area: article;
+        }
+
+        .progress-bar {
+          grid-area: progressBar;
+        }
+      }
+    }
+  }
+}
