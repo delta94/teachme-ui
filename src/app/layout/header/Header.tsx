@@ -1,7 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import useViewManager from "../../hooks/useViewManager";
+import { TeachMeContext } from "../../App";
 
-export default function Top(props: { initiated: boolean }) {
+export default function Header() {
+  const tmContext = useContext(TeachMeContext);
+  const { includeLayout } = tmContext.tmState;
   const logo = useRef();
   const options = useRef();
   const minimize = useRef();
@@ -9,17 +12,23 @@ export default function Top(props: { initiated: boolean }) {
   const { animateCoreElements } = useViewManager();
 
   useEffect(() => {
-    animateCoreElements({
-      elements: [logo.current],
-      animateClassName: "fadeInDown",
-      timeout: 0,
-    });
-    animateCoreElements({
-      elements: [options.current, minimize.current],
-      animateClassName: "fadeInDown",
-      timeout: 200,
-    });
-  }, []);
+    if (includeLayout) {
+      animateCoreElements({
+        elements: [logo.current],
+        animateClassName: "fadeInDown",
+        timeout: 0,
+      });
+      animateCoreElements({
+        elements: [options.current, minimize.current],
+        animateClassName: "fadeInDown",
+        timeout: 200,
+      });
+    }
+  }, [includeLayout]);
+
+  if (!includeLayout) {
+    return null;
+  }
 
   return (
     <div className="top">

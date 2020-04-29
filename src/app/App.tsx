@@ -8,19 +8,23 @@ import {
 } from "@walkme/sdk/dist/interfaces/sdk";
 
 import { config } from "./config";
-import { wmPlatformType } from "./consts/platform";
-import Top from "./layout/top/Top";
+import { wmPlatformType, tmPlatformType } from "./consts/platform";
+import Header from "./layout/header/Header";
 import Main from "./layout/main/Main";
 
 import "../styles/index.less";
+import Debug from "./layout/debug/Debug";
 
 export interface IWMState {
   wmSearch: WalkMeApp;
   wmNotification: WalkMeApp;
   wmUiTree: ContentItem[];
   wmLanguages: LanguageItem[];
+  initiated: boolean;
   debugError: string;
   platformType: string;
+  includeLayout: boolean;
+  informationScreen?: string; // TODO: check this issue
 }
 
 const initialState = {
@@ -28,21 +32,22 @@ const initialState = {
   wmNotification: {} as WalkMeApp,
   wmUiTree: [] as ContentItem[],
   wmLanguages: {} as LanguageItem[],
+  initiated: false,
   debugError: "",
   platformType: "",
+  includeLayout: false,
 };
 
-export const WalkMeContext = createContext({
-  wmState: initialState,
+export const TeachMeContext = createContext({
+  tmState: initialState,
   updateWMState: (updatedState: IWMState) => {},
   walkmeSDK: {} as ISdk,
 });
 
 export default function App() {
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
-  const [init, setInit] = useState(false);
-  const [wmState, setWMState] = useState(initialState);
-  const { debugError, platformType } = wmState;
+  const [tmState, setWMState] = useState(initialState);
+  const { platformType, initiated } = tmState;
 
   const updateWMState = (updatedState: IWMState) => {
     setWMState((prevWMState) => {
@@ -67,12 +72,12 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (init) {
+    if (initiated) {
       if (config.debug) displayDebugInfo();
       addGuidSpecificStyle();
       //App.onWindowReady();
     }
-  }, [init]);
+  }, [initiated]);
 
   const displayDebugInfo = () => {
     const search = new URLSearchParams(location.search);
@@ -114,6 +119,7 @@ export default function App() {
 
         const searchParams = new URLSearchParams(location.search);
         const platform = String(searchParams.get("platform"));
+        const type = String(searchParams.get("tm-type"));
 
         const [
           search,
@@ -127,20 +133,20 @@ export default function App() {
           walkme.language.getLanguagesList(),
         ]);
 
-        setWMState({
-          ...wmState,
-          wmSearch: search,
-          wmNotification: notifications,
-          wmUiTree: uiTreeSDK,
-          wmLanguages: languagesSDK,
-          platformType: platform,
-        });
-
         if (!uiTreeSDK.length || !languagesSDK)
           throw new Error("Some content couldn't be loaded");
 
         clearTimeout(timeout);
-        setInit(true);
+        setWMState({
+          ...tmState,
+          wmSearch: search,
+          wmNotification: notifications,
+          wmUiTree: uiTreeSDK,
+          wmLanguages: languagesSDK,
+          initiated: true,
+          platformType: platform,
+          includeLayout: type === tmPlatformType.Web,
+        });
       } catch (err) {
         console.error(err);
         clearTimeout(timeout);
@@ -153,23 +159,14 @@ export default function App() {
     <div
       className="appWindow show"
       style={{
-        marginLeft: wmState.platformType === wmPlatformType.Windows ? 10 : "",
+        marginLeft: platformType === wmPlatformType.Windows ? 10 : "",
       }}
     >
-      {Boolean(debugError) && (
-        <div
-          className="debug"
-          style={{
-            position: "absolute",
-          }}
-        >
-          <span>{debugError}</span>
-        </div>
-      )}
-      <WalkMeContext.Provider value={{ walkmeSDK, wmState, updateWMState }}>
-        <Top initiated={init} />
-        <Main initiated={init} />
-      </WalkMeContext.Provider>
+      <TeachMeContext.Provider value={{ walkmeSDK, tmState, updateWMState }}>
+        <Debug />
+        <Header />
+        <Main />
+      </TeachMeContext.Provider>
     </div>
   );
 }

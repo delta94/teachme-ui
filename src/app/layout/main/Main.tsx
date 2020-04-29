@@ -1,13 +1,11 @@
 import React from "react";
-import Tabs from "../../components/tabs/Tabs";
-import ScreenInformation from "../../components/screen-information/ScreenInformation";
+import InformationScreen from "../../components/information-screen/InformationScreen";
 import Content from "../../components/content/Content";
 
-export default function Main(props: { initiated: boolean }) {
+export default function Main() {
   return (
     <>
-      <Tabs />
-      <ScreenInformation />
+      {/* <InformationScreen /> */}
       <Content />
     </>
   );
