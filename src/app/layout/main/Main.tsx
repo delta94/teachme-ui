@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InformationScreen from "../../components/information-screen/InformationScreen";
 import Content from "../../components/content/Content";
 import List from "../../components/list/List";
@@ -53,27 +53,35 @@ const courses: IListItem<ICourse>[] = [
 
 export default function Main() {
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const onSelectedCourse = (selected: IListItem<ICourse>) => {
     console.log("onSelectedCourse selected", selected);
     setSelectedCourse(selected);
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 4000);
+  });
   return (
     <div className="main">
-      {/* <InformationScreen /> */}
-      {selectedCourse ? (
-        // <Content />
-        JSON.stringify(selectedCourse)
-      ) : (
-        <List
-          className="courses"
-          type="row"
-          onSelect={onSelectedCourse}
-          items={courses}
-          itemComponent={CourseListItem}
-        />
-      )}
+      {/* TODO: improve InformationScreen component */}
+      {isLoading && <InformationScreen />}
+      {!isLoading &&
+        (selectedCourse ? (
+          // <Content />
+          JSON.stringify(selectedCourse)
+        ) : (
+          <List
+            className="courses"
+            type="row"
+            onSelect={onSelectedCourse}
+            items={courses}
+            itemComponent={CourseListItem}
+          />
+        ))}
     </div>
   );
 }
