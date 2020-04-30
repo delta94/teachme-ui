@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IListItem } from "../../../components/list/list-item/ListItem";
 import CoursesListScreen from "./courses-list-screen/CoursesListScreen";
 import { ICourse, CourseState, ICourseData } from "./courses.interface";
@@ -18,7 +18,42 @@ export const courses: ICourse[] = [
     },
     lessons: [
       {
-        id: "first-lesson",
+        id: "welcome-to-lightning",
+        title: "Welcome to Lightning",
+        items: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+          },
+        ],
+      },
+      {
+        id: "watch-or-read-training-content",
+        title: "Watch/Read Training Content",
+        items: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+          },
+        ],
       },
     ],
   },
@@ -36,7 +71,42 @@ export const courses: ICourse[] = [
     },
     lessons: [
       {
-        id: "first-lesson",
+        id: "welcome-to-lightning",
+        title: "Welcome to Lightning",
+        items: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+          },
+        ],
+      },
+      {
+        id: "watch-or-read-training-content",
+        title: "Watch/Read Training Content",
+        items: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+          },
+        ],
       },
     ],
   },
@@ -54,7 +124,42 @@ export const courses: ICourse[] = [
     },
     lessons: [
       {
-        id: "first-lesson",
+        id: "welcome-to-lightning",
+        title: "Welcome to Lightning",
+        items: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+          },
+        ],
+      },
+      {
+        id: "watch-or-read-training-content",
+        title: "Watch/Read Training Content",
+        items: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+          },
+        ],
       },
     ],
   },
@@ -72,7 +177,42 @@ export const courses: ICourse[] = [
     },
     lessons: [
       {
-        id: "first-lesson",
+        id: "welcome-to-lightning",
+        title: "Welcome to Lightning",
+        items: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+          },
+        ],
+      },
+      {
+        id: "watch-or-read-training-content",
+        title: "Watch/Read Training Content",
+        items: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+          },
+        ],
       },
     ],
   },
@@ -90,6 +230,11 @@ export default function CoursesScreen() {
   const resetCourseSelection = () => {
     setSelectedCourse(null);
   };
+
+  // TODO: remove before upload to develop
+  useEffect(() => {
+    setSelectedCourse(courses[2]);
+  }, []);
 
   return selectedCourse ? (
     <CourseScreen

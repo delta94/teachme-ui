@@ -1,4 +1,4 @@
-import { ICourse, ICourseListItem } from "./courses.interface";
+import { ICourse, ICourseListItem, ILesson } from "./courses.interface";
 import { courses } from "./CoursesScreen";
 
 export const parseToCourseListItems = (

@@ -47,7 +47,7 @@ export default function CourseListItem<T extends ICourseData>({
       )}
       <article>
         <header>
-          <span className="title">{title}</span>
+          <h3 className="title">{title}</h3>
           {subTitle && <span className="sub-title">{subTitle}</span>}
         </header>
         <footer className="status-area">

@@ -7,8 +7,24 @@ export enum CourseState {
   Tested = "tested",
 }
 
+export interface ILessonData {
+  state?: CourseState;
+}
+export interface ILessonListItem {
+  id: string;
+  title: string;
+  data?: ILessonData;
+}
+
+export interface ILessonItem {
+  id: string;
+  title: string;
+  state?: CourseState;
+}
 export interface ILesson {
   id: string;
+  title: string;
+  items: ILessonItem[];
 }
 
 export interface ICourse {

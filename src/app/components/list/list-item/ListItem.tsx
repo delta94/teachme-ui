@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { CourseState } from "../../../layout/screens/courses-screen/courses.interface";
 
 export interface IItemComponentProps<T> {
   onSelect: () => void;
@@ -13,6 +14,7 @@ export interface IListItem<T> {
   primaryBtn?: {
     label: string;
   };
+  state?: CourseState;
   data?: T;
 }
 
