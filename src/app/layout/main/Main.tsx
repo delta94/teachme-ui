@@ -1,14 +1,19 @@
-import React from "react";
-import Tabs from "../../components/tabs/Tabs";
-import ScreenInformation from "../../components/screen-information/ScreenInformation";
-import Content from "../../components/content/Content";
+import React, { useState, useEffect } from "react";
+import InformationScreen from "../screens/information-screen/InformationScreen";
+import CoursesScreen from "../screens/courses-screen/CoursesScreen";
 
-export default function Main(props: { initiated: boolean }) {
+export default function Main() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+  });
   return (
-    <>
-      <Tabs />
-      <ScreenInformation />
-      <Content />
-    </>
+    <div className="main">
+      {/* TODO: improve InformationScreen component */}
+      {isLoading ? <InformationScreen /> : <CoursesScreen />}
+    </div>
   );
 }

@@ -1,0 +1,29 @@
+:root {
+  --default: var(--primary);
+  --currentColor: var(--default);
+}
+
+.btn {
+  background-color: var(--primary100);
+  border: 1px solid var(--neutral900);
+  color: var(--neutral900);
+  border-radius: 15px;
+  height: 30px;
+  min-width: 90px;
+  width: fit-content;
+  font-size: 11px;
+  padding: 0 10px;
+  cursor: pointer;
+
+  &.default {
+    background-color: var(--currentColor);
+    border: 1px solid var(--primary);
+    color: var(--primary100);
+  }
+
+  &.completed {
+    background-color: var(--primary100);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+  }
+}

@@ -4,3 +4,8 @@ export enum wmPlatformType {
   Web = "web",
   Windows = "windows",
 }
+
+export enum tmPlatformType {
+  App = "app",
+  Web = "web",
+}

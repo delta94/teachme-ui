@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ScreenInformation() {
+export default function InformationScreen() {
   return (
     <div id="jq-info">
       <div className="information-screen information-screen-loading fadeInUp">

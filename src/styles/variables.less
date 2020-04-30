@@ -31,10 +31,18 @@ html {
   --border100: rgba(170, 196, 209, 0.2);
 
   // logo
-  --logoPath: url('../images/logo-2.svg');
-  --logoWidth: 60px;
+  --logoPath: url("../images/logo-2.svg");
+  --logoWidth: 80px;
   --logoHeight: 74px;
 }
 
 // images
-@imagesPath: '../../images/';
+@imagesPath: "../../images/";
+
+// Responsive Variables
+@mobileOnly: "(max-width:767px)";
+@tabletToDesktop: "(min-width:768px) and (max-width:1023px)";
+@tabletOnly: "(min-width:768px)";
+@desktopToWide: "(min-width:1024px) and (max-width:1439px)";
+@desktopOnly: "(min-width:1024px)";
+@wideDesktopOnly: "(min-width:1440px)";
