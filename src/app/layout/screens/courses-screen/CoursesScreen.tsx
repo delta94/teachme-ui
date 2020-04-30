@@ -87,8 +87,15 @@ export default function CoursesScreen() {
     setSelectedCourse(selectedCourse);
   };
 
+  const resetCourseSelection = () => {
+    setSelectedCourse(null);
+  };
+
   return selectedCourse ? (
-    <CourseScreen course={selectedCourse} />
+    <CourseScreen
+      course={selectedCourse}
+      onClickedBack={resetCourseSelection}
+    />
   ) : (
     <CoursesListScreen
       courses={coursesListItems as IListItem<ICourseData>[]}
