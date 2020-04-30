@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import ListItem, { IListItem, IItemComponentProps } from "./ListItem";
+import ListItem, { IListItem, IItemComponentProps } from "./list-item/ListItem";
 
 export default function List<T>({
   className,

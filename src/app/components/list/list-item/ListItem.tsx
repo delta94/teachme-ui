@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import { ICourse } from "../../layout/main/Main";
 
 export interface IItemComponentProps<T> {
   onSelect: () => void;
