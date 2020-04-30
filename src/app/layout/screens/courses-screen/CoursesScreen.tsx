@@ -3,6 +3,7 @@ import { IListItem } from "../../../components/list/list-item/ListItem";
 import CoursesListScreen from "./courses-list-screen/CoursesListScreen";
 import { ICourse, CourseState, ICourseData } from "./courses.interface";
 import { parseToCourseListItems, getCourseById } from "./coursesUtils";
+import CourseScreen from "./course-screen/CourseScreen";
 
 import "../../../../styles/screens/courses-screen/courses-screen.less";
 
@@ -87,7 +88,7 @@ export default function CoursesScreen() {
   };
 
   return selectedCourse ? (
-    <div className="course-screen">{JSON.stringify(selectedCourse)}</div>
+    <CourseScreen course={selectedCourse} />
   ) : (
     <CoursesListScreen
       courses={coursesListItems as IListItem<ICourseData>[]}
