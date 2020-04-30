@@ -1,8 +1,9 @@
 import React from "react";
+
 import {
-  CourseState,
   ICourseData,
-} from "../../../../layout/screens/courses-screen/CoursesScreen";
+  CourseState,
+} from "../../../../layout/screens/courses-screen/courses.interface";
 import { IListItem } from "../ListItem";
 import { ProgressBar } from "../../../progress-bar/ProgressBar";
 import Button, { ButtonType } from "../../../buttons/Button";
