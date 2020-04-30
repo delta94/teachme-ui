@@ -20,12 +20,12 @@ const courses: IListItem<ICourse>[] = [
   {
     id: "user-management",
     title: "User Management",
-    thumbnailSrc: "https://picsum.photos/300/200",
+    thumbnailSrc: "https://picsum.photos/200/200",
   },
   {
     id: "system-introduction",
     title: "System Introduction",
-    thumbnailSrc: "https://picsum.photos/300/200",
+    thumbnailSrc: "https://picsum.photos/200/200",
     extraData: {
       state: CourseState.Started,
       status: 20,
@@ -34,7 +34,7 @@ const courses: IListItem<ICourse>[] = [
   {
     id: "profile-and-settings",
     title: "Profile and Settings",
-    thumbnailSrc: "https://picsum.photos/300/200",
+    thumbnailSrc: "https://picsum.photos/200/200",
     extraData: {
       state: CourseState.Completed,
       status: 80,
@@ -43,7 +43,7 @@ const courses: IListItem<ICourse>[] = [
   {
     id: "all-things-template",
     title: "All Thing Template",
-    thumbnailSrc: "https://picsum.photos/300/200",
+    thumbnailSrc: "https://picsum.photos/200/200",
     extraData: {
       state: CourseState.Tested,
       status: 100,

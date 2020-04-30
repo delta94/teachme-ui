@@ -1,59 +1,62 @@
-.item {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "thumb article"
-    "progressBar progressBar";
+.list .list-item {
+  .item {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "thumb article"
+      "progressBar progressBar";
 
-  .thumb {
-    grid-area: thumb;
-  }
+    .thumb {
+      grid-area: thumb;
+    }
 
-  article {
-    grid-area: article;
+    article {
+      padding: 15px;
+      grid-area: article;
 
-    footer {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
+      footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
 
-      .test-status {
-        margin-left: auto;
-      }
-
-      .btn {
-        text-transform: uppercase;
-
-        span {
-          height: 16px;
-          line-height: 16px;
+        .test-status {
+          margin-left: auto;
         }
 
-        &:not(.completed) {
-          span {
-            position: relative;
-            padding-right: 15px;
+        .btn {
+          text-transform: uppercase;
 
-            &:after {
-              content: "";
-              position: absolute;
-              right: 0;
-              top: 50%;
-              width: 4.5px;
-              height: 4.5px;
-              border-bottom: solid 1.5px currentColor;
-              border-right: solid 1.5px currentColor;
-              -webkit-transform: rotate(-45deg) translateY(-50%);
-              transform: rotate(-45deg) translateY(-50%);
+          span {
+            height: 16px;
+            line-height: 16px;
+          }
+
+          &:not(.completed) {
+            span {
+              position: relative;
+              padding-right: 15px;
+
+              &:after {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: 50%;
+                width: 4.5px;
+                height: 4.5px;
+                border-bottom: solid 1.5px currentColor;
+                border-right: solid 1.5px currentColor;
+                -webkit-transform: rotate(-45deg) translateY(-50%);
+                transform: rotate(-45deg) translateY(-50%);
+              }
             }
           }
         }
       }
     }
-  }
 
-  .progress-bar {
-    grid-area: progressBar;
+    .progress-bar {
+      grid-area: progressBar;
+    }
   }
 }
