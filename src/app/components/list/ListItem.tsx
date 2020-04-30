@@ -61,17 +61,21 @@ export default function ListItem<T>({
           </picture>
         )}
         <article className="item-info">
-          <span className="title">{title}</span>
-          {subTitle && <span className="sub-title">{subTitle}</span>}
-          {primaryBtn && (
-            <button
-              type="button"
-              className="primary-button"
-              onClick={listItemClick}
-            >
-              {primaryBtn.label}
-            </button>
-          )}
+          <header>
+            <span className="title">{title}</span>
+            {subTitle && <span className="sub-title">{subTitle}</span>}
+          </header>
+          <footer>
+            {primaryBtn && (
+              <button
+                type="button"
+                className="primary-button"
+                onClick={listItemClick}
+              >
+                {primaryBtn.label}
+              </button>
+            )}
+          </footer>
         </article>
       </div>
     </li>

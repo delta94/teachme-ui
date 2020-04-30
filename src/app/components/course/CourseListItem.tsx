@@ -1,7 +1,9 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { ICourse, CourseState } from "../../layout/main/Main";
 import { IListItem } from "../list/ListItem";
 import { ProgressBar } from "../progress-bar/ProgressBar";
+import Button, { ButtonType } from "../buttons/Button";
+import "../../../styles/components/course-list-item.less";
 
 export default function CourseListItem<T extends ICourse>({
   item,
@@ -11,24 +13,27 @@ export default function CourseListItem<T extends ICourse>({
   onSelect?: () => void;
 }) {
   const {
+    id,
     title,
+    subTitle,
     thumbnailSrc,
     extraData = { status: 0, state: CourseState.NotStarted },
   } = item;
   const { status, state } = extraData;
+  const isCompleted =
+    state === CourseState.Completed || state === CourseState.Tested;
 
-  let buttonLabel = status > 0 ? "Resume" : "Start";
+  const buttonLabel =
+    status > 0 ? (isCompleted ? "Completed" : "Resume") : "Start";
+
   const testStatus = state === CourseState.Tested ? "Tested" : "Not Tested";
-  if (state === CourseState.Completed || state === CourseState.Tested) {
-    buttonLabel = "Completed";
-  }
 
   return (
     <div
       className="item course-info"
-      onClick={() => {
-        onSelect();
-      }}
+      // onClick={() => {
+      //   onSelect();
+      // }}
     >
       {thumbnailSrc && (
         <picture className="thumb">
@@ -36,13 +41,25 @@ export default function CourseListItem<T extends ICourse>({
         </picture>
       )}
       <article>
-        <span className="title">{title}</span>
-        <div className="status-area">
-          <button className="action-status" type="button">
-            {buttonLabel}
-          </button>
+        <header>
+          <span className="title">{title}</span>
+          {subTitle && <span className="sub-title">{subTitle}</span>}
+        </header>
+        <footer className="status-area">
+          <Button
+            className="action"
+            tmButtonType={
+              isCompleted ? ButtonType.Completed : ButtonType.Default
+            }
+            id={id}
+            buttonClicked={(id: string) => {
+              onSelect();
+            }}
+          >
+            <span className="label">{buttonLabel}</span>
+          </Button>
           <span className="test-status">{testStatus}</span>
-        </div>
+        </footer>
       </article>
       <ProgressBar percentCompletion={status} />
     </div>

@@ -29,9 +29,16 @@
 
       .thumb {
         font-size: 0;
+        background-color: var(--primary);
+        min-height: 100px;
       }
+
       article {
         padding: 10px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        align-items: center;
 
         .title {
           .fRegular();
@@ -47,8 +54,12 @@
 
     .list-item {
       flex: 0 0 32%;
-      margin-right: 10px;
+      margin-right: 1%;
       max-width: 100%;
+
+      .item {
+        max-width: 100%;
+      }
 
       &:last-child {
         margin-bottom: 0;
