@@ -15,6 +15,26 @@ import Main from "./layout/main/Main";
 import "../styles/index.less";
 import Debug from "./layout/debug/Debug";
 
+interface IUser {
+  firstName: string;
+  LastName: string;
+}
+export interface IUserData {
+  user: IUser;
+  courses: {
+    totalProgressBar: number;
+  };
+}
+
+export const userDefaultData: IUserData = {
+  user: {
+    firstName: "Dan",
+    LastName: "Israeli",
+  },
+  courses: {
+    totalProgressBar: 20,
+  },
+};
 export interface IWMState {
   wmSearch: WalkMeApp;
   wmNotification: WalkMeApp;
@@ -25,6 +45,7 @@ export interface IWMState {
   platformType: string;
   includeLayout: boolean;
   informationScreen?: string; // TODO: check this issue
+  tmUser: IUserData;
 }
 
 const initialState = {
@@ -36,6 +57,7 @@ const initialState = {
   debugError: "",
   platformType: "",
   includeLayout: false,
+  tmUser: userDefaultData,
 };
 
 export const TeachMeContext = createContext({

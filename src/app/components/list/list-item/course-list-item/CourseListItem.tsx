@@ -7,7 +7,7 @@ import { IListItem } from "../ListItem";
 import { ProgressBar } from "../../../progress-bar/ProgressBar";
 import Button, { ButtonType } from "../../../buttons/Button";
 
-import "../../../../../styles/components/course-list-item.less";
+import "../../../../../styles/components/list/list-item/course-list-item.less";
 
 export default function CourseListItem<T extends ICourse>({
   item,

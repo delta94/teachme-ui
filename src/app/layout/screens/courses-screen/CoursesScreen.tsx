@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IListItem } from "../../../components/list/list-item/ListItem";
-import List from "../../../components/list/List";
-import CourseListItem from "../../../components/list/list-item/course-list-item/CourseListItem";
+import CoursesListScreen from "./courses-list-screen/CoursesListScreen";
+import "../../../../styles/screens/courses-screen/courses-screen.less";
 
 export enum CourseState {
   NotStarted = "not-started",
@@ -15,7 +15,7 @@ export interface ICourse {
   status?: number;
 }
 
-const courses: IListItem<ICourse>[] = [
+export const courses: IListItem<ICourse>[] = [
   {
     id: "user-management",
     title: "User Management",
@@ -58,14 +58,8 @@ export default function CoursesScreen() {
   };
 
   return selectedCourse ? (
-    <div>{JSON.stringify(selectedCourse)}</div>
+    <div className="course-screen">{JSON.stringify(selectedCourse)}</div>
   ) : (
-    <List
-      className="courses"
-      type="row"
-      onSelect={onSelectedCourse}
-      items={courses}
-      itemComponent={CourseListItem}
-    />
+    <CoursesListScreen courses={courses} onSelectedCourse={onSelectedCourse} />
   );
 }

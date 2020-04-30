@@ -2,28 +2,11 @@ import React, { useEffect, useRef, useContext } from "react";
 import useViewManager from "../../hooks/useViewManager";
 import { TeachMeContext } from "../../App";
 import Minimize from "../../components/buttons/minimize/Minimize";
-import { ProgressBar } from "../../components/progress-bar/ProgressBar";
-interface IUser {
-  firstName: string;
-  LastName: string;
-}
-interface IData {
-  user: IUser;
-  progressBar: number;
-}
-
-const defaultData: IData = {
-  user: {
-    firstName: "Dan",
-    LastName: "Israeli",
-  },
-  progressBar: 20,
-};
+import UserDetails from "../../components/user/user-details/UserDetails";
 
 export default function Header() {
-  const { user, progressBar } = defaultData;
   const tmContext = useContext(TeachMeContext);
-  const { includeLayout } = tmContext.tmState;
+  const { includeLayout, tmUser } = tmContext.tmState;
   const logo = useRef();
   const details = useRef();
   const minimize = useRef();
@@ -57,8 +40,7 @@ export default function Header() {
             <a href="#" draggable="true"></a>
           </div>
           <div ref={details} className="details topElement">
-            <h2 className="greeting">Welcome Back, {user.firstName}</h2>
-            <ProgressBar percentCompletion={progressBar} showTitle />
+            <UserDetails greeting progressBar />
           </div>
         </div>
       </div>
