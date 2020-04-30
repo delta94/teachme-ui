@@ -11,11 +11,25 @@ export enum CourseState {
 }
 
 export interface ICourse {
+  id: string;
+  title: string;
+  data: {
+    state?: CourseState;
+    status?: number;
+  };
+  lessons: [];
+}
+
+export interface ICourseData {
   state?: CourseState;
   status?: number;
 }
 
-export const courses: IListItem<ICourse>[] = [
+export interface ICourseListItem extends IListItem<ICourseData> {
+  thumbnailSrc: string;
+}
+
+export const coursesListItems: ICourseListItem[] = [
   {
     id: "user-management",
     title: "User Management",
@@ -25,7 +39,7 @@ export const courses: IListItem<ICourse>[] = [
     id: "system-introduction",
     title: "System Introduction",
     thumbnailSrc: "https://picsum.photos/200/200",
-    extraData: {
+    data: {
       state: CourseState.Started,
       status: 20,
     },
@@ -34,7 +48,7 @@ export const courses: IListItem<ICourse>[] = [
     id: "profile-and-settings",
     title: "Profile and Settings",
     thumbnailSrc: "https://picsum.photos/200/200",
-    extraData: {
+    data: {
       state: CourseState.Completed,
       status: 80,
     },
@@ -43,7 +57,7 @@ export const courses: IListItem<ICourse>[] = [
     id: "all-things-template",
     title: "All Thing Template",
     thumbnailSrc: "https://picsum.photos/200/200",
-    extraData: {
+    data: {
       state: CourseState.Tested,
       status: 100,
     },
@@ -52,7 +66,7 @@ export const courses: IListItem<ICourse>[] = [
 export default function CoursesScreen() {
   const [selectedCourse, setSelectedCourse] = useState(null);
 
-  const onSelectedCourse = (selected: IListItem<ICourse>) => {
+  const onSelectedCourse = (selected: IListItem<ICourseData>) => {
     console.log("onSelectedCourse selected", selected);
     setSelectedCourse(selected);
   };
@@ -60,6 +74,9 @@ export default function CoursesScreen() {
   return selectedCourse ? (
     <div className="course-screen">{JSON.stringify(selectedCourse)}</div>
   ) : (
-    <CoursesListScreen courses={courses} onSelectedCourse={onSelectedCourse} />
+    <CoursesListScreen
+      courses={coursesListItems as IListItem<ICourseData>[]}
+      onSelectedCourse={onSelectedCourse}
+    />
   );
 }

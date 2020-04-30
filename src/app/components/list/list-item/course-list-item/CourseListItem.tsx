@@ -1,7 +1,7 @@
 import React from "react";
 import {
-  ICourse,
   CourseState,
+  ICourseData,
 } from "../../../../layout/screens/courses-screen/CoursesScreen";
 import { IListItem } from "../ListItem";
 import { ProgressBar } from "../../../progress-bar/ProgressBar";
@@ -9,7 +9,7 @@ import Button, { ButtonType } from "../../../buttons/Button";
 
 import "../../../../../styles/components/list/list-item/course-list-item.less";
 
-export default function CourseListItem<T extends ICourse>({
+export default function CourseListItem<T extends ICourseData>({
   item,
   onSelect,
 }: {
@@ -21,9 +21,9 @@ export default function CourseListItem<T extends ICourse>({
     title,
     subTitle,
     thumbnailSrc,
-    extraData = { status: 0, state: CourseState.NotStarted },
+    data = { status: 0, state: CourseState.NotStarted },
   } = item;
-  const { status, state } = extraData;
+  const { status, state } = data;
   const isCompleted =
     state === CourseState.Completed || state === CourseState.Tested;
 

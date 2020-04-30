@@ -13,7 +13,7 @@ export interface IListItem<T> {
   primaryBtn?: {
     label: string;
   };
-  extraData?: T;
+  data?: T;
 }
 
 export default function ListItem<T>({
