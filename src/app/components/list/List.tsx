@@ -3,12 +3,14 @@ import ListItem, { IListItem, IItemComponentProps } from "./list-item/ListItem";
 
 export default function List<T>({
   className,
+  itemClassName,
   items,
   onSelect,
   itemComponent,
   type = "",
 }: {
   className?: string;
+  itemClassName?: string;
   type?: string;
   items: IListItem<T>[];
   onSelect?: (selected: IListItem<T>) => void;
@@ -21,6 +23,7 @@ export default function List<T>({
           <ListItem
             key={item.id}
             item={item}
+            className={itemClassName}
             onSelect={onSelect}
             itemComponent={itemComponent}
           />

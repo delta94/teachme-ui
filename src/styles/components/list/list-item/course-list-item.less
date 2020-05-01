@@ -1,7 +1,15 @@
 @import "../../../variables.less";
+@import "../../../mixins.less";
 
 .list.courses .list-item {
   margin-bottom: 0;
+
+  opacity: 0;
+
+  &.fadeInUp {
+    animation: fadeInUp 0.3s linear both;
+    .nthChildAnimationDelay(20);
+  }
 }
 
 .horizontalLayout {
