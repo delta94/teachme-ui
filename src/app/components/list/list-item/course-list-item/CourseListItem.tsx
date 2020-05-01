@@ -14,23 +14,21 @@ export default function CourseListItem<T extends ICourseData>({
   item,
   onSelect,
 }: {
-  item: IListItem<T>;
+  item: IListItem<ICourseData>;
   onSelect?: () => void;
 }) {
   const {
     id,
     title,
     subTitle,
-    thumbnailSrc,
     data = { status: 0, state: CourseState.NotStarted },
   } = item;
-  const { status, state } = data;
+  const { status, state, media } = data;
+  const { thumbnail } = media;
   const isCompleted =
     state === CourseState.Completed || state === CourseState.Tested;
-
   const buttonLabel =
     status > 0 ? (isCompleted ? "Completed" : "Resume") : "Start";
-
   const testStatus = state === CourseState.Tested ? "Tested" : "Not Tested";
 
   return (
@@ -40,9 +38,20 @@ export default function CourseListItem<T extends ICourseData>({
       //   onSelect();
       // }}
     >
-      {thumbnailSrc && (
+      {thumbnail && (
         <picture className="thumb">
-          <img src={thumbnailSrc} alt={title} title={title} />
+          <img
+            className="ratio_1_1"
+            src={thumbnail.ratio_1_1}
+            alt={title}
+            title={title}
+          />
+          <img
+            className="ratio_2_1"
+            src={thumbnail.ratio_2_1}
+            alt={title}
+            title={title}
+          />
         </picture>
       )}
       <article>

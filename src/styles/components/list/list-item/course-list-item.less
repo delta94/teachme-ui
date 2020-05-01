@@ -1,62 +1,97 @@
-.list .list-item {
-  .item {
-    display: grid;
-    grid-template-rows: 1fr auto;
-    grid-template-columns: auto 1fr;
-    grid-template-areas:
-      "thumb article"
-      "progressBar progressBar";
+@import "../../../variables.less";
 
-    .thumb {
-      grid-area: thumb;
+.list-item .item {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-columns: 100px 1fr;
+  grid-template-areas:
+    "thumb article"
+    "progressBar progressBar";
+
+  @media @tinyOnly {
+    grid-template-rows: 100px auto;
+    grid-template-columns: 140px 1fr;
+  }
+
+  .thumb {
+    grid-area: thumb;
+
+    img {
+      width: 100%;
     }
 
-    article {
-      padding: 15px;
-      grid-area: article;
+    .ratio_1_1 {
+      @media @tabletOnly {
+        display: none;
+      }
+    }
+    .ratio_2_1 {
+      @media @mobileOnly {
+        display: none;
+      }
+    }
+  }
 
-      footer {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
+  article {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1.5fr 1fr;
+    align-items: center;
+    grid-area: article;
 
-        .test-status {
-          margin-left: auto;
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      .test-status {
+        margin-left: auto;
+      }
+
+      .btn {
+        text-transform: uppercase;
+
+        span {
+          height: 15px;
+          line-height: 15px;
         }
 
-        .btn {
-          text-transform: uppercase;
-
+        &:not(.completed) {
           span {
-            height: 15px;
-            line-height: 15px;
-          }
+            position: relative;
+            padding-right: 15px;
 
-          &:not(.completed) {
-            span {
-              position: relative;
-              padding-right: 15px;
-
-              &:after {
-                content: "";
-                position: absolute;
-                right: 0;
-                top: 50%;
-                width: 4.5px;
-                height: 4.5px;
-                border-bottom: solid 1.5px currentColor;
-                border-right: solid 1.5px currentColor;
-                -webkit-transform: rotate(-45deg) translateY(-50%);
-                transform: rotate(-45deg) translateY(-50%);
-              }
+            &:after {
+              content: "";
+              position: absolute;
+              right: 0;
+              top: 50%;
+              width: 4.5px;
+              height: 4.5px;
+              border-bottom: solid 1.5px currentColor;
+              border-right: solid 1.5px currentColor;
+              -webkit-transform: rotate(-45deg) translateY(-50%);
+              transform: rotate(-45deg) translateY(-50%);
             }
           }
         }
       }
     }
+  }
 
-    .progress-bar {
-      grid-area: progressBar;
-    }
+  .progress-bar {
+    grid-area: progressBar;
+  }
+}
+
+@media @tabletOnly {
+  .list-item .item {
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "thumb"
+      "progressBar"
+      "article";
   }
 }

@@ -1,5 +1,25 @@
+@import "../../variables.less";
+
 .courses-screen {
   .user-details {
     margin-bottom: 35px;
+  }
+
+  .list.courses {
+    display: grid;
+    grid-column-gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    @media @tabletToDesktop {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media @mobileOnly {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media @tinyOnly {
+      grid-template-columns: 1fr;
+    }
   }
 }
