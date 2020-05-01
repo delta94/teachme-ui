@@ -14,7 +14,7 @@ export const courses: ICourse[] = [
     media: {
       thumbnail: {
         ratio_1_1: "https://picsum.photos/200/200",
-        ratio_2_1: "https://picsum.photos/280/100",
+        ratio_2_1: "https://picsum.photos/310/140",
       },
     },
     lessons: [
@@ -29,7 +29,7 @@ export const courses: ICourse[] = [
     media: {
       thumbnail: {
         ratio_1_1: "https://picsum.photos/200/200",
-        ratio_2_1: "https://picsum.photos/280/100",
+        ratio_2_1: "https://picsum.photos/310/140",
       },
     },
     data: {
@@ -48,7 +48,7 @@ export const courses: ICourse[] = [
     media: {
       thumbnail: {
         ratio_1_1: "https://picsum.photos/200/200",
-        ratio_2_1: "https://picsum.photos/280/100",
+        ratio_2_1: "https://picsum.photos/310/140",
       },
     },
     data: {
@@ -67,7 +67,7 @@ export const courses: ICourse[] = [
     media: {
       thumbnail: {
         ratio_1_1: "https://picsum.photos/200/200",
-        ratio_2_1: "https://picsum.photos/280/100",
+        ratio_2_1: "https://picsum.photos/310/140",
       },
     },
     data: {

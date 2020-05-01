@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import useViewManager from "../../../hooks/useViewManager";
 
 export default function InformationScreen() {
+  const loading = useRef(null);
+  const { animateCoreElements } = useViewManager();
+
+  useEffect(() => {
+    animateCoreElements({
+      elements: [loading.current],
+      animateClassName: "fadeInUp",
+      timeout: 600,
+    });
+  }, []);
+
   return (
     <div id="jq-info">
-      <div className="information-screen information-screen-loading fadeInUp">
+      <div
+        ref={loading}
+        className="information-screen information-screen-loading"
+      >
         <div className="preloader"></div>
         <span>Loading</span>
       </div>

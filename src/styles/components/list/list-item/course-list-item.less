@@ -1,12 +1,57 @@
 @import "../../../variables.less";
 
-.list-item .item {
+.list.courses .list-item {
+  margin-bottom: 0;
+}
+
+.horizontalLayout {
   display: grid;
-  grid-template-rows: 1fr auto;
-  grid-template-columns: 100px 1fr;
+  grid-template-rows: 105px auto;
+  grid-template-columns: 105px 1fr;
   grid-template-areas:
     "thumb article"
     "progressBar progressBar";
+
+  article {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 30px;
+
+    header {
+      display: flex;
+      align-items: flex-start;
+      height: 100%;
+      padding-top: 15px;
+    }
+  }
+}
+
+.verticalLayout {
+  grid-template-rows: auto auto 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "thumb"
+    "progressBar"
+    "article";
+
+  article {
+    grid-template-columns: 1fr;
+    grid-template-rows: 35px 30px;
+
+    header {
+      align-items: center;
+      padding-top: 0;
+    }
+
+    footer {
+      .test-status {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.list-item .item {
+  .horizontalLayout();
 
   @media @tinyOnly {
     grid-template-rows: 100px auto;
@@ -15,9 +60,12 @@
 
   .thumb {
     grid-area: thumb;
+    height: 105px;
+    overflow: hidden;
 
     img {
       width: 100%;
+      max-width: 100%;
     }
 
     .ratio_1_1 {
@@ -33,10 +81,8 @@
   }
 
   article {
-    padding: 15px;
+    padding: 5px 10px 18px;
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1.5fr 1fr;
     align-items: center;
     grid-area: article;
 
@@ -47,6 +93,7 @@
 
       .test-status {
         margin-left: auto;
+        font-size: 10px;
       }
 
       .btn {
@@ -82,16 +129,14 @@
 
   .progress-bar {
     grid-area: progressBar;
+    .progressBar {
+      height: 8px;
+    }
   }
 }
 
 @media @tabletOnly {
   .list-item .item {
-    grid-template-rows: auto auto 1fr;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "thumb"
-      "progressBar"
-      "article";
+    .verticalLayout();
   }
 }
