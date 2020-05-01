@@ -10,8 +10,9 @@ export default function Main() {
       setIsLoading(false);
     }, 1500);
   });
+
   return (
-    <div className="main">
+    <div className="main wrapper">
       {/* TODO: improve InformationScreen component */}
       {isLoading ? <InformationScreen /> : <CoursesScreen />}
     </div>
