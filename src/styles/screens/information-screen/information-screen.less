@@ -1,14 +1,12 @@
-#jq-info {
+.information-screen {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 80vh;
   pointer-events: none;
 
-  .information-screen {
+  .screen {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -25,7 +23,7 @@
     }
 
     span {
-      font-family: 'Poppins';
+      font-family: "Poppins";
       font-weight: normal;
       font-size: 16px;
       line-height: 24px;
@@ -38,7 +36,7 @@
         line-height: 36px;
       }
     }
-    &.information-screen-no-connection {
+    &.no-connection {
       svg {
         width: 88px;
         height: 66px;
@@ -48,7 +46,7 @@
         margin-bottom: 20px;
       }
     }
-    &.information-screen-loading {
+    &.loading {
       .lds-ring {
         div {
           width: 32px;
@@ -58,21 +56,21 @@
         }
       }
     }
-    &.information-screen-no-content {
+    &.no-content {
       svg {
         width: 65px;
         height: 80px;
         margin-bottom: 23px;
       }
     }
-    &.information-screen-no-notifications {
+    &.no-notifications {
       svg {
         width: 80px;
         height: 80px;
         margin-bottom: 21px;
       }
     }
-    &.information-screen-no-results {
+    &.no-results {
       svg {
         width: 85px;
         height: 88px;

@@ -9,7 +9,6 @@ export default function Header() {
   const { includeLayout, tmUser } = tmContext.tmState;
   const logo = useRef();
   const details = useRef();
-  const minimize = useRef();
 
   const { animateCoreElements } = useViewManager();
 
@@ -21,7 +20,7 @@ export default function Header() {
         timeout: 0,
       });
       animateCoreElements({
-        elements: [minimize.current, details.current],
+        elements: [details.current],
         animateClassName: "fadeInDown",
         timeout: 200,
       });
@@ -44,7 +43,7 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <div ref={minimize} className="minimize topElement">
+      <div className="minimize">
         <Minimize />
       </div>
     </div>

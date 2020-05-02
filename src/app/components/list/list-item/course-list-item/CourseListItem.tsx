@@ -14,35 +14,39 @@ export default function CourseListItem<T extends ICourseData>({
   item,
   onSelect,
 }: {
-  item: IListItem<T>;
+  item: IListItem<ICourseData>;
   onSelect?: () => void;
 }) {
   const {
     id,
     title,
     subTitle,
-    thumbnailSrc,
     data = { status: 0, state: CourseState.NotStarted },
   } = item;
-  const { status, state } = data;
+  const { status, state, media } = data;
+  const { thumbnail } = media;
   const isCompleted =
     state === CourseState.Completed || state === CourseState.Tested;
-
   const buttonLabel =
     status > 0 ? (isCompleted ? "Completed" : "Resume") : "Start";
-
-  const testStatus = state === CourseState.Tested ? "Tested" : "Not Tested";
+  const isTested = state === CourseState.Tested;
 
   return (
-    <div
-      className="item course-info"
-      // onClick={() => {
-      //   onSelect();
-      // }}
-    >
-      {thumbnailSrc && (
+    <div className="item course-info">
+      {thumbnail && (
         <picture className="thumb">
-          <img src={thumbnailSrc} alt={title} title={title} />
+          <img
+            className="ratio_1_1"
+            src={thumbnail.ratio_1_1}
+            alt={title}
+            title={title}
+          />
+          <img
+            className="ratio_2_1"
+            src={thumbnail.ratio_2_1}
+            alt={title}
+            title={title}
+          />
         </picture>
       )}
       <article>
@@ -61,9 +65,11 @@ export default function CourseListItem<T extends ICourseData>({
               onSelect();
             }}
           >
-            <span className="label">{buttonLabel}</span>
+            <span className="btn-label">{buttonLabel}</span>
           </Button>
-          <span className="test-status">{testStatus}</span>
+          <span className={`test-label ${isTested ? "tested" : ""}`}>
+            {isTested ? "Tested" : "Not Tested"}
+          </span>
         </footer>
       </article>
       <ProgressBar percentCompletion={status} />

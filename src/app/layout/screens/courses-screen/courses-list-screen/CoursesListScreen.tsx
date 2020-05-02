@@ -26,7 +26,7 @@ export default function CoursesListScreen({
 
       <List
         className="courses"
-        type="row"
+        itemClassName="fadeInUp"
         onSelect={onSelectedCourse}
         items={courses}
         itemComponent={CourseListItem}

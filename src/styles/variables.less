@@ -23,6 +23,7 @@ html {
 
   // a small dot next to notifications icon
   --warning: #ffc341;
+  --success: #a6e41f;
 
   // tab panel top and bottom border
   --border500: rgba(170, 196, 209, 0.3);
@@ -32,7 +33,7 @@ html {
 
   // logo
   --logoPath: url("../images/logo-2.svg");
-  --logoWidth: 80px;
+  --logoWidth: 76px;
   --logoHeight: 74px;
 }
 
@@ -40,9 +41,11 @@ html {
 @imagesPath: "../../images/";
 
 // Responsive Variables
-@mobileOnly: "(max-width:767px)";
-@tabletToDesktop: "(min-width:768px) and (max-width:1023px)";
-@tabletOnly: "(min-width:768px)";
-@desktopToWide: "(min-width:1024px) and (max-width:1439px)";
-@desktopOnly: "(min-width:1024px)";
-@wideDesktopOnly: "(min-width:1440px)";
+@tinyToTablet: ~"screen and (max-width:1023px)";
+@tinyOnly: ~"screen and (max-width:600px)";
+@mobileOnly: ~"screen and (max-width:767px)";
+@tabletToDesktop: ~"screen and (min-width:768px) and (max-width:900px)";
+@tabletOnly: ~"screen and (min-width:768px)";
+@desktopToWide: ~"screen and (min-width:900px) and (max-width:1439px)";
+@desktopOnly: ~"screen and (min-width:900px)";
+@wideDesktopOnly: ~"screen and (min-width:1440px)";

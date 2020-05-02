@@ -1,62 +1,183 @@
-.list .list-item {
-  .item {
-    display: grid;
-    grid-template-rows: 1fr auto;
-    grid-template-columns: auto 1fr;
-    grid-template-areas:
-      "thumb article"
-      "progressBar progressBar";
+@import "../../../variables.less";
+@import "../../../mixins.less";
 
-    .thumb {
-      grid-area: thumb;
+.list.courses .list-item {
+  margin-bottom: 0;
+  opacity: 0;
+
+  &.fadeInUp {
+    animation: fadeInUp 0.3s linear both;
+    .nthChildAnimationDelay(20);
+  }
+}
+
+.horizontalLayout {
+  display: grid;
+  grid-template-rows: 105px auto;
+  grid-template-columns: 105px 1fr;
+  grid-template-areas:
+    "thumb article"
+    "progressBar progressBar";
+
+  article {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 30px;
+
+    header {
+      display: flex;
+      align-items: flex-start;
+      height: 100%;
+      padding-top: 15px;
+    }
+  }
+}
+
+.verticalLayout {
+  grid-template-rows: auto auto 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "thumb"
+    "progressBar"
+    "article";
+
+  article {
+    grid-template-columns: 1fr;
+    grid-template-rows: 35px 30px;
+
+    header {
+      align-items: center;
+      padding-top: 0;
     }
 
-    article {
-      padding: 15px;
-      grid-area: article;
+    footer {
+      .test-label {
+        margin-right: 10px;
+      }
+    }
+  }
+}
 
-      footer {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
+.list-item .item {
+  .horizontalLayout();
+  -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+  transition: box-shadow 0.3s, transform 0.3s;
 
-        .test-status {
-          margin-left: auto;
+  &:hover {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+    -webkit-box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
+  }
+
+  @media @tinyOnly {
+    grid-template-rows: 100px auto;
+    grid-template-columns: 140px 1fr;
+  }
+
+  .thumb {
+    grid-area: thumb;
+    height: 105px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .ratio_1_1 {
+      @media @tabletOnly {
+        display: none;
+      }
+    }
+    .ratio_2_1 {
+      @media @mobileOnly {
+        display: none;
+      }
+    }
+  }
+
+  article {
+    padding: 5px 10px 18px;
+    display: grid;
+    align-items: center;
+    grid-area: article;
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      .test-label {
+        margin-left: auto;
+        font-size: 10px;
+
+        &.tested {
+          position: relative;
+          padding-left: 20px;
+
+          &:before {
+            content: "";
+            color: #000;
+            position: absolute;
+            margin-left: 3px;
+            margin-top: 4px;
+            width: 10px;
+            height: 4px;
+            border-bottom: solid 1px var(--success);
+            border-left: solid 1px var(--success);
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            top: -3px;
+            left: 0;
+          }
+        }
+      }
+
+      .btn {
+        text-transform: uppercase;
+
+        .btn-label {
+          height: 15px;
+          line-height: 15px;
         }
 
-        .btn {
-          text-transform: uppercase;
+        &:not(.completed) {
+          .btn-label {
+            position: relative;
+            padding-right: 15px;
 
-          span {
-            height: 15px;
-            line-height: 15px;
-          }
-
-          &:not(.completed) {
-            span {
-              position: relative;
-              padding-right: 15px;
-
-              &:after {
-                content: "";
-                position: absolute;
-                right: 0;
-                top: 50%;
-                width: 4.5px;
-                height: 4.5px;
-                border-bottom: solid 1.5px currentColor;
-                border-right: solid 1.5px currentColor;
-                -webkit-transform: rotate(-45deg) translateY(-50%);
-                transform: rotate(-45deg) translateY(-50%);
-              }
+            &:after {
+              content: "";
+              position: absolute;
+              right: 0;
+              top: 50%;
+              width: 4.5px;
+              height: 4.5px;
+              border-bottom: solid 1.5px currentColor;
+              border-right: solid 1.5px currentColor;
+              -webkit-transform: rotate(-45deg) translateY(-50%);
+              transform: rotate(-45deg) translateY(-50%);
             }
           }
         }
       }
     }
+  }
+
+  .progress-bar-wrapper {
+    grid-area: progressBar;
 
     .progress-bar {
-      grid-area: progressBar;
+      height: 7px;
     }
+  }
+}
+
+@media @tabletOnly {
+  .list-item .item {
+    .verticalLayout();
   }
 }
