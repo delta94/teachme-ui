@@ -29,15 +29,10 @@ export default function CourseListItem<T extends ICourseData>({
     state === CourseState.Completed || state === CourseState.Tested;
   const buttonLabel =
     status > 0 ? (isCompleted ? "Completed" : "Resume") : "Start";
-  const testStatus = state === CourseState.Tested ? "Tested" : "Not Tested";
+  const isTested = state === CourseState.Tested;
 
   return (
-    <div
-      className="item course-info"
-      // onClick={() => {
-      //   onSelect();
-      // }}
-    >
+    <div className="item course-info">
       {thumbnail && (
         <picture className="thumb">
           <img
@@ -70,9 +65,11 @@ export default function CourseListItem<T extends ICourseData>({
               onSelect();
             }}
           >
-            <span className="label">{buttonLabel}</span>
+            <span className="btn-label">{buttonLabel}</span>
           </Button>
-          <span className="test-status">{testStatus}</span>
+          <span className={`test-label ${isTested ? "tested" : ""}`}>
+            {isTested ? "Tested" : "Not Tested"}
+          </span>
         </footer>
       </article>
       <ProgressBar percentCompletion={status} />

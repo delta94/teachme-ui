@@ -10,13 +10,13 @@ export function ProgressBar({
   customTitle?: string;
 }) {
   return (
-    <div className="progress-bar">
+    <div className="progress-bar-wrapper">
       {showTitle && (
         <div className="title">
           <span>{customTitle || "OVERALL PROGRESS"}</span>
         </div>
       )}
-      <div className="progressBar">
+      <div className="progress-bar">
         <div className="value" style={{ width: `${percentCompletion}%` }}></div>
       </div>
     </div>

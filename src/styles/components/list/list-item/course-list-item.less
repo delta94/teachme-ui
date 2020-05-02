@@ -51,7 +51,7 @@
     }
 
     footer {
-      .test-status {
+      .test-label {
         margin-right: 10px;
       }
     }
@@ -99,21 +99,42 @@
       align-items: center;
       justify-content: flex-start;
 
-      .test-status {
+      .test-label {
         margin-left: auto;
         font-size: 10px;
+
+        &.tested {
+          position: relative;
+          padding-left: 20px;
+
+          &:before {
+            content: "";
+            color: #000;
+            position: absolute;
+            margin-left: 3px;
+            margin-top: 4px;
+            width: 10px;
+            height: 4px;
+            border-bottom: solid 1px var(--success);
+            border-left: solid 1px var(--success);
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            top: -3px;
+            left: 0;
+          }
+        }
       }
 
       .btn {
         text-transform: uppercase;
 
-        span {
+        .btn-label {
           height: 15px;
           line-height: 15px;
         }
 
         &:not(.completed) {
-          span {
+          .btn-label {
             position: relative;
             padding-right: 15px;
 
@@ -135,10 +156,11 @@
     }
   }
 
-  .progress-bar {
+  .progress-bar-wrapper {
     grid-area: progressBar;
-    .progressBar {
-      height: 8px;
+
+    .progress-bar {
+      height: 7px;
     }
   }
 }

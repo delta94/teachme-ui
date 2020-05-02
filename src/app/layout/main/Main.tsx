@@ -14,7 +14,11 @@ export default function Main() {
   return (
     <div className="main wrapper">
       {/* TODO: improve InformationScreen component */}
-      {isLoading ? <InformationScreen /> : <CoursesScreen />}
+      {isLoading ? (
+        <InformationScreen isLoading={isLoading} />
+      ) : (
+        <CoursesScreen />
+      )}
     </div>
   );
 }
