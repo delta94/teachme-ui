@@ -4,6 +4,7 @@
 }
 
 .btn {
+  position: relative;
   background-color: var(--primary100);
   border: 1px solid var(--neutral900);
   color: var(--neutral900);
@@ -16,12 +17,23 @@
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 
-  a:link,
-  a:visited,
-  a:hover,
-  a:active {
-    color: currentColor;
-    transition: none;
+  a {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: currentColor;
+      transition: none;
+    }
   }
 
   &.default {
@@ -44,5 +56,10 @@
       background-color: var(--primary);
       color: var(--primary100);
     }
+  }
+
+  .btn-label {
+    line-height: 11px;
+    margin-top: -2px;
   }
 }

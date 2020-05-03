@@ -11,22 +11,6 @@ import { ProgressBar } from "../../../../components/progress-bar/ProgressBar";
 import List from "../../../../components/list/List";
 import { Link } from "react-router-dom";
 
-// export default function CourseScreen({
-//   course,
-//   onClickedBack,
-// }: {
-//   course: ICourse;
-//   onClickedBack: () => void;
-// }) {
-//   const {
-//     title,
-//     data = { status: 0, state: CourseState.NotStarted },
-//     lessons,
-//   } = course;
-//   const { status, state } = data;
-
-//   console.log("course screen", course);
-
 export default function CourseScreen(props: any) {
   const [course, setCourse] = useState(null);
 

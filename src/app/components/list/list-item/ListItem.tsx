@@ -55,7 +55,7 @@ export default function ListItem<T>({
         }
       }}
     >
-      <div className="item">
+      <div className={`item ${thumbnailSrc ? "item-thumb" : ""}`}>
         {thumbnailSrc && (
           <picture className="thumb">
             <img src={thumbnailSrc} alt={title} title={title} />
