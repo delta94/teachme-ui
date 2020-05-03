@@ -9,13 +9,12 @@ import { ProgressBar } from "../../../progress-bar/ProgressBar";
 import Button, { ButtonType } from "../../../buttons/Button";
 
 import "../../../../../styles/components/list/list-item/course-list-item.less";
+import { Link } from "react-router-dom";
 
-export default function CourseListItem<T extends ICourseData>({
+export default function CourseListItem<T>({
   item,
-  onSelect,
 }: {
   item: IListItem<ICourseData>;
-  onSelect?: () => void;
 }) {
   const {
     id,
@@ -61,11 +60,10 @@ export default function CourseListItem<T extends ICourseData>({
               isCompleted ? ButtonType.Completed : ButtonType.Default
             }
             id={id}
-            buttonClicked={(id: string) => {
-              onSelect();
-            }}
           >
-            <span className="btn-label">{buttonLabel}</span>
+            <Link to={`/course/${id}`}>
+              <span className="btn-label">{buttonLabel}</span>
+            </Link>
           </Button>
           <span className={`test-label ${isTested ? "tested" : ""}`}>
             {isTested ? "Tested" : "Not Tested"}

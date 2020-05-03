@@ -1,4 +1,6 @@
 import React, { useEffect, createContext, useState } from "react";
+import { HashRouter } from "react-router-dom";
+
 import walkme from "@walkme/sdk";
 import {
   ISdk,
@@ -164,17 +166,19 @@ export default function App() {
   }, []);
 
   return (
-    <div
-      className="appWindow show"
-      style={{
-        marginLeft: platformType === wmPlatformType.Windows ? 10 : "",
-      }}
-    >
-      <TeachMeContext.Provider value={{ walkmeSDK, tmState, updateWMState }}>
-        <Debug />
-        <Header />
-        <Main />
-      </TeachMeContext.Provider>
-    </div>
+    <HashRouter>
+      <div
+        className="appWindow show"
+        style={{
+          marginLeft: platformType === wmPlatformType.Windows ? 10 : "",
+        }}
+      >
+        <TeachMeContext.Provider value={{ walkmeSDK, tmState, updateWMState }}>
+          <Debug />
+          <Header />
+          <Main />
+        </TeachMeContext.Provider>
+      </div>
+    </HashRouter>
   );
 }

@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { Switch, Route } from "react-router-dom";
+
 import { IListItem } from "../../../components/list/list-item/ListItem";
 import CoursesListScreen from "./courses-list-screen/CoursesListScreen";
 import { ICourse, CourseState, ICourseData } from "./courses.interface";
@@ -223,32 +225,10 @@ export const courses: ICourse[] = [
 ];
 
 export default function CoursesScreen() {
-  const [selectedCourse, setSelectedCourse] = useState(null);
-  const coursesListItems = parseToCourseListItems(courses);
-
-  const onSelectedCourse = (selected: IListItem<ICourseData>) => {
-    const selectedCourse = getCourseById(selected.id);
-    setSelectedCourse(selectedCourse);
-  };
-
-  const resetCourseSelection = () => {
-    setSelectedCourse(null);
-  };
-
-  // TODO: remove before upload to develop
-  useEffect(() => {
-    setSelectedCourse(courses[2]);
-  }, []);
-
-  return selectedCourse ? (
-    <CourseScreen
-      course={selectedCourse}
-      onClickedBack={resetCourseSelection}
-    />
-  ) : (
-    <CoursesListScreen
-      courses={coursesListItems as IListItem<ICourseData>[]}
-      onSelectedCourse={onSelectedCourse}
-    />
+  return (
+    <Switch>
+      <Route exact path="/" component={CoursesListScreen} />
+      <Route path="/course/:courseId" component={CourseScreen} />
+    </Switch>
   );
 }
