@@ -58,7 +58,7 @@ const initialState = {
   initiated: false,
   debugError: "",
   platformType: "",
-  includeLayout: false,
+  isWebApp: false,
   tmUser: userDefaultData,
 };
 
@@ -155,7 +155,7 @@ export default function App() {
           ...tmState,
           initiated: true,
           platformType: platform,
-          includeLayout: type === tmPlatformType.Web,
+          isWebApp: type === tmPlatformType.Web,
         });
       } catch (err) {
         console.error(err);

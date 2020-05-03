@@ -15,7 +15,7 @@
   font-size: 11px;
   padding: 0 10px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition: border 0.3s, background-color 0.3s, color 0.3s;
 
   a {
     position: absolute;
@@ -42,8 +42,8 @@
     color: var(--primary100);
 
     &:hover {
-      background-color: var(--primary100);
-      color: var(--currentColor);
+      border: 1px solid var(--primaryHover);
+      background-color: var(--primaryHover);
     }
   }
 

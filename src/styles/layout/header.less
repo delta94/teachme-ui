@@ -1,8 +1,7 @@
 .header {
-  height: 133px;
   display: flex;
 
-  .general-header {
+  .general-header.home-page {
     display: grid;
     align-items: center;
     grid-template-columns: 95px 1fr;
@@ -11,15 +10,18 @@
     grid-row-gap: 0px;
     grid-template-areas: "logo details";
     height: 133px;
-    max-width: 900px;
     margin: 0 auto;
+  }
+
+  .general-header.inner-page {
+    height: 70px;
   }
 
   .details {
     color: var(--neutral900);
 
     .greeting {
-      .fPoppinsLight();
+      .fSecondaryLight();
       font-size: 22px;
       margin-block-start: 0;
       margin-block-end: 0;

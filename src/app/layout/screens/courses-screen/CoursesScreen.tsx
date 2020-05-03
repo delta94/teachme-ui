@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import { IListItem } from "../../../components/list/list-item/ListItem";
-import CoursesListScreen from "./courses-list-screen/CoursesListScreen";
-import { ICourse, CourseState, ICourseData } from "./courses.interface";
-import { parseToCourseListItems, getCourseById } from "./coursesUtils";
-import CourseScreen from "./course-screen/CourseScreen";
+import { ICourse, CourseState } from "./courses.interface";
 
-import "../../../../styles/screens/courses-screen/courses-screen.less";
+import CoursesListScreen from "./courses-list-screen/CoursesListScreen";
+import CourseScreen from "./course-screen/CourseScreen";
 
 export const courses: ICourse[] = [
   {

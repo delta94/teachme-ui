@@ -1,38 +1,39 @@
-import React, { useState, useEffect } from "react";
-import { getCourseById } from "../coursesUtils";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, RouteComponentProps } from "react-router-dom";
+
 import {
   ICourse,
   CourseState,
   ILessonData,
   ILesson,
 } from "../courses.interface";
+import { getCourseById } from "../coursesUtils";
+import "../../../../../styles/screens/courses-screen/course-screen.less";
+
 import Button, { ButtonType } from "../../../../components/buttons/Button";
 import { ProgressBar } from "../../../../components/progress-bar/ProgressBar";
 import List from "../../../../components/list/List";
-import { Link } from "react-router-dom";
+import { TeachMeContext } from "../../../../App";
 
-export default function CourseScreen(props: any) {
+type TParams = { courseId: string };
+
+export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
+  const tmContext = useContext(TeachMeContext);
   const [course, setCourse] = useState(null);
 
   const defaultCourseData = { status: 0, state: CourseState.NotStarted };
 
-  const { status, state } = defaultCourseData;
-
   useEffect(() => {
-    const selectedCourse = getCourseById(props.match.params.courseId);
+    const selectedCourse = getCourseById(match.params.courseId);
     setCourse(selectedCourse);
   }, []);
 
   return (
     course && (
-      <section className="course-screen">
-        <Button id="back_to_courses" tmButtonType={ButtonType.None}>
-          <Link to="/">Go Back</Link>
-        </Button>
-
+      <section className="screen course-screen">
         <section className="course">
           <header className="course-information">
-            <h2 className="course-title">{course.title}</h2>
+            <h3 className="screen-title">{course.title}</h3>
             <ProgressBar
               percentCompletion={
                 course.data ? course.data.status : defaultCourseData.status
