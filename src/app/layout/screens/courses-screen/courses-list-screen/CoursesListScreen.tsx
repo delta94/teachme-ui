@@ -6,14 +6,12 @@ import CourseListItem from "../../../../components/list/list-item/course-list-it
 import { ICourseData } from "../courses.interface";
 import UserDetails from "../../../../components/user/user-details/UserDetails";
 import { TeachMeContext } from "../../../../App";
+import { parseToCourseListItems } from "../coursesUtils";
+import { courses } from "../CoursesScreen";
+interface IProps {}
 
-export default function CoursesListScreen({
-  courses,
-  onSelectedCourse,
-}: {
-  courses: IListItem<ICourseData>[];
-  onSelectedCourse: (selected: IListItem<ICourseData>) => void;
-}) {
+export default function CoursesListScreen(props: IProps) {
+  const coursesListItems = parseToCourseListItems(courses);
   const tmContext = useContext(TeachMeContext);
   const { includeLayout } = tmContext.tmState;
   return (
@@ -27,8 +25,10 @@ export default function CoursesListScreen({
       <List
         className="courses"
         itemClassName="fadeInUp"
-        onSelect={onSelectedCourse}
-        items={courses}
+        onSelect={() => {
+          console.log("list onSelect");
+        }}
+        items={coursesListItems as IListItem<ICourseData>[]}
         itemComponent={CourseListItem}
       />
     </div>

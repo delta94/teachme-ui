@@ -16,6 +16,14 @@
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    color: currentColor;
+    transition: none;
+  }
+
   &.default {
     background-color: var(--currentColor);
     border: 1px solid var(--primary);
