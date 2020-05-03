@@ -14,6 +14,7 @@ import Button, { ButtonType } from "../../../../components/buttons/Button";
 import { ProgressBar } from "../../../../components/progress-bar/ProgressBar";
 import List from "../../../../components/list/List";
 import { TeachMeContext } from "../../../../App";
+import Dropdown from "../../../../components/dropdown/Dropdown";
 
 type TParams = { courseId: string };
 
@@ -44,19 +45,13 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
             {course.lessons.map((lesson: ILesson, index: number) => {
               const lessonNum = index + 1;
               return (
-                <div key={lesson.id} className="course-lesson">
-                  <header className="lesson-title">
-                    <h4>
-                      Lesson {lessonNum} - {lesson.id}
-                    </h4>
-                  </header>
-                  <div className="lesson-items">
-                    <List
-                      className="lessons-list accordion"
-                      items={lesson.tasks}
-                    />
-                  </div>
-                </div>
+                <Dropdown
+                  className="course-lessons"
+                  key={lesson.id}
+                  id={lesson.id}
+                  title={`Lesson ${lessonNum} - ${lesson.id}`}
+                  items={lesson.tasks}
+                />
               );
             })}
           </div>

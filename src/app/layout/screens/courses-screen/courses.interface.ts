@@ -20,6 +20,7 @@ export interface ILessonTask {
   id: string;
   title: string;
   state?: CourseState;
+  icon?: string;
   link?: string;
 }
 export interface ILesson {
