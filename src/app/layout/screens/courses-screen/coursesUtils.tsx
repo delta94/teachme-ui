@@ -11,7 +11,10 @@ export const parseToCourseListItems = (
       id,
       title,
       thumbnailSrc: media.thumbnail.ratio_1_1,
-      data,
+      data: {
+        ...data,
+        media,
+      },
     };
   });
 };

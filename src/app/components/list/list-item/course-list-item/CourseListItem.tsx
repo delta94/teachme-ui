@@ -9,40 +9,43 @@ import { ProgressBar } from "../../../progress-bar/ProgressBar";
 import Button, { ButtonType } from "../../../buttons/Button";
 
 import "../../../../../styles/components/list/list-item/course-list-item.less";
+import { Link } from "react-router-dom";
 
-export default function CourseListItem<T extends ICourseData>({
+export default function CourseListItem<T>({
   item,
-  onSelect,
 }: {
-  item: IListItem<T>;
-  onSelect?: () => void;
+  item: IListItem<ICourseData>;
 }) {
   const {
     id,
     title,
     subTitle,
-    thumbnailSrc,
     data = { status: 0, state: CourseState.NotStarted },
   } = item;
-  const { status, state } = data;
+  const { status, state, media } = data;
+  const { thumbnail } = media;
   const isCompleted =
     state === CourseState.Completed || state === CourseState.Tested;
-
   const buttonLabel =
     status > 0 ? (isCompleted ? "Completed" : "Resume") : "Start";
-
-  const testStatus = state === CourseState.Tested ? "Tested" : "Not Tested";
+  const isTested = state === CourseState.Tested;
 
   return (
-    <div
-      className="item course-info"
-      // onClick={() => {
-      //   onSelect();
-      // }}
-    >
-      {thumbnailSrc && (
+    <div className="item course-info">
+      {thumbnail && (
         <picture className="thumb">
-          <img src={thumbnailSrc} alt={title} title={title} />
+          <img
+            className="ratio_1_1"
+            src={thumbnail.ratio_1_1}
+            alt={title}
+            title={title}
+          />
+          <img
+            className="ratio_2_1"
+            src={thumbnail.ratio_2_1}
+            alt={title}
+            title={title}
+          />
         </picture>
       )}
       <article>
@@ -57,13 +60,14 @@ export default function CourseListItem<T extends ICourseData>({
               isCompleted ? ButtonType.Completed : ButtonType.Default
             }
             id={id}
-            buttonClicked={(id: string) => {
-              onSelect();
-            }}
           >
-            <span className="label">{buttonLabel}</span>
+            <Link to={`/course/${id}`}>
+              <span className="btn-label">{buttonLabel}</span>
+            </Link>
           </Button>
-          <span className="test-status">{testStatus}</span>
+          <span className={`test-label ${isTested ? "tested" : ""}`}>
+            {isTested ? "Tested" : "Not Tested"}
+          </span>
         </footer>
       </article>
       <ProgressBar percentCompletion={status} />

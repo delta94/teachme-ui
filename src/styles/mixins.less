@@ -60,3 +60,10 @@
   -o-transition: none !important;
   transition: none !important;
 }
+
+.nthChildAnimationDelay(@n, @i: 1) when (@i =< @n) {
+  &:nth-child(@{i}) {
+    animation-delay: (200ms + (@i * 100));
+  }
+  .nthChildAnimationDelay(@n, (@i + 1));
+}

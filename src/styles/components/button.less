@@ -8,22 +8,41 @@
   border: 1px solid var(--neutral900);
   color: var(--neutral900);
   border-radius: 15px;
-  height: 30px;
-  min-width: 90px;
+  height: 28px;
+  min-width: 85px;
   width: fit-content;
   font-size: 11px;
   padding: 0 10px;
   cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    color: currentColor;
+    transition: none;
+  }
 
   &.default {
     background-color: var(--currentColor);
     border: 1px solid var(--primary);
     color: var(--primary100);
+
+    &:hover {
+      background-color: var(--primary100);
+      color: var(--currentColor);
+    }
   }
 
   &.completed {
     background-color: var(--primary100);
     border: 1px solid var(--primary);
     color: var(--primary);
+
+    &:hover {
+      background-color: var(--primary);
+      color: var(--primary100);
+    }
   }
 }

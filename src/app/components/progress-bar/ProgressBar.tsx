@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export function ProgressBar({
   percentCompletion,
@@ -9,15 +9,23 @@ export function ProgressBar({
   showTitle?: boolean;
   customTitle?: string;
 }) {
+  const [progressValue, setProgressValue] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setProgressValue(percentCompletion);
+    }, 300);
+  }, []);
+
   return (
-    <div className="progress-bar">
+    <div className="progress-bar-wrapper">
       {showTitle && (
         <div className="title">
           <span>{customTitle || "OVERALL PROGRESS"}</span>
         </div>
       )}
-      <div className="progressBar">
-        <div className="value" style={{ width: `${percentCompletion}%` }}></div>
+      <div className="progress-bar">
+        <div className="value" style={{ width: `${progressValue}%` }}></div>
       </div>
     </div>
   );

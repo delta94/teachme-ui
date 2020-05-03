@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Switch, Route } from "react-router-dom";
+
 import { IListItem } from "../../../components/list/list-item/ListItem";
 import CoursesListScreen from "./courses-list-screen/CoursesListScreen";
 import { ICourse, CourseState, ICourseData } from "./courses.interface";
@@ -14,6 +16,7 @@ export const courses: ICourse[] = [
     media: {
       thumbnail: {
         ratio_1_1: "https://picsum.photos/200/200",
+        ratio_2_1: "https://picsum.photos/310/140",
       },
     },
     lessons: [
@@ -28,6 +31,7 @@ export const courses: ICourse[] = [
     media: {
       thumbnail: {
         ratio_1_1: "https://picsum.photos/200/200",
+        ratio_2_1: "https://picsum.photos/310/140",
       },
     },
     data: {
@@ -46,6 +50,7 @@ export const courses: ICourse[] = [
     media: {
       thumbnail: {
         ratio_1_1: "https://picsum.photos/200/200",
+        ratio_2_1: "https://picsum.photos/310/140",
       },
     },
     data: {
@@ -64,6 +69,7 @@ export const courses: ICourse[] = [
     media: {
       thumbnail: {
         ratio_1_1: "https://picsum.photos/200/200",
+        ratio_2_1: "https://picsum.photos/310/140",
       },
     },
     data: {
@@ -79,20 +85,10 @@ export const courses: ICourse[] = [
 ];
 
 export default function CoursesScreen() {
-  const [selectedCourse, setSelectedCourse] = useState(null);
-  const coursesListItems = parseToCourseListItems(courses);
-
-  const onSelectedCourse = (selected: IListItem<ICourseData>) => {
-    const selectedCourse = getCourseById(selected.id);
-    setSelectedCourse(selectedCourse);
-  };
-
-  return selectedCourse ? (
-    <CourseScreen course={selectedCourse} />
-  ) : (
-    <CoursesListScreen
-      courses={coursesListItems as IListItem<ICourseData>[]}
-      onSelectedCourse={onSelectedCourse}
-    />
+  return (
+    <Switch>
+      <Route exact path="/" component={CoursesListScreen} />
+      <Route path="/course/:courseId" component={CourseScreen} />
+    </Switch>
   );
 }

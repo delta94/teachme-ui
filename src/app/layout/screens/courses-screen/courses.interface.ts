@@ -11,6 +11,13 @@ export interface ILesson {
   id: string;
 }
 
+export interface ICourseMedia {
+  thumbnail: {
+    ratio_1_1?: string;
+    ratio_2_1?: string;
+  };
+}
+
 export interface ICourse {
   id: string;
   title: string;
@@ -18,17 +25,14 @@ export interface ICourse {
     state?: CourseState;
     status?: number;
   };
-  media: {
-    thumbnail: {
-      ratio_1_1: string;
-    };
-  };
+  media: ICourseMedia;
   lessons: ILesson[];
 }
 
 export interface ICourseData {
   state?: CourseState;
   status?: number;
+  media?: ICourseMedia;
 }
 
 export interface ICourseListItem extends IListItem<ICourseData> {
