@@ -1,5 +1,8 @@
 .dropdown-wrapper {
   border: 1px solid var(--borderLightGray);
+  padding-bottom: 25px;
+  margin-bottom: 15px;
+  border-radius: 5px;
 
   .dropdown-title {
     padding: 15px 22px;
@@ -11,5 +14,28 @@
     justify-content: flex-start;
     align-items: center;
     height: auto;
+    .fRegular();
+  }
+
+  hr.separator {
+    margin: 0 10px 17px 10px;
+  }
+
+  .dropdown-items {
+    padding: 0 10px;
+
+    .list .list-item {
+      margin-bottom: 0;
+
+      .item {
+        border-width: 0;
+        color: var(--neutral900);
+
+        .title {
+          font-size: 14px;
+          .fLight();
+        }
+      }
+    }
   }
 }

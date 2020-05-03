@@ -1,16 +1,14 @@
-import { ICourse, ICourseListItem, ILesson } from "./courses.interface";
+import { ICourse } from "./courses.interface";
 import { courses } from "./CoursesScreen";
+import { IListItem } from "../../../components/list/list-item/ListItem";
 
-export const parseToCourseListItems = (
-  courses: ICourse[]
-): ICourseListItem[] => {
+export const parseToCourseListItems = (courses: ICourse[]): IListItem<{}>[] => {
   return courses.map((course) => {
     const { id, title, media, data } = course;
 
     return {
       id,
       title,
-      thumbnailSrc: media.thumbnail.ratio_1_1,
       data: {
         ...data,
         media,

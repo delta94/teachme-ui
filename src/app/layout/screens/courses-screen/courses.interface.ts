@@ -52,7 +52,3 @@ export interface ICourseData {
   status?: number;
   media?: ICourseMedia;
 }
-
-export interface ICourseListItem extends IListItem<ICourseData> {
-  thumbnailSrc: string;
-}

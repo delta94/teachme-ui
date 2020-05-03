@@ -24,8 +24,9 @@ export default function Dropdown<T>({
       >
         <h4>{title}</h4>
       </Button>
-      <div className="lesson-items">
-        <List className="lessons-list accordion" items={items} />
+      <hr className="separator" />
+      <div className="dropdown-items">
+        <List className="dropdown-list" items={items} />
       </div>
     </div>
   );
