@@ -1,7 +1,7 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, RefObject } from "react";
 import ListItem, { IListItem, IItemComponentProps } from "./list-item/ListItem";
 
-export default function List<T>({
+export default function List<T, R>({
   className,
   itemClassName,
   items,

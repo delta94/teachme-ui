@@ -1,10 +1,9 @@
 .dropdown-wrapper {
   border: 1px solid var(--borderLightGray);
-  padding-bottom: 25px;
   margin-bottom: 15px;
   border-radius: 5px;
 
-  .dropdown-title {
+  .dropdown-handler {
     padding: 15px 22px;
     background-color: transparent;
     font-size: 15px;
@@ -17,12 +16,14 @@
     .fRegular();
   }
 
-  hr.separator {
-    margin: 0 10px 17px 10px;
-  }
-
   .dropdown-items {
     padding: 0 10px;
+
+    .dropdown-list {
+      margin-bottom: 25px;
+      border-top: 1px solid var(--borderLightGray);
+      padding-top: 17px;
+    }
 
     .list .list-item {
       margin-bottom: 0;
@@ -35,6 +36,18 @@
           font-size: 14px;
           .fLight();
         }
+      }
+    }
+  }
+
+  &.collapsible {
+    .dropdown-items {
+      height: auto;
+      max-height: 0;
+      opacity: 0;
+      &.open {
+        max-height: none;
+        opacity: 1;
       }
     }
   }

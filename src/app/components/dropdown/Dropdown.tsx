@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 
 import Button, { ButtonType } from "../buttons/Button";
 import List from "../list/List";
@@ -9,23 +9,39 @@ export default function Dropdown<T>({
   title,
   items,
   className,
+  isOpen,
+  isCollapsible = true,
 }: {
   id: string;
   title: string;
   items: IListItem<T>[];
   className?: string;
+  isOpen?: boolean;
+  isCollapsible?: boolean;
 }) {
+  const [open, setOpen] = useState(isOpen);
+
+  const handlerClicked = () => {
+    if (isCollapsible) {
+      setOpen((prevOpen) => !prevOpen);
+    }
+  };
+
   return (
-    <div className={`dropdown-wrapper ${className}`}>
+    <div
+      className={`dropdown-wrapper ${className} ${
+        isCollapsible ? "collapsible" : ""
+      }`}
+    >
       <Button
         id={id}
         tmButtonType={ButtonType.NoBorder}
-        className="dropdown-title"
+        className="dropdown-handler"
+        buttonClicked={handlerClicked}
       >
         <h4>{title}</h4>
       </Button>
-      <hr className="separator" />
-      <div className="dropdown-items">
+      <div className={`dropdown-items ${open ? "open" : ""}`}>
         <List className="dropdown-list" items={items} />
       </div>
     </div>

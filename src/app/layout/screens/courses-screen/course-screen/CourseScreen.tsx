@@ -51,6 +51,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                   id={lesson.id}
                   title={`Lesson ${lessonNum} - ${lesson.id}`}
                   items={lesson.tasks}
+                  isOpen={lessonNum === 1}
                 />
               );
             })}

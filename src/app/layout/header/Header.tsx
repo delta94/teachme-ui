@@ -18,7 +18,7 @@ export default function Header() {
   const { animateCoreElements } = useViewManager();
 
   useEffect(() => {
-    if (isWebApp) {
+    if (isWebApp && isHomePage) {
       animateCoreElements({
         elements: [logo.current],
         animateClassName: "fadeInDown",
@@ -30,11 +30,6 @@ export default function Header() {
         timeout: 200,
       });
     }
-    animateCoreElements({
-      elements: [details.current],
-      animateClassName: "fadeInDown",
-      timeout: 200,
-    });
   }, [isWebApp, isHomePage]);
 
   const homePageHeader = (
