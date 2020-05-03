@@ -23,7 +23,7 @@ export const courses: ICourse[] = [
       {
         id: "welcome-to-lightning",
         title: "Welcome to Lightning",
-        items: [
+        tasks: [
           {
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
@@ -42,7 +42,7 @@ export const courses: ICourse[] = [
       {
         id: "watch-or-read-training-content",
         title: "Watch/Read Training Content",
-        items: [
+        tasks: [
           {
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
@@ -77,7 +77,7 @@ export const courses: ICourse[] = [
       {
         id: "welcome-to-lightning",
         title: "Welcome to Lightning",
-        items: [
+        tasks: [
           {
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
@@ -96,7 +96,7 @@ export const courses: ICourse[] = [
       {
         id: "watch-or-read-training-content",
         title: "Watch/Read Training Content",
-        items: [
+        tasks: [
           {
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
@@ -131,7 +131,7 @@ export const courses: ICourse[] = [
       {
         id: "welcome-to-lightning",
         title: "Welcome to Lightning",
-        items: [
+        tasks: [
           {
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
@@ -150,7 +150,7 @@ export const courses: ICourse[] = [
       {
         id: "watch-or-read-training-content",
         title: "Watch/Read Training Content",
-        items: [
+        tasks: [
           {
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
@@ -185,7 +185,7 @@ export const courses: ICourse[] = [
       {
         id: "welcome-to-lightning",
         title: "Welcome to Lightning",
-        items: [
+        tasks: [
           {
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
@@ -204,7 +204,7 @@ export const courses: ICourse[] = [
       {
         id: "watch-or-read-training-content",
         title: "Watch/Read Training Content",
-        items: [
+        tasks: [
           {
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",

@@ -52,7 +52,7 @@ export default function CourseScreen(props: any) {
                   <div className="lesson-items">
                     <List
                       className="lessons-list accordion"
-                      items={lesson.items}
+                      items={lesson.tasks}
                     />
                   </div>
                 </div>

@@ -16,15 +16,16 @@ export interface ILessonListItem {
   data?: ILessonData;
 }
 
-export interface ILessonItem {
+export interface ILessonTask {
   id: string;
   title: string;
   state?: CourseState;
+  link?: string;
 }
 export interface ILesson {
   id: string;
   title: string;
-  items: ILessonItem[];
+  tasks?: ILessonTask[];
 }
 
 export interface ICourseMedia {
