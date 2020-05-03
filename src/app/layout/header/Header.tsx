@@ -5,6 +5,7 @@ import Minimize from "../../components/buttons/minimize/Minimize";
 import UserDetails from "../../components/user/user-details/UserDetails";
 import { useLocation, Link } from "react-router-dom";
 import Button, { ButtonType } from "../../components/buttons/Button";
+import RouteButton from "../../components/buttons/route-button/RouteButton";
 
 export default function Header() {
   const tmContext = useContext(TeachMeContext);
@@ -60,9 +61,14 @@ export default function Header() {
               {isHomePage ? (
                 homePageHeader
               ) : (
-                <Button id="back_to_courses" tmButtonType={ButtonType.None}>
-                  <Link to="/">Go Back</Link>
-                </Button>
+                <RouteButton
+                  label="Back to Courses Menu"
+                  iconType="back"
+                  id="back_to_courses"
+                  className="back-btn"
+                  buttonType={ButtonType.NoBorder}
+                  linkTo="/"
+                />
               )}
             </div>
           </div>

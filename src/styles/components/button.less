@@ -13,19 +13,21 @@
   min-width: 85px;
   width: fit-content;
   font-size: 11px;
-  padding: 0 10px;
+  padding: 0 7px;
   cursor: pointer;
   transition: border 0.3s, background-color 0.3s, color 0.3s;
 
+  &.no-border {
+    border: none;
+    border-radius: 0;
+    max-width: fit-content;
+  }
+
   a {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
 
     &:link,
     &:visited,
@@ -61,5 +63,14 @@
   .btn-label {
     line-height: 11px;
     margin-top: -2px;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icon {
+      margin-right: 10px;
+      color: var(--primary);
+    }
   }
 }
