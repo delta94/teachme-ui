@@ -44,6 +44,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
           <div className="course-lessons">
             {course.lessons.map((lesson: ILesson, index: number) => {
               const lessonNum = index + 1;
+              const lessonCompleted = lesson.state === CourseState.Completed;
               return (
                 <Dropdown
                   className="course-lessons"
@@ -52,6 +53,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                   title={`Lesson ${lessonNum} - ${lesson.id}`}
                   items={lesson.tasks}
                   isOpen={lessonNum === 1}
+                  handlerIconType={lessonCompleted ? "check" : ""}
                 />
               );
             })}

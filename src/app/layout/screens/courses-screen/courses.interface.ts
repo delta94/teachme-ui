@@ -27,6 +27,7 @@ export interface ILesson {
   id: string;
   title: string;
   tasks?: ILessonTask[];
+  state?: CourseState;
 }
 
 export interface ICourseMedia {

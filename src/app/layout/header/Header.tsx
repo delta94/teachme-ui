@@ -58,7 +58,7 @@ export default function Header() {
               ) : (
                 <RouteButton
                   label="Back to Courses Menu"
-                  iconType="back"
+                  iconType="arrow-left"
                   id="back_to_courses"
                   className="back-btn"
                   buttonType={ButtonType.NoBorder}

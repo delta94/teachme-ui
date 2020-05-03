@@ -1,6 +1,7 @@
 import React from "react";
 import Button, { ButtonType } from "../Button";
 import { Link } from "react-router-dom";
+import useIconManager from "../../../hooks/useIconManager";
 
 export default function RouteButton({
   id,
@@ -17,18 +18,13 @@ export default function RouteButton({
   iconType?: string;
   className?: string;
 }) {
-  const getIconByType = (type: string) => {
-    if (type === "back") {
-      return <span className="icon arrow-left"></span>;
-    }
-    return <></>;
-  };
+  const icon = useIconManager(iconType);
 
   return (
     <Button className={className} id={id} tmButtonType={buttonType}>
       <Link to={linkTo}>
         <span className="btn-label">
-          {iconType && getIconByType(iconType)}
+          {icon}
           {label}
         </span>
       </Link>

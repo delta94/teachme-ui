@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import Button, { ButtonType } from "../buttons/Button";
 import List from "../list/List";
 import { IListItem } from "../list/list-item/ListItem";
+import useIconManager from "../../hooks/useIconManager";
 
 export default function Dropdown<T>({
   id,
@@ -11,6 +12,7 @@ export default function Dropdown<T>({
   className,
   isOpen,
   isCollapsible = true,
+  handlerIconType,
 }: {
   id: string;
   title: string;
@@ -18,8 +20,11 @@ export default function Dropdown<T>({
   className?: string;
   isOpen?: boolean;
   isCollapsible?: boolean;
+  handlerIconType?: string;
 }) {
   const [open, setOpen] = useState(isOpen);
+
+  const handlerIcon = useIconManager(handlerIconType);
 
   const handlerClicked = () => {
     if (isCollapsible) {
@@ -39,7 +44,9 @@ export default function Dropdown<T>({
         className="dropdown-handler"
         buttonClicked={handlerClicked}
       >
-        <h4>{title}</h4>
+        <h4>
+          {title} {handlerIcon}
+        </h4>
       </Button>
       <div className={`dropdown-items ${open ? "open" : ""}`}>
         <List className="dropdown-list" items={items} />

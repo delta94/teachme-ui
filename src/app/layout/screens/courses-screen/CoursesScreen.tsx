@@ -20,6 +20,7 @@ export const courses: ICourse[] = [
       {
         id: "welcome-to-lightning",
         title: "Welcome to Lightning",
+        state: CourseState.Completed,
         tasks: [
           {
             id: "welcome-to-lightning-tour",
@@ -29,10 +30,12 @@ export const courses: ICourse[] = [
           {
             id: "trailhead",
             title: "Trailhead",
+            state: CourseState.Completed,
           },
           {
             id: "how-to-create-a-new-profile",
             title: "How to Create a New Profile",
+            state: CourseState.Completed,
           },
         ],
       },

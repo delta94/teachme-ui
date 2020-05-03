@@ -10,7 +10,6 @@ export interface IListItem<T> {
   id: string;
   title: string;
   subTitle?: string;
-  thumbnailSrc?: string;
   primaryBtn?: {
     label: string;
   };
@@ -29,7 +28,7 @@ export default function ListItem<T>({
   onSelect?: (selected: IListItem<T>) => void;
   itemComponent?: (props?: IItemComponentProps<T>) => ReactElement;
 }) {
-  const { title, subTitle, thumbnailSrc, primaryBtn } = item;
+  const { title, subTitle, primaryBtn } = item;
 
   const listItemClick = () => {
     onSelect(item);
@@ -55,12 +54,7 @@ export default function ListItem<T>({
         }
       }}
     >
-      <div className={`item ${thumbnailSrc ? "item-thumb" : ""}`}>
-        {thumbnailSrc && (
-          <picture className="thumb">
-            <img src={thumbnailSrc} alt={title} title={title} />
-          </picture>
-        )}
+      <div className="item">
         <article className="item-info">
           <header>
             <span className="title">{title}</span>

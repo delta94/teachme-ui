@@ -4,6 +4,7 @@
   border-radius: 5px;
 
   .dropdown-handler {
+    position: relative;
     padding: 15px 22px;
     background-color: transparent;
     font-size: 15px;
@@ -14,6 +15,14 @@
     align-items: center;
     height: auto;
     .fRegular();
+
+    .icon {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 10px;
+    }
   }
 
   .dropdown-items {

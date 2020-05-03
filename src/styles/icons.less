@@ -28,4 +28,22 @@
       transform: rotate(-135deg);
     }
   }
+
+  &.check {
+    &:before {
+      content: "";
+      color: #000;
+      position: absolute;
+      margin-left: 3px;
+      margin-top: 4px;
+      width: 10px;
+      height: 4px;
+      border-bottom: solid 1px var(--success);
+      border-left: solid 1px var(--success);
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      top: -3px;
+      left: 0;
+    }
+  }
 }
