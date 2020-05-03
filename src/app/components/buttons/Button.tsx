@@ -31,7 +31,9 @@ export default function Button(props: IButtonProps) {
   } = props;
 
   const handleClick = () => {
-    buttonClicked(id);
+    if (buttonClicked) {
+      buttonClicked(id);
+    }
   };
 
   return (
