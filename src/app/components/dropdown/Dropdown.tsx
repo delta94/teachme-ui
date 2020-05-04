@@ -40,16 +40,17 @@ export default function Dropdown<T>({
         isCollapsible ? "collapsible" : ""
       }`}
     >
-      <Button
-        id={id}
-        tmButtonType={ButtonType.NoBorder}
-        className="dropdown-handler"
-        buttonClicked={handlerClicked}
-      >
-        <h4>
-          {title} {handlerIcon}
-        </h4>
-      </Button>
+      <header className={`dropdown-handler ${open ? "open" : ""}`}>
+        <Button
+          id={id}
+          tmButtonType={ButtonType.NoBorder}
+          buttonClicked={handlerClicked}
+        >
+          <h4>
+            {title} {handlerIcon}
+          </h4>
+        </Button>
+      </header>
       <div className={`dropdown-items ${open ? "open" : ""}`}>
         <List className="dropdown-list" items={items} />
       </div>
