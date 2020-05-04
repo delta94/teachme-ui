@@ -78,13 +78,29 @@
     .dropdown-items {
       height: 0;
       opacity: 0;
-      transform: translateY(-100%);
-      transition: height 0.3s, transform 0.2s, opacity 0.3s;
+      transition: height 0.3s, opacity 0.3s;
+
+      .list {
+        transition: transform 0.2s, visibility 0.4s;
+      }
+
+      &.close {
+        transition: height 0.2s, opacity 0.2s;
+        .list {
+          visibility: hidden;
+          transform: translateY(-20px);
+          transition: transform 0.1s, visibility 0.1s;
+        }
+      }
 
       &.open {
-        transform: translateY(0);
         height: auto;
         opacity: 1;
+
+        .list {
+          visibility: visible;
+          transform: translateY(0);
+        }
       }
     }
   }
