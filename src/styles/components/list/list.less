@@ -29,12 +29,17 @@
       }
 
       .title {
-        .fRegular();
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        .fLight();
         color: var(--neutral900);
         font-size: 15px;
 
         > .icon {
           height: 15px;
+          order: -1;
+          margin-right: 5px;
         }
       }
 

@@ -17,7 +17,7 @@ export interface ILessonListItem {
   data?: ILessonData;
 }
 
-export interface ILessonTask {
+export interface ITask {
   id: string;
   title: string;
   state?: CourseState;
@@ -27,7 +27,7 @@ export interface ILessonTask {
 export interface ILesson {
   id: string;
   title: string;
-  tasks?: ILessonTask[];
+  tasks?: ITask[];
   state?: CourseState;
 }
 
@@ -46,7 +46,8 @@ export interface ICourse {
     status?: number;
   };
   media: ICourseMedia;
-  lessons: ILesson[];
+  lessons?: ILesson[];
+  tasks?: ITask[];
 }
 
 export interface ICourseData {

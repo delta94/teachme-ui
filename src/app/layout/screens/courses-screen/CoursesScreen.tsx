@@ -66,6 +66,24 @@ export const courses: ICourse[] = [
         ],
       },
     ],
+    tasks: [
+      {
+        id: "welcome-to-lightning-tour",
+        title: "Welcome to Lightning Tour",
+        state: CourseState.Completed,
+        icon: Icon.WalkThru,
+      },
+      {
+        id: "trailhead",
+        title: "Trailhead",
+        icon: Icon.Video,
+      },
+      {
+        id: "how-to-create-a-new-profile",
+        title: "How to Create a New Profile",
+        icon: Icon.Article,
+      },
+    ],
   },
   {
     id: "system-introduction",

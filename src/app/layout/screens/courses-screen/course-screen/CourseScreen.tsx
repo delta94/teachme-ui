@@ -6,7 +6,7 @@ import {
   CourseState,
   ILessonData,
   ILesson,
-  ILessonTask,
+  ITask,
 } from "../courses.interface";
 import { getCourseById } from "../coursesUtils";
 import "../../../../../styles/screens/courses-screen/course-screen.less";
@@ -22,8 +22,8 @@ type TParams = { courseId: string };
 export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
   const [course, setCourse] = useState(null as ICourse);
   const defaultCourseData = { status: 0, state: CourseState.NotStarted };
-  const parseTasksToItemList = (tasks: ILessonTask[]) => {
-    return tasks.map((task: ILessonTask) => {
+  const parseTasksToItemList = (tasks: ITask[]) => {
+    return tasks.map((task: ITask) => {
       const { icon, ...noIcon } = task;
       return {
         ...noIcon,
@@ -66,6 +66,12 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                 />
               );
             })}
+            {course.tasks && (
+              <List
+                className="tasks-list"
+                items={parseTasksToItemList(course.tasks)}
+              />
+            )}
           </div>
         </section>
       </section>

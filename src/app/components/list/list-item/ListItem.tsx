@@ -40,6 +40,8 @@ export default function ListItem<T>({
   const { title, subTitle, primaryBtn } = item;
   const icon = useIconManager(iconType);
   const stateIcon = useIconManager(state);
+  const stateClass = state || "";
+
   const itemContent = (
     <>
       <header>
@@ -59,7 +61,7 @@ export default function ListItem<T>({
 
   if (itemComponent) {
     return (
-      <li className={`list-item ${className} ${state}`}>
+      <li className={`list-item ${className} ${stateClass}`}>
         {itemComponent({
           onSelect: listItemClick,
           item,
