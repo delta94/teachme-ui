@@ -1,0 +1,26 @@
+.course-screen {
+  .course {
+    -webkit-transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 20px, 0);
+  }
+
+  .course-information {
+    .progress-bar-wrapper {
+      margin-bottom: 15px;
+    }
+  }
+
+  .course-lessons {
+    .list:not(.dropdown-list) .list-item .item {
+      padding: 10px 20px;
+    }
+    .list .list-item {
+      &.completed {
+        .title {
+          text-decoration: line-through;
+          text-decoration-color: currentColor;
+        }
+      }
+    }
+  }
+}

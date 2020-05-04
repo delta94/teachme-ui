@@ -4,6 +4,7 @@
 }
 
 .btn {
+  position: relative;
   background-color: var(--primary100);
   border: 1px solid var(--neutral900);
   color: var(--neutral900);
@@ -12,16 +13,29 @@
   min-width: 85px;
   width: fit-content;
   font-size: 11px;
-  padding: 0 10px;
+  padding: 0 7px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition: border 0.3s, background-color 0.3s, color 0.3s;
 
-  a:link,
-  a:visited,
-  a:hover,
-  a:active {
-    color: currentColor;
-    transition: none;
+  &.no-border {
+    border: none;
+    border-radius: 0;
+    max-width: fit-content;
+  }
+
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: currentColor;
+      transition: none;
+    }
   }
 
   &.default {
@@ -30,8 +44,8 @@
     color: var(--primary100);
 
     &:hover {
-      background-color: var(--primary100);
-      color: var(--currentColor);
+      border: 1px solid var(--primaryHover);
+      background-color: var(--primaryHover);
     }
   }
 
@@ -43,6 +57,20 @@
     &:hover {
       background-color: var(--primary);
       color: var(--primary100);
+    }
+  }
+
+  .btn-label {
+    line-height: 11px;
+    margin-top: -2px;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icon {
+      margin-right: 10px;
+      color: var(--primary);
     }
   }
 }

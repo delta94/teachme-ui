@@ -3,17 +3,27 @@ import useViewManager from "../../hooks/useViewManager";
 import { TeachMeContext } from "../../App";
 import Minimize from "../../components/buttons/minimize/Minimize";
 import UserDetails from "../../components/user/user-details/UserDetails";
+import { useLocation, Link } from "react-router-dom";
+import Button, { ButtonType } from "../../components/buttons/Button";
+import RouteButton from "../../components/buttons/route-button/RouteButton";
+import { Icon } from "../../hooks/useIconManager";
 
 export default function Header() {
   const tmContext = useContext(TeachMeContext);
-  const { includeLayout, tmUser } = tmContext.tmState;
+  const { isWebApp } = tmContext.tmState;
+  const { pathname } = useLocation();
+  const isHomePage = pathname === "/";
+  const headerClass = `${isWebApp ? "web" : "app"} ${
+    isHomePage ? "home-page" : "inner-page"
+  } `;
   const logo = useRef();
   const details = useRef();
+  const innerHeader = useRef();
 
   const { animateCoreElements } = useViewManager();
 
   useEffect(() => {
-    if (includeLayout) {
+    if (isWebApp && isHomePage) {
       animateCoreElements({
         elements: [logo.current],
         animateClassName: "fadeInDown",
@@ -25,27 +35,53 @@ export default function Header() {
         timeout: 200,
       });
     }
-  }, [includeLayout]);
+    if (!isHomePage) {
+      animateCoreElements({
+        elements: [innerHeader.current],
+        animateClassName: "fadeInDown",
+        timeout: 300,
+      });
+    }
+  }, [isWebApp, isHomePage]);
 
-  if (!includeLayout) {
-    return null;
-  }
+  const homePageHeader = (
+    <>
+      <div ref={logo} className="logo topElement">
+        <a href="#" draggable="true"></a>
+      </div>
+      <div ref={details} className="details topElement">
+        <UserDetails greeting progressBar />
+      </div>
+    </>
+  );
+
+  const innerPageHeader = (
+    <div ref={innerHeader} className="inner-header topElement">
+      <RouteButton
+        label="Back to Courses Menu"
+        iconType={Icon.ArrowLeft}
+        id="back_to_courses"
+        className="back-btn"
+        buttonType={ButtonType.NoBorder}
+        linkTo="/"
+      />
+    </div>
+  );
 
   return (
     <div className="header">
       <div className="wrapper">
-        <div className="general-header">
-          <div ref={logo} className="logo topElement">
-            <a href="#" draggable="true"></a>
-          </div>
-          <div ref={details} className="details topElement">
-            <UserDetails greeting progressBar />
-          </div>
+        <div className={`general-header ${headerClass}`}>
+          {isHomePage && isWebApp && homePageHeader}
+          {!isHomePage && innerPageHeader}
         </div>
       </div>
-      <div className="minimize">
-        <Minimize />
-      </div>
+
+      {isWebApp && (
+        <div className="minimize">
+          <Minimize />
+        </div>
+      )}
     </div>
   );
 }

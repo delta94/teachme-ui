@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export function ProgressBar({
-  percentCompletion,
+  percentCompletion = 0,
   showTitle = false,
   customTitle,
 }: {

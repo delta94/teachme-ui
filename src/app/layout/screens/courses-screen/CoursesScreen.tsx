@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import { IListItem } from "../../../components/list/list-item/ListItem";
-import CoursesListScreen from "./courses-list-screen/CoursesListScreen";
-import { ICourse, CourseState, ICourseData } from "./courses.interface";
-import { parseToCourseListItems, getCourseById } from "./coursesUtils";
-import CourseScreen from "./course-screen/CourseScreen";
+import { ICourse, CourseState } from "./courses.interface";
 
-import "../../../../styles/screens/courses-screen/courses-screen.less";
+import CoursesListScreen from "./courses-list-screen/CoursesListScreen";
+import CourseScreen from "./course-screen/CourseScreen";
+import { Icon } from "../../../hooks/useIconManager";
 
 export const courses: ICourse[] = [
   {
@@ -21,7 +19,69 @@ export const courses: ICourse[] = [
     },
     lessons: [
       {
-        id: "first-lesson",
+        id: "welcome-to-lightning",
+        title: "Welcome to Lightning",
+        state: CourseState.Completed,
+        tasks: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+            icon: Icon.WalkThru,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+            state: CourseState.Completed,
+            icon: Icon.Video,
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+            state: CourseState.Completed,
+            icon: Icon.Article,
+          },
+        ],
+      },
+      {
+        id: "watch-or-read-training-content",
+        title: "Watch/Read Training Content",
+        tasks: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+            icon: Icon.Article,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+            icon: Icon.Video,
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+            icon: Icon.WalkThru,
+          },
+        ],
+      },
+    ],
+    tasks: [
+      {
+        id: "welcome-to-lightning-tour",
+        title: "Welcome to Lightning Tour",
+        state: CourseState.Completed,
+        icon: Icon.WalkThru,
+      },
+      {
+        id: "trailhead",
+        title: "Trailhead",
+        icon: Icon.Video,
+      },
+      {
+        id: "how-to-create-a-new-profile",
+        title: "How to Create a New Profile",
+        icon: Icon.Article,
       },
     ],
   },
@@ -40,7 +100,48 @@ export const courses: ICourse[] = [
     },
     lessons: [
       {
-        id: "first-lesson",
+        id: "welcome-to-lightning",
+        title: "Welcome to Lightning",
+        tasks: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+            icon: Icon.WalkThru,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+            icon: Icon.Article,
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+            icon: Icon.Video,
+          },
+        ],
+      },
+      {
+        id: "watch-or-read-training-content",
+        title: "Watch/Read Training Content",
+        tasks: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+            icon: Icon.Video,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+            icon: Icon.Article,
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+            icon: Icon.WalkThru,
+          },
+        ],
       },
     ],
   },
@@ -59,7 +160,48 @@ export const courses: ICourse[] = [
     },
     lessons: [
       {
-        id: "first-lesson",
+        id: "welcome-to-lightning",
+        title: "Welcome to Lightning",
+        tasks: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+            icon: Icon.Video,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+            icon: Icon.WalkThru,
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+            icon: Icon.Article,
+          },
+        ],
+      },
+      {
+        id: "watch-or-read-training-content",
+        title: "Watch/Read Training Content",
+        tasks: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+            icon: Icon.WalkThru,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+            icon: Icon.Video,
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+            icon: Icon.Article,
+          },
+        ],
       },
     ],
   },
@@ -78,7 +220,48 @@ export const courses: ICourse[] = [
     },
     lessons: [
       {
-        id: "first-lesson",
+        id: "welcome-to-lightning",
+        title: "Welcome to Lightning",
+        tasks: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+            icon: Icon.WalkThru,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+            icon: Icon.Article,
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+            icon: Icon.Video,
+          },
+        ],
+      },
+      {
+        id: "watch-or-read-training-content",
+        title: "Watch/Read Training Content",
+        tasks: [
+          {
+            id: "welcome-to-lightning-tour",
+            title: "Welcome to Lightning Tour",
+            state: CourseState.Completed,
+            icon: Icon.Article,
+          },
+          {
+            id: "trailhead",
+            title: "Trailhead",
+            icon: Icon.WalkThru,
+          },
+          {
+            id: "how-to-create-a-new-profile",
+            title: "How to Create a New Profile",
+            icon: Icon.Video,
+          },
+        ],
       },
     ],
   },

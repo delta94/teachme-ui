@@ -18,7 +18,7 @@ html {
 .wrapper {
   margin: 0 auto;
   width: 100%;
-  max-width: 1060px;
+  max-width: 960px;
   padding: 0 30px;
   position: relative;
 
@@ -27,11 +27,25 @@ html {
   }
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: normal;
+}
+
 h1 {
   .fBold();
   font-size: 50px;
   line-height: 1.2 !important;
 }
+
 h2 {
   .fBold();
   font-size: 50px;
@@ -113,4 +127,13 @@ nav,
 aside,
 article {
   display: block;
+}
+
+hr {
+  margin: 15px auto;
+
+  &.separator {
+    border: 1px solid var(--borderLightGray);
+    border-width: 1px 0 0 0;
+  }
 }

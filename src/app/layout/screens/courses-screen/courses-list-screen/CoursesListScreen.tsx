@@ -8,15 +8,16 @@ import UserDetails from "../../../../components/user/user-details/UserDetails";
 import { TeachMeContext } from "../../../../App";
 import { parseToCourseListItems } from "../coursesUtils";
 import { courses } from "../CoursesScreen";
-interface IProps {}
 
-export default function CoursesListScreen(props: IProps) {
+import "../../../../../styles/screens/courses-screen/courses-list-screen.less";
+
+export default function CoursesListScreen() {
   const coursesListItems = parseToCourseListItems(courses);
   const tmContext = useContext(TeachMeContext);
-  const { includeLayout } = tmContext.tmState;
+  const { isWebApp } = tmContext.tmState;
   return (
-    <div className="courses-screen">
-      {!includeLayout && (
+    <div className="screen courses-screen">
+      {!isWebApp && (
         <div className="user-details">
           <UserDetails progressBar />
         </div>
@@ -25,9 +26,6 @@ export default function CoursesListScreen(props: IProps) {
       <List
         className="courses"
         itemClassName="fadeInUp"
-        onSelect={() => {
-          console.log("list onSelect");
-        }}
         items={coursesListItems as IListItem<ICourseData>[]}
         itemComponent={CourseListItem}
       />

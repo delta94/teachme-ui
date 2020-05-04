@@ -1,4 +1,4 @@
-import { IListItem } from "../../../components/list/list-item/ListItem";
+import { Icon } from "../../../hooks/useIconManager";
 
 export enum CourseState {
   NotStarted = "not-started",
@@ -7,8 +7,28 @@ export enum CourseState {
   Tested = "tested",
 }
 
+export type TaskIcon = Icon.Article | Icon.Video | Icon.WalkThru;
+export interface ILessonData {
+  state?: CourseState;
+}
+export interface ILessonListItem {
+  id: string;
+  title: string;
+  data?: ILessonData;
+}
+
+export interface ITask {
+  id: string;
+  title: string;
+  state?: CourseState;
+  icon?: TaskIcon;
+  link?: string;
+}
 export interface ILesson {
   id: string;
+  title: string;
+  tasks?: ITask[];
+  state?: CourseState;
 }
 
 export interface ICourseMedia {
@@ -26,15 +46,12 @@ export interface ICourse {
     status?: number;
   };
   media: ICourseMedia;
-  lessons: ILesson[];
+  lessons?: ILesson[];
+  tasks?: ITask[];
 }
 
 export interface ICourseData {
   state?: CourseState;
   status?: number;
   media?: ICourseMedia;
-}
-
-export interface ICourseListItem extends IListItem<ICourseData> {
-  thumbnailSrc: string;
 }

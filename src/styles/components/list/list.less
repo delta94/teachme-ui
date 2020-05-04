@@ -18,6 +18,7 @@
 
     > .item,
     > div {
+      padding: 10px;
       border: solid 1px var(--border500);
       border-radius: 5px;
       overflow: hidden;
@@ -27,11 +28,35 @@
         background-color: var(--primary);
       }
 
-      article {
-        .title {
-          .fRegular();
-          color: var(--neutral900);
-          font-size: 15px;
+      .title {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        .fLight();
+        color: var(--neutral900);
+        font-size: 15px;
+
+        > .icon {
+          height: 15px;
+          order: -1;
+          margin-right: 5px;
+        }
+      }
+
+      .item-info {
+        position: relative;
+
+        > .icon {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          height: 10px;
+
+          &.check:before {
+            border-bottom: solid 1px var(--primary);
+            border-left: solid 1px var(--primary);
+          }
         }
       }
     }
