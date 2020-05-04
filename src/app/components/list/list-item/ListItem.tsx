@@ -72,7 +72,7 @@ export default function ListItem<T>({
 
   return (
     <li
-      className={`list-item ${className} ${state}`}
+      className={`list-item ${className} ${stateClass}`}
       onClick={() => {
         if (!item.primaryBtn) {
           listItemClick();

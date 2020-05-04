@@ -1,20 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 
-import {
-  ICourse,
-  CourseState,
-  ILessonData,
-  ILesson,
-  ITask,
-} from "../courses.interface";
+import { ICourse, CourseState, ILesson, ITask } from "../courses.interface";
 import { getCourseById } from "../coursesUtils";
 import "../../../../../styles/screens/courses-screen/course-screen.less";
 
 import { ProgressBar } from "../../../../components/progress-bar/ProgressBar";
 import List from "../../../../components/list/List";
-import Dropdown from "../../../../components/dropdown/Dropdown";
 import useViewManager from "../../../../hooks/useViewManager";
+import Dropdown from "../../../../components/dropdown/Dropdown";
 
 type TParams = { courseId: string };
 
@@ -32,6 +26,17 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
         iconType: task.icon,
       };
     });
+  };
+
+  const getLessonState = (lesson: ILesson) => {
+    const taskCompleted = (task: ITask) => task.state === CourseState.Completed;
+    const lessonState = lesson.tasks.some(taskCompleted)
+      ? CourseState.Started
+      : CourseState.NotStarted;
+
+    const lessonCompleted = lesson.tasks.every(taskCompleted);
+
+    return lessonCompleted ? CourseState.Completed : lessonState;
   };
 
   useEffect(() => {
@@ -64,6 +69,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
           <div className="course-lessons">
             {course.lessons.map((lesson: ILesson, index: number) => {
               const lessonNum = index + 1;
+
               return (
                 <Dropdown
                   className="course-lessons"
@@ -73,7 +79,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                   items={parseTasksToItemList(lesson.tasks)}
                   isOpen={lessonNum === 1}
                   handler={{
-                    state: lesson.state,
+                    state: getLessonState(lesson),
                   }}
                 />
               );
