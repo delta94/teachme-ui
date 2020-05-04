@@ -24,6 +24,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
       return {
         ...noIcon,
         iconType: task.icon,
+        link: "https://www.walkme.com/",
       };
     });
   };

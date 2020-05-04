@@ -18,7 +18,6 @@
 
     > .item,
     > div {
-      padding: 10px;
       border: solid 1px var(--border500);
       border-radius: 5px;
       overflow: hidden;
@@ -26,6 +25,10 @@
       .thumb {
         font-size: 0;
         background-color: var(--primary);
+      }
+
+      header {
+        padding: 10px;
       }
 
       .title {
@@ -46,7 +49,14 @@
       .item-info {
         position: relative;
 
-        > .icon {
+        .item-handler {
+          position: relative;
+          height: 100%;
+          width: 100%;
+          display: flex;
+        }
+
+        .item-handler > .icon {
           position: absolute;
           right: 10px;
           top: 50%;
