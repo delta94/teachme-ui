@@ -2,8 +2,8 @@ import React, { useState, useRef } from "react";
 
 import Button, { ButtonType } from "../buttons/Button";
 import List from "../list/List";
-import { IListItem } from "../list/list-item/ListItem";
-import useIconManager from "../../hooks/useIconManager";
+import { IListItem, IListItemState } from "../list/list-item/ListItem";
+import useIconManager, { IconType } from "../../hooks/useIconManager";
 
 export default function Dropdown<T>({
   id,
@@ -12,7 +12,7 @@ export default function Dropdown<T>({
   className,
   isOpen,
   isCollapsible = true,
-  handlerIconType,
+  handler,
 }: {
   id: string;
   title: string;
@@ -20,11 +20,13 @@ export default function Dropdown<T>({
   className?: string;
   isOpen?: boolean;
   isCollapsible?: boolean;
-  handlerIconType?: string;
+  handler?: {
+    state?: IListItemState;
+    iconType?: IconType;
+  };
 }) {
   const [open, setOpen] = useState(isOpen);
-
-  const handlerIcon = useIconManager(handlerIconType);
+  const handlerIcon = useIconManager(handler && handler.state);
 
   const handlerClicked = () => {
     if (isCollapsible) {

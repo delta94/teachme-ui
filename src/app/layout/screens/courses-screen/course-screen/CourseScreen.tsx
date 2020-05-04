@@ -6,6 +6,7 @@ import {
   CourseState,
   ILessonData,
   ILesson,
+  ILessonTask,
 } from "../courses.interface";
 import { getCourseById } from "../coursesUtils";
 import "../../../../../styles/screens/courses-screen/course-screen.less";
@@ -19,10 +20,17 @@ import Dropdown from "../../../../components/dropdown/Dropdown";
 type TParams = { courseId: string };
 
 export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
-  const tmContext = useContext(TeachMeContext);
-  const [course, setCourse] = useState(null);
-
+  const [course, setCourse] = useState(null as ICourse);
   const defaultCourseData = { status: 0, state: CourseState.NotStarted };
+  const parseTasksToItemList = (tasks: ILessonTask[]) => {
+    return tasks.map((task: ILessonTask) => {
+      const { icon, ...noIcon } = task;
+      return {
+        ...noIcon,
+        iconType: task.icon,
+      };
+    });
+  };
 
   useEffect(() => {
     const selectedCourse = getCourseById(match.params.courseId);
@@ -44,16 +52,17 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
           <div className="course-lessons">
             {course.lessons.map((lesson: ILesson, index: number) => {
               const lessonNum = index + 1;
-              const lessonCompleted = lesson.state === CourseState.Completed;
               return (
                 <Dropdown
                   className="course-lessons"
                   key={lesson.id}
                   id={lesson.id}
                   title={`Lesson ${lessonNum} - ${lesson.id}`}
-                  items={lesson.tasks}
+                  items={parseTasksToItemList(lesson.tasks)}
                   isOpen={lessonNum === 1}
-                  handlerIconType={lessonCompleted ? "check" : ""}
+                  handler={{
+                    state: lesson.state,
+                  }}
                 />
               );
             })}

@@ -32,6 +32,27 @@
         .fRegular();
         color: var(--neutral900);
         font-size: 15px;
+
+        > .icon {
+          height: 15px;
+        }
+      }
+
+      .item-info {
+        position: relative;
+
+        > .icon {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          height: 10px;
+
+          &.check:before {
+            border-bottom: solid 1px var(--primary);
+            border-left: solid 1px var(--primary);
+          }
+        }
       }
     }
   }

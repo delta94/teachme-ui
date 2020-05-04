@@ -5,6 +5,7 @@ import { ICourse, CourseState } from "./courses.interface";
 
 import CoursesListScreen from "./courses-list-screen/CoursesListScreen";
 import CourseScreen from "./course-screen/CourseScreen";
+import { Icon } from "../../../hooks/useIconManager";
 
 export const courses: ICourse[] = [
   {
@@ -26,16 +27,19 @@ export const courses: ICourse[] = [
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
             state: CourseState.Completed,
+            icon: Icon.WalkThru,
           },
           {
             id: "trailhead",
             title: "Trailhead",
             state: CourseState.Completed,
+            icon: Icon.Video,
           },
           {
             id: "how-to-create-a-new-profile",
             title: "How to Create a New Profile",
             state: CourseState.Completed,
+            icon: Icon.Article,
           },
         ],
       },
@@ -47,14 +51,17 @@ export const courses: ICourse[] = [
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
             state: CourseState.Completed,
+            icon: Icon.Article,
           },
           {
             id: "trailhead",
             title: "Trailhead",
+            icon: Icon.Video,
           },
           {
             id: "how-to-create-a-new-profile",
             title: "How to Create a New Profile",
+            icon: Icon.WalkThru,
           },
         ],
       },
@@ -82,14 +89,17 @@ export const courses: ICourse[] = [
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
             state: CourseState.Completed,
+            icon: Icon.WalkThru,
           },
           {
             id: "trailhead",
             title: "Trailhead",
+            icon: Icon.Article,
           },
           {
             id: "how-to-create-a-new-profile",
             title: "How to Create a New Profile",
+            icon: Icon.Video,
           },
         ],
       },
@@ -101,14 +111,17 @@ export const courses: ICourse[] = [
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
             state: CourseState.Completed,
+            icon: Icon.Video,
           },
           {
             id: "trailhead",
             title: "Trailhead",
+            icon: Icon.Article,
           },
           {
             id: "how-to-create-a-new-profile",
             title: "How to Create a New Profile",
+            icon: Icon.WalkThru,
           },
         ],
       },
@@ -136,14 +149,17 @@ export const courses: ICourse[] = [
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
             state: CourseState.Completed,
+            icon: Icon.Video,
           },
           {
             id: "trailhead",
             title: "Trailhead",
+            icon: Icon.WalkThru,
           },
           {
             id: "how-to-create-a-new-profile",
             title: "How to Create a New Profile",
+            icon: Icon.Article,
           },
         ],
       },
@@ -155,14 +171,17 @@ export const courses: ICourse[] = [
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
             state: CourseState.Completed,
+            icon: Icon.WalkThru,
           },
           {
             id: "trailhead",
             title: "Trailhead",
+            icon: Icon.Video,
           },
           {
             id: "how-to-create-a-new-profile",
             title: "How to Create a New Profile",
+            icon: Icon.Article,
           },
         ],
       },
@@ -190,14 +209,17 @@ export const courses: ICourse[] = [
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
             state: CourseState.Completed,
+            icon: Icon.WalkThru,
           },
           {
             id: "trailhead",
             title: "Trailhead",
+            icon: Icon.Article,
           },
           {
             id: "how-to-create-a-new-profile",
             title: "How to Create a New Profile",
+            icon: Icon.Video,
           },
         ],
       },
@@ -209,14 +231,17 @@ export const courses: ICourse[] = [
             id: "welcome-to-lightning-tour",
             title: "Welcome to Lightning Tour",
             state: CourseState.Completed,
+            icon: Icon.Article,
           },
           {
             id: "trailhead",
             title: "Trailhead",
+            icon: Icon.WalkThru,
           },
           {
             id: "how-to-create-a-new-profile",
             title: "How to Create a New Profile",
+            icon: Icon.Video,
           },
         ],
       },

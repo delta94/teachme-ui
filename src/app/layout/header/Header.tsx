@@ -6,6 +6,7 @@ import UserDetails from "../../components/user/user-details/UserDetails";
 import { useLocation, Link } from "react-router-dom";
 import Button, { ButtonType } from "../../components/buttons/Button";
 import RouteButton from "../../components/buttons/route-button/RouteButton";
+import { Icon } from "../../hooks/useIconManager";
 
 export default function Header() {
   const tmContext = useContext(TeachMeContext);
@@ -58,7 +59,7 @@ export default function Header() {
               ) : (
                 <RouteButton
                   label="Back to Courses Menu"
-                  iconType="arrow-left"
+                  iconType={Icon.ArrowLeft}
                   id="back_to_courses"
                   className="back-btn"
                   buttonType={ButtonType.NoBorder}

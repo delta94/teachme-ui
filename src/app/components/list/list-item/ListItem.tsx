@@ -1,19 +1,24 @@
 import React, { ReactElement } from "react";
 import { CourseState } from "../../../layout/screens/courses-screen/courses.interface";
+import useIconManager, { IconType } from "../../../hooks/useIconManager";
 
 export interface IItemComponentProps<T> {
   onSelect: () => void;
   item: IListItem<T>;
 }
 
+export type IListItemState = CourseState;
+
 export interface IListItem<T> {
   id: string;
   title: string;
   subTitle?: string;
+  link?: string;
   primaryBtn?: {
     label: string;
   };
-  state?: CourseState;
+  state?: IListItemState;
+  iconType?: IconType;
   data?: T;
 }
 
@@ -21,14 +26,32 @@ export default function ListItem<T>({
   item,
   className = "",
   onSelect,
+  state,
+  iconType,
   itemComponent,
 }: {
   item: IListItem<T>;
   className?: string;
+  state?: IListItemState;
+  iconType?: IconType;
   onSelect?: (selected: IListItem<T>) => void;
   itemComponent?: (props?: IItemComponentProps<T>) => ReactElement;
 }) {
   const { title, subTitle, primaryBtn } = item;
+  const icon = useIconManager(iconType);
+  const stateIcon = useIconManager(state);
+  const itemContent = (
+    <>
+      <header>
+        <span className="title">
+          {title}
+          {icon}
+        </span>
+        {subTitle && <span className="sub-title">{subTitle}</span>}
+      </header>
+      {stateIcon}
+    </>
+  );
 
   const listItemClick = () => {
     onSelect(item);
@@ -36,7 +59,7 @@ export default function ListItem<T>({
 
   if (itemComponent) {
     return (
-      <li className={`list-item ${className}`}>
+      <li className={`list-item ${className} ${state}`}>
         {itemComponent({
           onSelect: listItemClick,
           item,
@@ -47,7 +70,7 @@ export default function ListItem<T>({
 
   return (
     <li
-      className={`list-item ${className}`}
+      className={`list-item ${className} ${state}`}
       onClick={() => {
         if (!item.primaryBtn) {
           listItemClick();
@@ -56,12 +79,9 @@ export default function ListItem<T>({
     >
       <div className="item">
         <article className="item-info">
-          <header>
-            <span className="title">{title}</span>
-            {subTitle && <span className="sub-title">{subTitle}</span>}
-          </header>
-          <footer>
-            {primaryBtn && (
+          {item.link ? <a className="link">{itemContent}</a> : itemContent}
+          {primaryBtn && (
+            <footer>
               <button
                 type="button"
                 className="primary-button"
@@ -69,8 +89,8 @@ export default function ListItem<T>({
               >
                 {primaryBtn.label}
               </button>
-            )}
-          </footer>
+            </footer>
+          )}
         </article>
       </div>
     </li>

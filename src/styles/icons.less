@@ -1,4 +1,8 @@
 .icon {
+  --articleIcon: url("../images/icons/Article.svg");
+  --videoIcon: url("../images/icons/Video.svg");
+  --WalkthruIcon: url("../images/icons/Walkthru.svg");
+
   position: relative;
   display: block;
   width: 20px;
@@ -45,5 +49,20 @@
       top: -3px;
       left: 0;
     }
+  }
+
+  &.article {
+    background-image: var(--articleIcon);
+    background-repeat: no-repeat;
+  }
+
+  &.walk-thru {
+    background-image: var(--WalkthruIcon);
+    background-repeat: no-repeat;
+  }
+
+  &.video {
+    background-image: var(--videoIcon);
+    background-repeat: no-repeat;
   }
 }

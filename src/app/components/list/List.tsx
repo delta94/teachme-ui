@@ -1,7 +1,7 @@
-import React, { ReactElement, RefObject } from "react";
+import React, { ReactElement } from "react";
 import ListItem, { IListItem, IItemComponentProps } from "./list-item/ListItem";
 
-export default function List<T, R>({
+export default function List<T>({
   className,
   itemClassName,
   items,
@@ -26,6 +26,8 @@ export default function List<T, R>({
             className={itemClassName}
             onSelect={onSelect}
             itemComponent={itemComponent}
+            state={item.state}
+            iconType={item.iconType}
           />
         );
       })}
