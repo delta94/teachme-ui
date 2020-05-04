@@ -87,8 +87,8 @@
 
   .minimize {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 10px;
+    top: 10px;
     display: inline-block;
     vertical-align: middle;
     width: 40px;
@@ -123,8 +123,7 @@
       height: 42px;
       line-height: 52px; // hacky way to center it vertically
       display: block;
-      background: var(--background);
-      .borderRadius(@radius: 50%);
+      background: transparent;
       text-align: center;
       position: relative;
 
@@ -144,7 +143,7 @@
         z-index: 0;
         width: 0;
         height: 0;
-        background: var(--primary100);
+        background: transparent;
         left: 50%;
         top: 50%;
         .borderRadius(@radius: 50%);
