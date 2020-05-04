@@ -1,6 +1,13 @@
 .screen {
   height: auto;
-  min-height: 50vh;
+  min-height: 80vh;
+  max-height: 90vh;
+  overflow: scroll;
+  padding-right: 30px;
+
+  @media @mobileOnly {
+    padding-right: 10px;
+  }
 
   &-title {
     .fSecondaryMedium();

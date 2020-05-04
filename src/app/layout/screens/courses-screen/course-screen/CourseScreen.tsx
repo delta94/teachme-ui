@@ -67,30 +67,34 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
               }
             />
           </header>
-          <div className="course-lessons">
-            {course.lessons.map((lesson: ILesson, index: number) => {
-              const lessonNum = index + 1;
+          <div className="course-content">
+            <div className="course-lessons-wrapper">
+              {course.lessons.map((lesson: ILesson, index: number) => {
+                const lessonNum = index + 1;
 
-              return (
-                <Dropdown
-                  className="course-lessons"
-                  key={lesson.id}
-                  id={lesson.id}
-                  title={`Lesson ${lessonNum} - ${lesson.id}`}
-                  items={parseTasksToItemList(lesson.tasks)}
-                  isOpen={lessonNum === 1}
-                  handler={{
-                    state: getLessonState(lesson),
-                  }}
+                return (
+                  <Dropdown
+                    className="course-lessons"
+                    key={lesson.id}
+                    id={lesson.id}
+                    title={`Lesson ${lessonNum} - ${lesson.id}`}
+                    items={parseTasksToItemList(lesson.tasks)}
+                    isOpen={lessonNum === 1}
+                    handler={{
+                      state: getLessonState(lesson),
+                    }}
+                  />
+                );
+              })}
+
+              {course.tasks && (
+                <List
+                  className="tasks-list"
+                  items={parseTasksToItemList(course.tasks)}
                 />
-              );
-            })}
-            {course.tasks && (
-              <List
-                className="tasks-list"
-                items={parseTasksToItemList(course.tasks)}
-              />
-            )}
+              )}
+            </div>
+            <div className="course-quiz"></div>
           </div>
         </section>
       </section>
