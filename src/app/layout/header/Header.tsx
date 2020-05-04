@@ -13,6 +13,9 @@ export default function Header() {
   const { isWebApp } = tmContext.tmState;
   const { pathname } = useLocation();
   const isHomePage = pathname === "/";
+  const headerClass = `${isWebApp ? "web" : "app"} ${
+    isHomePage ? "home-page" : "inner-page"
+  } `;
   const logo = useRef();
   const details = useRef();
 
@@ -44,32 +47,25 @@ export default function Header() {
     </>
   );
 
+  const backButton = (
+    <RouteButton
+      label="Back to Courses Menu"
+      iconType={Icon.ArrowLeft}
+      id="back_to_courses"
+      className="back-btn"
+      buttonType={ButtonType.NoBorder}
+      linkTo="/"
+    />
+  );
+
   return (
     <div className="header">
-      {isWebApp && (
-        <>
-          <div className="wrapper">
-            <div
-              className={`general-header ${
-                isHomePage ? "home-page" : "inner-page"
-              }`}
-            >
-              {isHomePage ? (
-                homePageHeader
-              ) : (
-                <RouteButton
-                  label="Back to Courses Menu"
-                  iconType={Icon.ArrowLeft}
-                  id="back_to_courses"
-                  className="back-btn"
-                  buttonType={ButtonType.NoBorder}
-                  linkTo="/"
-                />
-              )}
-            </div>
-          </div>
-        </>
-      )}
+      <div className="wrapper">
+        <div className={`general-header ${headerClass}`}>
+          {isHomePage && isWebApp && homePageHeader}
+          {!isHomePage && backButton}
+        </div>
+      </div>
 
       {isWebApp && (
         <div className="minimize">

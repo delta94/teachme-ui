@@ -1,20 +1,30 @@
 .header {
   display: flex;
 
-  .general-header.home-page {
-    display: grid;
-    align-items: center;
-    grid-template-columns: 95px 1fr;
-    grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    grid-template-areas: "logo details";
-    height: 133px;
-    margin: 0 auto;
+  .general-header.web {
+    &.home-page {
+      display: grid;
+      align-items: center;
+      grid-template-columns: 95px 1fr;
+      grid-template-rows: 1fr;
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+      grid-template-areas: "logo details";
+      height: 133px;
+      margin: 0 auto;
+    }
+
+    &.inner-page {
+      height: 70px;
+
+      .btn.back-btn {
+        margin-top: 50px;
+      }
+    }
   }
 
-  .general-header.inner-page {
-    height: 70px;
+  .general-header.app.inner-page {
+    height: 40px;
   }
 
   .details {
@@ -70,9 +80,9 @@
 
   .btn.back-btn {
     background-color: transparent;
-    margin-top: 50px;
     font-size: 11px;
     padding: 0;
+    margin-top: 10px;
   }
 
   .minimize {
