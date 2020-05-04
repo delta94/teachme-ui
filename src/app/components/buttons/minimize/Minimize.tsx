@@ -3,7 +3,6 @@ import React from "react";
 export default function Minimize() {
   return (
     <a>
-      <div className="circle"></div>
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
