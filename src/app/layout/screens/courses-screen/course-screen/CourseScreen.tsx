@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 
 import {
@@ -11,17 +11,19 @@ import {
 import { getCourseById } from "../coursesUtils";
 import "../../../../../styles/screens/courses-screen/course-screen.less";
 
-import Button, { ButtonType } from "../../../../components/buttons/Button";
 import { ProgressBar } from "../../../../components/progress-bar/ProgressBar";
 import List from "../../../../components/list/List";
-import { TeachMeContext } from "../../../../App";
 import Dropdown from "../../../../components/dropdown/Dropdown";
+import useViewManager from "../../../../hooks/useViewManager";
 
 type TParams = { courseId: string };
 
 export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
+  const courseSection = useRef();
   const [course, setCourse] = useState(null as ICourse);
   const defaultCourseData = { status: 0, state: CourseState.NotStarted };
+  const { animateCoreElements } = useViewManager();
+
   const parseTasksToItemList = (tasks: ITask[]) => {
     return tasks.map((task: ITask) => {
       const { icon, ...noIcon } = task;
@@ -37,10 +39,20 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
     setCourse(selectedCourse);
   }, []);
 
+  useEffect(() => {
+    if (course) {
+      animateCoreElements({
+        elements: [courseSection.current],
+        animateClassName: "fadeIn",
+        timeout: 300,
+      });
+    }
+  }, [course]);
+
   return (
     course && (
-      <section className="screen course-screen">
-        <section className="course">
+      <section className="screen course-screen ">
+        <section ref={courseSection} className="course animated-element">
           <header className="course-information">
             <h3 className="screen-title">{course.title}</h3>
             <ProgressBar

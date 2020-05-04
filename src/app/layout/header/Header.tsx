@@ -18,6 +18,7 @@ export default function Header() {
   } `;
   const logo = useRef();
   const details = useRef();
+  const innerHeader = useRef();
 
   const { animateCoreElements } = useViewManager();
 
@@ -34,6 +35,13 @@ export default function Header() {
         timeout: 200,
       });
     }
+    if (!isHomePage) {
+      animateCoreElements({
+        elements: [innerHeader.current],
+        animateClassName: "fadeInDown",
+        timeout: 300,
+      });
+    }
   }, [isWebApp, isHomePage]);
 
   const homePageHeader = (
@@ -47,15 +55,17 @@ export default function Header() {
     </>
   );
 
-  const backButton = (
-    <RouteButton
-      label="Back to Courses Menu"
-      iconType={Icon.ArrowLeft}
-      id="back_to_courses"
-      className="back-btn"
-      buttonType={ButtonType.NoBorder}
-      linkTo="/"
-    />
+  const innerPageHeader = (
+    <div ref={innerHeader} className="inner-header topElement">
+      <RouteButton
+        label="Back to Courses Menu"
+        iconType={Icon.ArrowLeft}
+        id="back_to_courses"
+        className="back-btn"
+        buttonType={ButtonType.NoBorder}
+        linkTo="/"
+      />
+    </div>
   );
 
   return (
@@ -63,7 +73,7 @@ export default function Header() {
       <div className="wrapper">
         <div className={`general-header ${headerClass}`}>
           {isHomePage && isWebApp && homePageHeader}
-          {!isHomePage && backButton}
+          {!isHomePage && innerPageHeader}
         </div>
       </div>
 
