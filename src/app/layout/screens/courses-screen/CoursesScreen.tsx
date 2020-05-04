@@ -84,6 +84,17 @@ export const courses: ICourse[] = [
         icon: Icon.Article,
       },
     ],
+    quiz: {
+      id: "user-management",
+      title: "Course Assessment",
+      link: "/quiz/user-management",
+      media: {
+        thumbnail: {
+          ratio_1_1: "https://picsum.photos/200/200",
+          ratio_2_1: "https://picsum.photos/310/140",
+        },
+      },
+    },
   },
   {
     id: "system-introduction",

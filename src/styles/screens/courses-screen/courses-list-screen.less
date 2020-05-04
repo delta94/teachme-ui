@@ -1,4 +1,4 @@
-@import "../../variables.less";
+@import "../../components/list/list-item/teach-me-list-item.less";
 
 .courses-screen {
   .user-details {
@@ -26,6 +26,99 @@
 
     @media @tinyOnly {
       grid-template-columns: 1fr;
+    }
+  }
+
+  .list.courses .list-item {
+    margin-bottom: 0;
+    opacity: 0;
+
+    &.fadeInUp {
+      animation: fadeInUp 0.3s linear both;
+      .nthChildAnimationDelay(20);
+    }
+  }
+
+  .list.courses {
+    .list-item {
+      margin-bottom: 0;
+      opacity: 0;
+      border: 0;
+
+      .item {
+        .horizontalLayout();
+        grid-template-rows: 105px auto;
+        grid-template-columns: 105px 1fr;
+
+        @media @tinyOnly {
+          grid-template-rows: 100px auto;
+          grid-template-columns: 140px 1fr;
+        }
+
+        header {
+          padding: 0;
+        }
+
+        .btn {
+          &:not(.completed) {
+            .btn-label {
+              position: relative;
+              padding-right: 15px;
+
+              &:after {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: 50%;
+                width: 4.5px;
+                height: 4.5px;
+                border-bottom: solid 1.5px currentColor;
+                border-right: solid 1.5px currentColor;
+                -webkit-transform: rotate(-45deg) translateY(-50%);
+                transform: rotate(-45deg) translateY(-50%);
+              }
+            }
+          }
+        }
+
+        .title {
+          .fRegular();
+        }
+
+        .thumb {
+          height: 105px;
+
+          .ratio_1_1 {
+            @media @tabletOnly {
+              display: none;
+            }
+          }
+          .ratio_2_1 {
+            @media @mobileOnly {
+              display: none;
+            }
+          }
+        }
+      }
+
+      &.fadeInUp {
+        animation: fadeInUp 0.3s linear both;
+        .nthChildAnimationDelay(20);
+      }
+    }
+
+    @media @tabletOnly {
+      .list-item .item {
+        .verticalLayout();
+
+        article {
+          grid-template-rows: 35px 30px;
+
+          header {
+            padding-top: 5px;
+          }
+        }
+      }
     }
   }
 }

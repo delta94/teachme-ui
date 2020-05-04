@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { IListItem } from "../../../../components/list/list-item/ListItem";
 import List from "../../../../components/list/List";
-import CourseListItem from "../../../../components/list/list-item/course-list-item/CourseListItem";
+import TMListItem from "../../../../components/list/list-item/teach-me-list-item/TMListItem";
 import { ICourseData } from "../courses.interface";
 import UserDetails from "../../../../components/user/user-details/UserDetails";
 import { TeachMeContext } from "../../../../App";
@@ -27,7 +27,7 @@ export default function CoursesListScreen() {
         className="courses"
         itemClassName="fadeInUp"
         items={coursesListItems as IListItem<ICourseData>[]}
-        itemComponent={CourseListItem}
+        itemComponent={TMListItem}
       />
     </div>
   );

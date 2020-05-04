@@ -13,6 +13,7 @@ export interface IListItem<T> {
   id: string;
   title: string;
   subTitle?: string;
+  description?: string;
   link?: string;
   primaryBtn?: {
     label: string;

@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
-import { ICourse, CourseState, ILesson, ITask } from "../courses.interface";
+import {
+  ICourse,
+  CourseState,
+  ILesson,
+  ITask,
+  IQuiz,
+} from "../courses.interface";
 import { getCourseById } from "../coursesUtils";
 import "../../../../../styles/screens/courses-screen/course-screen.less";
 
@@ -9,6 +15,7 @@ import { ProgressBar } from "../../../../components/progress-bar/ProgressBar";
 import List from "../../../../components/list/List";
 import useViewManager from "../../../../hooks/useViewManager";
 import Dropdown from "../../../../components/dropdown/Dropdown";
+import TMListItem from "../../../../components/list/list-item/teach-me-list-item/TMListItem";
 
 type TParams = { courseId: string };
 
@@ -27,6 +34,18 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
         link: "https://www.walkme.com/",
       };
     });
+  };
+
+  const parseQuizListItem = (quiz: IQuiz) => {
+    return {
+      ...quiz,
+      description:
+        "Did you master this course? Use this quiz to assess your Knowledge",
+      data: {
+        media: quiz.media,
+        state: quiz.state,
+      },
+    };
   };
 
   const getLessonState = (lesson: ILesson) => {
@@ -57,8 +76,13 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
 
   return (
     course && (
-      <section className="screen course-screen ">
-        <section ref={courseSection} className="course animated-element">
+      <section className="screen course-screen">
+        <section
+          ref={courseSection}
+          className={`course animated-element ${
+            course.quiz ? "with-quiz" : ""
+          }`}
+        >
           <header className="course-information">
             <h3 className="screen-title">{course.title}</h3>
             <ProgressBar
@@ -94,7 +118,15 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                 />
               )}
             </div>
-            <div className="course-quiz"></div>
+            {course.quiz && (
+              <div className="course-quiz">
+                <TMListItem
+                  item={parseQuizListItem(course.quiz)}
+                  hideProgressBar
+                  extraLabel="Quiz"
+                />
+              </div>
+            )}
           </div>
         </section>
       </section>

@@ -9,6 +9,7 @@ export const parseToCourseListItems = (courses: ICourse[]): IListItem<{}>[] => {
     return {
       id,
       title,
+      link: `/course/${id}`,
       data: {
         ...data,
         media,
