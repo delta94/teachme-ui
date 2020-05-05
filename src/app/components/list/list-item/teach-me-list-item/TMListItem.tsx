@@ -96,7 +96,7 @@ export default function TMListItem({
             </span>
           </Button>
           <span className={`test-label ${isTested ? "tested" : ""}`}>
-            {isTested ? "Tested" : "Not Tested"}
+            {isTested ? "Tested" : "Not tested"}
           </span>
         </footer>
       </article>
