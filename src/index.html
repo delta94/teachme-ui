@@ -3,6 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <script>
+      window.walkme_ready = async function (walkme) {
+        await walkme.init();
+        window.walkme = walkme;
+        window.teachme = await walkme.apps.getApp("teachme");
+        const courses = await teachme.getContent();
+        if (!courses) {
+          console.log(
+            "Teachme did not return data, try setting a query param teachme=mock"
+          );
+        } else {
+          console.log(courses);
+        }
+      };
+    </script>
+    <script src="https://cdn.walkme.com/sdk/player/1.0.22-3/main.js"></script> -->
     <title>TeachMe</title>
   </head>
   <body>

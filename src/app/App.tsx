@@ -1,8 +1,7 @@
 import React, { useEffect, createContext, useState } from "react";
 import { HashRouter } from "react-router-dom";
 
-import walkme from "@walkme/sdk";
-import { ISdk } from "@walkme/sdk/dist/interfaces/sdk";
+import walkme, { ISdk } from "@walkme/sdk";
 
 import { config } from "./config";
 import { wmPlatformType, tmPlatformType } from "./consts/platform";
@@ -28,12 +27,14 @@ const defaultInitialTMState = {
   // wmNotification: {} as WalkMeApp,
   // wmUiTree: [] as ContentItem[],
   // wmLanguages: {} as LanguageItem[],
+  courses: [] as any[],
   initiated: false,
   debugError: "",
   platformType: "",
   isWebApp: false,
   tmUser: defaultUserData,
 };
+
 export const TeachMeContext = createContext({
   tmState: defaultInitialTMState,
   updateTMState: (updatedState: ITMState) => {},
@@ -121,6 +122,21 @@ export default function App() {
 
         if (walkme) {
           setWalkmeSDK(walkme);
+        } else {
+          console.log(
+            "Walkme did not return data, try setting a query param platform=mock"
+          );
+        }
+
+        const teachme = await walkme.apps.getApp("teachme");
+        const courses = await teachme.getContent();
+
+        if (courses) {
+          console.log("courses ", courses);
+        } else {
+          console.log(
+            "Teachme did not return data, try setting a query param teachme=mock"
+          );
         }
 
         timeout = setTimeout(() => {
@@ -133,16 +149,10 @@ export default function App() {
         const platform = String(searchParams.get("platform"));
         const type = String(searchParams.get("tm-type"));
 
-        // const [
-        //   languagesSDK,
-        // ] = await Promise.all([
-        //   walkme.content.getContentUITree(),
-        //   walkme.language.getLanguagesList(),
-        // ]);
-
         clearTimeout(timeout);
         setTMState({
           ...tmState,
+          courses,
           initiated: true,
           platformType: platform,
           isWebApp: type === tmPlatformType.Web,
