@@ -1,6 +1,8 @@
 import React, { ReactElement } from "react";
 import { CourseState } from "../../../layout/screens/courses-screen/courses.interface";
 import useIconManager, { IconType } from "../../../hooks/useIconManager";
+import { useHistory } from "react-router-dom";
+import useLink from "../../../hooks/useLink";
 
 export interface IItemComponentProps<T> {
   onSelect: () => void;
@@ -15,6 +17,8 @@ export interface IListItem<T> {
   subTitle?: string;
   description?: string;
   link?: string;
+  clickable?: boolean;
+  externalLink?: boolean;
   primaryBtn?: {
     label: string;
   };
@@ -38,6 +42,7 @@ export default function ListItem<T>({
   onSelect?: (selected: IListItem<T>) => void;
   itemComponent?: (props?: IItemComponentProps<T>) => ReactElement;
 }) {
+  const { handleLinkClick } = useLink();
   const { title, subTitle, primaryBtn } = item;
   const icon = useIconManager(iconType);
   const stateIcon = useIconManager(state);
@@ -47,7 +52,7 @@ export default function ListItem<T>({
     <>
       <header>
         <span className="title">
-          {title}
+          <span className="text">{title}</span>
           {icon}
         </span>
         {subTitle && <span className="sub-title">{subTitle}</span>}
@@ -57,7 +62,11 @@ export default function ListItem<T>({
   );
 
   const listItemClick = () => {
-    onSelect(item);
+    if (onSelect) {
+      onSelect(item);
+    } else if (item.link) {
+      handleLinkClick(item.link);
+    }
   };
 
   if (itemComponent) {
@@ -75,22 +84,16 @@ export default function ListItem<T>({
     <li className={`list-item ${className} ${stateClass}`}>
       <div className="item">
         <article className="item-info">
-          {item.link ? (
-            <a className="item-handler" target="_blank" href={item.link}>
-              {itemContent}
-            </a>
-          ) : (
-            <div
-              className="item-handler"
-              onClick={() => {
-                if (!item.primaryBtn) {
-                  listItemClick();
-                }
-              }}
-            >
-              {itemContent}
-            </div>
-          )}
+          <div
+            className="item-handler"
+            onClick={() => {
+              if (!item.primaryBtn) {
+                listItemClick();
+              }
+            }}
+          >
+            {itemContent}
+          </div>
           {primaryBtn && (
             <footer>
               <button

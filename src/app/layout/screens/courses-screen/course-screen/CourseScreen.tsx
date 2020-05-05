@@ -32,6 +32,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
         ...noIcon,
         iconType: task.icon,
         link: "https://www.walkme.com/",
+        externalLink: true,
       };
     });
   };
@@ -89,6 +90,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
               percentCompletion={
                 course.data ? course.data.status : defaultCourseData.status
               }
+              showPercentages
             />
           </header>
           <div className="course-content">

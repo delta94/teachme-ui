@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import {
   ICourseData,
@@ -10,26 +10,31 @@ import { ProgressBar } from "../../../progress-bar/ProgressBar";
 import Button, { ButtonType } from "../../../buttons/Button";
 
 import "../../../../../styles/components/list/list-item/teach-me-list-item.less";
+import useLink from "../../../../hooks/useLink";
 
 export default function TMListItem({
   item,
   hideProgressBar,
   extraLabel = "",
   overrideLabel,
+  onSelect,
 }: {
   item: IListItem<ICourseData>;
   hideProgressBar?: boolean;
   extraLabel?: string;
   overrideLabel?: string;
+  onSelect?: () => void;
 }) {
   const {
     id,
     title,
     link,
     subTitle,
+    clickable,
     data = { status: 0, state: CourseState.NotStarted },
     description = "",
   } = item;
+  const { handleLinkClick } = useLink();
   const { status, state, media } = data;
   const { thumbnail } = media;
   const isCompleted =
@@ -38,8 +43,23 @@ export default function TMListItem({
     status > 0 ? (isCompleted ? "Completed" : "Resume") : "Start";
   const isTested = state === CourseState.Tested;
 
+  const handleClick = () => {
+    if (onSelect) {
+      onSelect();
+    } else if (link) {
+      handleLinkClick(link);
+    }
+  };
+
   return (
-    <div className="item tm-item-info">
+    <div
+      className="item tm-item-info"
+      onClick={() => {
+        if (clickable) {
+          handleClick();
+        }
+      }}
+    >
       {thumbnail && (
         <picture className="thumb">
           <img
@@ -69,15 +89,14 @@ export default function TMListItem({
               isCompleted ? ButtonType.Completed : ButtonType.Default
             }
             id={id}
+            buttonClicked={handleClick}
           >
-            <Link to={link}>
-              <span className="btn-label">
-                {overrideLabel || `${buttonLabel} ${extraLabel}`}
-              </span>
-            </Link>
+            <span className="btn-label">
+              {overrideLabel || `${buttonLabel} ${extraLabel}`}
+            </span>
           </Button>
           <span className={`test-label ${isTested ? "tested" : ""}`}>
-            {isTested ? "Tested" : "Not Tested"}
+            {isTested ? "Tested" : "Not tested"}
           </span>
         </footer>
       </article>

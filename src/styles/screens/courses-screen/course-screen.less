@@ -1,7 +1,8 @@
 @import "../../variables.less";
+@import "../../mixins.less";
 
 .screen.course-screen {
-  --quizBoxWidthDesktop: 285px;
+  --quizBoxWidthDesktop: 290px;
   --gridColumnGap: 17px;
   --courseInformationWidth: calc(
     100% - (calc(var(--quizBoxWidthDesktop) + var(--gridColumnGap)))
@@ -16,38 +17,92 @@
 
   .course-information {
     .progress-bar-wrapper {
-      margin-bottom: 15px;
+      margin-top: -20px;
     }
   }
 
   .course-lessons-wrapper {
+    padding-top: 15px;
     margin-bottom: 20px;
 
     @media @desktopOnly {
-      min-height: 500px;
-      max-height: 500px;
+      min-height: 630px;
+      max-height: 630px;
       overflow: scroll;
       padding-right: 10px;
     }
   }
 
-  .course-lessons {
-    .list:not(.dropdown-list) .list-item .item {
+  .dropdown-wrapper {
+    .hoverFloating();
+  }
+
+  .list.tasks-list .list-item > .item {
+    box-shadow: var(--elementShadow);
+    .hoverFloating();
+
+    .item-info .item-handler {
       padding: 0 10px;
+      > .icon {
+        right: 20px;
+      }
     }
-    .list .list-item {
-      &.completed {
+  }
+
+  .list .list-item {
+    &.completed {
+      > .item {
         .title {
           text-decoration: line-through;
           text-decoration-color: currentColor;
+
+          .text {
+            opacity: 0.6;
+          }
         }
       }
     }
   }
 
   .course-quiz {
+    padding-top: 15px;
     width: 100%;
     height: 300px;
+
+    .item.tm-item-info {
+      @media @tabletOnly {
+        grid-template-rows: 155px;
+        grid-template-columns: 185px 1fr;
+
+        article {
+          header {
+            padding-top: 20px;
+          }
+        }
+      }
+
+      .thumb {
+        max-height: 180px;
+      }
+
+      @media @desktopOnly {
+        .thumb {
+          max-height: 143px;
+        }
+      }
+
+      article {
+        padding: 5px 17px 18px;
+
+        footer {
+          padding-top: 5px;
+
+          .btn .btn-label {
+            padding: 0 12px;
+          }
+        }
+      }
+    }
   }
 
   .course-content {
@@ -64,8 +119,8 @@
 
     .course-content {
       @media @desktopOnly {
-        grid-template-columns: 2fr 285px;
-        grid-column-gap: 17px;
+        grid-template-columns: 2fr var(--quizBoxWidthDesktop);
+        grid-column-gap: var(--gridColumnGap);
       }
     }
   }

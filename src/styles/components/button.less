@@ -21,6 +21,10 @@
     border: none;
     border-radius: 0;
     max-width: fit-content;
+
+    &:hover {
+      border: 0;
+    }
   }
 
   a {
@@ -41,39 +45,35 @@
   &.default {
     background-color: var(--currentColor);
     border: 1px solid var(--primary);
-    color: var(--primary100);
-
-    &:hover {
-      border: 1px solid var(--primaryHover);
-      background-color: var(--primaryHover);
-    }
+    color: var(--white);
   }
 
   &.completed {
-    background-color: var(--primary100);
+    background-color: var(--white);
     border: 1px solid var(--primary);
     color: var(--primary);
 
     &:hover {
-      background-color: var(--primary);
-      color: var(--primary100);
+      color: var(--white);
     }
   }
+
+  &:hover {
+    border: 1px solid var(--primaryHover);
+    background-color: var(--primaryHover);
+  }
+
   .btn-label {
     line-height: 11px;
     white-space: nowrap;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 0;
+    margin-top: -2px;
 
     .icon {
       margin-right: 10px;
       color: var(--primary);
     }
-  }
-
-  > .btn-label {
-    margin-top: -2px;
   }
 }

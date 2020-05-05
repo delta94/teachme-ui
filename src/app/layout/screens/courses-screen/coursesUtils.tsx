@@ -10,6 +10,7 @@ export const parseToCourseListItems = (courses: ICourse[]): IListItem<{}>[] => {
       id,
       title,
       link: `/course/${id}`,
+      clickable: true,
       data: {
         ...data,
         media,
