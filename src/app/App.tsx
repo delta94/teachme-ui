@@ -1,10 +1,11 @@
 import React, { useEffect, createContext, useState } from "react";
 import { HashRouter } from "react-router-dom";
 
+import walkme from "@walkme/sdk";
 import { ISdk } from "@walkme/sdk/dist/interfaces/sdk";
 
 import { config } from "./config";
-import { wmPlatformType } from "./consts/platform";
+import { wmPlatformType, tmPlatformType } from "./consts/platform";
 import Debug from "./layout/debug/Debug";
 import Header from "./layout/header/Header";
 import Main from "./layout/main/Main";
@@ -12,8 +13,6 @@ import Main from "./layout/main/Main";
 import "../styles/index.less";
 import { IUserData } from "./interfaces/user/user.interface";
 import { ITMState } from "./interfaces/tm-state/tmState.interface";
-import useAppManager from "./hooks/useAppManager";
-
 export const defaultUserData: IUserData = {
   user: {
     firstName: "Dan",
@@ -35,7 +34,6 @@ const defaultInitialTMState = {
   isWebApp: false,
   tmUser: defaultUserData,
 };
-
 export const TeachMeContext = createContext({
   tmState: defaultInitialTMState,
   updateTMState: (updatedState: ITMState) => {},
@@ -43,10 +41,8 @@ export const TeachMeContext = createContext({
 });
 
 export default function App() {
-  const { walkmeSDK, initialTmState } = useAppManager({
-    defaultInitialTMState,
-  });
-  const [tmState, setTMState] = useState(initialTmState);
+  const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
+  const [tmState, setTMState] = useState(defaultInitialTMState);
   const { platformType, initiated } = tmState;
 
   /**
@@ -81,6 +77,17 @@ export default function App() {
   };
 
   /**
+   * Calls to app method after app state initiated
+   */
+  useEffect(() => {
+    if (initiated) {
+      if (config.debug) displayDebugInfo();
+      addGuidSpecificStyle();
+      //App.onWindowReady();
+    }
+  }, [initiated]);
+
+  /**
    * displayDebugInfo
    */
   const displayDebugInfo = () => {
@@ -102,15 +109,51 @@ export default function App() {
   };
 
   /**
-   * Calls to app method after app state initiated
+   * Initial SDK and
    */
   useEffect(() => {
-    if (initiated) {
-      if (config.debug) displayDebugInfo();
-      addGuidSpecificStyle();
-      //App.onWindowReady();
-    }
-  }, [initiated]);
+    (async () => {
+      let timeout;
+
+      try {
+        await walkme.init();
+        console.log("WalkMe ready =>", walkme);
+
+        if (walkme) {
+          setWalkmeSDK(walkme);
+        }
+
+        timeout = setTimeout(() => {
+          throw new Error(
+            `Search timeout, could not get uiTree in ${config.timeoutIfUiTreeNotFound}ms`
+          );
+        }, config.timeoutIfUiTreeNotFound);
+
+        const searchParams = new URLSearchParams(location.search);
+        const platform = String(searchParams.get("platform"));
+        const type = String(searchParams.get("tm-type"));
+
+        // const [
+        //   languagesSDK,
+        // ] = await Promise.all([
+        //   walkme.content.getContentUITree(),
+        //   walkme.language.getLanguagesList(),
+        // ]);
+
+        clearTimeout(timeout);
+        setTMState({
+          ...tmState,
+          initiated: true,
+          platformType: platform,
+          isWebApp: type === tmPlatformType.Web,
+        });
+      } catch (err) {
+        console.error(err);
+        clearTimeout(timeout);
+        // App.initializeWithError();
+      }
+    })();
+  }, []);
 
   return (
     <HashRouter>
