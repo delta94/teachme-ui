@@ -16,7 +16,7 @@
 
   .course-information {
     .progress-bar-wrapper {
-      margin-top: -25px;
+      margin-top: -20px;
       margin-bottom: 15px;
     }
   }
@@ -25,22 +25,31 @@
     margin-bottom: 20px;
 
     @media @desktopOnly {
-      min-height: 500px;
-      max-height: 500px;
+      min-height: 800px;
+      max-height: 800px;
       overflow: scroll;
       padding-right: 10px;
     }
   }
 
-  .course-lessons {
-    .list:not(.dropdown-list) .list-item .item {
+  .list.tasks-list .list-item > .item {
+    .item-info .item-handler {
       padding: 0 10px;
+      > .icon {
+        right: 20px;
+      }
     }
-    .list .list-item {
-      &.completed {
+  }
+  .list .list-item {
+    &.completed {
+      > .item {
         .title {
           text-decoration: line-through;
           text-decoration-color: currentColor;
+
+          .text {
+            opacity: 0.6;
+          }
         }
       }
     }

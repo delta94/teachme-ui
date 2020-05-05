@@ -52,7 +52,7 @@ export default function ListItem<T>({
     <>
       <header>
         <span className="title">
-          {title}
+          <span className="text">{title}</span>
           {icon}
         </span>
         {subTitle && <span className="sub-title">{subTitle}</span>}
