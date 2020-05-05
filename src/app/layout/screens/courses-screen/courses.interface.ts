@@ -38,6 +38,18 @@ export interface ICourseMedia {
   };
 }
 
+export interface IQuiz {
+  id: string;
+  title: string;
+  link: string;
+  description?: string;
+  state?: CourseState;
+  data?: {
+    state?: CourseState;
+  };
+  media: ICourseMedia;
+}
+
 export interface ICourse {
   id: string;
   title: string;
@@ -48,6 +60,7 @@ export interface ICourse {
   media: ICourseMedia;
   lessons?: ILesson[];
   tasks?: ITask[];
+  quiz?: IQuiz;
 }
 
 export interface ICourseData {

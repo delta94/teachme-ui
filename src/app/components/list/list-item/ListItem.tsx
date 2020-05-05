@@ -13,6 +13,7 @@ export interface IListItem<T> {
   id: string;
   title: string;
   subTitle?: string;
+  description?: string;
   link?: string;
   primaryBtn?: {
     label: string;
@@ -71,17 +72,25 @@ export default function ListItem<T>({
   }
 
   return (
-    <li
-      className={`list-item ${className} ${state}`}
-      onClick={() => {
-        if (!item.primaryBtn) {
-          listItemClick();
-        }
-      }}
-    >
+    <li className={`list-item ${className} ${stateClass}`}>
       <div className="item">
         <article className="item-info">
-          {item.link ? <a className="link">{itemContent}</a> : itemContent}
+          {item.link ? (
+            <a className="item-handler" target="_blank" href={item.link}>
+              {itemContent}
+            </a>
+          ) : (
+            <div
+              className="item-handler"
+              onClick={() => {
+                if (!item.primaryBtn) {
+                  listItemClick();
+                }
+              }}
+            >
+              {itemContent}
+            </div>
+          )}
           {primaryBtn && (
             <footer>
               <button

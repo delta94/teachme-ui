@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import {
   ICourseData,
@@ -8,19 +9,26 @@ import { IListItem } from "../ListItem";
 import { ProgressBar } from "../../../progress-bar/ProgressBar";
 import Button, { ButtonType } from "../../../buttons/Button";
 
-import "../../../../../styles/components/list/list-item/course-list-item.less";
-import { Link } from "react-router-dom";
+import "../../../../../styles/components/list/list-item/teach-me-list-item.less";
 
-export default function CourseListItem<T>({
+export default function TMListItem({
   item,
+  hideProgressBar,
+  extraLabel = "",
+  overrideLabel,
 }: {
   item: IListItem<ICourseData>;
+  hideProgressBar?: boolean;
+  extraLabel?: string;
+  overrideLabel?: string;
 }) {
   const {
     id,
     title,
+    link,
     subTitle,
     data = { status: 0, state: CourseState.NotStarted },
+    description = "",
   } = item;
   const { status, state, media } = data;
   const { thumbnail } = media;
@@ -31,7 +39,7 @@ export default function CourseListItem<T>({
   const isTested = state === CourseState.Tested;
 
   return (
-    <div className="item course-info">
+    <div className="item tm-item-info">
       {thumbnail && (
         <picture className="thumb">
           <img
@@ -52,6 +60,7 @@ export default function CourseListItem<T>({
         <header>
           <h3 className="title">{title}</h3>
           {subTitle && <span className="sub-title">{subTitle}</span>}
+          {description && <p className="description">{description}</p>}
         </header>
         <footer className="status-area">
           <Button
@@ -61,8 +70,10 @@ export default function CourseListItem<T>({
             }
             id={id}
           >
-            <Link to={`/course/${id}`}>
-              <span className="btn-label">{buttonLabel}</span>
+            <Link to={link}>
+              <span className="btn-label">
+                {overrideLabel || `${buttonLabel} ${extraLabel}`}
+              </span>
             </Link>
           </Button>
           <span className={`test-label ${isTested ? "tested" : ""}`}>
@@ -70,7 +81,7 @@ export default function CourseListItem<T>({
           </span>
         </footer>
       </article>
-      <ProgressBar percentCompletion={status} />
+      {!hideProgressBar && <ProgressBar percentCompletion={status} />}
     </div>
   );
 }

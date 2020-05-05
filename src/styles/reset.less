@@ -8,22 +8,40 @@ html {
   font-size: 12px;
   line-height: 1.2 !important;
   height: 100%;
+  overflow: hidden;
 
   * {
     .boxSizing();
+  }
+
+  /*scroll-bar reset*/
+  /* width */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollBarBG);
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollBarBG);
   }
 }
 
 .wrapper {
   margin: 0 auto;
   width: 100%;
-  max-width: 960px;
-  padding: 0 30px;
+  max-width: 910px;
+  padding: 0 0 0 10px;
   position: relative;
-
-  @media @mobileOnly {
-    padding: 0 10px;
-  }
 }
 
 h1,
