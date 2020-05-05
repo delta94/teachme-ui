@@ -1,7 +1,7 @@
 @import "../../variables.less";
 
 .screen.course-screen {
-  --quizBoxWidthDesktop: 285px;
+  --quizBoxWidthDesktop: 290px;
   --gridColumnGap: 17px;
   --courseInformationWidth: calc(
     100% - (calc(var(--quizBoxWidthDesktop) + var(--gridColumnGap)))
@@ -49,6 +49,41 @@
   .course-quiz {
     width: 100%;
     height: 300px;
+
+    .item.tm-item-info {
+      @media @tabletOnly {
+        grid-template-rows: 155px;
+        grid-template-columns: 185px 1fr;
+
+        article {
+          header {
+            padding-top: 20px;
+          }
+        }
+      }
+
+      .thumb {
+        max-height: 180px;
+      }
+
+      @media @desktopOnly {
+        .thumb {
+          max-height: 143px;
+        }
+      }
+
+      article {
+        padding: 5px 17px 18px;
+
+        footer {
+          padding-top: 5px;
+
+          .btn .btn-label {
+            padding: 0 12px;
+          }
+        }
+      }
+    }
   }
 
   .course-content {
@@ -65,7 +100,7 @@
 
     .course-content {
       @media @desktopOnly {
-        grid-template-columns: 2fr 285px;
+        grid-template-columns: 2fr var(--quizBoxWidthDesktop);
         grid-column-gap: 17px;
       }
     }
