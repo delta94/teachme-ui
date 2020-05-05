@@ -89,6 +89,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
               percentCompletion={
                 course.data ? course.data.status : defaultCourseData.status
               }
+              showPercentages
             />
           </header>
           <div className="course-content">

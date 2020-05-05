@@ -1,10 +1,24 @@
 @import "../fonts.less";
 
 .progress-bar-wrapper {
-  .title {
-    .fRegular();
-    color: var(--neutral500);
-    margin-bottom: 8px;
+  position: relative;
+
+  .progress-bar-info {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    .title {
+      .fRegular();
+      color: var(--neutral500);
+      margin-bottom: 8px;
+    }
+
+    .percentages {
+      .fRegular();
+      color: var(--neutral500);
+      margin-bottom: 8px;
+      margin-left: auto;
+    }
   }
 
   .progress-bar {
