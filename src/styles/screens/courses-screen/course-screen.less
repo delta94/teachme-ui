@@ -26,8 +26,8 @@
     margin-bottom: 20px;
 
     @media @desktopOnly {
-      min-height: 800px;
-      max-height: 800px;
+      min-height: 630px;
+      max-height: 630px;
       overflow: scroll;
       padding-right: 10px;
     }
@@ -120,7 +120,7 @@
     .course-content {
       @media @desktopOnly {
         grid-template-columns: 2fr var(--quizBoxWidthDesktop);
-        grid-column-gap: 17px;
+        grid-column-gap: var(--gridColumnGap);
       }
     }
   }
