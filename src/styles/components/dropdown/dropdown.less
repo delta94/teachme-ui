@@ -1,4 +1,5 @@
 .dropdown-wrapper {
+  background-color: var(--white);
   border: 1px solid var(--borderLightGray);
   box-shadow: var(--elementShadow);
   margin-bottom: 20px;
@@ -84,22 +85,16 @@
         }
       }
     }
+
     .dropdown-items {
       height: 0;
       opacity: 0;
-      transition: height 0.3s, opacity 0.3s;
+      transition: height 0.3s, opacity 0.6s;
 
       .list {
-        transition: transform 0.2s, visibility 0.4s;
-      }
-
-      &.close {
-        transition: height 0.2s, opacity 0.2s;
-        .list {
-          visibility: hidden;
-          transform: translateY(-20px);
-          transition: transform 0.1s, visibility 0.1s;
-        }
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: transform 0.3s;
       }
 
       &.open {
