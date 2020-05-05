@@ -1,34 +1,20 @@
 import React, { useEffect, createContext, useState } from "react";
 import { HashRouter } from "react-router-dom";
 
-import walkme from "@walkme/sdk";
-import {
-  ISdk,
-  WalkMeApp,
-  ContentItem,
-  LanguageItem,
-} from "@walkme/sdk/dist/interfaces/sdk";
+import { ISdk } from "@walkme/sdk/dist/interfaces/sdk";
 
 import { config } from "./config";
-import { wmPlatformType, tmPlatformType } from "./consts/platform";
+import { wmPlatformType } from "./consts/platform";
+import Debug from "./layout/debug/Debug";
 import Header from "./layout/header/Header";
 import Main from "./layout/main/Main";
 
 import "../styles/index.less";
-import Debug from "./layout/debug/Debug";
+import { IUserData } from "./interfaces/user/user.interface";
+import { ITMState } from "./interfaces/tm-state/tmState.interface";
+import useAppManager from "./hooks/useAppManager";
 
-interface IUser {
-  firstName: string;
-  LastName: string;
-}
-export interface IUserData {
-  user: IUser;
-  courses: {
-    totalProgressBar: number;
-  };
-}
-
-export const userDefaultData: IUserData = {
+export const defaultUserData: IUserData = {
   user: {
     firstName: "Dan",
     LastName: "Israeli",
@@ -37,20 +23,8 @@ export const userDefaultData: IUserData = {
     totalProgressBar: 20,
   },
 };
-export interface IWMState {
-  wmSearch: WalkMeApp;
-  wmNotification: WalkMeApp;
-  wmUiTree: ContentItem[];
-  wmLanguages: LanguageItem[];
-  initiated: boolean;
-  debugError: string;
-  platformType: string;
-  includeLayout: boolean;
-  informationScreen?: string; // TODO: check this issue
-  tmUser: IUserData;
-}
 
-const initialState = {
+const defaultInitialTMState = {
   // wmSearch: {} as WalkMeApp,
   // wmNotification: {} as WalkMeApp,
   // wmUiTree: [] as ContentItem[],
@@ -59,29 +33,40 @@ const initialState = {
   debugError: "",
   platformType: "",
   isWebApp: false,
-  tmUser: userDefaultData,
+  tmUser: defaultUserData,
 };
 
 export const TeachMeContext = createContext({
-  tmState: initialState,
-  updateWMState: (updatedState: IWMState) => {},
+  tmState: defaultInitialTMState,
+  updateTMState: (updatedState: ITMState) => {},
   walkmeSDK: {} as ISdk,
 });
 
 export default function App() {
-  const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
-  const [tmState, setWMState] = useState(initialState);
+  const { walkmeSDK, initialTmState } = useAppManager({
+    defaultInitialTMState,
+  });
+  const [tmState, setTMState] = useState(initialTmState);
   const { platformType, initiated } = tmState;
 
-  const updateWMState = (updatedState: IWMState) => {
-    setWMState((prevWMState) => {
+  /**
+   * updateTMState
+   * context callback to update state
+   * @param updatedState
+   */
+  const updateTMState = (updatedState: ITMState) => {
+    setTMState((prevTMState) => {
       return {
-        ...prevWMState,
+        ...prevTMState,
         updatedState,
       };
     });
   };
 
+  /**
+   * addGuidSpecificStyle
+   * Adding custom styles by guid
+   */
   const addGuidSpecificStyle = () => {
     const search = new URLSearchParams(location.search);
     const guid = search.get("guid");
@@ -95,14 +80,9 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
-    if (initiated) {
-      if (config.debug) displayDebugInfo();
-      addGuidSpecificStyle();
-      //App.onWindowReady();
-    }
-  }, [initiated]);
-
+  /**
+   * displayDebugInfo
+   */
   const displayDebugInfo = () => {
     const search = new URLSearchParams(location.search);
     let guid = search.get("guid");
@@ -111,9 +91,9 @@ export default function App() {
     if (guid === "441591f37cad4aedafb740c52b1aab64") guid = `${guid} (Local)`;
     const host = location.host;
 
-    setWMState((prevWMState) => {
+    setTMState((prevTMState) => {
       return {
-        ...prevWMState,
+        ...prevTMState,
         debugError: `${host}, ${
           platformType.charAt(0).toUpperCase() + platformType.slice(1)
         }, ${guid}, v${config.debug_appVersion}`,
@@ -121,49 +101,16 @@ export default function App() {
     });
   };
 
+  /**
+   * Calls to app method after app state initiated
+   */
   useEffect(() => {
-    (async () => {
-      let timeout;
-
-      try {
-        await walkme.init();
-        console.log("WalkMe ready =>", walkme);
-
-        if (walkme) {
-          setWalkmeSDK(walkme);
-        }
-
-        timeout = setTimeout(() => {
-          throw new Error(
-            `Search timeout, could not get uiTree in ${config.timeoutIfUiTreeNotFound}ms`
-          );
-        }, config.timeoutIfUiTreeNotFound);
-
-        const searchParams = new URLSearchParams(location.search);
-        const platform = String(searchParams.get("platform"));
-        const type = String(searchParams.get("tm-type"));
-
-        // const [
-        //   languagesSDK,
-        // ] = await Promise.all([
-        //   walkme.content.getContentUITree(),
-        //   walkme.language.getLanguagesList(),
-        // ]);
-
-        clearTimeout(timeout);
-        setWMState({
-          ...tmState,
-          initiated: true,
-          platformType: platform,
-          isWebApp: type === tmPlatformType.Web,
-        });
-      } catch (err) {
-        console.error(err);
-        clearTimeout(timeout);
-        // App.initializeWithError();
-      }
-    })();
-  }, []);
+    if (initiated) {
+      if (config.debug) displayDebugInfo();
+      addGuidSpecificStyle();
+      //App.onWindowReady();
+    }
+  }, [initiated]);
 
   return (
     <HashRouter>
@@ -173,7 +120,7 @@ export default function App() {
           marginLeft: platformType === wmPlatformType.Windows ? 10 : "",
         }}
       >
-        <TeachMeContext.Provider value={{ walkmeSDK, tmState, updateWMState }}>
+        <TeachMeContext.Provider value={{ walkmeSDK, tmState, updateTMState }}>
           <Debug />
           <Header />
           <Main />
