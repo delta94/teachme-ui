@@ -9,13 +9,13 @@
 
   .list.courses {
     display: grid;
-    grid-column-gap: 35px;
+    grid-column-gap: 17px;
     grid-row-gap: 35px;
     grid-template-columns: 1fr 1fr 1fr;
     max-width: 900px;
     margin: 0 auto;
 
-    @media @tabletToDesktop {
+    @media @mobileToDesktop {
       grid-template-columns: 1fr 1fr;
     }
 
@@ -89,7 +89,7 @@
           height: 105px;
 
           .ratio_1_1 {
-            @media @tabletOnly {
+            @media @tabletToDesktop {
               display: none;
             }
           }
@@ -107,16 +107,22 @@
       }
     }
 
-    @media @tabletOnly {
-      .list-item .item {
+    .list-item .item {
+      @media @tabletToDesktop {
         .verticalLayout();
 
         article {
           grid-template-rows: 35px 30px;
 
           header {
-            padding-top: 5px;
+            padding-top: 10px;
           }
+        }
+      }
+
+      @media @tabletOnly {
+        article {
+          padding: 0 12px;
         }
       }
     }
