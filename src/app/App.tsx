@@ -1,17 +1,23 @@
 import React, { useEffect, createContext, useState } from "react";
 import { HashRouter } from "react-router-dom";
 
-import walkme, { ISdk } from "@walkme/sdk";
+import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
+
+import { IUserData } from "./interfaces/user/user.interface";
+import {
+  IInformationScreenData,
+  InformationScreenType,
+} from "./layout/screens/information-screen/InformationScreen";
 
 import { config } from "./config";
-import { wmPlatformType, tmPlatformType } from "./consts/platform";
+import { tmPlatformType } from "./consts/platform";
+import useAppManager from "./hooks/useAppManager";
 import Debug from "./layout/debug/Debug";
 import Header from "./layout/header/Header";
 import Main from "./layout/main/Main";
 
 import "../styles/index.less";
-import { IUserData } from "./interfaces/user/user.interface";
-import { ITMState } from "./interfaces/tm-state/tmState.interface";
+
 export const defaultUserData: IUserData = {
   user: {
     firstName: "Dan",
@@ -23,58 +29,42 @@ export const defaultUserData: IUserData = {
 };
 
 const defaultInitialTMState = {
-  // wmSearch: {} as WalkMeApp,
-  // wmNotification: {} as WalkMeApp,
-  // wmUiTree: [] as ContentItem[],
-  // wmLanguages: {} as LanguageItem[],
   courses: [] as any[],
   initiated: false,
   debugError: "",
   platformType: "",
   isWebApp: false,
   tmUser: defaultUserData,
+  informationScreen: null as IInformationScreenData,
 };
 
 export const TeachMeContext = createContext({
   tmState: defaultInitialTMState,
-  updateTMState: (updatedState: ITMState) => {},
   walkmeSDK: {} as ISdk,
+  teachmeApp: {} as WalkMeApp,
 });
 
 export default function App() {
+  const {
+    addGuidSpecificStyle,
+    getDebugError,
+    getUrlParamValueByName,
+  } = useAppManager();
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
+  const [teachmeApp, setTeachmeApp] = useState({} as WalkMeApp);
   const [tmState, setTMState] = useState(defaultInitialTMState);
-  const { platformType, initiated } = tmState;
+  const { initiated } = tmState;
 
   /**
-   * updateTMState
-   * context callback to update state
-   * @param updatedState
+   * displayDebugInfo
    */
-  const updateTMState = (updatedState: ITMState) => {
+  const displayDebugInfo = () => {
     setTMState((prevTMState) => {
       return {
         ...prevTMState,
-        updatedState,
+        debugError: getDebugError(),
       };
     });
-  };
-
-  /**
-   * addGuidSpecificStyle
-   * Adding custom styles by guid
-   */
-  const addGuidSpecificStyle = () => {
-    const search = new URLSearchParams(location.search);
-    const guid = search.get("guid");
-    if (guid) {
-      const cssSrc = `styles/${guid}/main.css`;
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = cssSrc;
-
-      document.body.append(link);
-    }
   };
 
   /**
@@ -88,33 +78,14 @@ export default function App() {
     }
   }, [initiated]);
 
-  /**
-   * displayDebugInfo
-   */
-  const displayDebugInfo = () => {
-    const search = new URLSearchParams(location.search);
-    let guid = search.get("guid");
-    if (guid === "1bcce0aee803406983e4050e0f985e6c")
-      guid = `${guid} (Project Widelab)`;
-    if (guid === "441591f37cad4aedafb740c52b1aab64") guid = `${guid} (Local)`;
-    const host = location.host;
-
-    setTMState((prevTMState) => {
-      return {
-        ...prevTMState,
-        debugError: `${host}, ${
-          platformType.charAt(0).toUpperCase() + platformType.slice(1)
-        }, ${guid}, v${config.debug_appVersion}`,
-      };
-    });
-  };
-
+  useEffect;
   /**
    * Initial SDK and
    */
   useEffect(() => {
     (async () => {
       let timeout;
+      let informationScreenData = null;
 
       try {
         await walkme.init();
@@ -123,20 +94,25 @@ export default function App() {
         if (walkme) {
           setWalkmeSDK(walkme);
         } else {
-          console.log(
-            "Walkme did not return data, try setting a query param platform=mock"
-          );
+          informationScreenData = {
+            type: InformationScreenType.NoConnection,
+            error:
+              "Walkme did not return data, try setting a query param platform=mock",
+          };
         }
 
         const teachme = await walkme.apps.getApp("teachme");
-        const courses = await teachme.getContent();
+        let courses;
+        courses = await teachme.getContent();
 
-        if (courses) {
-          console.log("courses ", courses);
+        if (!teachme || !courses) {
+          informationScreenData = {
+            type: InformationScreenType.NoConnection,
+            error:
+              "Teachme did not return data, try setting a query param teachme=mock",
+          };
         } else {
-          console.log(
-            "Teachme did not return data, try setting a query param teachme=mock"
-          );
+          setTeachmeApp(teachme);
         }
 
         timeout = setTimeout(() => {
@@ -145,17 +121,14 @@ export default function App() {
           );
         }, config.timeoutIfUiTreeNotFound);
 
-        const searchParams = new URLSearchParams(location.search);
-        const platform = String(searchParams.get("platform"));
-        const type = String(searchParams.get("tm-type"));
-
         clearTimeout(timeout);
         setTMState({
           ...tmState,
           courses,
           initiated: true,
-          platformType: platform,
-          isWebApp: type === tmPlatformType.Web,
+          platformType: getUrlParamValueByName("platform"),
+          isWebApp: getUrlParamValueByName("tm-type") === tmPlatformType.Web,
+          informationScreen: informationScreenData as IInformationScreenData,
         });
       } catch (err) {
         console.error(err);
@@ -167,13 +140,8 @@ export default function App() {
 
   return (
     <HashRouter>
-      <div
-        className="appWindow show"
-        style={{
-          marginLeft: platformType === wmPlatformType.Windows ? 10 : "",
-        }}
-      >
-        <TeachMeContext.Provider value={{ walkmeSDK, tmState, updateTMState }}>
+      <div className="app show">
+        <TeachMeContext.Provider value={{ walkmeSDK, teachmeApp, tmState }}>
           <Debug />
           <Header />
           <Main />

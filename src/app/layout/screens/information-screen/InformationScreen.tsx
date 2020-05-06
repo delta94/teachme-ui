@@ -1,6 +1,17 @@
 import React, { useRef, useEffect } from "react";
 import useViewManager from "../../../hooks/useViewManager";
 
+export enum InformationScreenType {
+  Loading = "loading",
+  NoConnection = "no-connection",
+  Unknown = "unknown",
+}
+
+export interface IInformationScreenData {
+  type?: InformationScreenType;
+  error?: "Something is wrong, please try again";
+}
+
 export default function InformationScreen({
   isLoading = false,
   isNoConnection = false,
