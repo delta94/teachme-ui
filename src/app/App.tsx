@@ -17,6 +17,7 @@ import Header from "./layout/header/Header";
 import Main from "./layout/main/Main";
 
 import "../styles/index.less";
+import { ICourseBE } from "./layout/screens/courses-screen/courses.interface";
 
 export const defaultUserData: IUserData = {
   user: {
@@ -29,7 +30,7 @@ export const defaultUserData: IUserData = {
 };
 
 interface IDefaultInitialState {
-  courses: any[];
+  tmCourses: ICourseBE[];
   initiated: boolean;
   debugError: string;
   platformType: string;
@@ -38,7 +39,7 @@ interface IDefaultInitialState {
 }
 
 const defaultInitialTMState: IDefaultInitialState = {
-  courses: [] as any[],
+  tmCourses: [] as any[],
   initiated: false,
   debugError: "",
   platformType: "",
@@ -127,8 +128,7 @@ export default function App() {
           }
 
           const teachme = await walkme.apps.getApp("teachme");
-          let courses;
-          courses = await teachme.getContent();
+          const tmCourses = await teachme.getContent();
 
           // Teachme Guard
           if (teachme) {
@@ -142,7 +142,7 @@ export default function App() {
             setInformationScreen(informationScreenData);
           }
 
-          console.log("courses", courses);
+          console.log("tmCourses", tmCourses);
 
           // Cleanups before set state
           timeout = setTimeout(() => {
@@ -154,7 +154,7 @@ export default function App() {
           clearTimeout(timeout);
           setTMState({
             ...tmState,
-            courses,
+            tmCourses,
             initiated: true,
             platformType: platformTypeParam,
             isWebApp: getUrlParamValueByName("tm-type") === tmPlatformType.Web,

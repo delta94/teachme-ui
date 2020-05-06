@@ -8,6 +8,14 @@ export enum CourseState {
 }
 
 export type TaskIcon = Icon.Article | Icon.Video | Icon.WalkThru;
+
+export enum CourseItemType {
+  Article = "article",
+  Video = "article",
+  WalkThru = "smart-walkthru",
+  Lesson = "lesson",
+}
+
 export interface ILessonData {
   state?: CourseState;
 }
@@ -50,21 +58,60 @@ export interface IQuiz {
   media: ICourseMedia;
 }
 
+export interface ICourseTask {
+  id: string;
+  title: string;
+  description?: string;
+  properties?: IProperties;
+  type: CourseItemType;
+  state?: CourseState;
+}
+
+export interface ICourseItem extends ICourseTask {
+  tasks?: ICourseTask[];
+}
+
 export interface ICourse {
   id: string;
   title: string;
+  properties?: IProperties;
   data?: {
     state?: CourseState;
     status?: number;
   };
+  items?: ICourseItem[];
   media: ICourseMedia;
-  lessons?: ILesson[];
-  tasks?: ITask[];
-  quiz?: IQuiz;
+  lessons?: ILesson[]; // TODO: should deprecate
+  tasks?: ITask[]; // TODO: should deprecate
+  quiz?: IQuiz; // TODO: should change
 }
 
 export interface ICourseData {
   state?: CourseState;
   status?: number;
   media?: ICourseMedia;
+}
+
+export interface IProperties {
+  isDisabled?: boolean;
+  isEnabled?: boolean;
+  passmark?: number;
+  resultsViewActive?: boolean;
+  isCompleted?: boolean;
+}
+
+export interface ICourseBE {
+  title: string;
+  items: ICourseItemBE[];
+  quiz?: any; // TODO - add types
+  properties?: IProperties;
+}
+
+export interface ICourseItemBE {
+  id: number;
+  title: string;
+  description?: string;
+  properties: IProperties;
+  type?: CourseItemType;
+  childNodes?: ICourseItemBE[];
 }
