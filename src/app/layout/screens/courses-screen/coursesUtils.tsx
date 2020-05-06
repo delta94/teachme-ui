@@ -3,8 +3,11 @@ import {
   ICourseBE,
   CourseState,
   ICourseItemBE,
+  CourseItemType,
+  ICourseItem,
+  TaskIcon,
+  IQuiz,
 } from "./courses.interface";
-import { courses } from "./CoursesScreen";
 import { IListItem } from "../../../components/list/list-item/ListItem";
 
 export const parseToCourseListItems = (courses: ICourse[]): IListItem<{}>[] => {
@@ -24,19 +27,26 @@ export const parseToCourseListItems = (courses: ICourse[]): IListItem<{}>[] => {
   });
 };
 
-export const getCourseById = (id: string): ICourse =>
-  courses.find((course) => course.id === id);
+export const getCourseById = ({
+  tmCourses,
+  id,
+}: {
+  tmCourses: ICourse[];
+  id: string;
+}): ICourse => tmCourses.find((course) => course.id === id);
 
-export const getPercentagesCompletion = (items: ICourseItemBE[]) => {
+export const getCoursePercentagesCompletion = (items: ICourseItemBE[]) => {
   const completedItems = items.filter((item) => item.properties.isCompleted)
     .length;
-  return (completedItems / items.length / 1) * 100;
+  const results = (completedItems / items.length / 1) * 100;
+  return Math.floor(results);
 };
+
 export const getCourseData = (course: ICourseBE) => {
   const { items } = course;
   const courseCompleted = items.every((item) => item.properties.isCompleted);
 
-  const courseStatus = getPercentagesCompletion(items);
+  const courseStatus = getCoursePercentagesCompletion(items);
   const defaultCourseState =
     courseStatus > 0 ? CourseState.Started : CourseState.NotStarted;
 
@@ -52,6 +62,7 @@ export const parseCourseBE = (courses: ICourseBE[]): ICourse[] =>
     return {
       ...course,
       id: (index + 1).toString() as string,
+      items: parseCourseItems(course.items),
       media: {
         thumbnail: {
           ratio_1_1: "https://picsum.photos/200/200",
@@ -61,3 +72,86 @@ export const parseCourseBE = (courses: ICourseBE[]): ICourse[] =>
       data: getCourseData(course),
     };
   });
+
+export const parseCourseItems = (items: ICourseItemBE[]): ICourseItem[] => {
+  let lessonNumber = 1;
+
+  const parsedItems = items.map(
+    (item: ICourseItemBE): ICourseItem => {
+      const isLessonType = item.type === CourseItemType.Lesson;
+      const { childNodes, ...noChildNodes } = item;
+      const tasks =
+        item.childNodes &&
+        item.childNodes.map((task) => {
+          return {
+            ...task,
+            id: task.id.toString() as string,
+          };
+        });
+      const itemData = {
+        ...noChildNodes,
+        id: item.id.toString() as string,
+        lessonNumber: isLessonType ? lessonNumber : undefined,
+        tasks,
+      };
+
+      if (isLessonType) {
+        lessonNumber = lessonNumber + 1;
+      }
+
+      return itemData;
+    }
+  );
+
+  return parsedItems;
+};
+
+export const parseTask = (task: ICourseItem): IListItem<{}> => {
+  return {
+    id: task.id,
+    title: task.title,
+    iconType: task.type as TaskIcon,
+    link: "https://www.walkme.com/",
+    externalLink: true,
+    state: getCourseItemState(task),
+  } as IListItem<{}>;
+};
+
+export const parseTasksToItemList = (tasks: ICourseItem[]): IListItem<{}>[] => {
+  return tasks.map(parseTask);
+};
+
+export const parseQuizListItem = (quiz: IQuiz) => {
+  return {
+    ...quiz,
+    description:
+      "Did you master this course? Use this quiz to assess your Knowledge",
+    data: {
+      media: quiz.media,
+      state: quiz.state,
+    },
+  };
+};
+
+export const isCourseItemCompleted = (item: ICourseItem) =>
+  item.properties.isCompleted;
+
+export const getCourseItemState = (item: ICourseItem) => {
+  let itemState = CourseState.Started;
+
+  if (item.type === CourseItemType.Lesson && item.tasks) {
+    itemState = item.tasks.some(isCourseItemCompleted)
+      ? CourseState.Started
+      : CourseState.NotStarted;
+
+    const lessonCompleted =
+      item.properties.isCompleted && item.tasks.every(isCourseItemCompleted);
+    itemState = lessonCompleted ? CourseState.Completed : itemState;
+  } else {
+    itemState = isCourseItemCompleted(item)
+      ? CourseState.Completed
+      : CourseState.NotStarted;
+  }
+
+  return itemState;
+};

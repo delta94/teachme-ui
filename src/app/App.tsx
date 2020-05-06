@@ -17,7 +17,11 @@ import Header from "./layout/header/Header";
 import Main from "./layout/main/Main";
 
 import "../styles/index.less";
-import { ICourseBE } from "./layout/screens/courses-screen/courses.interface";
+import {
+  ICourseBE,
+  ICourse,
+} from "./layout/screens/courses-screen/courses.interface";
+import { parseCourseBE } from "./layout/screens/courses-screen/coursesUtils";
 
 export const defaultUserData: IUserData = {
   user: {
@@ -30,7 +34,7 @@ export const defaultUserData: IUserData = {
 };
 
 interface IDefaultInitialState {
-  tmCourses: ICourseBE[];
+  tmCourses: ICourse[];
   initiated: boolean;
   debugError: string;
   platformType: string;
@@ -39,7 +43,7 @@ interface IDefaultInitialState {
 }
 
 const defaultInitialTMState: IDefaultInitialState = {
-  tmCourses: [] as any[],
+  tmCourses: [] as ICourse[],
   initiated: false,
   debugError: "",
   platformType: "",
@@ -143,6 +147,7 @@ export default function App() {
           }
 
           console.log("tmCourses", tmCourses);
+          const parseCourses = parseCourseBE(tmCourses);
 
           // Cleanups before set state
           timeout = setTimeout(() => {
@@ -154,7 +159,7 @@ export default function App() {
           clearTimeout(timeout);
           setTMState({
             ...tmState,
-            tmCourses,
+            tmCourses: parseCourses,
             initiated: true,
             platformType: platformTypeParam,
             isWebApp: getUrlParamValueByName("tm-type") === tmPlatformType.Web,

@@ -7,11 +7,14 @@ export enum CourseState {
   Tested = "tested",
 }
 
-export type TaskIcon = Icon.Article | Icon.Video | Icon.WalkThru;
+export type TaskIcon =
+  | CourseItemType.Article
+  | CourseItemType.Video
+  | CourseItemType.WalkThru;
 
 export enum CourseItemType {
   Article = "article",
-  Video = "article",
+  Video = "video",
   WalkThru = "smart-walkthru",
   Lesson = "lesson",
 }
@@ -63,11 +66,12 @@ export interface ICourseTask {
   title: string;
   description?: string;
   properties?: IProperties;
-  type: CourseItemType;
+  type?: CourseItemType;
   state?: CourseState;
 }
 
 export interface ICourseItem extends ICourseTask {
+  lessonNumber?: number;
   tasks?: ICourseTask[];
 }
 
@@ -79,7 +83,7 @@ export interface ICourse {
     state?: CourseState;
     status?: number;
   };
-  items?: ICourseItemBE[];
+  items?: ICourseItem[];
   media: ICourseMedia;
   lessons?: ILesson[]; // TODO: should deprecate
   tasks?: ITask[]; // TODO: should deprecate

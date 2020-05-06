@@ -1,15 +1,16 @@
 import React from "react";
-import { CourseState } from "../layout/screens/courses-screen/courses.interface";
+import {
+  CourseState,
+  TaskIcon,
+  CourseItemType,
+} from "../layout/screens/courses-screen/courses.interface";
 
 export enum Icon {
   ArrowLeft = "arrow-left",
   Check = "check",
-  Article = "article",
-  Video = "video",
-  WalkThru = "walk-thru",
 }
 
-export type IconType = Icon | CourseState;
+export type IconType = Icon | CourseState | TaskIcon;
 
 export default function useIconManager(type: IconType) {
   const getIconByType = (type: IconType) => {
@@ -17,11 +18,11 @@ export default function useIconManager(type: IconType) {
       return <span className="icon arrow-left"></span>;
     } else if (type === Icon.Check || type === CourseState.Completed) {
       return <span className="icon check"></span>;
-    } else if (type === Icon.WalkThru) {
+    } else if (type === CourseItemType.WalkThru) {
       return <span className="icon walk-thru"></span>;
-    } else if (type === Icon.Article) {
+    } else if (type === CourseItemType.Article) {
       return <span className="icon article"></span>;
-    } else if (type === Icon.Video) {
+    } else if (type === CourseItemType.Video) {
       return <span className="icon video"></span>;
     }
   };

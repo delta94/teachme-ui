@@ -6,19 +6,14 @@ import TMListItem from "../../../../components/list/list-item/teach-me-list-item
 import { ICourseData } from "../courses.interface";
 import UserDetails from "../../../../components/user/user-details/UserDetails";
 import { TeachMeContext } from "../../../../App";
-import { parseToCourseListItems, parseCourseBE } from "../coursesUtils";
-import { courses } from "../CoursesScreen";
+import { parseToCourseListItems } from "../coursesUtils";
 
 import "../../../../../styles/screens/courses-screen/courses-list-screen.less";
 
 export default function CoursesListScreen() {
   const tmContext = useContext(TeachMeContext);
   const { isWebApp, tmCourses } = tmContext.tmState;
-  const parseCourses = parseCourseBE(tmCourses);
-  const coursesListItems = parseToCourseListItems(parseCourses);
-
-  console.log("CoursesListScreen parseCourses ", parseCourses);
-  console.log("CoursesListScreen coursesListItems ", coursesListItems);
+  const coursesListItems = parseToCourseListItems(tmCourses);
 
   return (
     <div className="screen courses-screen">
