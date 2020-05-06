@@ -1,25 +1,13 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
-import {
-  ICourse,
-  CourseState,
-  ICourseItem,
-  CourseItemType,
-} from "../courses.interface";
-import {
-  getCourseById,
-  parseTasksToItemList,
-  getCourseItemState,
-  parseQuizListItem,
-} from "../coursesUtils";
+import { ICourse, CourseState } from "../courses.interface";
+import { getCourseById, parseQuizListItem } from "../coursesUtils";
 import "../../../../../styles/screens/courses-screen/course-screen.less";
 
 import { TeachMeContext } from "../../../../App";
 import { ProgressBar } from "../../../../components/progress-bar/ProgressBar";
 import useViewManager from "../../../../hooks/useViewManager";
-import Dropdown from "../../../../components/dropdown/Dropdown";
-import ListItem from "../../../../components/list/list-item/ListItem";
 import TMListItem from "../../../../components/list/list-item/teach-me-list-item/TMListItem";
 import CourseItemsList from "../../../../components/list/course-items-list/CourseItemsList";
 
@@ -50,8 +38,6 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
         animateClassName: "fadeIn",
         timeout: 300,
       });
-
-      console.log("course ", course);
     }
   }, [course]);
 
@@ -77,15 +63,21 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
             <div className="course-lessons-wrapper">
               <CourseItemsList items={course.items} />
             </div>
-            {/* {course.quiz && (
+            {course.quiz && (
               <div className="course-quiz">
                 <TMListItem
-                  item={parseQuizListItem(course.quiz)}
+                  item={parseQuizListItem({
+                    quiz: course.quiz,
+                    courseId: course.id,
+                  })}
                   hideProgressBar
                   extraLabel="Quiz"
+                  onSelect={() => {
+                    console.log(`course quiz clicked `, course.quiz);
+                  }}
                 />
               </div>
-            )} */}
+            )}
           </div>
         </section>
       </section>

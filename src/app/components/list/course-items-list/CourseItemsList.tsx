@@ -12,7 +12,11 @@ export default function CourseItemsList({ items }: { items: ICourseItem[] }) {
     <ul className="course-items">
       {items.map((item: ICourseItem, index: number) => {
         return item.type === CourseItemType.Lesson ? (
-          <LessonListItem isFirst={index === 0} item={item} />
+          <LessonListItem
+            key={`lesson-list-item-${item.id}`}
+            isFirst={index === 0}
+            item={item}
+          />
         ) : (
           <ListItem
             key={`list-item-${item.id}`}

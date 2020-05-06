@@ -28,20 +28,6 @@ export interface ILessonListItem {
   data?: ILessonData;
 }
 
-export interface ITask {
-  id: string;
-  title: string;
-  state?: CourseState;
-  icon?: TaskIcon;
-  link?: string;
-}
-export interface ILesson {
-  id: string;
-  title: string;
-  tasks?: ITask[];
-  state?: CourseState;
-}
-
 export interface ICourseMedia {
   thumbnail: {
     ratio_1_1?: string;
@@ -59,6 +45,7 @@ export interface IQuiz {
     state?: CourseState;
   };
   media: ICourseMedia;
+  properties: IProperties;
 }
 
 export interface ICourseTask {
@@ -85,9 +72,7 @@ export interface ICourse {
   };
   items?: ICourseItem[];
   media: ICourseMedia;
-  lessons?: ILesson[]; // TODO: should deprecate
-  tasks?: ITask[]; // TODO: should deprecate
-  quiz?: IQuiz; // TODO: should change
+  quiz?: IQuiz;
 }
 
 export interface ICourseData {

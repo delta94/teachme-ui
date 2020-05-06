@@ -59,9 +59,10 @@ export const getCourseData = (course: ICourseBE) => {
 
 export const parseCourseBE = (courses: ICourseBE[]): ICourse[] =>
   courses.map((course, index) => {
+    const courseId = (index + 1).toString() as string;
     return {
       ...course,
-      id: (index + 1).toString() as string,
+      id: courseId,
       items: parseCourseItems(course.items),
       media: {
         thumbnail: {
@@ -70,6 +71,15 @@ export const parseCourseBE = (courses: ICourseBE[]): ICourse[] =>
         },
       },
       data: getCourseData(course),
+      quiz: {
+        ...course.quiz,
+        media: {
+          thumbnail: {
+            ratio_1_1: "https://picsum.photos/200/200",
+            ratio_2_1: "https://picsum.photos/310/140",
+          },
+        },
+      },
     };
   });
 
@@ -121,9 +131,17 @@ export const parseTasksToItemList = (tasks: ICourseItem[]): IListItem<{}>[] => {
   return tasks.map(parseTask);
 };
 
-export const parseQuizListItem = (quiz: IQuiz) => {
+export const parseQuizListItem = ({
+  quiz,
+  courseId,
+}: {
+  quiz: IQuiz;
+  courseId: string;
+}) => {
+  // TODO: add types to the rest of quiz data
   return {
-    ...quiz,
+    id: `quiz-${courseId}`,
+    title: "Course Assessment",
     description:
       "Did you master this course? Use this quiz to assess your Knowledge",
     data: {

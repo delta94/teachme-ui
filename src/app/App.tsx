@@ -146,7 +146,6 @@ export default function App() {
             setInformationScreen(informationScreenData);
           }
 
-          console.log("tmCourses", tmCourses);
           const parseCourses = parseCourseBE(tmCourses);
 
           // Cleanups before set state
