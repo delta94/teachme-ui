@@ -7,7 +7,18 @@ export enum CourseState {
   Tested = "tested",
 }
 
-export type TaskIcon = Icon.Article | Icon.Video | Icon.WalkThru;
+export type TaskIcon =
+  | CourseItemType.Article
+  | CourseItemType.Video
+  | CourseItemType.WalkThru;
+
+export enum CourseItemType {
+  Article = "article",
+  Video = "video",
+  WalkThru = "smart-walkthru",
+  Lesson = "lesson",
+}
+
 export interface ILessonData {
   state?: CourseState;
 }
@@ -15,20 +26,6 @@ export interface ILessonListItem {
   id: string;
   title: string;
   data?: ILessonData;
-}
-
-export interface ITask {
-  id: string;
-  title: string;
-  state?: CourseState;
-  icon?: TaskIcon;
-  link?: string;
-}
-export interface ILesson {
-  id: string;
-  title: string;
-  tasks?: ITask[];
-  state?: CourseState;
 }
 
 export interface ICourseMedia {
@@ -48,18 +45,33 @@ export interface IQuiz {
     state?: CourseState;
   };
   media: ICourseMedia;
+  properties: IProperties;
+}
+
+export interface ICourseTask {
+  id: string;
+  title: string;
+  description?: string;
+  properties?: IProperties;
+  type?: CourseItemType;
+  state?: CourseState;
+}
+
+export interface ICourseItem extends ICourseTask {
+  lessonNumber?: number;
+  tasks?: ICourseTask[];
 }
 
 export interface ICourse {
   id: string;
   title: string;
+  properties?: IProperties;
   data?: {
     state?: CourseState;
     status?: number;
   };
+  items?: ICourseItem[];
   media: ICourseMedia;
-  lessons?: ILesson[];
-  tasks?: ITask[];
   quiz?: IQuiz;
 }
 
@@ -67,4 +79,28 @@ export interface ICourseData {
   state?: CourseState;
   status?: number;
   media?: ICourseMedia;
+}
+
+export interface IProperties {
+  isDisabled?: boolean;
+  isEnabled?: boolean;
+  passmark?: number;
+  resultsViewActive?: boolean;
+  isCompleted?: boolean;
+}
+
+export interface ICourseBE {
+  title: string;
+  items: ICourseItemBE[];
+  quiz?: any; // TODO - add types
+  properties?: IProperties;
+}
+
+export interface ICourseItemBE {
+  id: number;
+  title: string;
+  description?: string;
+  properties: IProperties;
+  type?: CourseItemType;
+  childNodes?: ICourseItemBE[];
 }

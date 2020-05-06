@@ -1,18 +1,28 @@
 import React, { useEffect, createContext, useState } from "react";
 import { HashRouter } from "react-router-dom";
 
-import walkme from "@walkme/sdk";
-import { ISdk } from "@walkme/sdk/dist/interfaces/sdk";
+import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
+
+import { IUserData } from "./interfaces/user/user.interface";
+import InformationScreen, {
+  IInformationScreenData,
+  InformationScreenType,
+} from "./layout/screens/information-screen/InformationScreen";
 
 import { config } from "./config";
-import { wmPlatformType, tmPlatformType } from "./consts/platform";
+import { tmPlatformType, TEACHME_ERROR, PLATFORM_ERROR } from "./consts/app";
+import useAppManager from "./hooks/useAppManager";
 import Debug from "./layout/debug/Debug";
 import Header from "./layout/header/Header";
 import Main from "./layout/main/Main";
 
 import "../styles/index.less";
-import { IUserData } from "./interfaces/user/user.interface";
-import { ITMState } from "./interfaces/tm-state/tmState.interface";
+import {
+  ICourseBE,
+  ICourse,
+} from "./layout/screens/courses-screen/courses.interface";
+import { parseCourseBE } from "./layout/screens/courses-screen/coursesUtils";
+
 export const defaultUserData: IUserData = {
   user: {
     firstName: "Dan",
@@ -23,57 +33,54 @@ export const defaultUserData: IUserData = {
   },
 };
 
-const defaultInitialTMState = {
-  // wmSearch: {} as WalkMeApp,
-  // wmNotification: {} as WalkMeApp,
-  // wmUiTree: [] as ContentItem[],
-  // wmLanguages: {} as LanguageItem[],
+interface IDefaultInitialState {
+  tmCourses: ICourse[];
+  initiated: boolean;
+  debugError: string;
+  platformType: string;
+  isWebApp: boolean;
+  tmUser: IUserData;
+}
+
+const defaultInitialTMState: IDefaultInitialState = {
+  tmCourses: [] as ICourse[],
   initiated: false,
   debugError: "",
   platformType: "",
   isWebApp: false,
   tmUser: defaultUserData,
 };
+
 export const TeachMeContext = createContext({
   tmState: defaultInitialTMState,
-  updateTMState: (updatedState: ITMState) => {},
   walkmeSDK: {} as ISdk,
+  teachmeApp: {} as WalkMeApp,
 });
 
 export default function App() {
+  const {
+    addGuidSpecificStyle,
+    getDebugError,
+    getUrlParamValueByName,
+  } = useAppManager();
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
+  const [teachmeApp, setTeachmeApp] = useState({} as WalkMeApp);
   const [tmState, setTMState] = useState(defaultInitialTMState);
-  const { platformType, initiated } = tmState;
+  const [informationScreen, setInformationScreen] = useState({
+    type: InformationScreenType.Loading,
+  } as IInformationScreenData);
+  const { initiated } = tmState;
 
   /**
-   * updateTMState
-   * context callback to update state
-   * @param updatedState
+   * displayDebugInfo
    */
-  const updateTMState = (updatedState: ITMState) => {
+  const displayDebugInfo = () => {
     setTMState((prevTMState) => {
       return {
         ...prevTMState,
-        updatedState,
+        debugError: getDebugError(),
       };
     });
-  };
-
-  /**
-   * addGuidSpecificStyle
-   * Adding custom styles by guid
-   */
-  const addGuidSpecificStyle = () => {
-    const search = new URLSearchParams(location.search);
-    const guid = search.get("guid");
-    if (guid) {
-      const cssSrc = `styles/${guid}/main.css`;
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = cssSrc;
-
-      document.body.append(link);
-    }
   };
 
   /**
@@ -84,29 +91,15 @@ export default function App() {
       if (config.debug) displayDebugInfo();
       addGuidSpecificStyle();
       //App.onWindowReady();
+
+      // setTimeout(() => {
+      //   setTMState({
+      //     ...tmState,
+      //     informationScreen: null as IInformationScreenData,
+      //   });
+      // }, 500);
     }
   }, [initiated]);
-
-  /**
-   * displayDebugInfo
-   */
-  const displayDebugInfo = () => {
-    const search = new URLSearchParams(location.search);
-    let guid = search.get("guid");
-    if (guid === "1bcce0aee803406983e4050e0f985e6c")
-      guid = `${guid} (Project Widelab)`;
-    if (guid === "441591f37cad4aedafb740c52b1aab64") guid = `${guid} (Local)`;
-    const host = location.host;
-
-    setTMState((prevTMState) => {
-      return {
-        ...prevTMState,
-        debugError: `${host}, ${
-          platformType.charAt(0).toUpperCase() + platformType.slice(1)
-        }, ${guid}, v${config.debug_appVersion}`,
-      };
-    });
-  };
 
   /**
    * Initial SDK and
@@ -114,60 +107,80 @@ export default function App() {
   useEffect(() => {
     (async () => {
       let timeout;
+      let informationScreenData = informationScreen as IInformationScreenData;
+      const platformTypeParam = getUrlParamValueByName("platform");
+      const teachmeParam = getUrlParamValueByName("teachme");
 
-      try {
-        await walkme.init();
-        console.log("WalkMe ready =>", walkme);
+      if (!platformTypeParam || !teachmeParam) {
+        informationScreenData = {
+          type: InformationScreenType.NoConnection,
+          error: !platformTypeParam ? PLATFORM_ERROR : TEACHME_ERROR,
+        };
+        setInformationScreen(informationScreenData);
+      } else {
+        try {
+          await walkme.init();
+          console.log("WalkMe ready =>", walkme);
 
-        if (walkme) {
-          setWalkmeSDK(walkme);
+          // Walkme Guard
+          if (walkme) {
+            setWalkmeSDK(walkme);
+          }
+
+          const teachme = await walkme.apps.getApp("teachme");
+          const tmCourses = await teachme.getContent();
+
+          // Teachme Guard
+          if (teachme) {
+            setTeachmeApp(teachme);
+          } else {
+            informationScreenData = {
+              type: InformationScreenType.NoConnection,
+              error:
+                "Teachme did not return data, try setting a query param teachme=mock",
+            };
+            setInformationScreen(informationScreenData);
+          }
+
+          const parseCourses = parseCourseBE(tmCourses);
+
+          // Cleanups before set state
+          timeout = setTimeout(() => {
+            throw new Error(
+              `Search timeout, could not get uiTree in ${config.timeoutIfUiTreeNotFound}ms`
+            );
+          }, config.timeoutIfUiTreeNotFound);
+
+          clearTimeout(timeout);
+          setTMState({
+            ...tmState,
+            tmCourses: parseCourses,
+            initiated: true,
+            platformType: platformTypeParam,
+            isWebApp: getUrlParamValueByName("tm-type") === tmPlatformType.Web,
+          });
+          setInformationScreen(null as IInformationScreenData);
+        } catch (err) {
+          console.error(err);
+          clearTimeout(timeout);
+          // App.initializeWithError();
         }
-
-        timeout = setTimeout(() => {
-          throw new Error(
-            `Search timeout, could not get uiTree in ${config.timeoutIfUiTreeNotFound}ms`
-          );
-        }, config.timeoutIfUiTreeNotFound);
-
-        const searchParams = new URLSearchParams(location.search);
-        const platform = String(searchParams.get("platform"));
-        const type = String(searchParams.get("tm-type"));
-
-        // const [
-        //   languagesSDK,
-        // ] = await Promise.all([
-        //   walkme.content.getContentUITree(),
-        //   walkme.language.getLanguagesList(),
-        // ]);
-
-        clearTimeout(timeout);
-        setTMState({
-          ...tmState,
-          initiated: true,
-          platformType: platform,
-          isWebApp: type === tmPlatformType.Web,
-        });
-      } catch (err) {
-        console.error(err);
-        clearTimeout(timeout);
-        // App.initializeWithError();
       }
     })();
   }, []);
 
   return (
     <HashRouter>
-      <div
-        className="appWindow show"
-        style={{
-          marginLeft: platformType === wmPlatformType.Windows ? 10 : "",
-        }}
-      >
-        <TeachMeContext.Provider value={{ walkmeSDK, tmState, updateTMState }}>
-          <Debug />
-          <Header />
-          <Main />
-        </TeachMeContext.Provider>
+      <div className="app show">
+        {informationScreen ? (
+          <InformationScreen {...informationScreen} />
+        ) : (
+          <TeachMeContext.Provider value={{ walkmeSDK, teachmeApp, tmState }}>
+            <Debug />
+            <Header />
+            <Main />
+          </TeachMeContext.Provider>
+        )}
       </div>
     </HashRouter>
   );

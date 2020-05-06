@@ -21,7 +21,7 @@ export default function List<T>({
       {items.map((item) => {
         return (
           <ListItem
-            key={item.id}
+            key={`list-item-${item.id}`}
             item={item}
             className={itemClassName}
             onSelect={onSelect}

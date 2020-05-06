@@ -13,10 +13,13 @@ export function ProgressBar({
 }) {
   const [progressValue, setProgressValue] = useState(0);
   const percentages = `${progressValue}%`;
+
   useEffect(() => {
     setTimeout(() => {
       setProgressValue(percentCompletion);
     }, 300);
+
+    return setProgressValue(0);
   }, []);
 
   return (
