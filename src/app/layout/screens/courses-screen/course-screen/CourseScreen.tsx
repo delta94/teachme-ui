@@ -21,6 +21,7 @@ import useViewManager from "../../../../hooks/useViewManager";
 import Dropdown from "../../../../components/dropdown/Dropdown";
 import ListItem from "../../../../components/list/list-item/ListItem";
 import TMListItem from "../../../../components/list/list-item/teach-me-list-item/TMListItem";
+import CourseItemsList from "../../../../components/list/course-items-list/CourseItemsList";
 
 type TParams = { courseId: string };
 
@@ -74,32 +75,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
           </header>
           <div className="course-content">
             <div className="course-lessons-wrapper">
-              <ul className="course-items">
-                {course.items.map((item: ICourseItem, index: number) => {
-                  return item.type === CourseItemType.Lesson ? (
-                    <li className="lesson-item" key={`dropdown-${item.id}`}>
-                      <Dropdown
-                        className="course-lessons"
-                        id={`lesson ${item.id}`}
-                        title={`Lesson ${item.lessonNumber} - ${item.title}`}
-                        items={parseTasksToItemList(item.tasks)}
-                        isOpen={index === 0}
-                        handler={{
-                          state: getCourseItemState(item),
-                        }}
-                      />
-                    </li>
-                  ) : (
-                    <ListItem
-                      key={`list-item-${item.id}`}
-                      item={item}
-                      className={"task-item"}
-                      state={getCourseItemState(item)}
-                      iconType={item.type}
-                    />
-                  );
-                })}
-              </ul>
+              <CourseItemsList items={course.items} />
             </div>
             {/* {course.quiz && (
               <div className="course-quiz">
