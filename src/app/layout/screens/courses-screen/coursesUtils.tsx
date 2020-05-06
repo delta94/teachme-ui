@@ -47,7 +47,7 @@ export const getCourseData = (course: ICourseBE) => {
   };
 };
 
-export const parseCourseBE = (courses: ICourseBE[]) =>
+export const parseCourseBE = (courses: ICourseBE[]): ICourse[] =>
   courses.map((course, index) => {
     return {
       ...course,

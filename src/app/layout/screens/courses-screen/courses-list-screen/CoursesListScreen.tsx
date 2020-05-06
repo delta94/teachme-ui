@@ -15,9 +15,10 @@ export default function CoursesListScreen() {
   const tmContext = useContext(TeachMeContext);
   const { isWebApp, tmCourses } = tmContext.tmState;
   const parseCourses = parseCourseBE(tmCourses);
-  //const coursesListItems = parseToCourseListItems(courses);
+  const coursesListItems = parseToCourseListItems(parseCourses);
 
   console.log("CoursesListScreen parseCourses ", parseCourses);
+  console.log("CoursesListScreen coursesListItems ", coursesListItems);
 
   return (
     <div className="screen courses-screen">
@@ -27,14 +28,14 @@ export default function CoursesListScreen() {
         </div>
       )}
 
-      {/**
+      {
         <List
           className="courses"
           itemClassName="fadeInUp"
           items={coursesListItems as IListItem<ICourseData>[]}
           itemComponent={TMListItem}
         />
-         */}
+      }
     </div>
   );
 }

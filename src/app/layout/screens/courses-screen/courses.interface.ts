@@ -79,7 +79,7 @@ export interface ICourse {
     state?: CourseState;
     status?: number;
   };
-  items?: ICourseItem[];
+  items?: ICourseItemBE[];
   media: ICourseMedia;
   lessons?: ILesson[]; // TODO: should deprecate
   tasks?: ITask[]; // TODO: should deprecate
