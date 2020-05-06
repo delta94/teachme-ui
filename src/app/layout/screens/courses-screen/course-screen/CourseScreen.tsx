@@ -11,6 +11,7 @@ import {
   getCourseById,
   parseTasksToItemList,
   getCourseItemState,
+  parseQuizListItem,
 } from "../coursesUtils";
 import "../../../../../styles/screens/courses-screen/course-screen.less";
 
@@ -19,6 +20,7 @@ import { ProgressBar } from "../../../../components/progress-bar/ProgressBar";
 import useViewManager from "../../../../hooks/useViewManager";
 import Dropdown from "../../../../components/dropdown/Dropdown";
 import ListItem from "../../../../components/list/list-item/ListItem";
+import TMListItem from "../../../../components/list/list-item/teach-me-list-item/TMListItem";
 
 type TParams = { courseId: string };
 
@@ -73,7 +75,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
           <div className="course-content">
             <div className="course-lessons-wrapper">
               <ul className="course-items">
-                {course.items.map((item: ICourseItem) => {
+                {course.items.map((item: ICourseItem, index: number) => {
                   return item.type === CourseItemType.Lesson ? (
                     <li className="lesson-item" key={`dropdown-${item.id}`}>
                       <Dropdown
@@ -81,6 +83,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                         id={`lesson ${item.id}`}
                         title={`Lesson ${item.lessonNumber} - ${item.title}`}
                         items={parseTasksToItemList(item.tasks)}
+                        isOpen={index === 0}
                         handler={{
                           state: getCourseItemState(item),
                         }}
