@@ -3,22 +3,17 @@ import InformationScreen from "../screens/information-screen/InformationScreen";
 import CoursesScreen from "../screens/courses-screen/CoursesScreen";
 
 export default function Main() {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-  });
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 1500);
+  // });
 
   return (
     <div className="main wrapper">
-      {/* TODO: improve InformationScreen component */}
-      {isLoading ? (
-        <InformationScreen isLoading={isLoading} />
-      ) : (
-        <CoursesScreen />
-      )}
+      <CoursesScreen />
     </div>
   );
 }

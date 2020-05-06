@@ -1,18 +1,6 @@
-import React, { useState, useEffect } from "react";
-import walkme from "@walkme/sdk";
-
+import React from "react";
 import { config } from "../config";
-import { tmPlatformType } from "../consts/platform";
-import { ISdk } from "@walkme/sdk/dist/interfaces/sdk";
-import { IUserData } from "../interfaces/user/user.interface";
 
-interface IDefaultInitialState {
-  initiated: boolean;
-  debugError: string;
-  platformType: string;
-  isWebApp: boolean;
-  tmUser: IUserData;
-}
 export default function useAppManager() {
   const getUrlParamValueByName = (name: string) => {
     const searchUrlParam = new URLSearchParams(location.search);

@@ -4,7 +4,7 @@ import { HashRouter } from "react-router-dom";
 import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
 
 import { IUserData } from "./interfaces/user/user.interface";
-import {
+import InformationScreen, {
   IInformationScreenData,
   InformationScreenType,
 } from "./layout/screens/information-screen/InformationScreen";
@@ -28,14 +28,22 @@ export const defaultUserData: IUserData = {
   },
 };
 
-const defaultInitialTMState = {
+interface IDefaultInitialState {
+  courses: any[];
+  initiated: boolean;
+  debugError: string;
+  platformType: string;
+  isWebApp: boolean;
+  tmUser: IUserData;
+}
+
+const defaultInitialTMState: IDefaultInitialState = {
   courses: [] as any[],
   initiated: false,
   debugError: "",
   platformType: "",
   isWebApp: false,
   tmUser: defaultUserData,
-  informationScreen: null as IInformationScreenData,
 };
 
 export const TeachMeContext = createContext({
@@ -53,6 +61,9 @@ export default function App() {
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
   const [teachmeApp, setTeachmeApp] = useState({} as WalkMeApp);
   const [tmState, setTMState] = useState(defaultInitialTMState);
+  const [informationScreen, setInformationScreen] = useState({
+    type: InformationScreenType.Loading,
+  } as IInformationScreenData);
   const { initiated } = tmState;
 
   /**
@@ -75,65 +86,85 @@ export default function App() {
       if (config.debug) displayDebugInfo();
       addGuidSpecificStyle();
       //App.onWindowReady();
+
+      // setTimeout(() => {
+      //   setTMState({
+      //     ...tmState,
+      //     informationScreen: null as IInformationScreenData,
+      //   });
+      // }, 500);
     }
   }, [initiated]);
 
-  useEffect;
   /**
    * Initial SDK and
    */
   useEffect(() => {
     (async () => {
       let timeout;
-      let informationScreenData = null;
+      let informationScreenData = informationScreen as IInformationScreenData;
+      const platformTypeParam = getUrlParamValueByName("platform");
+      const teachmeParam = getUrlParamValueByName("teachme");
 
-      try {
-        await walkme.init();
-        console.log("WalkMe ready =>", walkme);
+      if (!platformTypeParam || !teachmeParam) {
+        const platformError =
+          "Walkme did not return data, try setting a query param platform=mock";
+        const teachmeError =
+          "Teachme did not return data, try setting a query param teachme=mock";
+        informationScreenData = {
+          type: InformationScreenType.NoConnection,
+          error: !platformTypeParam ? platformError : teachmeError,
+        };
+        setInformationScreen(informationScreenData);
+      } else {
+        try {
+          await walkme.init();
+          console.log("WalkMe ready =>", walkme);
 
-        if (walkme) {
-          setWalkmeSDK(walkme);
-        } else {
-          informationScreenData = {
-            type: InformationScreenType.NoConnection,
-            error:
-              "Walkme did not return data, try setting a query param platform=mock",
-          };
+          // Walkme Guard
+          if (walkme) {
+            setWalkmeSDK(walkme);
+          }
+
+          const teachme = await walkme.apps.getApp("teachme");
+          let courses;
+          courses = await teachme.getContent();
+
+          // Teachme Guard
+          if (teachme) {
+            setTeachmeApp(teachme);
+          } else {
+            informationScreenData = {
+              type: InformationScreenType.NoConnection,
+              error:
+                "Teachme did not return data, try setting a query param teachme=mock",
+            };
+            setInformationScreen(informationScreenData);
+          }
+
+          console.log("courses", courses);
+
+          // Cleanups before set state
+          timeout = setTimeout(() => {
+            throw new Error(
+              `Search timeout, could not get uiTree in ${config.timeoutIfUiTreeNotFound}ms`
+            );
+          }, config.timeoutIfUiTreeNotFound);
+
+          clearTimeout(timeout);
+          setTMState({
+            ...tmState,
+            courses,
+            initiated: true,
+            platformType: platformTypeParam,
+            isWebApp: getUrlParamValueByName("tm-type") === tmPlatformType.Web,
+          });
+          setInformationScreen(null as IInformationScreenData);
+        } catch (err) {
+          console.error(err);
+          clearTimeout(timeout);
+          // App.initializeWithError();
         }
-
-        const teachme = await walkme.apps.getApp("teachme");
-        let courses;
-        courses = await teachme.getContent();
-
-        if (!teachme || !courses) {
-          informationScreenData = {
-            type: InformationScreenType.NoConnection,
-            error:
-              "Teachme did not return data, try setting a query param teachme=mock",
-          };
-        } else {
-          setTeachmeApp(teachme);
-        }
-
-        timeout = setTimeout(() => {
-          throw new Error(
-            `Search timeout, could not get uiTree in ${config.timeoutIfUiTreeNotFound}ms`
-          );
-        }, config.timeoutIfUiTreeNotFound);
-
-        clearTimeout(timeout);
-        setTMState({
-          ...tmState,
-          courses,
-          initiated: true,
-          platformType: getUrlParamValueByName("platform"),
-          isWebApp: getUrlParamValueByName("tm-type") === tmPlatformType.Web,
-          informationScreen: informationScreenData as IInformationScreenData,
-        });
-      } catch (err) {
-        console.error(err);
-        clearTimeout(timeout);
-        // App.initializeWithError();
       }
     })();
   }, []);
@@ -141,11 +172,15 @@ export default function App() {
   return (
     <HashRouter>
       <div className="app show">
-        <TeachMeContext.Provider value={{ walkmeSDK, teachmeApp, tmState }}>
-          <Debug />
-          <Header />
-          <Main />
-        </TeachMeContext.Provider>
+        {informationScreen ? (
+          <InformationScreen {...informationScreen} />
+        ) : (
+          <TeachMeContext.Provider value={{ walkmeSDK, teachmeApp, tmState }}>
+            <Debug />
+            <Header />
+            <Main />
+          </TeachMeContext.Provider>
+        )}
       </div>
     </HashRouter>
   );
