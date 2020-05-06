@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { TeachMeContext } from "../../App";
-import { wmPlatformType } from "../../consts/platform";
+import { wmPlatformType } from "../../consts/app";
 
 export default function Content() {
   const tmContext = useContext(TeachMeContext);

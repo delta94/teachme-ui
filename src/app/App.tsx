@@ -10,7 +10,7 @@ import InformationScreen, {
 } from "./layout/screens/information-screen/InformationScreen";
 
 import { config } from "./config";
-import { tmPlatformType } from "./consts/platform";
+import { tmPlatformType, TEACHME_ERROR, PLATFORM_ERROR } from "./consts/app";
 import useAppManager from "./hooks/useAppManager";
 import Debug from "./layout/debug/Debug";
 import Header from "./layout/header/Header";
@@ -112,13 +112,9 @@ export default function App() {
       const teachmeParam = getUrlParamValueByName("teachme");
 
       if (!platformTypeParam || !teachmeParam) {
-        const platformError =
-          "Walkme did not return data, try setting a query param platform=mock";
-        const teachmeError =
-          "Teachme did not return data, try setting a query param teachme=mock";
         informationScreenData = {
           type: InformationScreenType.NoConnection,
-          error: !platformTypeParam ? platformError : teachmeError,
+          error: !platformTypeParam ? PLATFORM_ERROR : TEACHME_ERROR,
         };
         setInformationScreen(informationScreenData);
       } else {
