@@ -49,6 +49,8 @@
 }
 
 .tm-item-info {
+  --maxTitleWidth: 245px;
+
   .horizontalLayout();
   padding: 0;
   border: solid 1px var(--border500);
@@ -73,8 +75,13 @@
   }
 
   .title {
+    max-width: var(--maxTitleWidth);
     color: var(--neutral900);
     .fRegular();
+
+    .text {
+      .ellipsis();
+    }
   }
 
   .thumb {
