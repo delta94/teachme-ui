@@ -17,6 +17,8 @@ export function ProgressBar({
     setTimeout(() => {
       setProgressValue(percentCompletion);
     }, 300);
+
+    return clearTimeout();
   }, []);
 
   return (
