@@ -12,8 +12,8 @@ import InformationScreen, {
 
 import { config } from "./config";
 import {
-  parseCourseBE,
   getCoursesTotalStatus,
+  parseCoursesBE,
 } from "./layout/screens/courses-screen/coursesUtils";
 import { tmPlatformType, TEACHME_ERROR, PLATFORM_ERROR } from "./consts/app";
 import useAppManager from "./hooks/useAppManager";
@@ -129,7 +129,7 @@ export default function App() {
 
           const teachme = await walkme.apps.getApp("teachme");
           const tmCourses = await teachme.getContent();
-          const parseCourses = parseCourseBE(tmCourses);
+          const parseCourses = parseCoursesBE(tmCourses);
 
           // Teachme Guard
           if (teachme) {

@@ -90,6 +90,7 @@ export interface IProperties {
 }
 
 export interface ICourseBE {
+  id: number;
   title: string;
   items: ICourseItemBE[];
   quiz?: any; // TODO - add types

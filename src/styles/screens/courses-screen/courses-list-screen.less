@@ -93,7 +93,9 @@
         }
 
         .thumb {
-          height: 105px;
+          @media @desktopOnly {
+            height: 104px;
+          }
 
           .ratio_1_1 {
             @media @tabletToDesktop {
