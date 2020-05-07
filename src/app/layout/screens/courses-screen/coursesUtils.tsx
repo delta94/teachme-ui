@@ -86,8 +86,8 @@ export const parseCourseBE = (courses: ICourseBE[]): ICourse[] =>
         ...course.quiz,
         media: {
           thumbnail: {
-            ratio_1_1: "https://picsum.photos/200/200",
-            ratio_2_1: "https://picsum.photos/310/140",
+            ratio_1_1: "../../../../images/quiz/quiz-ratio-1_1.jpg",
+            ratio_2_1: "../../../../images/quiz/quiz-ratio-2_1.jpg",
           },
         },
       },
