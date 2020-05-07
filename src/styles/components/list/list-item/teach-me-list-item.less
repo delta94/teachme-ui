@@ -75,12 +75,15 @@
   }
 
   .title {
-    max-width: var(--maxTitleWidth);
     color: var(--neutral900);
     .fRegular();
 
-    .text {
-      .ellipsis();
+    @media @desktopOnly {
+      max-width: var(--maxTitleWidth);
+
+      .text {
+        .ellipsis();
+      }
     }
   }
 
