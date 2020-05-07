@@ -50,6 +50,24 @@
 
 .tm-item-info {
   --maxTitleWidth: 245px;
+  .disabledMsg();
+
+  &.disabled {
+    opacity: 0.8;
+    filter: grayscale();
+
+    article footer .btn {
+      cursor: default;
+    }
+
+    .disabled-message {
+      .text {
+        text-align: center;
+        font-size: 15px;
+        .fMedium();
+      }
+    }
+  }
 
   .horizontalLayout();
   padding: 0;
@@ -75,12 +93,15 @@
   }
 
   .title {
-    max-width: var(--maxTitleWidth);
     color: var(--neutral900);
     .fRegular();
 
-    .text {
-      .ellipsis();
+    @media @desktopOnly {
+      max-width: var(--maxTitleWidth);
+
+      .text {
+        .ellipsis();
+      }
     }
   }
 

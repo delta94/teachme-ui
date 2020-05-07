@@ -11,6 +11,11 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
+  devServer: {
+    contentBase: "./src",
+    compress: true,
+    port: 9000,
+  },
   devtool: "inline-source-map",
   module: {
     rules: [
@@ -38,7 +43,7 @@ module.exports = {
             loader: "file-loader",
             options: {
               esModule: false,
-              outputPath: "assets/",
+              outputPath: "images/",
             },
           },
         ],

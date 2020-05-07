@@ -10,6 +10,14 @@ import {
 } from "./courses.interface";
 import { IListItem } from "../../../components/list/list-item/ListItem";
 
+export const getCourseById = ({
+  tmCourses,
+  id,
+}: {
+  tmCourses: ICourse[];
+  id: string;
+}): ICourse => tmCourses.find((course) => course.id === id);
+
 export const parseToCourseListItems = (courses: ICourse[]): IListItem<{}>[] => {
   return courses.map((course) => {
     const { id, title, media, data } = course;
@@ -27,13 +35,19 @@ export const parseToCourseListItems = (courses: ICourse[]): IListItem<{}>[] => {
   });
 };
 
-export const getCourseById = ({
-  tmCourses,
-  id,
-}: {
-  tmCourses: ICourse[];
-  id: string;
-}): ICourse => tmCourses.find((course) => course.id === id);
+export const parseTask = (task: ICourseItem): IListItem<{}> => {
+  return {
+    id: task.id,
+    title: task.title,
+    iconType: task.type as TaskIcon,
+    link: "https://www.walkme.com/",
+    externalLink: true,
+    state: getCourseItemState(task),
+  } as IListItem<{}>;
+};
+
+export const parseTasksToItemList = (tasks: ICourseItem[]): IListItem<{}>[] =>
+  tasks.map(parseTask);
 
 export const getCoursePercentagesCompletion = (items: ICourseItemBE[]) => {
   const completedItems = items.filter((item) => item.properties.isCompleted)
@@ -42,46 +56,106 @@ export const getCoursePercentagesCompletion = (items: ICourseItemBE[]) => {
   return Math.floor(results);
 };
 
-export const getCourseData = (course: ICourseBE) => {
-  const { items } = course;
+export const getCourseState = (course: ICourseBE, courseStatus: number) => {
+  const { items, quiz } = course;
   const courseCompleted = items.every((item) => item.properties.isCompleted);
-
-  const courseStatus = getCoursePercentagesCompletion(items);
-  const defaultCourseState =
+  let defaultState =
     courseStatus > 0 ? CourseState.Started : CourseState.NotStarted;
 
+  if (course.properties.isDisabled) {
+    defaultState = CourseState.Disabled;
+  }
+
+  const completedState =
+    quiz && quiz.properties.isCompleted
+      ? CourseState.Tested
+      : CourseState.Completed;
+
+  return courseCompleted ? completedState : defaultState;
+};
+
+export const getCourseData = (course: ICourseBE) => {
+  const courseStatus = getCoursePercentagesCompletion(course.items);
+  const state = getCourseState(course, courseStatus);
   return {
+    state,
+    status: state === CourseState.Disabled ? 0 : courseStatus,
     properties: course.properties,
-    state: courseCompleted ? CourseState.Completed : defaultCourseState,
-    status: courseStatus,
   };
 };
 
-export const parseCourseBE = (courses: ICourseBE[]): ICourse[] =>
-  courses.map((course, index) => {
-    const courseId = (index + 1).toString() as string;
-    return {
-      ...course,
-      id: courseId,
-      items: parseCourseItems(course.items),
+export const parseQuizListItem = ({
+  quiz,
+  courseId,
+}: {
+  quiz: IQuiz;
+  courseId: string;
+}) => {
+  // TODO: add types to the rest of quiz data
+  return {
+    id: `quiz-${courseId}`,
+    title: "Course Assessment",
+    description:
+      "Did you master this course? Use this quiz to assess your Knowledge",
+    data: {
+      media: quiz.media,
+      state: quiz.state,
+    },
+  };
+};
+
+export const parseSingleCourseBE = ({
+  course,
+  courseNumber,
+  courseImg,
+}: {
+  course: ICourseBE;
+  courseNumber: number;
+  courseImg: number;
+}) => {
+  return {
+    ...course,
+    id: courseNumber.toString() as string,
+    items: parseCourseItems(course.items),
+    media: {
+      thumbnail: {
+        ratio_1_1: `course/course-${courseImg}-ratio-1_1.jpg`,
+        ratio_2_1: `course/course-${courseImg}-ratio-2_1.jpg`,
+      },
+    },
+    data: getCourseData(course),
+    quiz: {
+      ...course.quiz,
       media: {
         thumbnail: {
-          ratio_1_1: "https://picsum.photos/200/200",
-          ratio_2_1: "https://picsum.photos/310/140",
+          ratio_1_1: "quiz/quiz-ratio-1_1.jpg",
+          ratio_2_1: "quiz/quiz-ratio-2_1.jpg",
         },
       },
-      data: getCourseData(course),
-      quiz: {
-        ...course.quiz,
-        media: {
-          thumbnail: {
-            ratio_1_1: "https://picsum.photos/200/200",
-            ratio_2_1: "https://picsum.photos/310/140",
-          },
-        },
-      },
-    };
+    },
+  };
+};
+
+export const parseCoursesBE = (courses: ICourseBE[]): ICourse[] => {
+  let courseImgNumber = 1;
+  let courseImgLength = 1;
+
+  const parsedCourses = courses.map((course, index) => {
+    const courseNumber = index + 1;
+    const singleCourse = parseSingleCourseBE({
+      course,
+      courseImg: courseImgNumber,
+      courseNumber,
+    });
+
+    courseImgNumber =
+      courseImgNumber === courseImgLength ? 1 : courseImgNumber + 1;
+
+    return singleCourse;
   });
+
+  return parsedCourses;
+};
 
 export const parseCourseItems = (items: ICourseItemBE[]): ICourseItem[] => {
   let lessonNumber = 1;
@@ -116,59 +190,56 @@ export const parseCourseItems = (items: ICourseItemBE[]): ICourseItem[] => {
   return parsedItems;
 };
 
-export const parseTask = (task: ICourseItem): IListItem<{}> => {
-  return {
-    id: task.id,
-    title: task.title,
-    iconType: task.type as TaskIcon,
-    link: "https://www.walkme.com/",
-    externalLink: true,
-    state: getCourseItemState(task),
-  } as IListItem<{}>;
-};
-
-export const parseTasksToItemList = (tasks: ICourseItem[]): IListItem<{}>[] => {
-  return tasks.map(parseTask);
-};
-
-export const parseQuizListItem = ({
-  quiz,
-  courseId,
-}: {
-  quiz: IQuiz;
-  courseId: string;
-}) => {
-  // TODO: add types to the rest of quiz data
-  return {
-    id: `quiz-${courseId}`,
-    title: "Course Assessment",
-    description:
-      "Did you master this course? Use this quiz to assess your Knowledge",
-    data: {
-      media: quiz.media,
-      state: quiz.state,
-    },
+/**
+ * Calculate course percentages completion
+ * @param courses
+ */
+export const getCoursesTotalStatus = (courses: ICourse[]) => {
+  const courseStatusReducer = (acc: number, cur: number) => {
+    return acc + cur;
   };
+  const coursesStatusArr = courses.map((course) => {
+    return course.data.status;
+  });
+  const sumCoursesStatus = coursesStatusArr.reduce(courseStatusReducer);
+  return sumCoursesStatus / courses.length;
 };
 
 export const isCourseItemCompleted = (item: ICourseItem) =>
   item.properties.isCompleted;
 
+export const isCourseItemDisabled = (item: ICourseItem) => {
+  const isNotAvailable =
+    item.properties.isAvailable !== undefined && !item.properties.isAvailable;
+  return item.properties.isDisabled || isNotAvailable;
+};
+
 export const getCourseItemState = (item: ICourseItem) => {
   let itemState = CourseState.Started;
 
   if (item.type === CourseItemType.Lesson && item.tasks) {
-    itemState = item.tasks.some(isCourseItemCompleted)
-      ? CourseState.Started
-      : CourseState.NotStarted;
+    let lessonCompleted;
 
-    const lessonCompleted =
-      item.properties.isCompleted && item.tasks.every(isCourseItemCompleted);
+    if (isCourseItemDisabled(item)) {
+      itemState = CourseState.Disabled;
+    } else {
+      itemState = item.tasks.some(isCourseItemCompleted)
+        ? CourseState.Started
+        : CourseState.NotStarted;
+
+      lessonCompleted =
+        item.properties.isCompleted && item.tasks.every(isCourseItemCompleted);
+    }
+
     itemState = lessonCompleted ? CourseState.Completed : itemState;
   } else {
-    itemState = isCourseItemCompleted(item)
-      ? CourseState.Completed
-      : CourseState.NotStarted;
+    if (isCourseItemDisabled(item)) {
+      itemState = CourseState.Disabled;
+    } else {
+      itemState = isCourseItemCompleted(item)
+        ? CourseState.Completed
+        : CourseState.NotStarted;
+    }
   }
 
   return itemState;

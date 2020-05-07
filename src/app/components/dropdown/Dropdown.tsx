@@ -4,6 +4,8 @@ import Button, { ButtonType } from "../buttons/Button";
 import List from "../list/List";
 import { IListItem, IListItemState } from "../list/list-item/ListItem";
 import useIconManager, { IconType } from "../../hooks/useIconManager";
+import { CourseState } from "../../layout/screens/courses-screen/courses.interface";
+import MessageContainer from "../message-container/MessageContainer";
 
 export default function Dropdown<T>({
   id,
@@ -13,6 +15,7 @@ export default function Dropdown<T>({
   isOpen,
   isCollapsible = true,
   handler,
+  disabledMsg,
 }: {
   id: string;
   title: string;
@@ -24,10 +27,11 @@ export default function Dropdown<T>({
     state?: IListItemState;
     iconType?: IconType;
   };
+  disabledMsg?: string;
 }) {
   const [open, setOpen] = useState(isOpen);
   const handlerIcon = useIconManager(handler && handler.state);
-
+  const isDisabled = handler.state === CourseState.Disabled;
   const handlerClicked = () => {
     if (isCollapsible) {
       setOpen((prevOpen) => !prevOpen);
@@ -36,10 +40,17 @@ export default function Dropdown<T>({
 
   return (
     <div
-      className={`dropdown-wrapper ${className} ${
+      className={`dropdown-wrapper ${className} ${handler.state} ${
         isCollapsible ? "collapsible" : ""
       }`}
     >
+      {isDisabled && (
+        <MessageContainer
+          message={disabledMsg}
+          className="disabled-message"
+          type={handler.state}
+        />
+      )}
       <header className={`dropdown-handler ${open ? "open" : "close"}`}>
         <Button
           id={id}

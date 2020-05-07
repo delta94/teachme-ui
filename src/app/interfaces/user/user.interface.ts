@@ -5,6 +5,6 @@ interface IUser {
 export interface IUserData {
   user: IUser;
   courses: {
-    totalProgressBar: number;
+    percentCompletion: number;
   };
 }

@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useContext } from "react";
-import useViewManager from "../../hooks/useViewManager";
+
 import { TeachMeContext } from "../../App";
+import useViewManager from "../../hooks/useViewManager";
 import Minimize from "../../components/buttons/minimize/Minimize";
 import UserDetails from "../../components/user/user-details/UserDetails";
-import { useLocation, Link } from "react-router-dom";
-import Button, { ButtonType } from "../../components/buttons/Button";
+import { useLocation } from "react-router-dom";
+import { ButtonType } from "../../components/buttons/Button";
 import RouteButton from "../../components/buttons/route-button/RouteButton";
 import { Icon } from "../../hooks/useIconManager";
 
