@@ -130,7 +130,7 @@ export default function App() {
           const teachme = await walkme.apps.getApp("teachme");
           const tmCourses = await teachme.getContent();
           const parseCourses = parseCourseBE(tmCourses);
-
+          console.log("parseCourses ", parseCourses);
           // Teachme Guard
           if (teachme) {
             setTeachmeApp(teachme);

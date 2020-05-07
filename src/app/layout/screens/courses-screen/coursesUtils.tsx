@@ -42,18 +42,31 @@ export const getCoursePercentagesCompletion = (items: ICourseItemBE[]) => {
   return Math.floor(results);
 };
 
-export const getCourseData = (course: ICourseBE) => {
-  const { items } = course;
+export const getCourseState = (course: ICourseBE, courseStatus: number) => {
+  const { items, quiz } = course;
   const courseCompleted = items.every((item) => item.properties.isCompleted);
-
-  const courseStatus = getCoursePercentagesCompletion(items);
-  const defaultCourseState =
+  let defaultState =
     courseStatus > 0 ? CourseState.Started : CourseState.NotStarted;
 
+  if (course.properties.isDisabled) {
+    defaultState = CourseState.Disabled;
+  }
+
+  const completedState =
+    quiz && quiz.properties.isCompleted
+      ? CourseState.Tested
+      : CourseState.Completed;
+
+  return courseCompleted ? completedState : defaultState;
+};
+
+export const getCourseData = (course: ICourseBE) => {
+  const courseStatus = getCoursePercentagesCompletion(course.items);
+  const state = getCourseState(course, courseStatus);
   return {
+    state,
+    status: state === CourseState.Disabled ? 0 : courseStatus,
     properties: course.properties,
-    state: courseCompleted ? CourseState.Completed : defaultCourseState,
-    status: courseStatus,
   };
 };
 

@@ -39,8 +39,11 @@ export default function TMListItem({
   const { thumbnail } = media;
   const isCompleted =
     state === CourseState.Completed || state === CourseState.Tested;
+  const isDisabled = state === CourseState.Disabled;
+
   const buttonLabel =
     status > 0 ? (isCompleted ? "Completed" : "Resume") : "Start";
+
   const isTested = state === CourseState.Tested;
 
   const handleClick = () => {
@@ -53,7 +56,7 @@ export default function TMListItem({
 
   return (
     <div
-      className="item tm-item-info"
+      className={`item tm-item-info ${isDisabled ? "disabled" : ""}`}
       onClick={() => {
         if (clickable) {
           handleClick();
