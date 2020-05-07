@@ -83,6 +83,7 @@ export interface ICourseData {
 }
 
 export interface IProperties {
+  isAvailable?: boolean;
   isDisabled?: boolean;
   isEnabled?: boolean;
   passmark?: number;

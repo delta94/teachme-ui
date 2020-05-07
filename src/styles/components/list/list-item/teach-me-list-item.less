@@ -50,6 +50,19 @@
 
 .tm-item-info {
   --maxTitleWidth: 245px;
+  .disabledMsg();
+
+  &.disabled {
+    opacity: 0.8;
+    filter: grayscale();
+    .disabled-message {
+      .text {
+        text-align: center;
+        font-size: 15px;
+        .fMedium();
+      }
+    }
+  }
 
   .horizontalLayout();
   padding: 0;

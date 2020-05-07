@@ -4,6 +4,25 @@
   box-shadow: var(--elementShadow);
   margin-bottom: 20px;
   border-radius: 5px;
+  .disabledMsg();
+
+  &.disabled {
+    overflow: hidden;
+    .title .text {
+      opacity: 0.6;
+    }
+    .disabled-message {
+      .text {
+        opacity: 0.6;
+        text-align: center;
+        font-size: 15px;
+        .fMedium();
+        letter-spacing: -0.4px;
+        color: var(--neutral900);
+        align-items: start;
+      }
+    }
+  }
 
   .dropdown-handler {
     position: relative;

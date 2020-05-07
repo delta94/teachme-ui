@@ -21,11 +21,28 @@ ul {
     > div {
       border: solid 1px var(--border500);
       border-radius: 5px;
+      cursor: pointer;
+      position: relative;
+      .disabledMsg();
 
-      &.disabled {
-        opacity: 0.8;
-        filter: grayscale(1);
-        pointer-events: none;
+      &:not(.tm-item-info) {
+        &.disabled {
+          overflow: hidden;
+          .title .text {
+            opacity: 0.6;
+          }
+          .disabled-message {
+            .text {
+              opacity: 0.6;
+              text-align: center;
+              font-size: 14px;
+              .fRegular();
+              color: var(--neutral900);
+              align-items: start;
+              letter-spacing: -0.8px;
+            }
+          }
+        }
       }
 
       .thumb {

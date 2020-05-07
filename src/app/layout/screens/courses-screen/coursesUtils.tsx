@@ -10,6 +10,14 @@ import {
 } from "./courses.interface";
 import { IListItem } from "../../../components/list/list-item/ListItem";
 
+export const getCourseById = ({
+  tmCourses,
+  id,
+}: {
+  tmCourses: ICourse[];
+  id: string;
+}): ICourse => tmCourses.find((course) => course.id === id);
+
 export const parseToCourseListItems = (courses: ICourse[]): IListItem<{}>[] => {
   return courses.map((course) => {
     const { id, title, media, data } = course;
@@ -26,14 +34,6 @@ export const parseToCourseListItems = (courses: ICourse[]): IListItem<{}>[] => {
     };
   });
 };
-
-export const getCourseById = ({
-  tmCourses,
-  id,
-}: {
-  tmCourses: ICourse[];
-  id: string;
-}): ICourse => tmCourses.find((course) => course.id === id);
 
 export const getCoursePercentagesCompletion = (items: ICourseItemBE[]) => {
   const completedItems = items.filter((item) => item.properties.isCompleted)
@@ -178,21 +178,38 @@ export const parseQuizListItem = ({
 export const isCourseItemCompleted = (item: ICourseItem) =>
   item.properties.isCompleted;
 
+export const isCourseItemDisabled = (item: ICourseItem) => {
+  const isNotAvailable =
+    item.properties.isAvailable !== undefined && !item.properties.isAvailable;
+  return item.properties.isDisabled || isNotAvailable;
+};
+
 export const getCourseItemState = (item: ICourseItem) => {
   let itemState = CourseState.Started;
 
   if (item.type === CourseItemType.Lesson && item.tasks) {
-    itemState = item.tasks.some(isCourseItemCompleted)
-      ? CourseState.Started
-      : CourseState.NotStarted;
+    let lessonCompleted;
 
-    const lessonCompleted =
-      item.properties.isCompleted && item.tasks.every(isCourseItemCompleted);
+    if (isCourseItemDisabled(item)) {
+      itemState = CourseState.Disabled;
+    } else {
+      itemState = item.tasks.some(isCourseItemCompleted)
+        ? CourseState.Started
+        : CourseState.NotStarted;
+
+      lessonCompleted =
+        item.properties.isCompleted && item.tasks.every(isCourseItemCompleted);
+    }
+
     itemState = lessonCompleted ? CourseState.Completed : itemState;
   } else {
-    itemState = isCourseItemCompleted(item)
-      ? CourseState.Completed
-      : CourseState.NotStarted;
+    if (isCourseItemDisabled(item)) {
+      itemState = CourseState.Disabled;
+    } else {
+      itemState = isCourseItemCompleted(item)
+        ? CourseState.Completed
+        : CourseState.NotStarted;
+    }
   }
 
   return itemState;
