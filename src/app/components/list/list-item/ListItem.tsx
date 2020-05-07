@@ -54,7 +54,7 @@ export default function ListItem<T>({
 
   const icon = useIconManager(iconType);
   const stateIcon = useIconManager(state);
-  const stateClass = "state" || "";
+  const stateClass = state || "";
   const isDisabled = state === CourseState.Disabled;
 
   const itemContent = (
