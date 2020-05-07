@@ -64,13 +64,13 @@ export default function TMListItem({
         <picture className="thumb">
           <img
             className="ratio_1_1"
-            src={thumbnail.ratio_1_1}
+            src={require(`../../../../../images/${thumbnail.ratio_1_1}`)}
             alt={title}
             title={title}
           />
           <img
             className="ratio_2_1"
-            src={thumbnail.ratio_2_1}
+            src={require(`../../../../../images/${thumbnail.ratio_2_1}`)}
             alt={title}
             title={title}
           />
