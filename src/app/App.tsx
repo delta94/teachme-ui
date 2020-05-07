@@ -3,6 +3,7 @@ import { HashRouter } from "react-router-dom";
 
 import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
 
+import { ICourse } from "./layout/screens/courses-screen/courses.interface";
 import { IUserData } from "./interfaces/user/user.interface";
 import InformationScreen, {
   IInformationScreenData,
@@ -10,6 +11,10 @@ import InformationScreen, {
 } from "./layout/screens/information-screen/InformationScreen";
 
 import { config } from "./config";
+import {
+  parseCourseBE,
+  getCoursesTotalStatus,
+} from "./layout/screens/courses-screen/coursesUtils";
 import { tmPlatformType, TEACHME_ERROR, PLATFORM_ERROR } from "./consts/app";
 import useAppManager from "./hooks/useAppManager";
 import Debug from "./layout/debug/Debug";
@@ -17,11 +22,6 @@ import Header from "./layout/header/Header";
 import Main from "./layout/main/Main";
 
 import "../styles/index.less";
-import {
-  ICourseBE,
-  ICourse,
-} from "./layout/screens/courses-screen/courses.interface";
-import { parseCourseBE } from "./layout/screens/courses-screen/coursesUtils";
 
 export const defaultUserData: IUserData = {
   user: {
@@ -29,7 +29,7 @@ export const defaultUserData: IUserData = {
     LastName: "Israeli",
   },
   courses: {
-    totalProgressBar: 20,
+    percentCompletion: 20,
   },
 };
 
@@ -129,20 +129,20 @@ export default function App() {
 
           const teachme = await walkme.apps.getApp("teachme");
           const tmCourses = await teachme.getContent();
+          const parseCourses = parseCourseBE(tmCourses);
 
           // Teachme Guard
           if (teachme) {
             setTeachmeApp(teachme);
-          } else {
-            informationScreenData = {
-              type: InformationScreenType.NoConnection,
-              error:
-                "Teachme did not return data, try setting a query param teachme=mock",
-            };
-            setInformationScreen(informationScreenData);
           }
 
-          const parseCourses = parseCourseBE(tmCourses);
+          // set tmUser data
+          const tmUser = {
+            user: defaultUserData.user,
+            courses: {
+              percentCompletion: getCoursesTotalStatus(parseCourses),
+            },
+          };
 
           // Cleanups before set state
           timeout = setTimeout(() => {
@@ -154,6 +154,7 @@ export default function App() {
           clearTimeout(timeout);
           setTMState({
             ...tmState,
+            tmUser,
             tmCourses: parseCourses,
             initiated: true,
             platformType: platformTypeParam,

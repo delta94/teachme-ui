@@ -13,14 +13,14 @@ export default function UserDetails({
   const { tmUser } = tmContext.tmState;
   const {
     user,
-    courses: { totalProgressBar },
+    courses: { percentCompletion },
   } = tmUser;
 
   return (
     <>
       {greeting && <h2 className="greeting">Welcome Back, {user.firstName}</h2>}
       {progressBar && (
-        <ProgressBar percentCompletion={totalProgressBar} showTitle />
+        <ProgressBar percentCompletion={percentCompletion} showTitle />
       )}
     </>
   );

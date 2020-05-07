@@ -57,6 +57,17 @@ export const getCourseData = (course: ICourseBE) => {
   };
 };
 
+export const getCoursesTotalStatus = (courses: ICourse[]) => {
+  const courseStatusReducer = (acc: number, cur: number) => {
+    return acc + cur;
+  };
+  const coursesStatusArr = courses.map((course) => {
+    return course.data.status;
+  });
+  const sumCoursesStatus = coursesStatusArr.reduce(courseStatusReducer);
+  return sumCoursesStatus / courses.length;
+};
+
 export const parseCourseBE = (courses: ICourseBE[]): ICourse[] =>
   courses.map((course, index) => {
     const courseId = (index + 1).toString() as string;
