@@ -11,6 +11,7 @@ import Button, { ButtonType } from "../../../buttons/Button";
 
 import "../../../../../styles/components/list/list-item/teach-me-list-item.less";
 import useLink from "../../../../hooks/useLink";
+import MessageContainer from "../../../message-container/MessageContainer";
 
 export default function TMListItem({
   item,
@@ -33,33 +34,46 @@ export default function TMListItem({
     clickable,
     data = { status: 0, state: CourseState.NotStarted },
     description = "",
+    disabledMsg = "This course requires completion of all pervious",
   } = item;
   const { handleLinkClick } = useLink();
   const { status, state, media } = data;
   const { thumbnail } = media;
   const isCompleted =
     state === CourseState.Completed || state === CourseState.Tested;
+  const isDisabled = state === CourseState.Disabled;
+
   const buttonLabel =
     status > 0 ? (isCompleted ? "Completed" : "Resume") : "Start";
+
   const isTested = state === CourseState.Tested;
 
   const handleClick = () => {
-    if (onSelect) {
-      onSelect();
-    } else if (link) {
-      handleLinkClick(link);
+    if (!isDisabled) {
+      if (onSelect) {
+        onSelect();
+      } else if (link) {
+        handleLinkClick(link);
+      }
     }
   };
 
   return (
     <div
-      className="item tm-item-info"
+      className={`item tm-item-info ${isDisabled ? "disabled" : ""}`}
       onClick={() => {
-        if (clickable) {
+        if (clickable && !isDisabled) {
           handleClick();
         }
       }}
     >
+      {isDisabled && (
+        <MessageContainer
+          message={disabledMsg}
+          className="disabled-message"
+          type={state}
+        />
+      )}
       {thumbnail && (
         <picture className="thumb">
           <img

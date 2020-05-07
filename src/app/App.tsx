@@ -131,6 +131,7 @@ export default function App() {
           const tmCourses = await teachme.getContent();
           const parseCourses = parseCoursesBE(tmCourses);
 
+          console.log("parseCourses ", parseCourses);
           // Teachme Guard
           if (teachme) {
             setTeachmeApp(teachme);

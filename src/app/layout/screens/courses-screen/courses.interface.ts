@@ -1,6 +1,7 @@
 import { Icon } from "../../../hooks/useIconManager";
 
 export enum CourseState {
+  Disabled = "disabled",
   NotStarted = "not-started",
   Started = "started",
   Completed = "completed",
@@ -82,6 +83,7 @@ export interface ICourseData {
 }
 
 export interface IProperties {
+  isAvailable?: boolean;
   isDisabled?: boolean;
   isEnabled?: boolean;
   passmark?: number;
