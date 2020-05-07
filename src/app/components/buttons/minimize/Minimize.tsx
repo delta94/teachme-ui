@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import { TeachMeContext } from "../../../App";
 
 export default function Minimize() {
+  const tmContext = useContext(TeachMeContext);
+  const { walkmeSDK } = tmContext;
+
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    walkmeSDK.platform.closeMe();
+  };
+
   return (
-    <a>
+    <a onClick={handleClick}>
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
