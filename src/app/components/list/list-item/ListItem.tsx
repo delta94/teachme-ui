@@ -67,6 +67,9 @@ export default function ListItem<T>({
     } else if (item.link) {
       handleLinkClick(item.link);
     }
+    // TODO: add SDK logic
+    // walkme.content.playById(node.type, nodeId);
+    // walkme.platform.closeMe();
   };
 
   if (itemComponent) {
