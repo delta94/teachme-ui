@@ -5,6 +5,7 @@ export default function useLink() {
   const routeHistory = useHistory();
 
   const handleLinkClick = (link: string) => {
+    console.log("handleLinkClick ", link);
     const isExternalLink =
       link.includes("http://") || link.includes("https://");
 

@@ -24,7 +24,7 @@ export default function LessonListItem({
         handler={{
           state: getCourseItemState(item),
         }}
-        disabledMsg="This lesson is completed and available"
+        disabledMsg="This lesson requires the completion of all previous lessons"
       />
     </li>
   );
