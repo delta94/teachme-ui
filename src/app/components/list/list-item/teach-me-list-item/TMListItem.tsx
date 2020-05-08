@@ -49,12 +49,10 @@ export default function TMListItem({
   const isTested = state === CourseState.Tested;
 
   const handleClick = () => {
-    if (!isDisabled) {
-      if (onSelect) {
-        onSelect();
-      } else if (link) {
-        handleLinkClick(link);
-      }
+    if (onSelect) {
+      onSelect();
+    } else if (link) {
+      handleLinkClick(link);
     }
   };
 
@@ -62,7 +60,7 @@ export default function TMListItem({
     <div
       className={`item tm-item-info ${isDisabled ? "disabled" : ""}`}
       onClick={() => {
-        if (clickable && !isDisabled) {
+        if (clickable) {
           handleClick();
         }
       }}

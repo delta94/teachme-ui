@@ -71,12 +71,10 @@ export default function ListItem<T>({
   );
 
   const listItemClick = () => {
-    if (!isDisabled) {
-      if (onSelect) {
-        onSelect(item);
-      } else if (item.link) {
-        handleLinkClick(item.link);
-      }
+    if (onSelect) {
+      onSelect(item);
+    } else if (item.link) {
+      handleLinkClick(item.link);
     }
     // TODO: add SDK logic
     // walkme.content.playById(node.type, nodeId);
@@ -120,7 +118,9 @@ export default function ListItem<T>({
               <button
                 type="button"
                 className="primary-button"
-                onClick={listItemClick}
+                onClick={() => {
+                  listItemClick();
+                }}
               >
                 {primaryBtn.label}
               </button>
