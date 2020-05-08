@@ -26,7 +26,7 @@ export const parseToCourseListItems = (courses: ICourse[]): IListItem<{}>[] => {
       id,
       title,
       link: `/course/${id}`,
-      clickable: true,
+      clickable: data.state === CourseState.Disabled ? false : true,
       data: {
         ...data,
         media,
