@@ -1,4 +1,6 @@
 .sidebar {
+  --sidePadding: 10px;
+  --sidebarPadding: calc(var(--sidePadding) * 2); // left & right padding
   visibility: hidden;
   display: flex;
   flex-direction: column;
@@ -6,8 +8,53 @@
   max-width: 250px;
   height: 100vh;
   margin-right: 10px;
+  padding: 30px var(--sidePadding) 0;
 
   &.open {
     visibility: visible;
+  }
+
+  .title {
+    font-size: 17px;
+    .fSecondaryLight();
+    margin-bottom: 25px;
+  }
+
+  //   &.close {
+  //     display: none;
+  //   }
+  .dropdown-wrapper {
+    border: none;
+    box-shadow: none;
+
+    &.disabled {
+      &:hover {
+        .disabled-message {
+          visibility: hidden;
+        }
+      }
+      .disabled-message {
+        padding: 0;
+        .text {
+          text-align: left;
+        }
+      }
+    }
+
+    .dropdown-handler .btn {
+      max-width: calc(var(--sidebarWidth) - var(--sidebarPadding));
+      padding: 5px 25px 5px 0;
+      > * {
+        .ellipsis();
+      }
+    }
+
+    .dropdown-items {
+      padding: 0 10px 0 0;
+
+      .list .list-item .item header {
+        padding: 0;
+      }
+    }
   }
 }

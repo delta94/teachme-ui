@@ -81,7 +81,7 @@ export default function App() {
     type: InformationScreenType.Loading,
   } as IInformationScreenData);
 
-  const { initiated } = tmState;
+  const { initiated, isWebApp } = tmState;
 
   /**
    * displayDebugInfo
@@ -103,9 +103,9 @@ export default function App() {
       if (config.debug) displayDebugInfo();
       addGuidSpecificStyle();
       setInformationScreen(null as IInformationScreenData);
-      setSidebarIsOpen(false);
+      setSidebarIsOpen(isWebApp);
     }
-  }, [initiated]);
+  }, [initiated, isWebApp]);
 
   /**
    * Initial SDK and

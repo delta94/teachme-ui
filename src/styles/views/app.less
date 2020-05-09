@@ -25,17 +25,16 @@
   &.wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
 
     &.with-sidebar {
       max-width: var(--appWrapperWithSideBar);
+    }
 
-      @media @noSidebar {
-        max-width: var(--appWrapperWidth);
+    @media @noSidebar {
+      max-width: var(--appWrapperWidth);
 
-        .sidebar {
-          display: none;
-        }
+      .sidebar {
+        display: none;
       }
     }
   }

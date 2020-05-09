@@ -1,16 +1,20 @@
 import React, { useContext } from "react";
 import { TeachMeContext } from "../../App";
 import CourseItemsList from "../../components/list/course-items-list/CourseItemsList";
+import {
+  parseCourseItems,
+  parseToCourseListItems,
+} from "../screens/courses-screen/coursesUtils";
+import Dropdown from "../../components/dropdown/Dropdown";
 
 export default function Sidebar() {
   const { tmState, sidebar } = useContext(TeachMeContext);
   const { isOpen, setIsOpen } = sidebar;
-  const { tmCourses } = tmState;
+  const { tmCourses, isWebApp } = tmState;
+  const courses = parseToCourseListItems(tmCourses);
 
-  if (!tmState.isWebApp) {
-    return null;
-  } else {
-    setIsOpen(true);
+  if (!isWebApp || !isOpen) {
+    return <></>;
   }
 
   return (
@@ -21,8 +25,20 @@ export default function Sidebar() {
       <section className="sidebar-courses-list">
         {tmCourses.map((course) => {
           return (
-            <div className="list single-course-wrapper">
-              <CourseItemsList items={course.items} />
+            <div
+              key={`sidebar-${course.id}`}
+              className="list sidebar-single-course"
+            >
+              <Dropdown
+                className="sidebar-courses"
+                id={`course ${course.id}`}
+                title={course.title}
+                items={courses}
+                handler={{
+                  state: course.data.state,
+                }}
+                disabledMsg="This course requires completion of all pervious"
+              />
             </div>
           );
         })}
