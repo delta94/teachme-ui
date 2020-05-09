@@ -14,9 +14,11 @@ export default function Header() {
   const { isWebApp } = tmContext.tmState;
   const { pathname } = useLocation();
   const isHomePage = pathname === "/";
+
   const headerClass = `${isWebApp ? "web" : "app"} ${
     isHomePage ? "home-page" : "inner-page"
   } `;
+
   const logo = useRef();
   const details = useRef();
   const innerHeader = useRef();

@@ -22,6 +22,7 @@ import Header from "./layout/header/Header";
 import Main from "./layout/main/Main";
 
 import "../styles/index.less";
+import Sidebar from "./layout/sidebar/Sidebar";
 
 export const defaultUserData: IUserData = {
   user: {
@@ -33,7 +34,7 @@ export const defaultUserData: IUserData = {
   },
 };
 
-interface IDefaultInitialState {
+interface ITMState {
   tmCourses: ICourse[];
   initiated: boolean;
   debugError: string;
@@ -42,7 +43,7 @@ interface IDefaultInitialState {
   tmUser: IUserData;
 }
 
-const defaultInitialTMState: IDefaultInitialState = {
+const defaultInitialTMState: ITMState = {
   tmCourses: [] as ICourse[],
   initiated: false,
   debugError: "",
@@ -51,11 +52,18 @@ const defaultInitialTMState: IDefaultInitialState = {
   tmUser: defaultUserData,
 };
 
-export const TeachMeContext = createContext({
-  tmState: defaultInitialTMState,
-  walkmeSDK: {} as ISdk,
-  teachmeApp: {} as WalkMeApp,
-});
+interface sidebarOptions {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+interface ITeachMeContext {
+  tmState: ITMState;
+  walkmeSDK: ISdk;
+  teachmeApp: WalkMeApp;
+  sidebar: sidebarOptions;
+}
+
+export const TeachMeContext = createContext<ITeachMeContext | null>(null);
 
 export default function App() {
   const {
@@ -63,12 +71,16 @@ export default function App() {
     getDebugError,
     getUrlParamValueByName,
   } = useAppManager();
+
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
   const [teachmeApp, setTeachmeApp] = useState({} as WalkMeApp);
   const [tmState, setTMState] = useState(defaultInitialTMState);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
+  const sidebarOptions = { isOpen: sidebarIsOpen, setIsOpen: setSidebarIsOpen };
   const [informationScreen, setInformationScreen] = useState({
     type: InformationScreenType.Loading,
   } as IInformationScreenData);
+
   const { initiated } = tmState;
 
   /**
@@ -90,6 +102,8 @@ export default function App() {
     if (initiated) {
       if (config.debug) displayDebugInfo();
       addGuidSpecificStyle();
+      setInformationScreen(null as IInformationScreenData);
+      setSidebarIsOpen(false);
     }
   }, [initiated]);
 
@@ -136,6 +150,9 @@ export default function App() {
             },
           };
 
+          const isWebApp =
+            getUrlParamValueByName("tm-type") === tmPlatformType.Web;
+
           // Cleanups before set state
           timeout = setTimeout(() => {
             throw new Error(
@@ -152,7 +169,6 @@ export default function App() {
             platformType: platformTypeParam,
             isWebApp: getUrlParamValueByName("tm-type") === tmPlatformType.Web,
           });
-          setInformationScreen(null as IInformationScreenData);
         } catch (err) {
           console.error(err);
           clearTimeout(timeout);
@@ -163,13 +179,22 @@ export default function App() {
 
   return (
     <HashRouter>
-      <div className="app show">
+      <div
+        className={`app show wrapper ${sidebarIsOpen ? "with-sidebar" : ""}`}
+      >
         {informationScreen ? (
           <InformationScreen {...informationScreen} />
         ) : (
-          <TeachMeContext.Provider value={{ walkmeSDK, teachmeApp, tmState }}>
+          <TeachMeContext.Provider
+            value={{
+              walkmeSDK,
+              teachmeApp,
+              tmState,
+              sidebar: sidebarOptions,
+            }}
+          >
             <Debug />
-            <Header />
+            <Sidebar />
             <Main />
           </TeachMeContext.Provider>
         )}
