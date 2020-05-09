@@ -23,17 +23,20 @@ export default function Sidebar() {
         <span className="text">All of your lessons</span>
       </header>
       <section className="sidebar-courses-list">
-        {tmCourses.map((course) => {
+        {courses.map((course) => {
           return (
             <div
               key={`sidebar-${course.id}`}
               className="list sidebar-single-course"
             >
+              <header className="course-header">
+                <span className="text">Course {course.id}:</span>
+              </header>
               <Dropdown
                 className="sidebar-courses"
                 id={`course ${course.id}`}
                 title={course.title}
-                items={courses}
+                items={course.tasks}
                 handler={{
                   state: course.data.state,
                 }}

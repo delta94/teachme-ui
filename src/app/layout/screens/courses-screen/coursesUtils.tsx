@@ -7,6 +7,7 @@ import {
   ICourseItem,
   TaskIcon,
   IQuiz,
+  ICourseData,
 } from "./courses.interface";
 import { IListItem } from "../../../components/list/list-item/ListItem";
 
@@ -18,14 +19,17 @@ export const getCourseById = ({
   id: string;
 }): ICourse => tmCourses.find((course) => course.id === id);
 
-export const parseToCourseListItems = (courses: ICourse[]): IListItem<{}>[] => {
+export const parseToCourseListItems = (
+  courses: ICourse[]
+): IListItem<ICourseData>[] => {
   return courses.map((course) => {
-    const { id, title, media, data } = course;
+    const { id, title, media, data, items } = course;
 
     return {
       id,
       title,
       link: `/course/${id}`,
+      tasks: items.map((item) => parseTask(item)),
       clickable: data.state === CourseState.Disabled ? false : true,
       data: {
         ...data,
@@ -42,6 +46,7 @@ export const parseTask = (task: ICourseItem): IListItem<{}> => {
     iconType: task.type as TaskIcon,
     link: "https://www.walkme.com/",
     externalLink: true,
+    tasks: task.tasks && parseTasksToItemList(task.tasks),
     state: getCourseItemState(task),
   } as IListItem<{}>;
 };
