@@ -89,11 +89,24 @@
         .title {
           .fRegular();
           letter-spacing: -0.3px;
+
+          @media @desktopOnly {
+            max-width: var(--maxTitleWidth);
+
+            .text {
+              .ellipsis();
+            }
+          }
         }
 
         .thumb {
           @media @desktopOnly {
             height: 104px;
+
+            img {
+              width: 300px;
+              max-width: none;
+            }
           }
 
           .ratio_1_1 {

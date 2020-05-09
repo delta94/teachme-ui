@@ -49,7 +49,7 @@
 }
 
 .tm-item-info {
-  --maxTitleWidth: 245px;
+  --maxTitleWidth: 220px;
   .disabledMsg();
 
   &.disabled {
@@ -95,14 +95,6 @@
   .title {
     color: var(--neutral900);
     .fRegular();
-
-    @media @desktopOnly {
-      max-width: var(--maxTitleWidth);
-
-      .text {
-        .ellipsis();
-      }
-    }
   }
 
   .thumb {

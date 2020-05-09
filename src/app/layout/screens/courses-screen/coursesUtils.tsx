@@ -149,7 +149,7 @@ export const parseCoursesBE = (courses: ICourseBE[]): ICourse[] => {
     });
 
     courseImgNumber =
-      courseImgNumber === courseImgLength ? 1 : courseImgNumber + 1;
+      courseImgNumber % courseImgLength ? 1 : courseImgNumber + 1;
 
     return singleCourse;
   });
