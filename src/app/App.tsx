@@ -90,14 +90,6 @@ export default function App() {
     if (initiated) {
       if (config.debug) displayDebugInfo();
       addGuidSpecificStyle();
-      //App.onWindowReady();
-
-      // setTimeout(() => {
-      //   setTMState({
-      //     ...tmState,
-      //     informationScreen: null as IInformationScreenData,
-      //   });
-      // }, 500);
     }
   }, [initiated]);
 
@@ -131,7 +123,6 @@ export default function App() {
           const tmCourses = await teachme.getContent();
           const parseCourses = parseCoursesBE(tmCourses);
 
-          console.log("parseCourses ", parseCourses);
           // Teachme Guard
           if (teachme) {
             setTeachmeApp(teachme);
@@ -165,7 +156,6 @@ export default function App() {
         } catch (err) {
           console.error(err);
           clearTimeout(timeout);
-          // App.initializeWithError();
         }
       }
     })();
