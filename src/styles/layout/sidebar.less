@@ -4,13 +4,14 @@
   --sidebarGap: calc(var(--sidebarPadding) + 5px);
   --handlerMaxWidth: calc(var(--sidebarWidth) - var(--sidebarGap));
   --listItemMaxWidth: calc(var(--handlerMaxWidth) - 40px);
+  --sidebarInnerMaxWidth: calc(var(--sidebarWidth) - 15px);
 
   visibility: hidden;
   display: flex;
   flex-direction: column;
   width: 0;
-  height: 100vh;
-  margin-right: 10px;
+  height: var(--appHeight);
+  margin-right: 20px;
   padding: 30px 0 0;
   opacity: 0;
   //padding-left: var(--sidePadding);
@@ -19,6 +20,10 @@
     overflow-x: scroll;
     height: 100%;
     padding-right: var(--sidePadding);
+
+    .list {
+      max-width: var(--sidebarInnerMaxWidth);
+    }
   }
 
   &.open {

@@ -26,10 +26,10 @@
     margin-bottom: 20px;
 
     @media @desktopOnly {
-      min-height: 630px;
-      max-height: 630px;
+      height: 510px;
       overflow: scroll;
       padding-right: 10px;
+      margin-bottom: 0;
     }
   }
 
@@ -37,6 +37,14 @@
     .hoverFloating();
   }
 
+  .course-items {
+    li:last-child {
+      &.list-item,
+      &.lesson-item .dropdown-wrapper {
+        margin-bottom: 0;
+      }
+    }
+  }
   .course-items .list-item,
   ul .list-item {
     margin-bottom: 20px;
