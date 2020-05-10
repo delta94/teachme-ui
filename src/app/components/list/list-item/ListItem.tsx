@@ -13,6 +13,7 @@ export interface IItemComponentProps<T> {
 export type IListItemState = CourseState;
 
 export interface IListItem<T> {
+  tasks?: IListItem<{}>[];
   id: string;
   title: string;
   subTitle?: string;

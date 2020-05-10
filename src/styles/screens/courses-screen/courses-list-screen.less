@@ -1,10 +1,12 @@
 @import "../../components/list/list-item/teach-me-list-item.less";
+@import "../../icons.less";
 
 .screen.courses-screen {
   @media @desktopOnly {
-    padding-right: 30px;
+    padding-right: 10px;
   }
 }
+
 .courses-screen {
   .user-details {
     width: 100%;
@@ -17,7 +19,6 @@
     grid-column-gap: 17px;
     grid-row-gap: 35px;
     grid-template-columns: 1fr 1fr 1fr;
-    max-width: 900px;
     margin: 0 auto;
 
     @media @mobileToDesktop {
@@ -71,16 +72,7 @@
               padding-right: 15px;
 
               &:after {
-                content: "";
-                position: absolute;
-                right: 0;
-                top: 50%;
-                width: 4.5px;
-                height: 4.5px;
-                border-bottom: solid 1.5px currentColor;
-                border-right: solid 1.5px currentColor;
-                -webkit-transform: rotate(-45deg) translateY(-50%);
-                transform: rotate(-45deg) translateY(-50%);
+                .triangleRight();
               }
             }
           }
@@ -89,11 +81,24 @@
         .title {
           .fRegular();
           letter-spacing: -0.3px;
+
+          @media @desktopOnly {
+            max-width: var(--maxTitleWidth);
+
+            .text {
+              .ellipsis();
+            }
+          }
         }
 
         .thumb {
           @media @desktopOnly {
             height: 104px;
+
+            img {
+              width: 300px;
+              max-width: none;
+            }
           }
 
           .ratio_1_1 {

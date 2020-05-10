@@ -1,0 +1,215 @@
+.sidebar {
+  --sidePadding: 10px;
+  --sidebarPadding: calc(var(--sidePadding) * 2); // left & right padding
+  --sidebarGap: calc(var(--sidebarPadding) + 5px);
+  --handlerMaxWidth: calc(var(--sidebarWidth) - var(--sidebarGap));
+  --listItemMaxWidth: calc(var(--handlerMaxWidth) - 40px);
+  --sidebarInnerMaxWidth: calc(var(--sidebarWidth) - 15px);
+
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 0;
+  height: var(--appHeight);
+  margin-right: 20px;
+  padding: 30px 0 0;
+  opacity: 0;
+  //padding-left: var(--sidePadding);
+
+  .sidebar-courses-list {
+    overflow-x: scroll;
+    height: 100%;
+    padding-right: var(--sidePadding);
+
+    .list {
+      max-width: var(--sidebarInnerMaxWidth);
+    }
+  }
+
+  &.open {
+    width: 100%;
+    max-width: var(--sidebarWidth);
+    visibility: visible;
+    animation: fadeInLeft 0.3s linear both;
+  }
+
+  header.title {
+    font-size: 17px;
+    .fSecondaryLight();
+    margin-bottom: 25px;
+  }
+
+  &.close {
+    //animation: sidebarFadeInRight 0.3s linear both;
+  }
+
+  .dropdown-wrapper.collapsible {
+    border: none;
+    box-shadow: none;
+
+    &:not(.tested) {
+      .dropdown-handler .btn .icon {
+        display: none;
+      }
+    }
+
+    &.tested {
+      .dropdown-handler .btn {
+        padding: 5px 10px 5px 25px;
+
+        .icon {
+          right: auto;
+          left: 0;
+
+          &.check:before {
+            width: 7px;
+            height: 3px;
+          }
+        }
+      }
+    }
+
+    &.disabled {
+      .disabled-info {
+        display: none;
+      }
+      &:hover {
+        .disabled-message {
+          visibility: hidden;
+        }
+      }
+      .disabled-message {
+        padding: 0;
+        .text {
+          text-align: left;
+        }
+      }
+
+      .dropdown-handler:after {
+        opacity: 0.6;
+      }
+    }
+
+    .dropdown-handler {
+      &:after {
+        .triangleRight(var(--neutral500));
+        right: 5px;
+        border-left: 0;
+      }
+
+      &.open {
+        &:after {
+          transform: translateY(-50%) rotate(45deg);
+        }
+      }
+
+      .btn {
+        max-width: var(--handlerMaxWidth);
+        padding: 5px 15px 5px 0;
+
+        > * {
+          .ellipsis();
+        }
+      }
+    }
+
+    .dropdown-items {
+      padding: 0 10px 0 0;
+
+      .list {
+        border-top: none;
+
+        .list-item {
+          margin-bottom: 15px;
+
+          .item {
+            &.disabled {
+              &:hover {
+                .disabled-message {
+                  visibility: hidden;
+                }
+              }
+            }
+
+            &:not(.completed) {
+              &:after {
+                .triangleRight(var(--neutral500), 1.4px, 4px);
+                right: auto;
+                left: 2px;
+                top: 3px;
+                transform: rotate(-45deg) translateY(0);
+              }
+
+              &.disabled {
+                &:after {
+                  opacity: 0.6;
+                }
+              }
+            }
+
+            header {
+              padding: 0 0 0 25px;
+              .title {
+                width: var(--listItemMaxWidth);
+                font-size: 11px;
+                .fRegular();
+                color: var(--neutral500);
+                letter-spacing: 0.1px;
+
+                .text {
+                  .ellipsis();
+                }
+
+                .icon {
+                  display: none;
+                }
+              }
+            }
+
+            .item-info .item-handler {
+              .icon {
+                right: auto;
+                left: 0;
+
+                &.check:before {
+                  width: 7px;
+                  height: 3px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes sidebarFadeInRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+    width: 100%;
+    visibility: visible;
+  }
+  100% {
+    transform: translateX(100px);
+    opacity: 0;
+    width: 0;
+    visibility: hidden;
+  }
+}
+
+@-webkit-keyframes sidebarFadeInRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+    width: 100%;
+    visibility: visible;
+  }
+  100% {
+    transform: translateX(100px);
+    opacity: 0;
+    width: 0;
+    visibility: hidden;
+  }
+}

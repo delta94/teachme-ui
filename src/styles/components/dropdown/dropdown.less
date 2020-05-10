@@ -1,4 +1,5 @@
 .dropdown-wrapper {
+  position: relative;
   background-color: var(--white);
   border: 1px solid var(--borderLightGray);
   box-shadow: var(--elementShadow);
@@ -7,7 +8,32 @@
   .disabledMsg();
 
   &.disabled {
-    overflow: hidden;
+    &:hover .disabled-message {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .disabled-info {
+      position: absolute;
+      top: 15px;
+      right: 50px;
+      width: 20px;
+      height: 20px;
+      z-index: 10;
+      text-align: center;
+      line-height: 20px;
+      border: 1px solid var(--borderLightGray);
+      border-radius: 50%;
+      cursor: pointer;
+
+      &:hover {
+        & + .disabled-message {
+          pointer-events: none;
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+    }
 
     .dropdown-items {
       pointer-events: none;
@@ -19,6 +45,8 @@
     }
 
     .disabled-message {
+      width: 90%;
+      height: 48px;
       .text {
         opacity: 0.6;
         text-align: center;
@@ -47,6 +75,7 @@
       height: auto;
       .fMedium();
       letter-spacing: -0.4px;
+      text-align: start;
 
       .icon {
         position: absolute;

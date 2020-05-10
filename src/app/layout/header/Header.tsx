@@ -5,18 +5,21 @@ import useViewManager from "../../hooks/useViewManager";
 import Minimize from "../../components/buttons/minimize/Minimize";
 import UserDetails from "../../components/user/user-details/UserDetails";
 import { useLocation } from "react-router-dom";
-import { ButtonType } from "../../components/buttons/Button";
+import Button, { ButtonType } from "../../components/buttons/Button";
 import RouteButton from "../../components/buttons/route-button/RouteButton";
 import { Icon } from "../../hooks/useIconManager";
 
 export default function Header() {
-  const tmContext = useContext(TeachMeContext);
-  const { isWebApp } = tmContext.tmState;
+  const { tmState, sidebar } = useContext(TeachMeContext);
+  const { isWebApp } = tmState;
+  const { isOpen, setIsOpen } = sidebar;
   const { pathname } = useLocation();
   const isHomePage = pathname === "/";
+
   const headerClass = `${isWebApp ? "web" : "app"} ${
     isHomePage ? "home-page" : "inner-page"
   } `;
+
   const logo = useRef();
   const details = useRef();
   const innerHeader = useRef();
@@ -70,18 +73,26 @@ export default function Header() {
   );
 
   return (
-    <div className="header">
-      <div className="wrapper">
-        <div className={`general-header ${headerClass}`}>
-          {isHomePage && isWebApp && homePageHeader}
-          {!isHomePage && innerPageHeader}
-        </div>
+    <div className="header wrapper">
+      <div className={`general-header ${headerClass}`}>
+        {isHomePage && isWebApp && homePageHeader}
+        {!isHomePage && innerPageHeader}
       </div>
 
       {isWebApp && (
-        <div className="minimize">
+        <>
           <Minimize />
-        </div>
+          <Button
+            id="toggle-sidebar"
+            className="toggle-sidebar"
+            buttonClicked={() => {
+              setIsOpen(!isOpen);
+            }}
+            tmButtonType={ButtonType.NoBorder}
+          >
+            <span className="icon sidebar-handler"></span>
+          </Button>
+        </>
       )}
     </div>
   );

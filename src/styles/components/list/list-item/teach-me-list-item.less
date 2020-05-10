@@ -49,7 +49,7 @@
 }
 
 .tm-item-info {
-  --maxTitleWidth: 245px;
+  --maxTitleWidth: 220px;
   .disabledMsg();
 
   &.disabled {
@@ -64,6 +64,8 @@
       .text {
         text-align: center;
         font-size: 15px;
+        max-width: 200px;
+        margin: 0 auto;
         .fMedium();
       }
     }
@@ -95,14 +97,6 @@
   .title {
     color: var(--neutral900);
     .fRegular();
-
-    @media @desktopOnly {
-      max-width: var(--maxTitleWidth);
-
-      .text {
-        .ellipsis();
-      }
-    }
   }
 
   .thumb {

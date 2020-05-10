@@ -32,6 +32,9 @@ export default function Dropdown<T>({
   const [open, setOpen] = useState(isOpen);
   const handlerIcon = useIconManager(handler && handler.state);
   const isDisabled = handler.state === CourseState.Disabled;
+  const collapsibleClass = isCollapsible ? "collapsible" : "";
+  const dropdownToggle = open ? "open" : "close";
+
   const handlerClicked = () => {
     if (isCollapsible) {
       setOpen((prevOpen) => !prevOpen);
@@ -40,16 +43,17 @@ export default function Dropdown<T>({
 
   return (
     <div
-      className={`dropdown-wrapper ${className} ${handler.state} ${
-        isCollapsible ? "collapsible" : ""
-      }`}
+      className={`dropdown-wrapper ${className} ${handler.state} ${collapsibleClass} ${dropdownToggle}`}
     >
-      {isDisabled && (
-        <MessageContainer
-          message={disabledMsg}
-          className="disabled-message"
-          type={handler.state}
-        />
+      {isDisabled && disabledMsg && (
+        <>
+          <span className="disabled-info icon">i</span>
+          <MessageContainer
+            message={disabledMsg}
+            className="disabled-message"
+            type={handler.state}
+          />
+        </>
       )}
       <header className={`dropdown-handler ${open ? "open" : "close"}`}>
         <Button

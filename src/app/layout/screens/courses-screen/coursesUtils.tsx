@@ -7,6 +7,7 @@ import {
   ICourseItem,
   TaskIcon,
   IQuiz,
+  ICourseData,
 } from "./courses.interface";
 import { IListItem } from "../../../components/list/list-item/ListItem";
 
@@ -18,14 +19,17 @@ export const getCourseById = ({
   id: string;
 }): ICourse => tmCourses.find((course) => course.id === id);
 
-export const parseToCourseListItems = (courses: ICourse[]): IListItem<{}>[] => {
+export const parseToCourseListItems = (
+  courses: ICourse[]
+): IListItem<ICourseData>[] => {
   return courses.map((course) => {
-    const { id, title, media, data } = course;
+    const { id, title, media, data, items } = course;
 
     return {
       id,
       title,
       link: `/course/${id}`,
+      tasks: items.map((item) => parseTask(item)),
       clickable: data.state === CourseState.Disabled ? false : true,
       data: {
         ...data,
@@ -42,6 +46,7 @@ export const parseTask = (task: ICourseItem): IListItem<{}> => {
     iconType: task.type as TaskIcon,
     link: "https://www.walkme.com/",
     externalLink: true,
+    tasks: task.tasks && parseTasksToItemList(task.tasks),
     state: getCourseItemState(task),
   } as IListItem<{}>;
 };
@@ -50,7 +55,7 @@ export const parseTasksToItemList = (tasks: ICourseItem[]): IListItem<{}>[] =>
   tasks.map(parseTask);
 
 export const getCoursePercentagesCompletion = (items: ICourseItemBE[]) => {
-  const completedItems = items.filter((item) => item.properties.isCompleted)
+  const completedItems = items.filter((item) => isCourseItemCompleted(item))
     .length;
   const results = (completedItems / items.length / 1) * 100;
   return Math.floor(results);
@@ -58,7 +63,8 @@ export const getCoursePercentagesCompletion = (items: ICourseItemBE[]) => {
 
 export const getCourseState = (course: ICourseBE, courseStatus: number) => {
   const { items, quiz } = course;
-  const courseCompleted = items.every((item) => item.properties.isCompleted);
+
+  const courseCompleted = items.every((item) => isCourseItemCompleted(item));
   let defaultState =
     courseStatus > 0 ? CourseState.Started : CourseState.NotStarted;
 
@@ -112,7 +118,7 @@ export const parseSingleCourseBE = ({
   course: ICourseBE;
   courseNumber: number;
   courseImg: number;
-}) => {
+}): ICourse => {
   return {
     ...course,
     id: courseNumber.toString() as string,
@@ -138,7 +144,7 @@ export const parseSingleCourseBE = ({
 
 export const parseCoursesBE = (courses: ICourseBE[]): ICourse[] => {
   let courseImgNumber = 1;
-  let courseImgLength = 1;
+  let courseImgLength = 5;
 
   const parsedCourses = courses.map((course, index) => {
     const courseNumber = index + 1;
@@ -147,9 +153,8 @@ export const parseCoursesBE = (courses: ICourseBE[]): ICourse[] => {
       courseImg: courseImgNumber,
       courseNumber,
     });
-
-    courseImgNumber =
-      courseImgNumber === courseImgLength ? 1 : courseImgNumber + 1;
+    const resetCourseImgNumber = courseNumber % courseImgLength === 0;
+    courseImgNumber = resetCourseImgNumber ? 1 : courseImgNumber + 1;
 
     return singleCourse;
   });
@@ -205,10 +210,10 @@ export const getCoursesTotalStatus = (courses: ICourse[]) => {
   return sumCoursesStatus / courses.length;
 };
 
-export const isCourseItemCompleted = (item: ICourseItem) =>
+export const isCourseItemCompleted = (item: ICourseItem | ICourseItemBE) =>
   item.properties.isCompleted;
 
-export const isCourseItemDisabled = (item: ICourseItem) => {
+export const isCourseItemDisabled = (item: ICourseItem | ICourseItemBE) => {
   const isNotAvailable =
     item.properties.isAvailable !== undefined && !item.properties.isAvailable;
   return item.properties.isDisabled || isNotAvailable;
