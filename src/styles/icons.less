@@ -79,3 +79,8 @@
   -webkit-transform: rotate(-45deg) translateY(-50%);
   transform: rotate(-45deg) translateY(-50%);
 }
+
+.triangleLeft(@color: currentColor, @borderWidth: 1.5px, @size: 4.5px) {
+  .triangleRight(@color, @borderWidth,  @size);
+  transform: rotate(135deg) translateY(-50%);
+}

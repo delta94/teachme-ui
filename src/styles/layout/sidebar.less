@@ -8,14 +8,11 @@
   visibility: hidden;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 250px;
+  width: 0;
   height: 100vh;
   margin-right: 10px;
   padding: 30px 0 0;
   opacity: 0;
-  animation: fadeInDown 0.3s linear both;
-  animation-delay: 0.5s;
   padding-left: var(--sidePadding);
 
   .sidebar-courses-list {
@@ -25,7 +22,10 @@
   }
 
   &.open {
+    width: 100%;
+    max-width: 250px;
     visibility: visible;
+    animation: fadeInLeft 0.3s linear both;
   }
 
   header.title {
@@ -34,9 +34,10 @@
     margin-bottom: 25px;
   }
 
-  //   &.close {
-  //     display: none;
-  //   }
+  &.close {
+    //animation: sidebarFadeInRight 0.3s linear both;
+  }
+
   .dropdown-wrapper.collapsible {
     border: none;
     box-shadow: none;
@@ -65,6 +66,7 @@
         right: 5px;
         border-left: 0;
       }
+
       &.open {
         &:after {
           transform: translateY(-50%) rotate(45deg);
@@ -149,5 +151,35 @@
         }
       }
     }
+  }
+}
+
+@keyframes sidebarFadeInRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+    width: 100%;
+    visibility: visible;
+  }
+  100% {
+    transform: translateX(100px);
+    opacity: 0;
+    width: 0;
+    visibility: hidden;
+  }
+}
+
+@-webkit-keyframes sidebarFadeInRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+    width: 100%;
+    visibility: visible;
+  }
+  100% {
+    transform: translateX(100px);
+    opacity: 0;
+    width: 0;
+    visibility: hidden;
   }
 }

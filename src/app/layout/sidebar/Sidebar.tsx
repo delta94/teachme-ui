@@ -6,14 +6,15 @@ import {
   parseToCourseListItems,
 } from "../screens/courses-screen/coursesUtils";
 import Dropdown from "../../components/dropdown/Dropdown";
+import Button, { ButtonType } from "../../components/buttons/Button";
 
 export default function Sidebar() {
   const { tmState, sidebar } = useContext(TeachMeContext);
-  const { isOpen, setIsOpen } = sidebar;
+  const { isOpen } = sidebar;
   const { tmCourses, isWebApp } = tmState;
   const courses = parseToCourseListItems(tmCourses);
 
-  if (!isWebApp || !isOpen) {
+  if (!isWebApp) {
     return <></>;
   }
 
@@ -40,7 +41,6 @@ export default function Sidebar() {
                 handler={{
                   state: course.data.state,
                 }}
-                disabledMsg="This course requires completion of all pervious"
               />
             </div>
           );

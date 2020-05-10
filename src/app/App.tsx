@@ -103,7 +103,6 @@ export default function App() {
       if (config.debug) displayDebugInfo();
       addGuidSpecificStyle();
       setInformationScreen(null as IInformationScreenData);
-      setSidebarIsOpen(isWebApp);
     }
   }, [initiated, isWebApp]);
 
