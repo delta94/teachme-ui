@@ -143,7 +143,7 @@ export const parseSingleCourseBE = ({
 
 export const parseCoursesBE = (courses: ICourseBE[]): ICourse[] => {
   let courseImgNumber = 1;
-  let courseImgLength = 1;
+  let courseImgLength = 5;
 
   const parsedCourses = courses.map((course, index) => {
     const courseNumber = index + 1;
@@ -152,9 +152,8 @@ export const parseCoursesBE = (courses: ICourseBE[]): ICourse[] => {
       courseImg: courseImgNumber,
       courseNumber,
     });
-
-    courseImgNumber =
-      courseImgNumber % courseImgLength ? 1 : courseImgNumber + 1;
+    const resetCourseImgNumber = courseNumber % courseImgLength === 0;
+    courseImgNumber = resetCourseImgNumber ? 1 : courseImgNumber + 1;
 
     return singleCourse;
   });
