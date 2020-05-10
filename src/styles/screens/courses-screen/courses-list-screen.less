@@ -1,5 +1,9 @@
-@import "../../components/list/list-item/teach-me-list-item.less";
+@import "../../variables.less";
+@import "../../mixins.less";
+@import "../../fonts.less";
 @import "../../icons.less";
+
+@import "../../components/list/list-item/teach-me-list-item.less";
 
 .screen.courses-screen {
   @media @desktopOnly {
@@ -112,11 +116,6 @@
             }
           }
         }
-      }
-
-      &.fadeInUp {
-        animation: fadeInUp 0.3s linear both;
-        .nthChildAnimationDelay(20);
       }
     }
 

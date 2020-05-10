@@ -9,7 +9,6 @@ import { IListItem } from "../ListItem";
 import { ProgressBar } from "../../../progress-bar/ProgressBar";
 import Button, { ButtonType } from "../../../buttons/Button";
 
-import "../../../../../styles/components/list/list-item/teach-me-list-item.less";
 import useLink from "../../../../hooks/useLink";
 import MessageContainer from "../../../message-container/MessageContainer";
 
