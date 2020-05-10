@@ -63,6 +63,7 @@ export const getCoursePercentagesCompletion = (items: ICourseItemBE[]) => {
 
 export const getCourseState = (course: ICourseBE, courseStatus: number) => {
   const { items, quiz } = course;
+
   const courseCompleted = items.every((item) => item.properties.isCompleted);
   let defaultState =
     courseStatus > 0 ? CourseState.Started : CourseState.NotStarted;
