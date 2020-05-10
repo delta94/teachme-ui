@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
 
-  .wrapper {
+  &.wrapper {
     padding: 0 15px 0 0px;
   }
 
@@ -92,10 +92,16 @@
     margin-top: 18px;
   }
 
+  @media @noSidebar {
+    .toggle-sidebar {
+      display: none;
+    }
+  }
+
   .toggle-sidebar {
     position: absolute;
-    top: 0;
-    left: -35px;
+    top: 20px;
+    left: -40px;
     z-index: 10;
     min-width: 45px;
 

@@ -13,7 +13,7 @@
   margin-right: 10px;
   padding: 30px 0 0;
   opacity: 0;
-  padding-left: var(--sidePadding);
+  //padding-left: var(--sidePadding);
 
   .sidebar-courses-list {
     overflow-x: scroll;
@@ -23,7 +23,7 @@
 
   &.open {
     width: 100%;
-    max-width: 250px;
+    max-width: var(--sidebarWidth);
     visibility: visible;
     animation: fadeInLeft 0.3s linear both;
   }
