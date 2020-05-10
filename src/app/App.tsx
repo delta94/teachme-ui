@@ -134,7 +134,12 @@ export default function App() {
 
           const teachme = await walkme.apps.getApp("teachme");
           const tmCourses = await teachme.getContent();
-          const parseCourses = parseCoursesBE(tmCourses);
+
+          console.log("tmCourses =>", tmCourses);
+
+          const parsedCourses = parseCoursesBE(tmCourses);
+
+          console.log("parsedCourses =>", parsedCourses);
 
           // Teachme Guard
           if (teachme) {
@@ -145,12 +150,9 @@ export default function App() {
           const tmUser = {
             user: defaultUserData.user,
             courses: {
-              percentCompletion: getCoursesTotalStatus(parseCourses),
+              percentCompletion: getCoursesTotalStatus(parsedCourses),
             },
           };
-
-          const isWebApp =
-            getUrlParamValueByName("tm-type") === tmPlatformType.Web;
 
           // Cleanups before set state
           timeout = setTimeout(() => {
@@ -163,7 +165,7 @@ export default function App() {
           setTMState({
             ...tmState,
             tmUser,
-            tmCourses: parseCourses,
+            tmCourses: parsedCourses,
             initiated: true,
             platformType: platformTypeParam,
             isWebApp: getUrlParamValueByName("tm-type") === tmPlatformType.Web,

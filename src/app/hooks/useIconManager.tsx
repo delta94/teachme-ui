@@ -16,7 +16,11 @@ export default function useIconManager(type: IconType) {
   const getIconByType = (type: IconType) => {
     if (type === Icon.ArrowLeft) {
       return <span className="icon arrow-left"></span>;
-    } else if (type === Icon.Check || type === CourseState.Completed) {
+    } else if (
+      type === Icon.Check ||
+      type === CourseState.Completed ||
+      type === CourseState.Tested
+    ) {
       return <span className="icon check"></span>;
     } else if (type === CourseItemType.WalkThru) {
       return <span className="icon walk-thru"></span>;

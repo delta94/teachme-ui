@@ -47,6 +47,28 @@
     border: none;
     box-shadow: none;
 
+    &:not(.tested) {
+      .dropdown-handler .btn .icon {
+        display: none;
+      }
+    }
+
+    &.tested {
+      .dropdown-handler .btn {
+        padding: 5px 10px 5px 25px;
+
+        .icon {
+          right: auto;
+          left: 0;
+
+          &.check:before {
+            width: 7px;
+            height: 3px;
+          }
+        }
+      }
+    }
+
     &.disabled {
       .disabled-info {
         display: none;

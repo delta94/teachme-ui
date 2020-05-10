@@ -4,6 +4,7 @@ import Dropdown from "../../../dropdown/Dropdown";
 import {
   parseTasksToItemList,
   getCourseItemState,
+  parseTask,
 } from "../../../../layout/screens/courses-screen/coursesUtils";
 
 export default function LessonListItem({
@@ -22,7 +23,7 @@ export default function LessonListItem({
         items={parseTasksToItemList(item.tasks)}
         isOpen={isFirst}
         handler={{
-          state: getCourseItemState(item),
+          state: parseTask(item).state,
         }}
         disabledMsg="This lesson requires the completion of all previous lessons"
       />

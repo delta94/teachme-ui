@@ -48,11 +48,20 @@
         }
       }
     }
+
+    .dropdown-handler .btn .icon {
+      &.check:before {
+        border-bottom: solid 1px var(--primary);
+        border-left: solid 1px var(--primary);
+      }
+    }
   }
+
   .course-items .list-item,
   ul .list-item {
     margin-bottom: 20px;
   }
+
   .list-item.task-item > .item {
     box-shadow: var(--elementShadow);
     .hoverFloating();

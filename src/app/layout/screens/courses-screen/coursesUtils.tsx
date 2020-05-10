@@ -55,7 +55,7 @@ export const parseTasksToItemList = (tasks: ICourseItem[]): IListItem<{}>[] =>
   tasks.map(parseTask);
 
 export const getCoursePercentagesCompletion = (items: ICourseItemBE[]) => {
-  const completedItems = items.filter((item) => item.properties.isCompleted)
+  const completedItems = items.filter((item) => isCourseItemCompleted(item))
     .length;
   const results = (completedItems / items.length / 1) * 100;
   return Math.floor(results);
@@ -64,7 +64,7 @@ export const getCoursePercentagesCompletion = (items: ICourseItemBE[]) => {
 export const getCourseState = (course: ICourseBE, courseStatus: number) => {
   const { items, quiz } = course;
 
-  const courseCompleted = items.every((item) => item.properties.isCompleted);
+  const courseCompleted = items.every((item) => isCourseItemCompleted(item));
   let defaultState =
     courseStatus > 0 ? CourseState.Started : CourseState.NotStarted;
 
@@ -118,7 +118,7 @@ export const parseSingleCourseBE = ({
   course: ICourseBE;
   courseNumber: number;
   courseImg: number;
-}) => {
+}): ICourse => {
   return {
     ...course,
     id: courseNumber.toString() as string,
@@ -210,10 +210,10 @@ export const getCoursesTotalStatus = (courses: ICourse[]) => {
   return sumCoursesStatus / courses.length;
 };
 
-export const isCourseItemCompleted = (item: ICourseItem) =>
+export const isCourseItemCompleted = (item: ICourseItem | ICourseItemBE) =>
   item.properties.isCompleted;
 
-export const isCourseItemDisabled = (item: ICourseItem) => {
+export const isCourseItemDisabled = (item: ICourseItem | ICourseItemBE) => {
   const isNotAvailable =
     item.properties.isAvailable !== undefined && !item.properties.isAvailable;
   return item.properties.isDisabled || isNotAvailable;

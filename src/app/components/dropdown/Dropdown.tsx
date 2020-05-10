@@ -45,7 +45,7 @@ export default function Dropdown<T>({
     <div
       className={`dropdown-wrapper ${className} ${handler.state} ${collapsibleClass} ${dropdownToggle}`}
     >
-      {isDisabled && (
+      {isDisabled && disabledMsg && (
         <>
           <span className="disabled-info icon">i</span>
           <MessageContainer
