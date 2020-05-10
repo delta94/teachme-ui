@@ -11,15 +11,18 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.<br>
-Open [http://localhost:8080?platform=mock&notifications=mock](http://localhost:8080?platform=mock&notifications=mock) to view it in the browser.
+Open [http://localhost:9000?platform=mock&teachme=mock](http://localhost:9000?platform=mock&teachme=mock) to view it in the browser.
 
-### Queries params:
-- `?platform=mock` - required to initiate the SDK
-- `&notifications=mock` - required to initiate the SDK
-- `tm-type=web` - optional - TeachMe includes full layout
+### SDK Queries params:
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- `?platform=mock` - required to initiate the walkme SDK
+- `&teachme=mock` - required to initiate the teachme SDK
+
+### Layout Queries params:
+
+- `tm-type=web` - optional - TeachMe includes full layout:
+  header for all breakpoints.
+  sidebar only for wide screens over 1200 pixels
 
 ## Authors
 
