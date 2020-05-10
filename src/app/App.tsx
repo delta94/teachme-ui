@@ -77,11 +77,11 @@ export default function App() {
   const [tmState, setTMState] = useState(defaultInitialTMState);
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const sidebarOptions = { isOpen: sidebarIsOpen, setIsOpen: setSidebarIsOpen };
+  const { initiated, isWebApp } = tmState;
   const [informationScreen, setInformationScreen] = useState({
     type: InformationScreenType.Loading,
+    isWebApp,
   } as IInformationScreenData);
-
-  const { initiated, isWebApp } = tmState;
 
   /**
    * displayDebugInfo
@@ -184,7 +184,7 @@ export default function App() {
         className={`app show wrapper ${sidebarIsOpen ? "with-sidebar" : ""}`}
       >
         {informationScreen ? (
-          <InformationScreen {...informationScreen} />
+          <InformationScreen {...informationScreen} isWebApp={isWebApp} />
         ) : (
           <TeachMeContext.Provider
             value={{
