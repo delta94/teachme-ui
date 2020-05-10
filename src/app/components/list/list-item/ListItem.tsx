@@ -1,5 +1,8 @@
 import React, { ReactElement } from "react";
-import { CourseState } from "../../../layout/screens/courses-screen/courses.interface";
+import {
+  CourseState,
+  CourseItemType,
+} from "../../../layout/screens/courses-screen/courses.interface";
 import useIconManager, { IconType } from "../../../hooks/useIconManager";
 import { useHistory } from "react-router-dom";
 import useLink from "../../../hooks/useLink";
@@ -25,7 +28,7 @@ export interface IListItem<T> {
     label: string;
   };
   state?: IListItemState;
-  iconType?: IconType;
+  type?: CourseItemType;
   data?: T;
   disabledMsg?: string;
 }
@@ -35,13 +38,13 @@ export default function ListItem<T>({
   className = "",
   onSelect,
   state,
-  iconType,
+  type,
   itemComponent,
 }: {
   item: IListItem<T>;
   className?: string;
   state?: IListItemState;
-  iconType?: IconType;
+  type?: CourseItemType;
   onSelect?: (selected: IListItem<T>) => void;
   itemComponent?: (props?: IItemComponentProps<T>) => ReactElement;
 }) {
@@ -53,7 +56,7 @@ export default function ListItem<T>({
     disabledMsg = "This item is not completed and unavailable",
   } = item;
 
-  const icon = useIconManager(iconType);
+  const icon = useIconManager(type as IconType);
   const stateIcon = useIconManager(state);
   const stateClass = state || "";
   const isDisabled = state === CourseState.Disabled;

@@ -26,7 +26,7 @@ export default function CourseItemsList({ items }: { items: ICourseItem[] }) {
             item={parseTask(item)}
             className={"task-item"}
             state={getCourseItemState(item)}
-            iconType={item.type}
+            type={item.type}
           />
         );
       })}
