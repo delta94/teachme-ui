@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useContext } from "react";
 
 import { LIST_ITEM_DISABLED_MSG } from "../../../consts/app";
 import {
@@ -7,9 +7,10 @@ import {
 } from "../../../interfaces/courses/courses.interface";
 
 import useIconManager, { IconType } from "../../../hooks/useIconManager";
-import useLink from "../../../hooks/useLink";
+import useListItemManager from "../../../hooks/useListItemManager";
 
 import MessageContainer from "../../message-container/MessageContainer";
+import { TeachMeContext } from "../../../App";
 
 export interface IItemComponentProps<T> {
   onSelect: () => void;
@@ -26,7 +27,6 @@ export interface IListItem<T> {
   description?: string;
   link?: string;
   clickable?: boolean;
-  externalLink?: boolean;
   useWalkMeSdk?: boolean;
   primaryBtn?: {
     label: string;
@@ -54,7 +54,8 @@ export default function ListItem<T>({
   type,
   itemComponent,
 }: IListItemProps<T>) {
-  const { handleLinkClick } = useLink();
+  const { walkmeSDK } = useContext(TeachMeContext);
+  const { handleListItemClick } = useListItemManager(walkmeSDK);
   const {
     title,
     subTitle,
@@ -83,12 +84,9 @@ export default function ListItem<T>({
   const listItemClick = () => {
     if (onSelect) {
       onSelect(item);
-    } else if (item.link) {
-      handleLinkClick(item.link);
+    } else {
+      handleListItemClick(item);
     }
-    // TODO: add SDK logic
-    // walkme.content.playById(node.type, nodeId);
-    // walkme.platform.closeMe();
   };
 
   if (itemComponent) {

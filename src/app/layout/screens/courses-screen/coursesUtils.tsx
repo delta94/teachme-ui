@@ -36,11 +36,9 @@ export const parseTask = (task: ICourseItem): IListItem<{}> => {
     id: task.id,
     title: task.title,
     type: task.type,
-    link: "https://www.walkme.com/",
-    externalLink: true,
-    // useWalkMeSdk: true,
     tasks: task.tasks && parseTasksToItemList(task.tasks),
     state: task.state,
+    useWalkMeSdk: true,
   } as IListItem<{}>;
 };
 

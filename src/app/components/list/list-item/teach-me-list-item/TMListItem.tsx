@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import {
@@ -9,9 +9,10 @@ import { IListItem } from "../ListItem";
 import { ProgressBar } from "../../../progress-bar/ProgressBar";
 import Button, { ButtonType } from "../../../buttons/Button";
 
-import useLink from "../../../../hooks/useLink";
+import useListItemManager from "../../../../hooks/useListItemManager";
 import MessageContainer from "../../../message-container/MessageContainer";
 import { COURSE_DISABLED_MSG } from "../../../../consts/app";
+import { TeachMeContext } from "../../../../App";
 
 export default function TMListItem({
   item,
@@ -29,14 +30,14 @@ export default function TMListItem({
   const {
     id,
     title,
-    link,
     subTitle,
     clickable,
     data = { status: 0, state: CourseState.NotStarted },
     description = "",
     disabledMsg = COURSE_DISABLED_MSG,
   } = item;
-  const { handleLinkClick } = useLink();
+  const { walkmeSDK } = useContext(TeachMeContext);
+  const { handleListItemClick } = useListItemManager(walkmeSDK);
   const { status, state, media } = data;
   const { thumbnail } = media;
   const isCompleted =
@@ -51,8 +52,8 @@ export default function TMListItem({
   const handleClick = () => {
     if (onSelect) {
       onSelect();
-    } else if (link) {
-      handleLinkClick(link);
+    } else {
+      handleListItemClick(item);
     }
   };
 
