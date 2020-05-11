@@ -2,7 +2,7 @@ import React from "react";
 import {
   ICourseItem,
   CourseItemType,
-} from "../../../layout/screens/courses-screen/courses.interface";
+} from "../../../interfaces/courses/courses.interface";
 import {
   getCourseItemState,
   parseTask,

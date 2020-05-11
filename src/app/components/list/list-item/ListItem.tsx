@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import {
   CourseState,
   CourseItemType,
-} from "../../../layout/screens/courses-screen/courses.interface";
+} from "../../../interfaces/courses/courses.interface";
 import useIconManager, { IconType } from "../../../hooks/useIconManager";
 import { useHistory } from "react-router-dom";
 import useLink from "../../../hooks/useLink";

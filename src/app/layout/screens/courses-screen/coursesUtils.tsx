@@ -8,7 +8,7 @@ import {
   TaskIcon,
   IQuiz,
   ICourseData,
-} from "./courses.interface";
+} from "../../../interfaces/courses/courses.interface";
 import { IListItem } from "../../../components/list/list-item/ListItem";
 
 export const parseToCourseListItems = (

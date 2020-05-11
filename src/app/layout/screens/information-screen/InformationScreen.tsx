@@ -1,18 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import useViewManager from "../../../hooks/useViewManager";
 
-export enum InformationScreenType {
-  Error = "error",
-  Loading = "loading",
-  NoConnection = "no-connection",
-  Unknown = "unknown",
-}
-
-export interface IInformationScreenData {
-  type?: InformationScreenType;
-  error?: string;
-  isWebApp?: boolean;
-}
+import {
+  IInformationScreenData,
+  InformationScreenType,
+} from "../../../interfaces/information-screen/informationScreen.interface";
 
 const DEFAULT_ERROR = "Something is wrong, please try again";
 

@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import {
   ICourseData,
   CourseState,
-} from "../../../../layout/screens/courses-screen/courses.interface";
+} from "../../../../interfaces/courses/courses.interface";
 import { IListItem } from "../ListItem";
 import { ProgressBar } from "../../../progress-bar/ProgressBar";
 import Button, { ButtonType } from "../../../buttons/Button";

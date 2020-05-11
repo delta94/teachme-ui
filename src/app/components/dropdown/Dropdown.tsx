@@ -4,7 +4,7 @@ import Button, { ButtonType } from "../buttons/Button";
 import List from "../list/List";
 import { IListItem, IListItemState } from "../list/list-item/ListItem";
 import useIconManager, { IconType } from "../../hooks/useIconManager";
-import { CourseState } from "../../layout/screens/courses-screen/courses.interface";
+import { CourseState } from "../../interfaces/courses/courses.interface";
 import MessageContainer from "../message-container/MessageContainer";
 
 export default function Dropdown<T>({

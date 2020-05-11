@@ -1,5 +1,5 @@
 import React from "react";
-import { ICourseItem } from "../../../../layout/screens/courses-screen/courses.interface";
+import { ICourseItem } from "../../../../interfaces/courses/courses.interface";
 import Dropdown from "../../../dropdown/Dropdown";
 import {
   parseTasksToItemList,

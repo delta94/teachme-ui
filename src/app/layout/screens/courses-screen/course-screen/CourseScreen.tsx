@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
-import { ICourse, CourseState } from "../courses.interface";
+import {
+  ICourse,
+  CourseState,
+} from "../../../../interfaces/courses/courses.interface";
 import { getCourseById, parseQuizListItem } from "../coursesUtils";
 import "../../../../../styles/screens/courses-screen/course-screen.less";
 

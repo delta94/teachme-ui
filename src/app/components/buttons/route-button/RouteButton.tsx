@@ -2,7 +2,7 @@ import React from "react";
 import Button, { ButtonType } from "../Button";
 import { Link } from "react-router-dom";
 import useIconManager, { IconType } from "../../../hooks/useIconManager";
-import { CourseState } from "../../../layout/screens/courses-screen/courses.interface";
+import { CourseState } from "../../../interfaces/courses/courses.interface";
 
 export default function RouteButton({
   id,
