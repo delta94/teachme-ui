@@ -48,6 +48,8 @@ export default function App() {
     type: InformationScreenType.Loading,
     isWebApp,
   } as IInformationScreenData);
+  const sidebarState = sidebarIsOpen ? "sidebar-open" : "sidebar-close";
+  const tmType = isWebApp ? "web" : "app";
 
   /**
    * displayDebugInfo
@@ -160,9 +162,7 @@ export default function App() {
           >
             <Debug />
             <Sidebar />
-            <Main
-              className={sidebarIsOpen ? "sidebar-open" : "sidebar-close"}
-            />
+            <Main className={sidebarState} />
           </TeachMeContext.Provider>
         )}
       </div>

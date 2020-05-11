@@ -11,7 +11,7 @@
 
 .screen.course-screen {
   padding-right: 5px;
-  height: 550px;
+  height: 565px;
 
   > .course {
     max-width: var(--scrolledContentMaxWidth);
@@ -24,14 +24,19 @@
   }
 
   .course-lessons-wrapper {
+    height: auto;
     padding-top: 15px;
     margin-bottom: 20px;
 
     @media @desktopOnly {
-      height: 510px;
-      overflow: hidden;
+      height: 480px;
+      overflow-y: hidden;
       padding-right: 10px;
       margin-bottom: 0;
+
+      &:hover {
+        overflow-y: scroll;
+      }
 
       .course-items {
         max-width: 563px;
@@ -48,10 +53,6 @@
             }
           }
         }
-      }
-
-      &:hover {
-        overflow: scroll;
       }
     }
   }

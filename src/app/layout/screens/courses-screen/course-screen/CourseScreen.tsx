@@ -49,7 +49,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
     // reset selection for removing highlight className
     const timer = setTimeout(() => {
       setSelectedTask(undefined);
-    }, 4000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [taskId]);

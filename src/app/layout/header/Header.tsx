@@ -69,6 +69,10 @@ export default function Header() {
     </div>
   );
 
+  if (isHomePage && !isWebApp) {
+    return <></>;
+  }
+
   return (
     <div className="header">
       <div className={`general-header wrapper ${headerClass}`}>

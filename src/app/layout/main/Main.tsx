@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import InformationScreen from "../screens/information-screen/InformationScreen";
+import React from "react";
 import CoursesScreen from "../screens/courses-screen/CoursesScreen";
 import Header from "../header/Header";
 
