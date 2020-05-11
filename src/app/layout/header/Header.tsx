@@ -5,26 +5,23 @@ import useViewManager from "../../hooks/useViewManager";
 import Minimize from "../../components/buttons/minimize/Minimize";
 import UserDetails from "../../components/user/user-details/UserDetails";
 import { useLocation } from "react-router-dom";
-import Button, { ButtonType } from "../../components/buttons/Button";
+import { ButtonType } from "../../components/buttons/Button";
 import RouteButton from "../../components/buttons/route-button/RouteButton";
 import { Icon } from "../../hooks/useIconManager";
 
 export default function Header() {
-  const { tmState, sidebar } = useContext(TeachMeContext);
-  const { isWebApp } = tmState;
-  const { isOpen, setIsOpen } = sidebar;
+  const { tmState } = useContext(TeachMeContext);
   const { pathname } = useLocation();
-  const isHomePage = pathname === "/";
-
-  const headerClass = `${isWebApp ? "web" : "app"} ${
-    isHomePage ? "home-page" : "inner-page"
-  } `;
-
+  const { animateCoreElements } = useViewManager();
   const logo = useRef();
   const details = useRef();
   const innerHeader = useRef();
 
-  const { animateCoreElements } = useViewManager();
+  const { isWebApp } = tmState;
+  const isHomePage = pathname === "/";
+  const appTypeClass = isWebApp ? "web" : "app";
+  const pageTypeClass = isHomePage ? "home-page" : "inner-page";
+  const headerClass = `${appTypeClass} ${pageTypeClass}`;
 
   useEffect(() => {
     if (isWebApp && isHomePage) {
@@ -72,9 +69,13 @@ export default function Header() {
     </div>
   );
 
+  if (isHomePage && !isWebApp) {
+    return <></>;
+  }
+
   return (
-    <div className="header wrapper">
-      <div className={`general-header ${headerClass}`}>
+    <div className="header">
+      <div className={`general-header wrapper ${headerClass}`}>
         {isHomePage && isWebApp && homePageHeader}
         {!isHomePage && innerPageHeader}
       </div>
@@ -82,16 +83,6 @@ export default function Header() {
       {isWebApp && (
         <>
           <Minimize />
-          <Button
-            id="toggle-sidebar"
-            className="toggle-sidebar"
-            buttonClicked={() => {
-              setIsOpen(!isOpen);
-            }}
-            tmButtonType={ButtonType.NoBorder}
-          >
-            <span className="icon sidebar-handler"></span>
-          </Button>
         </>
       )}
     </div>

@@ -48,6 +48,8 @@ export default function App() {
     type: InformationScreenType.Loading,
     isWebApp,
   } as IInformationScreenData);
+  const sidebarState = sidebarIsOpen ? "sidebar-open" : "sidebar-close";
+  const tmType = isWebApp ? "web" : "app";
 
   /**
    * displayDebugInfo
@@ -146,9 +148,7 @@ export default function App() {
 
   return (
     <HashRouter>
-      <div
-        className={`app show wrapper ${sidebarIsOpen ? "with-sidebar" : ""}`}
-      >
+      <div className={`app show wrapper`}>
         {informationScreen ? (
           <InformationScreen {...informationScreen} isWebApp={isWebApp} />
         ) : (
@@ -162,7 +162,7 @@ export default function App() {
           >
             <Debug />
             <Sidebar />
-            <Main />
+            <Main className={sidebarState} />
           </TeachMeContext.Provider>
         )}
       </div>

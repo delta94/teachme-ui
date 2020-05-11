@@ -15,11 +15,11 @@ export function ProgressBar({
   const percentages = `${progressValue}%`;
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setProgressValue(percentCompletion);
     }, 300);
 
-    return setProgressValue(0);
+    return () => clearTimeout(timer);
   }, []);
 
   return (

@@ -21,7 +21,12 @@ export const parseToCourseListItems = (
       id,
       title,
       link: `/course/${id}`,
-      tasks: items.map((item) => parseTask(item)),
+      tasks: items.map((item) => {
+        const parsedTask = parseTask(item);
+        const { useWalkMeSdk, ...noUseWalkMeSdk } = parsedTask;
+        const itemLink = `/course/${id}/${item.id}`;
+        return { ...noUseWalkMeSdk, link: itemLink };
+      }),
       clickable: data.state === CourseState.Disabled ? false : true,
       data: {
         ...data,
@@ -36,10 +41,9 @@ export const parseTask = (task: ICourseItem): IListItem<{}> => {
     id: task.id,
     title: task.title,
     type: task.type,
-    link: "https://www.walkme.com/",
-    externalLink: true,
     tasks: task.tasks && parseTasksToItemList(task.tasks),
     state: task.state,
+    useWalkMeSdk: true,
   } as IListItem<{}>;
 };
 
@@ -110,10 +114,11 @@ export const parseSingleCourseBE = ({
   courseNumber: number;
   courseImg: number;
 }): ICourse => {
+  const courseId = courseNumber.toString() as string;
   return {
     ...course,
-    id: courseNumber.toString() as string,
-    items: parseCourseItems(course.items),
+    id: courseId,
+    items: parseCourseItems({ courseId, items: course.items }),
     media: {
       thumbnail: {
         ratio_1_1: `course/course-${courseImg}-ratio-1_1.jpg`,
@@ -153,7 +158,13 @@ export const parseCoursesBE = (courses: ICourseBE[]): ICourse[] => {
   return parsedCourses;
 };
 
-export const parseCourseItems = (items: ICourseItemBE[]): ICourseItem[] => {
+export const parseCourseItems = ({
+  courseId,
+  items,
+}: {
+  courseId: string;
+  items: ICourseItemBE[];
+}): ICourseItem[] => {
   let lessonNumber = 1;
 
   const parsedItems = items.map(
@@ -173,6 +184,7 @@ export const parseCourseItems = (items: ICourseItemBE[]): ICourseItem[] => {
 
       const parsedItem = {
         ...noChildNodes,
+        courseId,
         id: item.id.toString() as string,
         lessonNumber: isLessonType ? lessonNumber : undefined,
         tasks,

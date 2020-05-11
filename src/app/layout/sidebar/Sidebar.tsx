@@ -1,25 +1,33 @@
 import React, { useContext } from "react";
 import { TeachMeContext } from "../../App";
-import CourseItemsList from "../../components/list/course-items-list/CourseItemsList";
-import {
-  parseCourseItems,
-  parseToCourseListItems,
-} from "../screens/courses-screen/coursesUtils";
+import { parseToCourseListItems } from "../screens/courses-screen/coursesUtils";
 import Dropdown from "../../components/dropdown/Dropdown";
 import Button, { ButtonType } from "../../components/buttons/Button";
 
 export default function Sidebar() {
   const { tmState, sidebar } = useContext(TeachMeContext);
-  const { isOpen } = sidebar;
+
+  const { isOpen, setIsOpen } = sidebar;
   const { tmCourses, isWebApp } = tmState;
   const courses = parseToCourseListItems(tmCourses);
+  const sidebarStateClass = isOpen ? "open" : "close";
 
   if (!isWebApp) {
     return <></>;
   }
 
   return (
-    <div className={`sidebar ${isOpen ? "open" : "close"}`}>
+    <div className={`sidebar ${sidebarStateClass}`}>
+      <Button
+        id="toggle-sidebar"
+        className="toggle-sidebar"
+        buttonClicked={() => {
+          setIsOpen(!isOpen);
+        }}
+        tmButtonType={ButtonType.NoBorder}
+      >
+        <span className="icon sidebar-handler"></span>
+      </Button>
       <header className="title">
         <span className="text">All of your lessons</span>
       </header>

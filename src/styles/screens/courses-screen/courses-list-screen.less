@@ -12,10 +12,15 @@
 }
 
 .courses-screen {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+
   .user-details {
     width: 100%;
     height: auto;
-    margin: 0 auto 35px;
+    margin: 0 0 35px 0;
+    max-width: var(--scrolledContentMaxWidth);
   }
 
   .list.courses {
@@ -23,7 +28,9 @@
     grid-column-gap: 17px;
     grid-row-gap: 35px;
     grid-template-columns: 1fr 1fr 1fr;
-    margin: 0 auto;
+    margin: 0;
+    width: 100%;
+    max-width: var(--scrolledContentMaxWidth);
 
     @media @mobileToDesktop {
       grid-template-columns: 1fr 1fr;
@@ -39,21 +46,17 @@
     }
   }
 
-  .list.courses .list-item {
-    margin-bottom: 0;
-    opacity: 0;
-
-    &.fadeInUp {
-      animation: fadeInUp 0.3s linear both;
-      .nthChildAnimationDelay(20);
-    }
-  }
-
   .list.courses {
+    margin-bottom: 20px;
     .list-item {
       margin-bottom: 0;
       opacity: 0;
       border: 0;
+
+      &.fadeInUp {
+        animation: fadeInUp 0.3s linear both;
+        .nthChildAnimationDelay(20);
+      }
 
       .item {
         .horizontalLayout();

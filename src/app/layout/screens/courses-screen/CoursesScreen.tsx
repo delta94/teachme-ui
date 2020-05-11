@@ -8,7 +8,7 @@ export default function CoursesScreen() {
   return (
     <Switch>
       <Route exact path="/" component={CoursesListScreen} />
-      <Route path="/course/:courseId" component={CourseScreen} />
+      <Route path="/course/:courseId/:taskId?" component={CourseScreen} />
     </Switch>
   );
 }

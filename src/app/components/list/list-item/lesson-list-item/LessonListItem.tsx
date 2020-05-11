@@ -6,26 +6,29 @@ import {
   getCourseItemState,
   parseTask,
 } from "../../../../layout/screens/courses-screen/coursesUtils";
+import { LESSON_DISABLED_MSG } from "../../../../consts/app";
 
 export default function LessonListItem({
   item,
-  isFirst,
+  isOpen,
+  className = "",
 }: {
   item: ICourseItem;
-  isFirst: boolean;
+  isOpen: boolean;
+  className?: string;
 }) {
   return (
-    <li className="lesson-item" key={`dropdown-${item.id}`}>
+    <li className={`lesson-item ${className}`} key={`dropdown-${item.id}`}>
       <Dropdown
         className="course-lessons"
         id={`lesson ${item.id}`}
         title={`Lesson ${item.lessonNumber} - ${item.title}`}
         items={parseTasksToItemList(item.tasks)}
-        isOpen={isFirst}
+        isOpen={isOpen}
         handler={{
           state: item.state,
         }}
-        disabledMsg="This lesson requires the completion of all previous lessons"
+        disabledMsg={LESSON_DISABLED_MSG}
       />
     </li>
   );
