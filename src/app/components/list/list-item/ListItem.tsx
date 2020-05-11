@@ -1,11 +1,14 @@
 import React, { ReactElement } from "react";
+
+import { LIST_ITEM_DISABLED_MSG } from "../../../consts/app";
 import {
   CourseState,
   CourseItemType,
 } from "../../../interfaces/courses/courses.interface";
+
 import useIconManager, { IconType } from "../../../hooks/useIconManager";
-import { useHistory } from "react-router-dom";
 import useLink from "../../../hooks/useLink";
+
 import MessageContainer from "../../message-container/MessageContainer";
 
 export interface IItemComponentProps<T> {
@@ -24,6 +27,7 @@ export interface IListItem<T> {
   link?: string;
   clickable?: boolean;
   externalLink?: boolean;
+  useWalkMeSdk?: boolean;
   primaryBtn?: {
     label: string;
   };
@@ -33,6 +37,15 @@ export interface IListItem<T> {
   disabledMsg?: string;
 }
 
+export interface IListItemProps<T> {
+  item: IListItem<T>;
+  className?: string;
+  state?: IListItemState;
+  type?: CourseItemType;
+  onSelect?: (selected: IListItem<T>) => void;
+  itemComponent?: (props?: IItemComponentProps<T>) => ReactElement;
+}
+
 export default function ListItem<T>({
   item,
   className = "",
@@ -40,20 +53,13 @@ export default function ListItem<T>({
   state,
   type,
   itemComponent,
-}: {
-  item: IListItem<T>;
-  className?: string;
-  state?: IListItemState;
-  type?: CourseItemType;
-  onSelect?: (selected: IListItem<T>) => void;
-  itemComponent?: (props?: IItemComponentProps<T>) => ReactElement;
-}) {
+}: IListItemProps<T>) {
   const { handleLinkClick } = useLink();
   const {
     title,
     subTitle,
     primaryBtn,
-    disabledMsg = "This item is not completed and unavailable",
+    disabledMsg = LIST_ITEM_DISABLED_MSG,
   } = item;
 
   const icon = useIconManager(type as IconType);

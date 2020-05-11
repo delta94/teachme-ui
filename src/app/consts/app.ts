@@ -19,6 +19,13 @@ export const PLATFORM_ERROR =
 export const TEACHME_ERROR =
   "Teachme did not return data, try setting a query param `&teachme=mock`";
 
+export const LIST_ITEM_DISABLED_MSG =
+  "This item is not completed and unavailable";
+export const LESSON_DISABLED_MSG =
+  "This lesson requires the completion of all previous lessons";
+export const COURSE_DISABLED_MSG =
+  "This course requires completion of all pervious";
+
 export const defaultUserData: IUserData = {
   user: {
     firstName: "Dan",

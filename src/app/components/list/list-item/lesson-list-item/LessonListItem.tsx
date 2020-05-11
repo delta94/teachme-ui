@@ -6,6 +6,7 @@ import {
   getCourseItemState,
   parseTask,
 } from "../../../../layout/screens/courses-screen/coursesUtils";
+import { LESSON_DISABLED_MSG } from "../../../../consts/app";
 
 export default function LessonListItem({
   item,
@@ -25,7 +26,7 @@ export default function LessonListItem({
         handler={{
           state: item.state,
         }}
-        disabledMsg="This lesson requires the completion of all previous lessons"
+        disabledMsg={LESSON_DISABLED_MSG}
       />
     </li>
   );

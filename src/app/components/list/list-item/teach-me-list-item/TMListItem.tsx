@@ -11,6 +11,7 @@ import Button, { ButtonType } from "../../../buttons/Button";
 
 import useLink from "../../../../hooks/useLink";
 import MessageContainer from "../../../message-container/MessageContainer";
+import { COURSE_DISABLED_MSG } from "../../../../consts/app";
 
 export default function TMListItem({
   item,
@@ -33,7 +34,7 @@ export default function TMListItem({
     clickable,
     data = { status: 0, state: CourseState.NotStarted },
     description = "",
-    disabledMsg = "This course requires completion of all pervious",
+    disabledMsg = COURSE_DISABLED_MSG,
   } = item;
   const { handleLinkClick } = useLink();
   const { status, state, media } = data;
