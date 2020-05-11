@@ -20,21 +20,22 @@ export interface IItemComponentProps<T> {
 export type IListItemState = CourseState;
 
 export interface IListItem<T> {
-  tasks?: IListItem<{}>[];
   id: string;
+  courseId?: string;
   title: string;
   subTitle?: string;
   description?: string;
   link?: string;
   clickable?: boolean;
   useWalkMeSdk?: boolean;
-  primaryBtn?: {
-    label: string;
-  };
   state?: IListItemState;
   type?: CourseItemType;
   data?: T;
   disabledMsg?: string;
+  tasks?: IListItem<{}>[];
+  primaryBtn?: {
+    label: string;
+  };
 }
 
 export interface IListItemProps<T> {

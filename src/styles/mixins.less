@@ -73,11 +73,13 @@
   transform: translateY(0);
   transition: box-shadow 0.3s, transform 0.3s;
 
-  &:hover {
-    -webkit-transform: translateY(-3px);
-    transform: translateY(-3px);
-    -webkit-box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
-    box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
+  &:not(.disabled) {
+    &:hover {
+      -webkit-transform: translateY(-3px);
+      transform: translateY(-3px);
+      -webkit-box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
+    }
   }
 }
 

@@ -21,7 +21,12 @@ export const parseToCourseListItems = (
       id,
       title,
       link: `/course/${id}`,
-      tasks: items.map((item) => parseTask(item)),
+      tasks: items.map((item) => {
+        const parsedTask = parseTask(item);
+        const { useWalkMeSdk, ...noUseWalkMeSdk } = parsedTask;
+        const itemLink = `/course/${id}/${item.id}`;
+        return { ...noUseWalkMeSdk, link: itemLink };
+      }),
       clickable: data.state === CourseState.Disabled ? false : true,
       data: {
         ...data,

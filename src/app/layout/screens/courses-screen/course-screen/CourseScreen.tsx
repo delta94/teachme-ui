@@ -14,25 +14,45 @@ import useViewManager from "../../../../hooks/useViewManager";
 import TMListItem from "../../../../components/list/list-item/teach-me-list-item/TMListItem";
 import CourseItemsList from "../../../../components/list/course-items-list/CourseItemsList";
 
-type TParams = { courseId: string };
+type TParams = { courseId: string; taskId: string };
 
 export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
   const tmContext = useContext(TeachMeContext);
   const { tmCourses } = tmContext.tmState;
-
   const courseSection = useRef();
   const [course, setCourse] = useState(null as ICourse);
+  const [selectedTask, setSelectedTask] = useState(undefined);
   const defaultCourseData = { status: 0, state: CourseState.NotStarted };
   const { animateCoreElements } = useViewManager();
+  const { courseId, taskId } = match.params;
 
   useEffect(() => {
-    const selectedCourse = getCourseById({
-      tmCourses,
-      id: match.params.courseId,
-    });
+    setCourse(null);
 
-    setCourse(selectedCourse);
-  }, []);
+    // Using setTimeout for set fadeInUp animation
+    const timer = setTimeout(() => {
+      const selectedCourse = getCourseById({
+        tmCourses,
+        id: match.params.courseId,
+      });
+      if (selectedCourse) {
+        setCourse(selectedCourse);
+      }
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [courseId]);
+
+  useEffect(() => {
+    // set selection for adding highlight className to element
+    setSelectedTask(taskId);
+
+    // reset selection for removing highlight className
+    const timer = setTimeout(() => {
+      setSelectedTask(undefined);
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [taskId]);
 
   useEffect(() => {
     if (course) {
@@ -42,11 +62,11 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
         timeout: 400,
       });
     }
-  }, [course]);
+  }, [course, courseId]);
 
   return (
-    course && (
-      <section className="screen course-screen">
+    <section className="screen course-screen">
+      {course && (
         <section
           ref={courseSection}
           className={`course animated-element ${
@@ -64,7 +84,10 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
           </header>
           <div className="course-content">
             <div className="course-lessons-wrapper">
-              <CourseItemsList items={course.items} />
+              <CourseItemsList
+                items={course.items}
+                selectedTaskId={selectedTask}
+              />
             </div>
             {course.quiz && (
               <div className="course-quiz">
@@ -83,7 +106,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
             )}
           </div>
         </section>
-      </section>
-    )
+      )}
+    </section>
   );
 }
