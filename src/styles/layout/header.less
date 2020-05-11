@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
 
-  &.wrapper {
+  .wrapper {
     padding: 0 15px 0 0;
   }
 
@@ -95,24 +95,6 @@
   @media @noSidebar {
     .toggle-sidebar {
       display: none;
-    }
-  }
-
-  .toggle-sidebar {
-    position: absolute;
-    top: 20px;
-    left: -45px;
-    z-index: 10;
-    min-width: 45px;
-
-    .icon {
-      &:before {
-        margin-right: 5px;
-      }
-      &:before,
-      &:after {
-        .triangleLeft(var(--secondary500));
-      }
     }
   }
 

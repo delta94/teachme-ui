@@ -146,9 +146,7 @@ export default function App() {
 
   return (
     <HashRouter>
-      <div
-        className={`app show wrapper ${sidebarIsOpen ? "with-sidebar" : ""}`}
-      >
+      <div className={`app show wrapper`}>
         {informationScreen ? (
           <InformationScreen {...informationScreen} isWebApp={isWebApp} />
         ) : (
@@ -162,7 +160,9 @@ export default function App() {
           >
             <Debug />
             <Sidebar />
-            <Main />
+            <Main
+              className={sidebarIsOpen ? "sidebar-open" : "sidebar-close"}
+            />
           </TeachMeContext.Provider>
         )}
       </div>

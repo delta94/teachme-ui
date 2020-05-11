@@ -3,17 +3,9 @@ import InformationScreen from "../screens/information-screen/InformationScreen";
 import CoursesScreen from "../screens/courses-screen/CoursesScreen";
 import Header from "../header/Header";
 
-export default function Main() {
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 1500);
-  // });
-
+export default function Main({ className = "" }: { className?: string }) {
   return (
-    <div className="main">
+    <div className={`main ${className}`}>
       <Header />
       <CoursesScreen />
     </div>
