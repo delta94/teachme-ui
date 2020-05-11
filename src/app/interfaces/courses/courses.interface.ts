@@ -50,6 +50,7 @@ export interface IQuiz {
 }
 
 export interface ICourseTask {
+  courseId?: string;
   id: string;
   title: string;
   description?: string;

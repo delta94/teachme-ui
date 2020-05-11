@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext } from "react";
 import { TeachMeContext } from "../../App";
-import CourseItemsList from "../../components/list/course-items-list/CourseItemsList";
 import { parseToCourseListItems } from "../screens/courses-screen/coursesUtils";
 import Dropdown from "../../components/dropdown/Dropdown";
 import Button, { ButtonType } from "../../components/buttons/Button";
-import useViewManager from "../../hooks/useViewManager";
 
 export default function Sidebar() {
   const { tmState, sidebar } = useContext(TeachMeContext);

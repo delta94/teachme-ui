@@ -11,6 +11,10 @@
 .screen.course-screen {
   padding-right: 5px;
 
+  > .course {
+    max-width: var(--scrolledContentMaxWidth);
+  }
+
   .course-information {
     .progress-bar-wrapper {
       margin-top: -20px;
@@ -23,9 +27,17 @@
 
     @media @desktopOnly {
       height: 510px;
-      overflow: scroll;
+      overflow: hidden;
       padding-right: 10px;
       margin-bottom: 0;
+
+      .course-items {
+        max-width: 563px;
+      }
+
+      &:hover {
+        overflow: scroll;
+      }
     }
   }
 

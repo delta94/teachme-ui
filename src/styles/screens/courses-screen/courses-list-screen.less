@@ -12,6 +12,9 @@
 }
 
 .courses-screen {
+  display: flex;
+  justify-content: start;
+
   .user-details {
     width: 100%;
     height: auto;
@@ -23,7 +26,9 @@
     grid-column-gap: 17px;
     grid-row-gap: 35px;
     grid-template-columns: 1fr 1fr 1fr;
-    margin: 0 auto;
+    margin: 0;
+    width: 100%;
+    max-width: var(--scrolledContentMaxWidth);
 
     @media @mobileToDesktop {
       grid-template-columns: 1fr 1fr;
