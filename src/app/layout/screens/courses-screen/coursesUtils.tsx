@@ -8,16 +8,8 @@ import {
   TaskIcon,
   IQuiz,
   ICourseData,
-} from "./courses.interface";
+} from "../../../interfaces/courses/courses.interface";
 import { IListItem } from "../../../components/list/list-item/ListItem";
-
-export const getCourseById = ({
-  tmCourses,
-  id,
-}: {
-  tmCourses: ICourse[];
-  id: string;
-}): ICourse => tmCourses.find((course) => course.id === id);
 
 export const parseToCourseListItems = (
   courses: ICourse[]
@@ -43,11 +35,11 @@ export const parseTask = (task: ICourseItem): IListItem<{}> => {
   return {
     id: task.id,
     title: task.title,
-    iconType: task.type as TaskIcon,
+    type: task.type,
     link: "https://www.walkme.com/",
     externalLink: true,
     tasks: task.tasks && parseTasksToItemList(task.tasks),
-    state: getCourseItemState(task),
+    state: task.state,
   } as IListItem<{}>;
 };
 
@@ -80,7 +72,7 @@ export const getCourseState = (course: ICourseBE, courseStatus: number) => {
   return courseCompleted ? completedState : defaultState;
 };
 
-export const getCourseData = (course: ICourseBE) => {
+export const parseCourseData = (course: ICourseBE) => {
   const courseStatus = getCoursePercentagesCompletion(course.items);
   const state = getCourseState(course, courseStatus);
   return {
@@ -97,7 +89,6 @@ export const parseQuizListItem = ({
   quiz: IQuiz;
   courseId: string;
 }) => {
-  // TODO: add types to the rest of quiz data
   return {
     id: `quiz-${courseId}`,
     title: "Course Assessment",
@@ -129,7 +120,7 @@ export const parseSingleCourseBE = ({
         ratio_2_1: `course/course-${courseImg}-ratio-2_1.jpg`,
       },
     },
-    data: getCourseData(course),
+    data: parseCourseData(course),
     quiz: {
       ...course.quiz,
       media: {
@@ -172,28 +163,41 @@ export const parseCourseItems = (items: ICourseItemBE[]): ICourseItem[] => {
       const tasks =
         item.childNodes &&
         item.childNodes.map((task) => {
-          return {
+          const parsedTask = {
             ...task,
             id: task.id.toString() as string,
           };
+          const taskState = getCourseItemState(parsedTask);
+          return { ...parsedTask, state: taskState };
         });
-      const itemData = {
+
+      const parsedItem = {
         ...noChildNodes,
         id: item.id.toString() as string,
         lessonNumber: isLessonType ? lessonNumber : undefined,
         tasks,
       };
 
+      const itemState = getCourseItemState(parsedItem);
+
       if (isLessonType) {
         lessonNumber = lessonNumber + 1;
       }
 
-      return itemData;
+      return { ...parsedItem, state: itemState };
     }
   );
 
   return parsedItems;
 };
+
+export const getCourseById = ({
+  tmCourses,
+  id,
+}: {
+  tmCourses: ICourse[];
+  id: string;
+}): ICourse => tmCourses.find((course) => course.id === id);
 
 /**
  * Calculate course percentages completion

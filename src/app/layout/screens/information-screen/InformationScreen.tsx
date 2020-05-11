@@ -1,22 +1,15 @@
 import React, { useRef, useEffect } from "react";
 import useViewManager from "../../../hooks/useViewManager";
 
-export enum InformationScreenType {
-  Error = "error",
-  Loading = "loading",
-  NoConnection = "no-connection",
-  Unknown = "unknown",
-}
-
-export interface IInformationScreenData {
-  type?: InformationScreenType;
-  error?: string;
-}
+import {
+  IInformationScreenData,
+  InformationScreenType,
+} from "../../../interfaces/information-screen/informationScreen.interface";
 
 const DEFAULT_ERROR = "Something is wrong, please try again";
 
 export default function InformationScreen(props: IInformationScreenData) {
-  const { type, error } = props;
+  const { type, error, isWebApp } = props;
   const loading = useRef(null);
   const noConnection = useRef(null);
   const isLoading = type === InformationScreenType.Loading;
@@ -48,15 +41,15 @@ export default function InformationScreen(props: IInformationScreenData) {
   }
 
   return (
-    <div className="information-screen">
+    <div className={`information-screen ${isWebApp ? "web" : ""}`}>
       {isLoading && (
-        <div ref={loading} className="screen loading">
+        <div ref={loading} className="screen info loading">
           <div className="preloader"></div>
           <span>Loading</span>
         </div>
       )}
       {isNoConnection && (
-        <div ref={noConnection} className="screen no-connection">
+        <div ref={noConnection} className="screen info no-connection">
           <svg
             viewBox="0 0 88 66"
             fill="none"

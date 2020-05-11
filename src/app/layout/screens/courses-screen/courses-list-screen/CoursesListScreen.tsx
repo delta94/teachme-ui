@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { IListItem } from "../../../../components/list/list-item/ListItem";
 import List from "../../../../components/list/List";
 import TMListItem from "../../../../components/list/list-item/teach-me-list-item/TMListItem";
-import { ICourseData } from "../courses.interface";
+import { ICourseData } from "../../../../interfaces/courses/courses.interface";
 import UserDetails from "../../../../components/user/user-details/UserDetails";
 import { TeachMeContext } from "../../../../App";
 import { parseToCourseListItems } from "../coursesUtils";

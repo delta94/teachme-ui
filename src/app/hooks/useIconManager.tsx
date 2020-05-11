@@ -3,7 +3,7 @@ import {
   CourseState,
   TaskIcon,
   CourseItemType,
-} from "../layout/screens/courses-screen/courses.interface";
+} from "../interfaces/courses/courses.interface";
 
 export enum Icon {
   ArrowLeft = "arrow-left",

@@ -2,7 +2,7 @@ import React from "react";
 import {
   ICourseItem,
   CourseItemType,
-} from "../../../layout/screens/courses-screen/courses.interface";
+} from "../../../interfaces/courses/courses.interface";
 import {
   getCourseItemState,
   parseTask,
@@ -26,7 +26,7 @@ export default function CourseItemsList({ items }: { items: ICourseItem[] }) {
             item={parseTask(item)}
             className={"task-item"}
             state={getCourseItemState(item)}
-            iconType={item.type}
+            type={item.type}
           />
         );
       })}

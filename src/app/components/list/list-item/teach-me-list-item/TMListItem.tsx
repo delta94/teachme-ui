@@ -4,12 +4,11 @@ import { useHistory } from "react-router-dom";
 import {
   ICourseData,
   CourseState,
-} from "../../../../layout/screens/courses-screen/courses.interface";
+} from "../../../../interfaces/courses/courses.interface";
 import { IListItem } from "../ListItem";
 import { ProgressBar } from "../../../progress-bar/ProgressBar";
 import Button, { ButtonType } from "../../../buttons/Button";
 
-import "../../../../../styles/components/list/list-item/teach-me-list-item.less";
 import useLink from "../../../../hooks/useLink";
 import MessageContainer from "../../../message-container/MessageContainer";
 

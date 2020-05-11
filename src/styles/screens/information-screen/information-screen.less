@@ -3,8 +3,12 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: var(--appHeight);
+  min-height: var(--appMinHeight);
   pointer-events: none;
+
+  &.web {
+    height: var(--webAppHeight);
+  }
 
   > .screen {
     display: flex;
@@ -17,6 +21,7 @@
     color: var(--secondary500);
     .transition();
     opacity: 0;
+    overflow: hidden;
 
     &.fadeInUp {
       opacity: 1;

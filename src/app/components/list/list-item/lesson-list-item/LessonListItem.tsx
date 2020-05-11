@@ -1,5 +1,5 @@
 import React from "react";
-import { ICourseItem } from "../../../../layout/screens/courses-screen/courses.interface";
+import { ICourseItem } from "../../../../interfaces/courses/courses.interface";
 import Dropdown from "../../../dropdown/Dropdown";
 import {
   parseTasksToItemList,
@@ -23,7 +23,7 @@ export default function LessonListItem({
         items={parseTasksToItemList(item.tasks)}
         isOpen={isFirst}
         handler={{
-          state: parseTask(item).state,
+          state: item.state,
         }}
         disabledMsg="This lesson requires the completion of all previous lessons"
       />

@@ -27,7 +27,7 @@ export default function List<T>({
             onSelect={onSelect}
             itemComponent={itemComponent}
             state={item.state}
-            iconType={item.iconType}
+            type={item.type}
           />
         );
       })}

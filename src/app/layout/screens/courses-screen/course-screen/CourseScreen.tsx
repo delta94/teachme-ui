@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
-import { ICourse, CourseState } from "../courses.interface";
+import {
+  ICourse,
+  CourseState,
+} from "../../../../interfaces/courses/courses.interface";
 import { getCourseById, parseQuizListItem } from "../coursesUtils";
 import "../../../../../styles/screens/courses-screen/course-screen.less";
 
@@ -35,8 +38,8 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
     if (course) {
       animateCoreElements({
         elements: [courseSection.current],
-        animateClassName: "fadeIn",
-        timeout: 300,
+        animateClassName: "fadeInUp",
+        timeout: 400,
       });
     }
   }, [course]);

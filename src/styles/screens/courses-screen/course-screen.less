@@ -1,19 +1,15 @@
 @import "../../variables.less";
 @import "../../mixins.less";
 
-.screen.course-screen {
+:root {
   --quizBoxWidthDesktop: 290px;
   --gridColumnGap: 17px;
   --courseInformationWidth: calc(
     100% - (calc(var(--quizBoxWidthDesktop) + (var(--gridColumnGap) * 2)))
   );
-
+}
+.screen.course-screen {
   padding-right: 5px;
-
-  .course {
-    -webkit-transform: translate3d(0, 20px, 0);
-    transform: translate3d(0, 20px, 0);
-  }
 
   .course-information {
     .progress-bar-wrapper {

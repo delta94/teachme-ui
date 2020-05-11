@@ -1,67 +1,33 @@
 import React, { useEffect, createContext, useState } from "react";
 import { HashRouter } from "react-router-dom";
-
 import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
 
-import { ICourse } from "./layout/screens/courses-screen/courses.interface";
-import { IUserData } from "./interfaces/user/user.interface";
-import InformationScreen, {
-  IInformationScreenData,
-  InformationScreenType,
-} from "./layout/screens/information-screen/InformationScreen";
-
+import {
+  tmPlatformType,
+  TEACHME_ERROR,
+  PLATFORM_ERROR,
+  defaultInitialTMState,
+  defaultUserData,
+} from "./consts/app";
 import { config } from "./config";
+
+import {
+  InformationScreenType,
+  IInformationScreenData,
+} from "./interfaces/information-screen/informationScreen.interface";
+import { ITeachMeContext } from "./interfaces/teachme/teachme.interface";
+
 import {
   getCoursesTotalStatus,
   parseCoursesBE,
 } from "./layout/screens/courses-screen/coursesUtils";
-import { tmPlatformType, TEACHME_ERROR, PLATFORM_ERROR } from "./consts/app";
 import useAppManager from "./hooks/useAppManager";
+import InformationScreen from "./layout/screens/information-screen/InformationScreen";
 import Debug from "./layout/debug/Debug";
-import Header from "./layout/header/Header";
 import Main from "./layout/main/Main";
-
-import "../styles/index.less";
 import Sidebar from "./layout/sidebar/Sidebar";
 
-export const defaultUserData: IUserData = {
-  user: {
-    firstName: "Dan",
-    LastName: "Israeli",
-  },
-  courses: {
-    percentCompletion: 20,
-  },
-};
-
-interface ITMState {
-  tmCourses: ICourse[];
-  initiated: boolean;
-  debugError: string;
-  platformType: string;
-  isWebApp: boolean;
-  tmUser: IUserData;
-}
-
-const defaultInitialTMState: ITMState = {
-  tmCourses: [] as ICourse[],
-  initiated: false,
-  debugError: "",
-  platformType: "",
-  isWebApp: false,
-  tmUser: defaultUserData,
-};
-
-interface sidebarOptions {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-interface ITeachMeContext {
-  tmState: ITMState;
-  walkmeSDK: ISdk;
-  teachmeApp: WalkMeApp;
-  sidebar: sidebarOptions;
-}
+import "../styles/index.less";
 
 export const TeachMeContext = createContext<ITeachMeContext | null>(null);
 
@@ -77,11 +43,11 @@ export default function App() {
   const [tmState, setTMState] = useState(defaultInitialTMState);
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const sidebarOptions = { isOpen: sidebarIsOpen, setIsOpen: setSidebarIsOpen };
+  const { initiated, isWebApp } = tmState;
   const [informationScreen, setInformationScreen] = useState({
     type: InformationScreenType.Loading,
+    isWebApp,
   } as IInformationScreenData);
-
-  const { initiated, isWebApp } = tmState;
 
   /**
    * displayDebugInfo
@@ -184,7 +150,7 @@ export default function App() {
         className={`app show wrapper ${sidebarIsOpen ? "with-sidebar" : ""}`}
       >
         {informationScreen ? (
-          <InformationScreen {...informationScreen} />
+          <InformationScreen {...informationScreen} isWebApp={isWebApp} />
         ) : (
           <TeachMeContext.Provider
             value={{
