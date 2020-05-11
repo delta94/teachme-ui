@@ -33,10 +33,8 @@
     -o-transition-timing-function: cubic-bezier(0.68, -0.2, 0.265, 1.2);
     transition-timing-function: cubic-bezier(0.68, -0.2, 0.265, 1.2);
 
-    &.fadeIn {
-      opacity: 1;
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
+    &.fadeInUp {
+      animation: fadeInUp 0.3s linear both;
     }
   }
 }

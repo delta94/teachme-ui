@@ -35,8 +35,8 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
     if (course) {
       animateCoreElements({
         elements: [courseSection.current],
-        animateClassName: "fadeIn",
-        timeout: 300,
+        animateClassName: "fadeInUp",
+        timeout: 400,
       });
     }
   }, [course]);
