@@ -93,11 +93,11 @@ export const parseQuizListItem = ({
   quiz: IQuiz;
   courseId: string;
 }) => {
+  const { title, description } = quiz.welcomeScreen;
   return {
     id: `quiz-${courseId}`,
-    title: "Course Assessment",
-    description:
-      "Did you master this course? Use this quiz to assess your Knowledge",
+    title,
+    description,
     data: {
       media: quiz.media,
       state: quiz.state,
@@ -114,7 +114,9 @@ export const parseSingleCourseBE = ({
   courseNumber: number;
   courseImg: number;
 }): ICourse => {
+  const { quiz } = course;
   const courseId = courseNumber.toString() as string;
+
   return {
     ...course,
     id: courseId,
@@ -127,7 +129,11 @@ export const parseSingleCourseBE = ({
     },
     data: parseCourseData(course),
     quiz: {
-      ...course.quiz,
+      ...quiz,
+      state:
+        quiz.welcomeScreen && quiz.properties.isCompleted
+          ? CourseState.Tested
+          : CourseState.NotStarted,
       media: {
         thumbnail: {
           ratio_1_1: "quiz/quiz-ratio-1_1.jpg",
