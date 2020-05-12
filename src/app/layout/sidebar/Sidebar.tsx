@@ -3,7 +3,6 @@ import { TeachMeContext } from "../../App";
 import { parseToCourseListItems } from "../screens/courses-screen/coursesUtils";
 import Dropdown from "../../components/dropdown/Dropdown";
 import Button, { ButtonType } from "../../components/buttons/Button";
-import useWindowResize from "../../hooks/useWindowResize";
 
 export default function Sidebar() {
   const { tmState, sidebar } = useContext(TeachMeContext);
@@ -20,7 +19,7 @@ export default function Sidebar() {
     <div className={`sidebar ${sidebarStateClass}`}>
       <Button
         id="toggle-sidebar"
-        className="toggle-sidebar"
+        className={`toggle-sidebar ${sidebarStateClass}`}
         buttonClicked={() => {
           setIsOpen(!isOpen);
         }}
