@@ -7,6 +7,7 @@
   --courseInformationWidth: calc(
     100% - (calc(var(--quizBoxWidthDesktop) + (var(--gridColumnGap) * 2)))
   );
+  --scrolledInnerContentMaxWidth: calc(var(--scrolledContentMaxWidth) - 15px);
 }
 
 .screen.course-screen {
@@ -15,6 +16,10 @@
 
   > .course {
     max-width: var(--scrolledContentMaxWidth);
+    .course-information,
+    .course-items {
+      max-width: var(--scrolledInnerContentMaxWidth);
+    }
   }
 
   .course-information {
@@ -39,16 +44,14 @@
       }
 
       .course-items {
-        max-width: 563px;
-
         .list-item,
         .lesson-item {
           &.highlight {
+            pointer-events: none;
             > .item,
             > .dropdown-wrapper {
               -webkit-box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
               box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
-
               animation: courseItemsHighlighting 2s linear both;
             }
           }
@@ -181,8 +184,12 @@
   }
 
   .course.with-quiz {
-    .course-information {
-      @media @desktopOnly {
+    @media @desktopOnly {
+      .course-items {
+        max-width: 563px;
+      }
+
+      .course-information {
         max-width: var(--courseInformationWidth);
       }
     }

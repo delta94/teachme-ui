@@ -16,11 +16,17 @@ import CourseItemsList from "../../../../components/list/course-items-list/Cours
 
 type TParams = { courseId: string; taskId: string };
 
+const timing = {
+  init: 400,
+  reset: 2000,
+};
+
 export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
   const tmContext = useContext(TeachMeContext);
   const { tmCourses } = tmContext.tmState;
   const courseSection = useRef();
   const [course, setCourse] = useState(null as ICourse);
+  const [includeQuiz, setIncludeQuiz] = useState(false);
   const [selectedTask, setSelectedTask] = useState(undefined);
   const defaultCourseData = { status: 0, state: CourseState.NotStarted };
   const { animateCoreElements } = useViewManager();
@@ -44,14 +50,19 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
 
   useEffect(() => {
     // set selection for adding highlight className to element
-    setSelectedTask(taskId);
+    const timerIn = setTimeout(() => {
+      setSelectedTask(taskId);
+    }, timing.init);
 
     // reset selection for removing highlight className
-    const timer = setTimeout(() => {
+    const timerOut = setTimeout(() => {
       setSelectedTask(undefined);
-    }, 3000);
+    }, timing.reset);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timerIn);
+      clearTimeout(timerOut);
+    };
   }, [taskId]);
 
   useEffect(() => {
@@ -59,8 +70,11 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
       animateCoreElements({
         elements: [courseSection.current],
         animateClassName: "fadeInUp",
-        timeout: 400,
+        timeout: timing.init,
       });
+      const courseIncludeQuiz = Boolean(course.quiz.welcomeScreen);
+      const isTested = course.data.state === CourseState.Tested;
+      setIncludeQuiz(courseIncludeQuiz && !isTested);
     }
   }, [course, courseId]);
 
@@ -70,7 +84,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
         <section
           ref={courseSection}
           className={`course animated-element ${
-            course.quiz ? "with-quiz" : ""
+            includeQuiz ? "with-quiz" : ""
           }`}
         >
           <header className="course-information">
@@ -89,7 +103,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                 selectedTaskId={selectedTask}
               />
             </div>
-            {course.quiz && (
+            {includeQuiz && (
               <div className="course-quiz">
                 <TMListItem
                   item={parseQuizListItem({
@@ -97,7 +111,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                     courseId: course.id,
                   })}
                   hideProgressBar
-                  extraLabel="Quiz"
+                  overrideLabel={course.quiz.welcomeScreen.buttonText}
                   onSelect={() => {
                     console.log(`course quiz clicked `, course.quiz);
                   }}

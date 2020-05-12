@@ -28,6 +28,7 @@ import Main from "./layout/main/Main";
 import Sidebar from "./layout/sidebar/Sidebar";
 
 import "../styles/index.less";
+import useWindowResize from "./hooks/useWindowResize";
 
 export const TeachMeContext = createContext<ITeachMeContext | null>(null);
 
@@ -37,7 +38,8 @@ export default function App() {
     getDebugError,
     getUrlParamValueByName,
   } = useAppManager();
-
+  const { windowWidth, windowHeight } = useWindowResize();
+  const sidebarMaxWidth = 1200;
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
   const [teachmeApp, setTeachmeApp] = useState({} as WalkMeApp);
   const [tmState, setTMState] = useState(defaultInitialTMState);
@@ -49,7 +51,6 @@ export default function App() {
     isWebApp,
   } as IInformationScreenData);
   const sidebarState = sidebarIsOpen ? "sidebar-open" : "sidebar-close";
-  const tmType = isWebApp ? "web" : "app";
 
   /**
    * displayDebugInfo
@@ -145,6 +146,11 @@ export default function App() {
       }
     })();
   }, []);
+
+  // TODO: set sidebarMaxWidth as css variable
+  if (isWebApp && sidebarIsOpen && windowWidth < sidebarMaxWidth) {
+    setSidebarIsOpen(false);
+  }
 
   return (
     <HashRouter>

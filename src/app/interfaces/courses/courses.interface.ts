@@ -47,6 +47,11 @@ export interface IQuiz {
   };
   media: ICourseMedia;
   properties: IProperties;
+  welcomeScreen?: {
+    buttonText: string;
+    description: string;
+    title: string;
+  };
 }
 
 export interface ICourseTask {

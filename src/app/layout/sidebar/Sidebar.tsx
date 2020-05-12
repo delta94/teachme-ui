@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TeachMeContext } from "../../App";
 import { parseToCourseListItems } from "../screens/courses-screen/coursesUtils";
 import Dropdown from "../../components/dropdown/Dropdown";
@@ -6,7 +6,6 @@ import Button, { ButtonType } from "../../components/buttons/Button";
 
 export default function Sidebar() {
   const { tmState, sidebar } = useContext(TeachMeContext);
-
   const { isOpen, setIsOpen } = sidebar;
   const { tmCourses, isWebApp } = tmState;
   const courses = parseToCourseListItems(tmCourses);
@@ -20,7 +19,7 @@ export default function Sidebar() {
     <div className={`sidebar ${sidebarStateClass}`}>
       <Button
         id="toggle-sidebar"
-        className="toggle-sidebar"
+        className={`toggle-sidebar ${sidebarStateClass}`}
         buttonClicked={() => {
           setIsOpen(!isOpen);
         }}
