@@ -14,11 +14,13 @@
   &:hover {
     background-color: var(--primary100);
 
-    .title {
-      color: var(--primary);
+    &:not(.completed) {
+      .title {
+        color: var(--primary);
 
-      > .icon {
-        background-color: var(--primary);
+        > .icon {
+          background-color: var(--primary);
+        }
       }
     }
   }
