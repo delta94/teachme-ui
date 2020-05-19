@@ -10,6 +10,20 @@
   --scrolledInnerContentMaxWidth: calc(var(--scrolledContentMaxWidth) - 15px);
 }
 
+.itemHover() {
+  &:hover {
+    background-color: var(--primary100);
+
+    .title {
+      color: var(--primary);
+
+      > .icon {
+        background-color: var(--primary);
+      }
+    }
+  }
+}
+
 .screen.course-screen {
   padding-right: 5px;
   height: 565px;
@@ -62,6 +76,23 @@
 
   .dropdown-wrapper {
     .hoverFloating();
+    &:not(.disabled) {
+      .dropdown-handler .btn {
+        background-color: transparent;
+        transition: color 0.3s, background-color 0.3s;
+
+        &:hover {
+          color: var(--primary);
+          background-color: var(--primary100);
+        }
+      }
+    }
+    .dropdown-items {
+      padding: 0;
+      .list-item {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .course-items {
@@ -82,6 +113,20 @@
         border-left: solid 1px var(--primary);
       }
     }
+
+    ul .list-item {
+      .item {
+        .itemHover();
+
+        header {
+          height: 50px;
+          display: flex;
+          align-items: center;
+          padding: 0;
+          padding-left: 23px;
+        }
+      }
+    }
   }
 
   .course-items .list-item,
@@ -92,7 +137,7 @@
   .list-item.task-item > .item {
     box-shadow: var(--elementShadow);
     .hoverFloating();
-
+    .itemHover();
     .item-info .item-handler {
       padding: 0 12px;
 
@@ -124,6 +169,28 @@
       }
     }
   }
+
+  // .lesson-item {
+  //   margin-bottom: 20px;
+  // }
+
+  // .list-item,
+  // .lesson-item {
+  //   &:hover {
+  //     .item {
+  //       background-color: transparent;
+  //       transition: background-color 0.3s;
+  //       background-color: var(--primary100);
+  //       .hoverFloating();
+
+  //       color: var(--primary);
+
+  //       .icon {
+  //         color: var(--primary);
+  //       }
+  //     }
+  //   }
+  // }
 
   .course-quiz {
     padding-top: 15px;

@@ -59,6 +59,16 @@
     }
   }
 
+  &:not(.disabled) {
+    .dropdown-handler .btn {
+      transition: color 0.3s;
+
+      &:hover {
+        color: var(--primary);
+      }
+    }
+  }
+
   .dropdown-handler {
     position: relative;
 
@@ -89,7 +99,6 @@
 
   .dropdown-items {
     padding: 0 10px;
-
     .dropdown-list {
       border-top: 1px solid var(--borderLightGray);
       margin-bottom: 17px;

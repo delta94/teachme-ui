@@ -2,11 +2,13 @@
   --articleIcon: url("../images/icons/Article.svg");
   --videoIcon: url("../images/icons/Video.svg");
   --WalkthruIcon: url("../images/icons/Walkthru.svg");
-
   position: relative;
   display: block;
   width: 20px;
   height: 20px;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  transition: background-color 0.3s;
 
   &.arrow-left {
     &:before {
@@ -52,17 +54,23 @@
   }
 
   &.article {
-    background-image: var(--articleIcon);
+    background-color: var(--iconBGLight);
+    -webkit-mask-image: var(--articleIcon);
+    mask-image: var(--articleIcon);
     background-repeat: no-repeat;
   }
 
   &.walk-thru {
-    background-image: var(--WalkthruIcon);
+    background-color: var(--iconBGLight);
+    -webkit-mask-image: var(--WalkthruIcon);
+    mask-image: var(--WalkthruIcon);
     background-repeat: no-repeat;
   }
 
   &.video {
-    background-image: var(--videoIcon);
+    background-color: var(--iconBGLight);
+    -webkit-mask-image: var(--videoIcon);
+    mask-image: var(--videoIcon);
     background-repeat: no-repeat;
   }
 }
