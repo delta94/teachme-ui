@@ -125,16 +125,9 @@
         .disabled-info {
           display: none;
         }
-        &:hover {
-          .disabled-message {
-            visibility: hidden;
-          }
-        }
+
         .disabled-message {
-          padding: 0;
-          .text {
-            text-align: left;
-          }
+          top: -60;
         }
 
         .dropdown-handler:after {
@@ -177,14 +170,6 @@
             margin-bottom: 15px;
 
             .item {
-              &.disabled {
-                &:hover {
-                  .disabled-message {
-                    visibility: hidden;
-                  }
-                }
-              }
-
               &:not(.disabled) {
                 header .title {
                   &:hover {
