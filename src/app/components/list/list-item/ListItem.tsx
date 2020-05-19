@@ -57,12 +57,7 @@ export default function ListItem<T>({
 }: IListItemProps<T>) {
   const { walkmeSDK } = useContext(TeachMeContext);
   const { handleListItemClick } = useListItemManager(walkmeSDK);
-  const {
-    title,
-    subTitle,
-    primaryBtn,
-    disabledMsg = LIST_ITEM_DISABLED_MSG,
-  } = item;
+  const { title, subTitle, primaryBtn, disabledMsg = "" } = item;
 
   const icon = useIconManager(type as IconType);
   const stateIcon = useIconManager(state);

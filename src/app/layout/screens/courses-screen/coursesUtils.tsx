@@ -10,6 +10,10 @@ import {
   ICourseData,
 } from "../../../interfaces/courses/courses.interface";
 import { IListItem } from "../../../components/list/list-item/ListItem";
+import {
+  LIST_ITEM_DISABLED_MSG,
+  LESSON_DISABLED_MSG,
+} from "../../../consts/app";
 
 export const parseToCourseListItems = (
   courses: ICourse[]
@@ -44,6 +48,10 @@ export const parseTask = (task: ICourseItem): IListItem<{}> => {
     tasks: task.tasks && parseTasksToItemList(task.tasks),
     state: task.state,
     useWalkMeSdk: true,
+    disabledMsg:
+      task.type === CourseItemType.Lesson
+        ? LESSON_DISABLED_MSG
+        : LIST_ITEM_DISABLED_MSG,
   } as IListItem<{}>;
 };
 

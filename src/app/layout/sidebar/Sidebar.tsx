@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { TeachMeContext } from "../../App";
 import { parseToCourseListItems } from "../screens/courses-screen/coursesUtils";
 import Dropdown from "../../components/dropdown/Dropdown";
 import Button, { ButtonType } from "../../components/buttons/Button";
+import { COURSE_DISABLED_MSG } from "../../consts/app";
 
 export default function Sidebar() {
   const { tmState, sidebar } = useContext(TeachMeContext);
@@ -48,6 +49,7 @@ export default function Sidebar() {
                 handler={{
                   state: course.data.state,
                 }}
+                disabledMsg={COURSE_DISABLED_MSG}
               />
             </div>
           );
