@@ -11,15 +11,17 @@
 }
 
 .itemHover() {
-  &:hover {
-    background-color: var(--primary100);
+  &:not(.disabled) {
+    &:hover {
+      background-color: var(--primary100);
 
-    &:not(.completed) {
-      .title {
-        color: var(--primary);
+      &:not(.completed) {
+        .title {
+          color: var(--primary);
 
-        > .icon {
-          background-color: var(--primary);
+          > .icon {
+            background-color: var(--primary);
+          }
         }
       }
     }
@@ -78,6 +80,7 @@
 
   .dropdown-wrapper {
     .hoverFloating();
+
     &:not(.disabled) {
       .dropdown-handler .btn {
         background-color: transparent;
@@ -140,6 +143,7 @@
     box-shadow: var(--elementShadow);
     .hoverFloating();
     .itemHover();
+
     .item-info .item-handler {
       padding: 0 12px;
 
@@ -151,10 +155,6 @@
     &.disabled {
       .title .text {
         opacity: 0.6;
-      }
-      .disabled-message {
-        left: 44px;
-        padding-left: 10px;
       }
     }
   }

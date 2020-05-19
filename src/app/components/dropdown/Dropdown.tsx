@@ -47,7 +47,6 @@ export default function Dropdown<T>({
     >
       {isDisabled && disabledMsg && (
         <>
-          <span className="disabled-info icon">i</span>
           <MessageContainer
             message={disabledMsg}
             className="disabled-message"

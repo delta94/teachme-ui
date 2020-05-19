@@ -23,28 +23,17 @@ ul {
       border-radius: 5px;
       cursor: pointer;
       position: relative;
-      .disabledMsg();
 
       &:not(.tm-item-info) {
+        .disabledMsgTooltip();
+
         &.disabled {
-          overflow: hidden;
           .title .text {
             opacity: 0.6;
           }
 
           .item-handler {
             pointer-events: none;
-          }
-          .disabled-message {
-            .text {
-              opacity: 0.6;
-              text-align: center;
-              font-size: 14px;
-              .fRegular();
-              color: var(--neutral900);
-              align-items: start;
-              letter-spacing: -0.8px;
-            }
           }
         }
       }
