@@ -58,10 +58,23 @@
 
   .dropdown-items {
     padding: 0 10px;
+
     .dropdown-list {
-      border-top: 1px solid var(--borderLightGray);
+      position: relative;
       margin-bottom: 17px;
       padding-top: 17px;
+
+      &:before {
+        content: "";
+        width: calc(100% - 20px);
+        margin: 0 auto;
+        height: 0;
+        border-top: 1px solid var(--borderLightGray);
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+      }
     }
 
     .list .list-item {
