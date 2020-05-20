@@ -66,7 +66,7 @@ export default function ListItem<T>({
   const itemContent = (
     <>
       <header>
-        <span className="title">
+        <span className="title" title={title}>
           <span className="text">{title}</span>
           {getIconByType(type as IconType)}
         </span>

@@ -100,7 +100,7 @@ export default function TMListItem({
       )}
       <article>
         <header>
-          <h3 className="title">
+          <h3 className="title" title={title}>
             <span className="text">{title}</span>
           </h3>
           {subTitle && <span className="sub-title">{subTitle}</span>}

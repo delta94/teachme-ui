@@ -60,7 +60,7 @@ export default function Dropdown<T>({
           tmButtonType={ButtonType.NoBorder}
           buttonClicked={handlerClicked}
         >
-          <h4>
+          <h4 title={title}>
             {title} {getIconByType(handler.state)}
             {getIconByType(Icon.Dropdown)}
           </h4>
