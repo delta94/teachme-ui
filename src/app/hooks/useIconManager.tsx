@@ -6,30 +6,34 @@ import {
 } from "../interfaces/courses/courses.interface";
 
 export enum Icon {
-  ArrowLeft = "arrow-left",
   Check = "check",
+  Success = "success",
+  Error = "error",
+  Close = "close",
+  Question = "question",
+  ArrowLeft = "arrow-left",
+  ArrowRight = "arrow-right",
+  BackArrow = "back-arrow",
+  Dropdown = "dropdown",
 }
 
 export type IconType = Icon | CourseState | TaskIcon;
 
-export default function useIconManager(type: IconType) {
-  const getIconByType = (type: IconType) => {
-    if (type === Icon.ArrowLeft) {
-      return <span className="icon arrow-left"></span>;
-    } else if (
-      type === Icon.Check ||
-      type === CourseState.Completed ||
-      type === CourseState.Tested
-    ) {
-      return <span className="icon check"></span>;
-    } else if (type === CourseItemType.WalkThru) {
-      return <span className="icon walk-thru"></span>;
-    } else if (type === CourseItemType.Article) {
-      return <span className="icon article"></span>;
-    } else if (type === CourseItemType.Video) {
-      return <span className="icon video"></span>;
+export default function useIconManager(): {
+  getIconByType: (type: IconType) => JSX.Element;
+} {
+  const getIcon = (type: IconType): JSX.Element => {
+    if (type === CourseState.Tested) {
+      return <span className={`icon ${Icon.Success}`}></span>;
+    } else if (type === CourseState.Completed) {
+      return <span className={`icon ${Icon.Check}`}></span>;
     }
+    return type && <span className={`icon ${type}`}></span>;
   };
 
-  return getIconByType(type);
+  return {
+    getIconByType: (type: IconType) => {
+      return getIcon(type);
+    },
+  };
 }

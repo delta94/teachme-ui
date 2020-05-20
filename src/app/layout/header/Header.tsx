@@ -60,7 +60,7 @@ export default function Header() {
     <div ref={innerHeader} className="inner-header topElement">
       <RouteButton
         label="Back to Courses Menu"
-        iconType={Icon.ArrowLeft}
+        iconType={Icon.BackArrow}
         id="back_to_courses"
         className="back-btn"
         buttonType={ButtonType.NoBorder}

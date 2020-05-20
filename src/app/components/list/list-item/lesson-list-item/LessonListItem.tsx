@@ -22,7 +22,7 @@ export default function LessonListItem({
       <Dropdown
         className="course-lessons"
         id={`lesson ${item.id}`}
-        title={`Lesson ${item.lessonNumber} - ${item.title}`}
+        title={item.title}
         items={parseTasksToItemList(item.tasks)}
         isOpen={isOpen}
         handler={{

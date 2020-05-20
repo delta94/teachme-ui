@@ -48,10 +48,16 @@
 
       .icon {
         position: absolute;
-        right: 20px;
+        right: 25px;
         top: 50%;
         transform: translateY(-50%);
-        height: 10px;
+
+        &.dropdown {
+          right: 10px;
+          top: 22px;
+          .triangleRight(var(--iconBGLight));
+          transition: transform 0.3s, background-color 0.3s;
+        }
       }
     }
   }
@@ -83,6 +89,7 @@
       .item {
         border-width: 0;
         color: var(--neutral900);
+        border-radius: 0;
 
         header {
           padding: 15px 13px 3px 12px;
@@ -100,24 +107,20 @@
   }
 
   &.collapsible {
-    .dropdown-handler {
-      &:after {
-        position: absolute;
-        content: "";
-        width: 0;
-        height: 0;
-        border-left: 4.5px solid transparent;
-        border-right: 4.5px solid transparent;
-        border-bottom: 4.5px solid var(--iconBGLight);
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%) rotate(90deg);
-        transition: transform 0.3s;
+    &:not(.disabled) {
+      .dropdown-handler {
+        &.open {
+          .icon.dropdown {
+            background-color: var(--primary);
+          }
+        }
       }
+    }
 
+    .dropdown-handler {
       &.open {
-        &:after {
-          transform: translateY(-50%) rotate(180deg);
+        .icon.dropdown {
+          transform: rotate(0);
         }
       }
     }

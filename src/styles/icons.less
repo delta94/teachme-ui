@@ -1,94 +1,242 @@
 .icon {
   --articleIcon: url("../images/icons/Article.svg");
   --videoIcon: url("../images/icons/Video.svg");
-  --WalkthruIcon: url("../images/icons/Walkthru.svg");
+  --walkthruIcon: url("../images/icons/Walkthru.svg");
+  --arrowDownIcon: url("../images/icons/arrow-down.svg");
+  --doubleArrowsLeftIcon: url("../images/icons/double-arrows-left.svg");
+  --checkMarkIcon: url("../images/icons/checkmark.svg");
+  --closeIcon: url("../images/icons/close.svg");
+
   position: relative;
   display: block;
   width: 20px;
   height: 20px;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
+  background-repeat: no-repeat;
   transition: background-color 0.3s;
 
-  &.arrow-left {
-    &:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 10px;
-      width: 16px;
-      height: 1.3px;
-      background-color: currentColor;
-    }
+  &.back-arrow {
+    .backArrowIcon();
+  }
 
-    &:after {
-      content: "";
-      position: absolute;
-      left: 1px;
-      top: 5px;
-      width: 10px;
-      height: 10px;
-      border-top: solid 1.3px currentColor;
-      border-right: solid 1.3px currentColor;
-      -webkit-transform: rotate(-135deg);
-      transform: rotate(-135deg);
-    }
+  &.arrow-right {
+    .triangleRight();
+  }
+
+  &.arrow-left {
+    .triangleLeft();
   }
 
   &.check {
-    &:before {
-      content: "";
-      color: #000;
-      position: absolute;
-      margin-left: 3px;
-      margin-top: 4px;
-      width: 10px;
-      height: 4px;
-      border-bottom: solid 1px var(--success);
-      border-left: solid 1px var(--success);
-      -webkit-transform: rotate(-45deg);
-      transform: rotate(-45deg);
-      top: -3px;
-      left: 0;
-    }
+    .checkIcon();
+  }
+
+  &.success {
+    .successIcon();
+  }
+
+  &.error {
+    .errorIcon();
+  }
+
+  &.question {
+    .questionIcon();
   }
 
   &.article {
-    background-color: var(--iconBGLight);
-    -webkit-mask-image: var(--articleIcon);
-    mask-image: var(--articleIcon);
-    background-repeat: no-repeat;
+    .articleIcon();
   }
 
-  &.walk-thru {
-    background-color: var(--iconBGLight);
-    -webkit-mask-image: var(--WalkthruIcon);
-    mask-image: var(--WalkthruIcon);
-    background-repeat: no-repeat;
+  &.smart-walkthru {
+    .walkthruIcon();
   }
 
   &.video {
-    background-color: var(--iconBGLight);
-    -webkit-mask-image: var(--videoIcon);
-    mask-image: var(--videoIcon);
-    background-repeat: no-repeat;
+    .videoIcon();
+  }
+
+  &.sidebar-handler {
+    .doubleArrowsLeftIcon(var(--iconBGLight));
   }
 }
 
-.triangleRight(@color: currentColor, @borderWidth: 1.5px, @size: 4.5px) {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: @size;
-  height: @size;
-  border-bottom: solid @borderWidth @color;
-  border-right: solid @borderWidth @color;
-  -webkit-transform: rotate(-45deg) translateY(-50%);
-  transform: rotate(-45deg) translateY(-50%);
+.triangleDown(@color: currentColor) {
+  width: 8px;
+  height: 5px;
+  background-color: @color;
+  -webkit-mask-image: var(--arrowDownIcon);
+  mask-image: var(--arrowDownIcon);
 }
 
-.triangleLeft(@color: currentColor, @borderWidth: 1.5px, @size: 4.5px) {
-  .triangleRight(@color, @borderWidth,  @size);
-  transform: rotate(135deg) translateY(-50%);
+.triangleRight(@color: currentColor) {
+  .triangleDown(@color);
+  transform: rotate(-90deg);
+}
+
+.triangleLeft(@color: currentColor) {
+  .triangleDown(@color);
+  transform: rotate(90deg);
+}
+
+.doubleArrowsLeftIcon(@color: currentColor) {
+  width: 8px;
+  height: 6px;
+  background-color: @color;
+  -webkit-mask-image: var(--doubleArrowsLeftIcon);
+  mask-image: var(--doubleArrowsLeftIcon);
+}
+
+.fillTriangleDown(@color: currentColor, @size: 4.5px) {
+  width: 9px;
+  height: 6px;
+  -webkit-mask-image: none;
+  mask-image: none;
+  background-color: transparent;
+  transform-origin: center;
+
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: @size solid transparent;
+    border-right: @size solid transparent;
+    border-top: @size solid @color;
+    position: relative;
+  }
+}
+
+.fillTriangleRight(@color: currentColor, @size: 4.5px) {
+  .fillTriangleDown(@color, @size);
+}
+
+.backArrowIcon() {
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 16px;
+    height: 1.3px;
+    background-color: currentColor;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: 1px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-top: solid 1.3px currentColor;
+    border-right: solid 1.3px currentColor;
+    -webkit-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+  }
+}
+
+.checkIcon () {
+  height: 8px;
+  width: 11px;
+  background-color: var(--primary);
+  -webkit-mask-image: var(--checkMarkIcon);
+  mask-image: var(--checkMarkIcon);
+}
+
+.articleIcon () {
+  background-color: var(--iconBGLight);
+  -webkit-mask-image: var(--articleIcon);
+  mask-image: var(--articleIcon);
+}
+
+.walkthruIcon () {
+  background-color: var(--iconBGLight);
+  -webkit-mask-image: var(--walkthruIcon);
+  mask-image: var(--walkthruIcon);
+}
+
+.videoIcon () {
+  background-color: var(--iconBGLight);
+  -webkit-mask-image: var(--videoIcon);
+  mask-image: var(--videoIcon);
+}
+
+.closeIcon () {
+  width: 15px;
+  height: 15px;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+
+.successIcon() {
+  .checkIcon();
+  background-color: var(--success);
+}
+
+.errorIcon() {
+  .closeIcon();
+
+  &:before,
+  &:after {
+    background-color: var(--error);
+  }
+}
+
+.questionIcon() {
+  width: 15px;
+  height: 15px;
+
+  &:before {
+    content: "?";
+    width: 100%;
+    height: 100%;
+    color: var(--white);
+    border-radius: 50%;
+    background: var(--primary);
+    display: block;
+    font-size: 10px;
+    line-height: 15px;
+    text-align: center;
+  }
+}
+
+.loaderIcon(@size: 15px, @opacity: 1,  @borderWidth: 2px, @top: 0, ) {
+  &:before {
+    content: "";
+    border: @borderWidth solid var(--bgLight);
+    border-top: @borderWidth solid var(--primary);
+    border-radius: 50%;
+    width: @size;
+    height: @size;
+    -webkit-animation: loaderSpin 2s linear infinite; /* Safari */
+    animation: loaderSpin 2s linear infinite;
+    animation-delay: 0.3s;
+    display: block;
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    top: @top;
+    opacity: 0;
+  }
 }
