@@ -7,6 +7,9 @@
   display: block;
   width: 20px;
   height: 20px;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  transition: background-color 0.3s;
 
   &.arrow-left {
     .arrowLeftIcon();
@@ -29,17 +32,23 @@
   }
 
   &.article {
-    background-image: var(--articleIcon);
+    background-color: var(--iconBGLight);
+    -webkit-mask-image: var(--articleIcon);
+    mask-image: var(--articleIcon);
     background-repeat: no-repeat;
   }
 
   &.smart-walkthru {
-    background-image: var(--WalkthruIcon);
+    background-color: var(--iconBGLight);
+    -webkit-mask-image: var(--WalkthruIcon);
+    mask-image: var(--WalkthruIcon);
     background-repeat: no-repeat;
   }
 
   &.video {
-    background-image: var(--videoIcon);
+    background-color: var(--iconBGLight);
+    -webkit-mask-image: var(--videoIcon);
+    mask-image: var(--videoIcon);
     background-repeat: no-repeat;
   }
 }

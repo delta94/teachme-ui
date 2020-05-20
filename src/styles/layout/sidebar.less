@@ -162,9 +162,12 @@
         padding: 0 10px 0 0;
 
         .list {
-          border-top: none;
           padding-top: 10px;
           margin-bottom: 0;
+
+          &:before {
+            display: none;
+          }
 
           .list-item {
             margin-bottom: 15px;
@@ -218,11 +221,6 @@
                 .icon {
                   right: auto;
                   left: 0;
-
-                  &.check:before {
-                    width: 7px;
-                    height: 3px;
-                  }
                 }
               }
             }
