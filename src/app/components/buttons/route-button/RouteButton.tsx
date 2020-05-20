@@ -19,13 +19,13 @@ export default function RouteButton({
   iconType?: IconType;
   className?: string;
 }) {
-  const icon = useIconManager(iconType);
+  const { getIconByType } = useIconManager();
 
   return (
     <Button className={className} id={id} tmButtonType={buttonType}>
       <Link to={linkTo}>
         <span className="btn-label">
-          {icon}
+          {getIconByType(iconType)}
           {label}
         </span>
       </Link>

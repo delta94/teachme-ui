@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
 import Button, { ButtonType } from "../buttons/Button";
 import List from "../list/List";
@@ -30,7 +30,7 @@ export default function Dropdown<T>({
   disabledMsg?: string;
 }) {
   const [open, setOpen] = useState(isOpen);
-  const handlerIcon = useIconManager(handler && handler.state);
+  const { getIconByType } = useIconManager();
   const isDisabled = handler.state === CourseState.Disabled;
   const collapsibleClass = isCollapsible ? "collapsible" : "";
   const dropdownToggle = open ? "open" : "close";
@@ -61,7 +61,7 @@ export default function Dropdown<T>({
           buttonClicked={handlerClicked}
         >
           <h4>
-            {title} {handlerIcon}
+            {title} {getIconByType(handler.state)}
           </h4>
         </Button>
       </header>

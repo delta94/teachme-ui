@@ -59,8 +59,7 @@ export default function ListItem<T>({
   const { handleListItemClick } = useListItemManager(walkmeSDK);
   const { title, subTitle, primaryBtn, disabledMsg = "" } = item;
 
-  const icon = useIconManager(type as IconType);
-  const stateIcon = useIconManager(state);
+  const { getIconByType } = useIconManager();
   const stateClass = state || "";
   const isDisabled = state === CourseState.Disabled;
 
@@ -69,11 +68,11 @@ export default function ListItem<T>({
       <header>
         <span className="title">
           <span className="text">{title}</span>
-          {icon}
+          {getIconByType(type as IconType)}
         </span>
         {subTitle && <span className="sub-title">{subTitle}</span>}
       </header>
-      {stateIcon}
+      {getIconByType(state as IconType)}
     </>
   );
 
