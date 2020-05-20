@@ -115,6 +115,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                   onSelect={() => {
                     console.log(`course quiz clicked `, course.quiz);
                   }}
+                  hideButtonIcon
                 />
               </div>
             )}

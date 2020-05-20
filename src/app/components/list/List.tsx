@@ -25,9 +25,9 @@ export default function List<T>({
             item={item}
             className={itemClassName}
             onSelect={onSelect}
-            itemComponent={itemComponent}
             state={item.state}
             type={item.type}
+            itemComponent={itemComponent}
           />
         );
       })}

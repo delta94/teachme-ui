@@ -5,7 +5,7 @@ import {
   ICourseData,
   CourseState,
 } from "../../../../interfaces/courses/courses.interface";
-import { IListItem } from "../ListItem";
+import { IListItem, IItemComponentProps } from "../ListItem";
 import { ProgressBar } from "../../../progress-bar/ProgressBar";
 import Button, { ButtonType } from "../../../buttons/Button";
 
@@ -13,20 +13,25 @@ import useListItemManager from "../../../../hooks/useListItemManager";
 import MessageContainer from "../../../message-container/MessageContainer";
 import { COURSE_DISABLED_MSG } from "../../../../consts/app";
 import { TeachMeContext } from "../../../../App";
+import useIconManager, {
+  Icon,
+  IconType,
+} from "../../../../hooks/useIconManager";
+export interface ITMListItemProps extends IItemComponentProps<ICourseData> {
+  hideProgressBar?: boolean;
+  extraLabel?: string;
+  overrideLabel?: string;
+  hideButtonIcon?: boolean;
+}
 
 export default function TMListItem({
   item,
   hideProgressBar,
   extraLabel = "",
   overrideLabel,
+  hideButtonIcon,
   onSelect,
-}: {
-  item: IListItem<ICourseData>;
-  hideProgressBar?: boolean;
-  extraLabel?: string;
-  overrideLabel?: string;
-  onSelect?: () => void;
-}) {
+}: ITMListItemProps) {
   const {
     id,
     title,
@@ -38,6 +43,8 @@ export default function TMListItem({
   } = item;
   const { walkmeSDK } = useContext(TeachMeContext);
   const { handleListItemClick } = useListItemManager(walkmeSDK);
+  const { getIconByType } = useIconManager();
+
   const { status, state, media } = data;
   const { thumbnail } = media;
   const isCompleted =
@@ -46,6 +53,8 @@ export default function TMListItem({
 
   const buttonLabel =
     status > 0 ? (isCompleted ? "Completed" : "Resume") : "Start";
+
+  const buttonIcon = !isCompleted && Icon.ArrowRight;
 
   const isTested = state === CourseState.Tested;
 
@@ -108,10 +117,12 @@ export default function TMListItem({
           >
             <span className="btn-label">
               {overrideLabel || `${buttonLabel} ${extraLabel}`}
+              {!hideButtonIcon && getIconByType(buttonIcon)}
             </span>
           </Button>
-          <span className={`test-label ${isTested ? "tested" : ""}`}>
+          <span className={`test-label ${(isTested && "tested") || ""}`}>
             {isTested ? "Tested" : "Not tested"}
+            {isTested && getIconByType(CourseState.Tested)}
           </span>
         </footer>
       </article>
