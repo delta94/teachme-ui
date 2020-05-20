@@ -122,6 +122,7 @@
 .disabledMsgTooltip () {
   .disabledMsg();
   .disabled-message {
+    pointer-events: none;
     box-shadow: 0 0 13px rgba(0, 0, 0, 0.13);
     max-width: 200px;
     top: -65px;
@@ -155,11 +156,11 @@
       height: 7px;
       background-color: var(--white);
       border: 1px solid var(--border500);
-      box-shadow: 0 0 13px rgba(0, 0, 0, 0.13);
+      box-shadow: -2px 3px 3px rgba(0, 0, 0, 0.03);
       border-top: 0;
       border-right: 0;
       position: absolute;
-      bottom: -4px;
+      bottom: -5px;
       transform: rotate(-42deg);
       right: 20px;
     }

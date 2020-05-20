@@ -1,7 +1,11 @@
 .icon {
   --articleIcon: url("../images/icons/Article.svg");
   --videoIcon: url("../images/icons/Video.svg");
-  --WalkthruIcon: url("../images/icons/Walkthru.svg");
+  --walkthruIcon: url("../images/icons/Walkthru.svg");
+  --arrowDownIcon: url("../images/icons/arrow-down.svg");
+  --doubleArrowsLeftIcon: url("../images/icons/double-arrows-left.svg");
+  --checkMarkIcon: url("../images/icons/checkmark.svg");
+  --closeIcon: url("../images/icons/close.svg");
 
   position: relative;
   display: block;
@@ -9,10 +13,11 @@
   height: 20px;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
+  background-repeat: no-repeat;
   transition: background-color 0.3s;
 
-  &.arrow-left {
-    .arrowLeftIcon();
+  &.back-arrow {
+    .backArrowIcon();
   }
 
   &.check {
@@ -32,46 +37,73 @@
   }
 
   &.article {
-    background-color: var(--iconBGLight);
-    -webkit-mask-image: var(--articleIcon);
-    mask-image: var(--articleIcon);
-    background-repeat: no-repeat;
+    .articleIcon();
   }
 
   &.smart-walkthru {
-    background-color: var(--iconBGLight);
-    -webkit-mask-image: var(--WalkthruIcon);
-    mask-image: var(--WalkthruIcon);
-    background-repeat: no-repeat;
+    .walkthruIcon();
   }
 
   &.video {
-    background-color: var(--iconBGLight);
-    -webkit-mask-image: var(--videoIcon);
-    mask-image: var(--videoIcon);
-    background-repeat: no-repeat;
+    .videoIcon();
+  }
+
+  &.sidebar-handler {
+    .doubleArrowsLeftIcon(var(--iconBGLight));
   }
 }
 
-.triangleRight(@color: currentColor, @borderWidth: 1.5px, @size: 4.5px) {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: @size;
-  height: @size;
-  border-bottom: solid @borderWidth @color;
-  border-right: solid @borderWidth @color;
-  -webkit-transform: rotate(-45deg) translateY(-50%);
-  transform: rotate(-45deg) translateY(-50%);
+.triangleDown(@color: currentColor) {
+  width: 8px;
+  height: 5px;
+  background-color: @color;
+  -webkit-mask-image: var(--arrowDownIcon);
+  mask-image: var(--arrowDownIcon);
 }
 
-.triangleLeft(@color: currentColor, @borderWidth: 1.5px, @size: 4.5px) {
-  .triangleRight(@color, @borderWidth,  @size);
-  transform: rotate(135deg) translateY(-50%);
+.triangleRight(@color: currentColor) {
+  .triangleDown(@color);
+  transform: rotate(-90deg);
 }
 
-.arrowLeftIcon() {
+.triangleLeft(@color: currentColor) {
+  .triangleDown(@color);
+  transform: rotate(90deg);
+}
+
+.doubleArrowsLeftIcon(@color: currentColor) {
+  width: 8px;
+  height: 6px;
+  background-color: @color;
+  -webkit-mask-image: var(--doubleArrowsLeftIcon);
+  mask-image: var(--doubleArrowsLeftIcon);
+}
+
+.fillTriangleDown(@color: currentColor, @size: 4.5px) {
+  width: 9px;
+  height: 6px;
+  -webkit-mask-image: none;
+  mask-image: none;
+  background-color: transparent;
+  transform-origin: center;
+
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: @size solid transparent;
+    border-right: @size solid transparent;
+    border-top: @size solid @color;
+    position: relative;
+  }
+}
+
+.fillTriangleRight(@color: currentColor, @size: 4.5px) {
+  .fillTriangleDown(@color, @size);
+}
+
+.backArrowIcon() {
   &:before {
     content: "";
     position: absolute;
@@ -96,30 +128,30 @@
   }
 }
 
-.arrowRightIcon() {
-  .arrowLeftIcon();
-  transform: rotate(135deg) translateY(-50%);
+.checkIcon () {
+  height: 8px;
+  width: 11px;
+  background-color: var(--primary);
+  -webkit-mask-image: var(--checkMarkIcon);
+  mask-image: var(--checkMarkIcon);
 }
 
-.checkIcon () {
-  width: 15px;
-  height: 10px;
+.articleIcon () {
+  background-color: var(--iconBGLight);
+  -webkit-mask-image: var(--articleIcon);
+  mask-image: var(--articleIcon);
+}
 
-  &:before {
-    content: "";
-    color: #000;
-    position: absolute;
-    margin-left: 3px;
-    margin-top: 4px;
-    width: 10px;
-    height: 4px;
-    border-bottom: solid 1px var(--primary);
-    border-left: solid 1px var(--primary);
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    top: -3px;
-    left: 0;
-  }
+.walkthruIcon () {
+  background-color: var(--iconBGLight);
+  -webkit-mask-image: var(--walkthruIcon);
+  mask-image: var(--walkthruIcon);
+}
+
+.videoIcon () {
+  background-color: var(--iconBGLight);
+  -webkit-mask-image: var(--videoIcon);
+  mask-image: var(--videoIcon);
 }
 
 .closeIcon () {
@@ -150,11 +182,7 @@
 
 .successIcon() {
   .checkIcon();
-
-  &:before {
-    border-bottom: solid 1px var(--success);
-    border-left: solid 1px var(--success);
-  }
+  background-color: var(--success);
 }
 
 .errorIcon() {

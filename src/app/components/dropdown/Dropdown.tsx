@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Button, { ButtonType } from "../buttons/Button";
 import List from "../list/List";
 import { IListItem, IListItemState } from "../list/list-item/ListItem";
-import useIconManager, { IconType } from "../../hooks/useIconManager";
+import useIconManager, { IconType, Icon } from "../../hooks/useIconManager";
 import { CourseState } from "../../interfaces/courses/courses.interface";
 import MessageContainer from "../message-container/MessageContainer";
 
@@ -62,6 +62,7 @@ export default function Dropdown<T>({
         >
           <h4>
             {title} {getIconByType(handler.state)}
+            {getIconByType(Icon.Dropdown)}
           </h4>
         </Button>
       </header>

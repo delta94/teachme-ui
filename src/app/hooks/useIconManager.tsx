@@ -13,6 +13,8 @@ export enum Icon {
   Question = "question",
   ArrowLeft = "arrow-left",
   ArrowRight = "arrow-right",
+  BackArrow = "back-arrow",
+  Dropdown = "dropdown",
 }
 
 export type IconType = Icon | CourseState | TaskIcon;

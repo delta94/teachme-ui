@@ -1,5 +1,6 @@
 @import "../../variables.less";
 @import "../../mixins.less";
+@import "../../icons.less";
 
 :root {
   --quizBoxWidthDesktop: 290px;
@@ -116,13 +117,23 @@
         &.collapsible.open {
           margin-bottom: 20px;
         }
+
+        &.open:not(.disabled) {
+          .btn .icon.dropdown {
+            &:before {
+              border-top-color: var(--primary);
+            }
+          }
+        }
       }
     }
 
-    .dropdown-handler .btn .icon {
-      &.check:before {
-        border-bottom: solid 1px var(--primary);
-        border-left: solid 1px var(--primary);
+    .dropdown-handler {
+      .btn .icon {
+        &.dropdown {
+          .fillTriangleRight(var(--iconBGLight));
+          top: 22px;
+        }
       }
     }
 
@@ -178,28 +189,6 @@
       }
     }
   }
-
-  // .lesson-item {
-  //   margin-bottom: 20px;
-  // }
-
-  // .list-item,
-  // .lesson-item {
-  //   &:hover {
-  //     .item {
-  //       background-color: transparent;
-  //       transition: background-color 0.3s;
-  //       background-color: var(--primary100);
-  //       .hoverFloating();
-
-  //       color: var(--primary);
-
-  //       .icon {
-  //         color: var(--primary);
-  //       }
-  //     }
-  //   }
-  // }
 
   .course-quiz {
     padding-top: 15px;
