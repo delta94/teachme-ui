@@ -78,6 +78,10 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
     }
   }, [course, courseId]);
 
+  const handleQuizClick = () => {
+    console.log("navigate to quiz");
+  };
+
   return (
     <section className="screen course-screen">
       {course && (
@@ -112,9 +116,6 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                   })}
                   hideProgressBar
                   overrideLabel={course.quiz.welcomeScreen.buttonText}
-                  onSelect={() => {
-                    console.log(`course quiz clicked `, course.quiz);
-                  }}
                   hideButtonIcon
                 />
               </div>
