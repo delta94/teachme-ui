@@ -13,7 +13,7 @@ import MessageContainer from "../../message-container/MessageContainer";
 import { TeachMeContext } from "../../../App";
 
 export interface IItemComponentProps<T> {
-  onSelect: () => void;
+  onSelect?: () => void;
   item: IListItem<T>;
 }
 

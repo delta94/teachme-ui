@@ -112,9 +112,6 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                   })}
                   hideProgressBar
                   overrideLabel={course.quiz.welcomeScreen.buttonText}
-                  onSelect={() => {
-                    console.log(`course quiz clicked `, course.quiz);
-                  }}
                   hideButtonIcon
                 />
               </div>
