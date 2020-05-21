@@ -29,6 +29,7 @@ import Sidebar from "./layout/sidebar/Sidebar";
 
 import "../styles/index.less";
 import useWindowResize from "./hooks/useWindowResize";
+import Minimize from "./components/buttons/minimize/Minimize";
 
 export const TeachMeContext = createContext<ITeachMeContext | null>(null);
 
@@ -167,6 +168,7 @@ export default function App() {
             }}
           >
             <Debug />
+            {isWebApp && <Minimize />}
             <Sidebar />
             <Main className={sidebarState} />
           </TeachMeContext.Provider>

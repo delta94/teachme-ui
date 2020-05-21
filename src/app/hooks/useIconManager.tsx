@@ -19,9 +19,7 @@ export default function useIconManager(): {
   getIconByType: (type: IconType) => JSX.Element;
 } {
   const getIcon = (type: IconType): JSX.Element => {
-    if (type === CourseState.Tested) {
-      return <span className={`icon ${Icon.Success}`}></span>;
-    } else if (type === CourseState.Completed) {
+    if (type === CourseState.Completed) {
       return <span className={`icon ${Icon.Check}`}></span>;
     }
     return type && <span className={`icon ${type}`}></span>;

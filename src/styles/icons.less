@@ -7,6 +7,7 @@
   --checkMarkIcon: url("../images/icons/checkmark.svg");
   --closeIcon: url("../images/icons/close.svg");
   --backArrowIcon: url("../images/icons/back-arrow.svg");
+  --doubleCheckMarkIcon: url("../images/icons/double-checkmarks.svg");
 
   position: relative;
   display: block;
@@ -16,6 +17,10 @@
   mask-repeat: no-repeat;
   background-repeat: no-repeat;
   transition: background-color 0.3s;
+
+  &.tested {
+    .doubleCheckMarkIcon();
+  }
 
   &.back-arrow {
     .backArrowIcon();
@@ -86,6 +91,14 @@
   background-color: @color;
   -webkit-mask-image: var(--doubleArrowsLeftIcon);
   mask-image: var(--doubleArrowsLeftIcon);
+}
+
+.doubleCheckMarkIcon(@color: var(--primary)) {
+  width: 15px;
+  height: 8px;
+  background-color: @color;
+  -webkit-mask-image: var(--doubleCheckMarkIcon);
+  mask-image: var(--doubleCheckMarkIcon);
 }
 
 .fillTriangleDown(@color: currentColor, @size: 4.5px) {

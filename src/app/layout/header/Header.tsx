@@ -74,17 +74,13 @@ export default function Header() {
   }
 
   return (
-    <div className="header">
-      <div className={`general-header wrapper ${headerClass}`}>
-        {isHomePage && isWebApp && homePageHeader}
-        {!isHomePage && innerPageHeader}
+    <>
+      <div className="header">
+        <div className={`general-header wrapper ${headerClass}`}>
+          {isHomePage && isWebApp && homePageHeader}
+          {!isHomePage && innerPageHeader}
+        </div>
       </div>
-
-      {isWebApp && (
-        <>
-          <Minimize />
-        </>
-      )}
-    </div>
+    </>
   );
 }
