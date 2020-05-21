@@ -1,6 +1,19 @@
 :root {
   --default: var(--primary);
   --currentColor: var(--default);
+  --buttonSize: 30px;
+}
+
+.noBorder () {
+  border: none;
+  border-radius: 0;
+  max-width: fit-content;
+  background-color: transparent;
+
+  &:hover {
+    border: 0;
+    background-color: transparent;
+  }
 }
 
 .btn {
@@ -9,24 +22,41 @@
   border: 1px solid var(--neutral900);
   color: var(--neutral900);
   border-radius: 15px;
-  height: 30px;
-  min-width: 85px;
-  width: fit-content;
+  height: var(--buttonSize);
+  min-width: 110px;
+  width: auto;
   font-size: 11px;
-  padding: 0 7px;
+  padding: 0 20px;
   cursor: pointer;
-  transition: border 0.3s, background-color 0.3s, color 0.3s;
+  transition: min-width 0.3s, border 0.3s, background-color 0.3s, color 0.3s;
+
+  &.link {
+    .noBorder();
+    color: var(--primary);
+    text-decoration: underline;
+  }
+
+  &.default {
+    &.loading {
+      pointer-events: none;
+      background-color: transparent;
+      border: 2px solid var(--bgLight);
+      border-top: 2px solid var(--primary);
+      animation: loaderSpin 2s linear infinite;
+      animation-delay: 0.3s;
+      min-width: var(--buttonSize);
+      width: var(--buttonSize);
+      padding: 0;
+
+      > * {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  }
 
   &.no-border {
-    border: none;
-    border-radius: 0;
-    max-width: fit-content;
-    background-color: transparent;
-
-    &:hover {
-      border: 0;
-      background-color: transparent;
-    }
+    .noBorder();
   }
 
   a {
@@ -72,6 +102,7 @@
     justify-content: center;
     align-items: center;
     margin-top: -2px;
+    transition: all 0.3s;
 
     .icon {
       margin-right: 10px;
