@@ -63,7 +63,7 @@ export default function App() {
     isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
   const shouldUpdateCssProperties =
     windowWidth <= desktopBreakPoint && windowHeight > webAppHeight;
-  let globalCssProperties = { "--webAppHeight": "700px" };
+  let globalCssProperties = { "--webAppHeight": `${webAppHeight}px` };
 
   /**
    * displayDebugInfo

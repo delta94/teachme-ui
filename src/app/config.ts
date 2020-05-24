@@ -15,5 +15,5 @@ export const config: IConfig = {
   searchInputDelay: 250,
   appWrapperWidth: 1200,
   desktopBreakPoint: 800,
-  webAppHeight: 700,
+  webAppHeight: 610,
 };
