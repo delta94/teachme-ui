@@ -58,12 +58,11 @@ export default function App() {
     type: InformationScreenType.Loading,
     isWebApp,
   } as IInformationScreenData);
+  const [globalCssProperties, setGlobalCssProperties] = useState({});
   const sidebarState = sidebarIsOpen ? "sidebar-open" : "sidebar-close";
+  const isDesktop = windowWidth >= desktopBreakPoint;
   const shouldCloseSidebar =
     isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
-  const shouldUpdateCssProperties =
-    windowWidth <= desktopBreakPoint && windowHeight > webAppHeight;
-  let globalCssProperties = { "--webAppHeight": `${webAppHeight}px` };
 
   /**
    * displayDebugInfo
@@ -160,14 +159,18 @@ export default function App() {
     })();
   }, []);
 
+  useEffect(() => {
+    // window's width smallest than desktopBreakPoint window's height bigger than webAppHeight
+    const shouldUpdateCssProperties = !isDesktop && windowHeight > webAppHeight;
+    if (shouldUpdateCssProperties) {
+      setGlobalCssProperties({ "--webAppHeight": `${windowHeight}px` });
+    } else {
+      setGlobalCssProperties({});
+    }
+  }, [windowWidth, windowHeight, isDesktop]);
+
   if (shouldCloseSidebar) {
     setSidebarIsOpen(false);
-  }
-
-  // window's width smallest than desktopBreakPoint
-  // && window's height bigger than webAppHeight
-  if (shouldUpdateCssProperties) {
-    globalCssProperties["--webAppHeight"] = `${windowHeight}px`;
   }
 
   return (
