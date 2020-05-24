@@ -4,7 +4,6 @@ import { parseToCourseListItems } from "../screens/courses-screen/coursesUtils";
 import Dropdown from "../../components/dropdown/Dropdown";
 import Button, { ButtonType } from "../../components/buttons/Button";
 import { COURSE_DISABLED_MSG } from "../../consts/app";
-import { useLocation } from "react-router-dom";
 
 export default function Sidebar() {
   const { tmState, sidebar } = useContext(TeachMeContext);

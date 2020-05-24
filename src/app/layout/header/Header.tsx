@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useContext } from "react";
 
 import { TeachMeContext } from "../../App";
 import useViewManager from "../../hooks/useViewManager";
-import Minimize from "../../components/buttons/minimize/Minimize";
 import UserDetails from "../../components/user/user-details/UserDetails";
 import { useLocation } from "react-router-dom";
 import { ButtonType } from "../../components/buttons/Button";
@@ -13,7 +12,6 @@ export default function Header() {
   const { tmState } = useContext(TeachMeContext);
   const { pathname } = useLocation();
   const { animateCoreElements } = useViewManager();
-  const header = useRef();
   const logo = useRef();
   const details = useRef();
   const innerHeader = useRef();
@@ -76,7 +74,7 @@ export default function Header() {
 
   return (
     <>
-      <div ref={header} className="header">
+      <div className="header">
         <div className={`general-header wrapper ${headerClass}`}>
           {isHomePage && isWebApp && homePageHeader}
           {!isHomePage && innerPageHeader}
