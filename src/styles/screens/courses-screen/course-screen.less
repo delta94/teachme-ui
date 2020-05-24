@@ -3,6 +3,8 @@
 @import "../../icons.less";
 
 :root {
+  --courseScreenMaxHeight: 565px;
+  --courseLessonsMaxHeight: 480px;
   --quizBoxWidthDesktop: 290px;
   --gridColumnGap: 17px;
   --courseInformationWidth: calc(
@@ -31,7 +33,7 @@
 
 .course-screen {
   padding-right: 5px;
-  max-height: 565px;
+  max-height: var(--courseScreenMaxHeight);
 
   @media @tabletOnly {
     height: auto;
@@ -58,7 +60,7 @@
     margin-bottom: 20px;
 
     @media @desktopOnly {
-      height: 480px;
+      height: var(--courseLessonsMaxHeight);
       overflow-y: hidden;
       padding-right: 10px;
       margin-bottom: 0;
