@@ -1,4 +1,4 @@
-import React, { useEffect, createContext, useState, useRef } from "react";
+import React, { useEffect, createContext, useState } from "react";
 import { HashRouter } from "react-router-dom";
 import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
 
@@ -22,19 +22,19 @@ import {
   parseCoursesBE,
 } from "./layout/screens/courses-screen/coursesUtils";
 import useAppManager from "./hooks/useAppManager";
+import useWindowResize from "./hooks/useWindowResize";
+
 import InformationScreen from "./layout/screens/information-screen/InformationScreen";
 import Debug from "./layout/debug/Debug";
 import Main from "./layout/main/Main";
 import Sidebar from "./layout/sidebar/Sidebar";
+import Minimize from "./components/buttons/minimize/Minimize";
 
 import "../styles/index.less";
-import useWindowResize from "./hooks/useWindowResize";
-import Minimize from "./components/buttons/minimize/Minimize";
 
 export const TeachMeContext = createContext<ITeachMeContext | null>(null);
 
 export default function App() {
-  const app = useRef();
   const {
     addGuidSpecificStyle,
     getDebugError,
@@ -176,7 +176,6 @@ export default function App() {
   return (
     <HashRouter>
       <div
-        ref={app}
         className={`app show wrapper`}
         style={globalCssProperties as React.CSSProperties}
       >
