@@ -9,7 +9,6 @@ import { TeachMeContext } from "../../../../App";
 import { parseToCourseListItems } from "../coursesUtils";
 
 import "../../../../../styles/screens/courses-screen/courses-list-screen.less";
-import { Icon } from "../../../../hooks/useIconManager";
 
 export default function CoursesListScreen() {
   const tmContext = useContext(TeachMeContext);

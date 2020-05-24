@@ -13,6 +13,7 @@ export default function Header() {
   const { tmState } = useContext(TeachMeContext);
   const { pathname } = useLocation();
   const { animateCoreElements } = useViewManager();
+  const header = useRef();
   const logo = useRef();
   const details = useRef();
   const innerHeader = useRef();
@@ -75,7 +76,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="header">
+      <div ref={header} className="header">
         <div className={`general-header wrapper ${headerClass}`}>
           {isHomePage && isWebApp && homePageHeader}
           {!isHomePage && innerPageHeader}

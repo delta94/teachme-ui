@@ -1,4 +1,4 @@
-import React, { useEffect, createContext, useState } from "react";
+import React, { useEffect, createContext, useState, useRef } from "react";
 import { HashRouter } from "react-router-dom";
 import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
 
@@ -34,13 +34,20 @@ import Minimize from "./components/buttons/minimize/Minimize";
 export const TeachMeContext = createContext<ITeachMeContext | null>(null);
 
 export default function App() {
+  const app = useRef();
   const {
     addGuidSpecificStyle,
     getDebugError,
     getUrlParamValueByName,
   } = useAppManager();
   const { windowWidth, windowHeight } = useWindowResize();
-  const sidebarMaxWidth = 1200;
+  const {
+    timeoutIfUiTreeNotFound,
+    appWrapperWidth,
+    debug,
+    desktopBreakPoint,
+    webAppHeight,
+  } = config;
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
   const [teachmeApp, setTeachmeApp] = useState({} as WalkMeApp);
   const [tmState, setTMState] = useState(defaultInitialTMState);
@@ -52,6 +59,11 @@ export default function App() {
     isWebApp,
   } as IInformationScreenData);
   const sidebarState = sidebarIsOpen ? "sidebar-open" : "sidebar-close";
+  const shouldCloseSidebar =
+    isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
+  const shouldUpdateCssProperties =
+    windowWidth <= desktopBreakPoint && windowHeight > webAppHeight;
+  let globalCssProperties = { "--webAppHeight": "700px" };
 
   /**
    * displayDebugInfo
@@ -70,7 +82,7 @@ export default function App() {
    */
   useEffect(() => {
     if (initiated) {
-      if (config.debug) displayDebugInfo();
+      if (debug) displayDebugInfo();
       addGuidSpecificStyle();
       setInformationScreen(null as IInformationScreenData);
     }
@@ -127,9 +139,9 @@ export default function App() {
           // Cleanups before set state
           timeout = setTimeout(() => {
             throw new Error(
-              `Search timeout, could not get uiTree in ${config.timeoutIfUiTreeNotFound}ms`
+              `Search timeout, could not get uiTree in ${timeoutIfUiTreeNotFound}ms`
             );
-          }, config.timeoutIfUiTreeNotFound);
+          }, timeoutIfUiTreeNotFound);
 
           clearTimeout(timeout);
           setTMState({
@@ -148,14 +160,23 @@ export default function App() {
     })();
   }, []);
 
-  // TODO: set sidebarMaxWidth as css variable
-  if (isWebApp && sidebarIsOpen && windowWidth < sidebarMaxWidth) {
+  if (shouldCloseSidebar) {
     setSidebarIsOpen(false);
+  }
+
+  // window's width smallest than desktopBreakPoint
+  // && window's height bigger than webAppHeight
+  if (shouldUpdateCssProperties) {
+    globalCssProperties["--webAppHeight"] = `${windowHeight}px`;
   }
 
   return (
     <HashRouter>
-      <div className={`app show wrapper`}>
+      <div
+        ref={app}
+        className={`app show wrapper`}
+        style={globalCssProperties as React.CSSProperties}
+      >
         {informationScreen ? (
           <InformationScreen {...informationScreen} isWebApp={isWebApp} />
         ) : (

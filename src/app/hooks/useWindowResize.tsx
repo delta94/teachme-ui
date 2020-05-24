@@ -14,6 +14,9 @@ export default function useWindowResize() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // console.log("windowWidth ", windowWidth);
+  // console.log("windowHeight ", windowHeight);
+
   return {
     windowWidth,
     windowHeight,

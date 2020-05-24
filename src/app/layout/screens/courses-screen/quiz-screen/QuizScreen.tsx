@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { TeachMeContext } from "../../../../App";
 
 export default function QuizScreen() {
