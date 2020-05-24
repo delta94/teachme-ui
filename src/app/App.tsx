@@ -61,8 +61,6 @@ export default function App() {
   const [globalCssProperties, setGlobalCssProperties] = useState({});
   const sidebarState = sidebarIsOpen ? "sidebar-open" : "sidebar-close";
   const isDesktop = windowWidth >= desktopBreakPoint;
-  const shouldCloseSidebar =
-    isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
 
   /**
    * displayDebugInfo
@@ -162,16 +160,18 @@ export default function App() {
   useEffect(() => {
     // window's width smallest than desktopBreakPoint window's height bigger than webAppHeight
     const shouldUpdateCssProperties = !isDesktop && windowHeight > webAppHeight;
+    const shouldCloseSidebar =
+      isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
+
     if (shouldUpdateCssProperties) {
       setGlobalCssProperties({ "--webAppHeight": `${windowHeight}px` });
     } else {
       setGlobalCssProperties({});
     }
+    if (shouldCloseSidebar) {
+      setSidebarIsOpen(false);
+    }
   }, [windowWidth, windowHeight, isDesktop]);
-
-  if (shouldCloseSidebar) {
-    setSidebarIsOpen(false);
-  }
 
   return (
     <HashRouter>
