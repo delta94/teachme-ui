@@ -1,0 +1,19 @@
+@import "../../variables.less";
+@import "../../mixins.less";
+@import "../../icons.less";
+
+.quiz-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+
+  &:hover {
+    overflow-y: hidden;
+  }
+
+  .iframe-container.responsive {
+    max-width: var(--quizMaxSize);
+    padding-top: var(--quizMaxSize);
+  }
+}
