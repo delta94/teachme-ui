@@ -22,14 +22,15 @@ import {
   parseCoursesBE,
 } from "./layout/screens/courses-screen/coursesUtils";
 import useAppManager from "./hooks/useAppManager";
+import useWindowResize from "./hooks/useWindowResize";
+
 import InformationScreen from "./layout/screens/information-screen/InformationScreen";
 import Debug from "./layout/debug/Debug";
 import Main from "./layout/main/Main";
 import Sidebar from "./layout/sidebar/Sidebar";
+import Minimize from "./components/buttons/minimize/Minimize";
 
 import "../styles/index.less";
-import useWindowResize from "./hooks/useWindowResize";
-import Minimize from "./components/buttons/minimize/Minimize";
 
 export const TeachMeContext = createContext<ITeachMeContext | null>(null);
 
@@ -40,7 +41,13 @@ export default function App() {
     getUrlParamValueByName,
   } = useAppManager();
   const { windowWidth, windowHeight } = useWindowResize();
-  const sidebarMaxWidth = 1200;
+  const {
+    timeoutIfUiTreeNotFound,
+    appWrapperWidth,
+    debug,
+    desktopBreakPoint,
+    webAppHeight,
+  } = config;
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
   const [teachmeApp, setTeachmeApp] = useState({} as WalkMeApp);
   const [tmState, setTMState] = useState(defaultInitialTMState);
@@ -51,7 +58,9 @@ export default function App() {
     type: InformationScreenType.Loading,
     isWebApp,
   } as IInformationScreenData);
+  const [globalCssProperties, setGlobalCssProperties] = useState({});
   const sidebarState = sidebarIsOpen ? "sidebar-open" : "sidebar-close";
+  const isDesktop = windowWidth >= desktopBreakPoint;
 
   /**
    * displayDebugInfo
@@ -70,7 +79,7 @@ export default function App() {
    */
   useEffect(() => {
     if (initiated) {
-      if (config.debug) displayDebugInfo();
+      if (debug) displayDebugInfo();
       addGuidSpecificStyle();
       setInformationScreen(null as IInformationScreenData);
     }
@@ -127,9 +136,9 @@ export default function App() {
           // Cleanups before set state
           timeout = setTimeout(() => {
             throw new Error(
-              `Search timeout, could not get uiTree in ${config.timeoutIfUiTreeNotFound}ms`
+              `Search timeout, could not get uiTree in ${timeoutIfUiTreeNotFound}ms`
             );
-          }, config.timeoutIfUiTreeNotFound);
+          }, timeoutIfUiTreeNotFound);
 
           clearTimeout(timeout);
           setTMState({
@@ -148,14 +157,28 @@ export default function App() {
     })();
   }, []);
 
-  // TODO: set sidebarMaxWidth as css variable
-  if (isWebApp && sidebarIsOpen && windowWidth < sidebarMaxWidth) {
-    setSidebarIsOpen(false);
-  }
+  useEffect(() => {
+    // window's width smallest than desktopBreakPoint window's height bigger than webAppHeight
+    const shouldUpdateCssProperties = !isDesktop && windowHeight > webAppHeight;
+    const shouldCloseSidebar =
+      isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
+
+    if (shouldUpdateCssProperties) {
+      setGlobalCssProperties({ "--webAppHeight": `${windowHeight}px` });
+    } else {
+      setGlobalCssProperties({});
+    }
+    if (shouldCloseSidebar) {
+      setSidebarIsOpen(false);
+    }
+  }, [windowWidth, windowHeight, isDesktop]);
 
   return (
     <HashRouter>
-      <div className={`app show wrapper`}>
+      <div
+        className={`app show wrapper`}
+        style={globalCssProperties as React.CSSProperties}
+      >
         {informationScreen ? (
           <InformationScreen {...informationScreen} isWebApp={isWebApp} />
         ) : (

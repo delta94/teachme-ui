@@ -3,6 +3,8 @@
 @import "../../icons.less";
 
 :root {
+  --courseScreenMaxHeight: 565px;
+  --courseLessonsMaxHeight: 480px;
   --quizBoxWidthDesktop: 290px;
   --gridColumnGap: 17px;
   --courseInformationWidth: calc(
@@ -29,9 +31,14 @@
   }
 }
 
-.screen.course-screen {
+.course-screen {
   padding-right: 5px;
-  height: 565px;
+  max-height: var(--courseScreenMaxHeight);
+
+  @media @tabletOnly {
+    height: auto;
+    max-height: none;
+  }
 
   > .course {
     max-width: var(--scrolledContentMaxWidth);
@@ -53,7 +60,7 @@
     margin-bottom: 20px;
 
     @media @desktopOnly {
-      height: 480px;
+      height: var(--courseLessonsMaxHeight);
       overflow-y: hidden;
       padding-right: 10px;
       margin-bottom: 0;
@@ -117,27 +124,27 @@
         &.collapsible.open {
           margin-bottom: 20px;
         }
-
-        &.open:not(.disabled) {
+      }
+    }
+    .dropdown-wrapper.collapsible:not(.disabled) {
+      .dropdown-handler {
+        .btn {
+          padding: 15px 40px 15px 22px;
+          > * {
+            .ellipsis();
+          }
+          .icon {
+            &.dropdown {
+              .fillTriangleRight(var(--iconBGLight));
+              top: 22px;
+            }
+          }
+        }
+        &.open {
           .btn .icon.dropdown {
             &:before {
               border-top-color: var(--primary);
             }
-          }
-        }
-      }
-    }
-
-    .dropdown-handler {
-      .btn {
-        padding: 15px 40px 15px 22px;
-        > * {
-          .ellipsis();
-        }
-        .icon {
-          &.dropdown {
-            .fillTriangleRight(var(--iconBGLight));
-            top: 22px;
           }
         }
       }
@@ -224,6 +231,7 @@
       @media @tabletOnly {
         grid-template-rows: 155px;
         grid-template-columns: 185px 1fr;
+        height: auto;
 
         article {
           header {
