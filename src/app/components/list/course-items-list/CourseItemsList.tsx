@@ -32,7 +32,7 @@ export default function CourseItemsList({
           />
         ) : (
           <ListItem
-            key={`list-item-${item.id}`}
+            key={`list-item-task-${item.id}`}
             item={parseTask(item)}
             className={`task-item ${taskHighlightingClass}`}
             state={getCourseItemState(item)}

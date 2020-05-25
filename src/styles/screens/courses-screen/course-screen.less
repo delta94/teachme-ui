@@ -126,34 +126,32 @@
         }
       }
     }
-    .dropdown-wrapper.collapsible:not(.disabled) {
-      .dropdown-handler {
-        .btn {
-          padding: 15px 40px 15px 22px;
-          > * {
-            .ellipsis();
-          }
-          .icon {
-            &.dropdown {
-              .fillTriangleRight(var(--iconBGLight));
-              top: 22px;
+    .dropdown-wrapper {
+      &.collapsible:not(.disabled) {
+        .dropdown-handler {
+          .btn {
+            padding: 15px 40px 15px 22px;
+            > * {
+              .ellipsis();
+            }
+            .icon {
+              &.dropdown {
+                .fillTriangleRight(var(--iconBGLight));
+                top: 22px;
+              }
             }
           }
-        }
-        &.open {
-          .btn .icon.dropdown {
-            &:before {
-              border-top-color: var(--primary);
+          &.open {
+            .btn .icon.dropdown {
+              &:before {
+                border-top-color: var(--primary);
+              }
             }
           }
         }
       }
-    }
-
-    ul .list-item {
-      .item {
+      .dropdown-items .list .list-item .item {
         .itemHover();
-
         header {
           height: 50px;
           display: flex;

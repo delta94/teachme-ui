@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useContext } from "react";
 import { TeachMeContext } from "../../App";
 import useViewManager from "../../hooks/useViewManager";
 import UserDetails from "../../components/user/user-details/UserDetails";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { ButtonType } from "../../components/buttons/Button";
 import RouteButton from "../../components/buttons/route-button/RouteButton";
 import { Icon } from "../../hooks/useIconManager";
@@ -47,7 +47,7 @@ export default function Header() {
   const homePageHeader = (
     <>
       <div ref={logo} className="logo topElement">
-        <a href="#" draggable="true"></a>
+        <Link to="/" />
       </div>
       <div ref={details} className="details topElement">
         <UserDetails greeting progressBar />
