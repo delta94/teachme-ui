@@ -2,15 +2,12 @@ import React, { useEffect, createContext, useState } from "react";
 import { HashRouter } from "react-router-dom";
 import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
 
-import {
-  tmPlatformType,
-  TEACHME_ERROR,
-  PLATFORM_ERROR,
-  defaultInitialTMState,
-  defaultUserData,
-} from "./consts/app";
+import { defaultInitialTMState, defaultUserData } from "./consts/app";
+import localization from "./consts/localization";
+
 import { config } from "./config";
 
+import { tmPlatformType } from "./interfaces/app.interface";
 import {
   InformationScreenType,
   IInformationScreenData,
@@ -48,6 +45,8 @@ export default function App() {
     desktopBreakPoint,
     webAppHeight,
   } = config;
+
+  const { platformError, teachmeError } = localization;
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
   const [teachmeApp, setTeachmeApp] = useState({} as WalkMeApp);
   const [tmState, setTMState] = useState(defaultInitialTMState);
@@ -98,7 +97,7 @@ export default function App() {
       if (!platformTypeParam || !teachmeParam) {
         informationScreenData = {
           type: InformationScreenType.NoConnection,
-          error: !platformTypeParam ? PLATFORM_ERROR : TEACHME_ERROR,
+          error: !platformTypeParam ? platformError : teachmeError,
         };
         setInformationScreen(informationScreenData);
       } else {

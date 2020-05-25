@@ -1,6 +1,5 @@
 import React, { ReactElement, useContext } from "react";
 
-import { LIST_ITEM_DISABLED_MSG } from "../../../consts/app";
 import {
   CourseState,
   CourseItemType,

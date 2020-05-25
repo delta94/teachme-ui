@@ -1,12 +1,8 @@
 import React from "react";
 import { ICourseItem } from "../../../../interfaces/courses/courses.interface";
 import Dropdown from "../../../dropdown/Dropdown";
-import {
-  parseTasksToItemList,
-  getCourseItemState,
-  parseTask,
-} from "../../../../layout/screens/courses-screen/coursesUtils";
-import { LESSON_DISABLED_MSG } from "../../../../consts/app";
+import { parseTasksToItemList } from "../../../../layout/screens/courses-screen/coursesUtils";
+import localization from "../../../../consts/localization";
 
 export default function LessonListItem({
   item,
@@ -28,7 +24,7 @@ export default function LessonListItem({
         handler={{
           state: item.state,
         }}
-        disabledMsg={LESSON_DISABLED_MSG}
+        disabledMsg={localization.lessonDisabledMsg}
       />
     </li>
   );
