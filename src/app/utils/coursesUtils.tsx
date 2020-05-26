@@ -5,22 +5,18 @@ import {
   ICourseItemBE,
   CourseItemType,
   ICourseItem,
-  TaskIcon,
   IQuiz,
   ICourseData,
-} from "../../../interfaces/courses/courses.interface";
-import { IListItem } from "../../../components/list/list-item/ListItem";
-import {
-  LIST_ITEM_DISABLED_MSG,
-  LESSON_DISABLED_MSG,
-} from "../../../consts/app";
+} from "../interfaces/courses/courses.interface";
+import { IListItem } from "../components/list/list-item/ListItem";
+import localization from "../consts/localization";
 
 export const parseToCourseListItems = (
   courses: ICourse[]
 ): IListItem<ICourseData>[] => {
   return courses.map((course) => {
     const { id, title, media, data, items } = course;
-
+    const { courseDisabledMsg } = localization;
     return {
       id,
       title,
@@ -32,6 +28,7 @@ export const parseToCourseListItems = (
         return { ...noUseWalkMeSdk, link: itemLink };
       }),
       clickable: data.state === CourseState.Disabled ? false : true,
+      disabledMsg: courseDisabledMsg,
       data: {
         ...data,
         media,
@@ -41,6 +38,7 @@ export const parseToCourseListItems = (
 };
 
 export const parseTask = (task: ICourseItem): IListItem<{}> => {
+  const { lessonDisabledMsg, listItemDisabledMsg } = localization;
   return {
     id: task.id,
     title: task.title,
@@ -50,8 +48,8 @@ export const parseTask = (task: ICourseItem): IListItem<{}> => {
     useWalkMeSdk: true,
     disabledMsg:
       task.type === CourseItemType.Lesson
-        ? LESSON_DISABLED_MSG
-        : LIST_ITEM_DISABLED_MSG,
+        ? lessonDisabledMsg
+        : listItemDisabledMsg,
   } as IListItem<{}>;
 };
 

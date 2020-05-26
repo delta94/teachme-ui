@@ -11,12 +11,8 @@ import Button, { ButtonType } from "../../../buttons/Button";
 
 import useListItemManager from "../../../../hooks/useListItemManager";
 import MessageContainer from "../../../message-container/MessageContainer";
-import { COURSE_DISABLED_MSG } from "../../../../consts/app";
 import { TeachMeContext } from "../../../../App";
-import useIconManager, {
-  Icon,
-  IconType,
-} from "../../../../hooks/useIconManager";
+import useIconManager, { Icon } from "../../../../hooks/useIconManager";
 export interface ITMListItemProps extends IItemComponentProps<ICourseData> {
   hideProgressBar?: boolean;
   extraLabel?: string;
@@ -39,7 +35,7 @@ export default function TMListItem({
     clickable,
     data = { status: 0, state: CourseState.NotStarted },
     description = "",
-    disabledMsg = COURSE_DISABLED_MSG,
+    disabledMsg,
   } = item;
   const { walkmeSDK } = useContext(TeachMeContext);
   const { handleListItemClick } = useListItemManager(walkmeSDK);

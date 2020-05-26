@@ -3,10 +3,7 @@ import {
   ICourseItem,
   CourseItemType,
 } from "../../../interfaces/courses/courses.interface";
-import {
-  getCourseItemState,
-  parseTask,
-} from "../../../layout/screens/courses-screen/coursesUtils";
+import { getCourseItemState, parseTask } from "../../../utils/coursesUtils";
 import ListItem from "../list-item/ListItem";
 import LessonListItem from "../list-item/lesson-list-item/LessonListItem";
 
@@ -32,7 +29,7 @@ export default function CourseItemsList({
           />
         ) : (
           <ListItem
-            key={`list-item-${item.id}`}
+            key={`list-item-task-${item.id}`}
             item={parseTask(item)}
             className={`task-item ${taskHighlightingClass}`}
             state={getCourseItemState(item)}

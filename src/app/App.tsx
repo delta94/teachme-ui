@@ -2,25 +2,19 @@ import React, { useEffect, createContext, useState } from "react";
 import { HashRouter } from "react-router-dom";
 import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
 
-import {
-  tmPlatformType,
-  TEACHME_ERROR,
-  PLATFORM_ERROR,
-  defaultInitialTMState,
-  defaultUserData,
-} from "./consts/app";
+import { defaultInitialTMState, defaultUserData } from "./consts/app";
+import localization from "./consts/localization";
+
 import { config } from "./config";
 
+import { tmPlatformType } from "./interfaces/app.interface";
 import {
   InformationScreenType,
   IInformationScreenData,
 } from "./interfaces/information-screen/informationScreen.interface";
 import { ITeachMeContext } from "./interfaces/teachme/teachme.interface";
 
-import {
-  getCoursesTotalStatus,
-  parseCoursesBE,
-} from "./layout/screens/courses-screen/coursesUtils";
+import { getCoursesTotalStatus, parseCoursesBE } from "./utils/coursesUtils";
 import useAppManager from "./hooks/useAppManager";
 import useWindowResize from "./hooks/useWindowResize";
 
@@ -48,6 +42,8 @@ export default function App() {
     desktopBreakPoint,
     webAppHeight,
   } = config;
+
+  const { platformError, teachmeError } = localization;
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
   const [teachmeApp, setTeachmeApp] = useState({} as WalkMeApp);
   const [tmState, setTMState] = useState(defaultInitialTMState);
@@ -98,7 +94,7 @@ export default function App() {
       if (!platformTypeParam || !teachmeParam) {
         informationScreenData = {
           type: InformationScreenType.NoConnection,
-          error: !platformTypeParam ? PLATFORM_ERROR : TEACHME_ERROR,
+          error: !platformTypeParam ? platformError : teachmeError,
         };
         setInformationScreen(informationScreenData);
       } else {
@@ -116,8 +112,17 @@ export default function App() {
 
           console.log("tmCourses =>", tmCourses);
 
-          const parsedCourses = parseCoursesBE(tmCourses);
+          if (!tmCourses) {
+            const errorMsg = "Something is wrong, please try again later",
+              informationScreenData = {
+                type: InformationScreenType.NoConnection,
+                error: errorMsg,
+              };
+            setInformationScreen(informationScreenData);
+            throw new Error(errorMsg);
+          }
 
+          const parsedCourses = tmCourses ? parseCoursesBE(tmCourses) : null;
           console.log("parsedCourses =>", parsedCourses);
 
           // Teachme Guard
@@ -158,16 +163,26 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    // window's width smallest than desktopBreakPoint window's height bigger than webAppHeight
+    /**
+     * shouldUpdateCssProperties
+     * window's width smallest than desktopBreakPoint window's,
+     * and window height greater than webAppHeight (config property)
+     */
     const shouldUpdateCssProperties = !isDesktop && windowHeight > webAppHeight;
-    const shouldCloseSidebar =
-      isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
 
     if (shouldUpdateCssProperties) {
       setGlobalCssProperties({ "--webAppHeight": `${windowHeight}px` });
     } else {
       setGlobalCssProperties({});
     }
+
+    /**
+     * shouldCloseSidebar
+     * if sidebar is open
+     * and window width than appWrapperWidth (config property)
+     */
+    const shouldCloseSidebar =
+      isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
     if (shouldCloseSidebar) {
       setSidebarIsOpen(false);
     }

@@ -10,7 +10,7 @@
   --courseInformationWidth: calc(
     100% - (calc(var(--quizBoxWidthDesktop) + (var(--gridColumnGap) * 2)))
   );
-  --scrolledInnerContentMaxWidth: calc(var(--scrolledContentMaxWidth) - 15px);
+  --scrolledInnerContentMaxWidth: calc(var(--scrolledContentMaxWidth) - 20px);
 }
 
 .itemHover() {
@@ -101,12 +101,6 @@
       }
     }
 
-    &.disabled {
-      .disabled-message {
-        right: -10px;
-      }
-    }
-
     .dropdown-items {
       padding: 0;
       .list-item {
@@ -126,34 +120,32 @@
         }
       }
     }
-    .dropdown-wrapper.collapsible:not(.disabled) {
-      .dropdown-handler {
-        .btn {
-          padding: 15px 40px 15px 22px;
-          > * {
-            .ellipsis();
-          }
-          .icon {
-            &.dropdown {
-              .fillTriangleRight(var(--iconBGLight));
-              top: 22px;
+    .dropdown-wrapper {
+      &.collapsible:not(.disabled) {
+        .dropdown-handler {
+          .btn {
+            padding: 15px 40px 15px 22px;
+            > * {
+              .ellipsis();
+            }
+            .icon {
+              &.dropdown {
+                .fillTriangleRight(var(--iconBGLight));
+                top: 22px;
+              }
             }
           }
-        }
-        &.open {
-          .btn .icon.dropdown {
-            &:before {
-              border-top-color: var(--primary);
+          &.open {
+            .btn .icon.dropdown {
+              &:before {
+                border-top-color: var(--primary);
+              }
             }
           }
         }
       }
-    }
-
-    ul .list-item {
-      .item {
+      .dropdown-items .list .list-item .item {
         .itemHover();
-
         header {
           height: 50px;
           display: flex;
@@ -284,7 +276,7 @@
   .course.with-quiz {
     @media @desktopOnly {
       .course-items {
-        max-width: 563px;
+        max-width: 555px;
       }
 
       .course-information {

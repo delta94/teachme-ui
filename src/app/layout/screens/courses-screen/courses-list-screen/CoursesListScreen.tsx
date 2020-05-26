@@ -6,7 +6,7 @@ import TMListItem from "../../../../components/list/list-item/teach-me-list-item
 import { ICourseData } from "../../../../interfaces/courses/courses.interface";
 import UserDetails from "../../../../components/user/user-details/UserDetails";
 import { TeachMeContext } from "../../../../App";
-import { parseToCourseListItems } from "../coursesUtils";
+import { parseToCourseListItems } from "../../../../utils/coursesUtils";
 
 import "../../../../../styles/screens/courses-screen/courses-list-screen.less";
 
