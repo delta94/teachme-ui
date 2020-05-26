@@ -112,8 +112,17 @@ export default function App() {
 
           console.log("tmCourses =>", tmCourses);
 
-          const parsedCourses = parseCoursesBE(tmCourses);
+          if (!tmCourses) {
+            const errorMsg = "Something is wrong, please try again later",
+              informationScreenData = {
+                type: InformationScreenType.NoConnection,
+                error: errorMsg,
+              };
+            setInformationScreen(informationScreenData);
+            throw new Error(errorMsg);
+          }
 
+          const parsedCourses = tmCourses ? parseCoursesBE(tmCourses) : null;
           console.log("parsedCourses =>", parsedCourses);
 
           // Teachme Guard
