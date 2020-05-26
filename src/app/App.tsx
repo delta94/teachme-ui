@@ -157,16 +157,26 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    // window's width smallest than desktopBreakPoint window's height bigger than webAppHeight
+    /**
+     * shouldUpdateCssProperties
+     * window's width smallest than desktopBreakPoint window's,
+     * and window height greater than webAppHeight (config property)
+     */
     const shouldUpdateCssProperties = !isDesktop && windowHeight > webAppHeight;
-    const shouldCloseSidebar =
-      isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
 
     if (shouldUpdateCssProperties) {
       setGlobalCssProperties({ "--webAppHeight": `${windowHeight}px` });
     } else {
       setGlobalCssProperties({});
     }
+
+    /**
+     * shouldCloseSidebar
+     * if sidebar is open
+     * and window width than appWrapperWidth (config property)
+     */
+    const shouldCloseSidebar =
+      isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
     if (shouldCloseSidebar) {
       setSidebarIsOpen(false);
     }

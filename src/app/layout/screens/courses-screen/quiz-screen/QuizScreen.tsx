@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
 import { TeachMeContext } from "../../../../App";
-import Iframe from "../../../../components/iframe/Ifram";
+import Iframe from "../../../../components/iframe/Iframe";
 
 type TParams = { courseId: string };
 
@@ -11,8 +11,8 @@ export default function QuizScreen({ match }: RouteComponentProps<TParams>) {
   const { isOpen, setIsOpen } = sidebar;
   const { courseId } = match.params;
   const quizBaseUrl = "https://cdn.walkme.com/apps/wm-forms/index.html";
-  const quizPlatform = "mock"; // Change to dynamic data
-  const teachmePlatform = "mock"; // Change to dynamic data
+  const quizPlatform = "mock"; //TODO: Change to dynamic data
+  const teachmePlatform = "mock"; //TODO: Change to dynamic data
 
   useEffect(() => {
     if (isOpen) {
