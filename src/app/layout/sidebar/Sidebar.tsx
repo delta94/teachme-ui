@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { TeachMeContext } from "../../App";
-import { parseToCourseListItems } from "../screens/courses-screen/coursesUtils";
+import { parseToCourseListItems } from "../../utils/coursesUtils";
 import Dropdown from "../../components/dropdown/Dropdown";
 import Button, { ButtonType } from "../../components/buttons/Button";
 import localization from "../../consts/localization";

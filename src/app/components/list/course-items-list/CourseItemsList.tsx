@@ -3,10 +3,7 @@ import {
   ICourseItem,
   CourseItemType,
 } from "../../../interfaces/courses/courses.interface";
-import {
-  getCourseItemState,
-  parseTask,
-} from "../../../layout/screens/courses-screen/coursesUtils";
+import { getCourseItemState, parseTask } from "../../../utils/coursesUtils";
 import ListItem from "../list-item/ListItem";
 import LessonListItem from "../list-item/lesson-list-item/LessonListItem";
 

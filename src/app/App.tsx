@@ -14,10 +14,7 @@ import {
 } from "./interfaces/information-screen/informationScreen.interface";
 import { ITeachMeContext } from "./interfaces/teachme/teachme.interface";
 
-import {
-  getCoursesTotalStatus,
-  parseCoursesBE,
-} from "./layout/screens/courses-screen/coursesUtils";
+import { getCoursesTotalStatus, parseCoursesBE } from "./utils/coursesUtils";
 import useAppManager from "./hooks/useAppManager";
 import useWindowResize from "./hooks/useWindowResize";
 

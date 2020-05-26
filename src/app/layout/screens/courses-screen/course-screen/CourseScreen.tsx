@@ -5,7 +5,10 @@ import {
   ICourse,
   CourseState,
 } from "../../../../interfaces/courses/courses.interface";
-import { getCourseById, parseQuizListItem } from "../coursesUtils";
+import {
+  getCourseById,
+  parseQuizListItem,
+} from "../../../../utils/coursesUtils";
 import "../../../../../styles/screens/courses-screen/course-screen.less";
 
 import { TeachMeContext } from "../../../../App";

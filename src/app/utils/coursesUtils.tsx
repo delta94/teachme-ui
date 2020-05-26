@@ -7,9 +7,9 @@ import {
   ICourseItem,
   IQuiz,
   ICourseData,
-} from "../../../interfaces/courses/courses.interface";
-import { IListItem } from "../../../components/list/list-item/ListItem";
-import localization from "../../../consts/localization";
+} from "../interfaces/courses/courses.interface";
+import { IListItem } from "../components/list/list-item/ListItem";
+import localization from "../consts/localization";
 
 export const parseToCourseListItems = (
   courses: ICourse[]

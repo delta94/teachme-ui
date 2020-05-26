@@ -1,7 +1,7 @@
 import React from "react";
 import { ICourseItem } from "../../../../interfaces/courses/courses.interface";
 import Dropdown from "../../../dropdown/Dropdown";
-import { parseTasksToItemList } from "../../../../layout/screens/courses-screen/coursesUtils";
+import { parseTasksToItemList } from "../../../../utils/coursesUtils";
 import localization from "../../../../consts/localization";
 
 export default function LessonListItem({
