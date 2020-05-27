@@ -2,11 +2,11 @@ import React, { useEffect, createContext, useState } from "react";
 import { HashRouter } from "react-router-dom";
 import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
 
-import { defaultInitialTMState, defaultUserData } from "./consts/app";
-import localization from "./consts/localization";
-
+// config && consts
 import { config } from "./config";
+import { defaultInitialTMState, defaultUserData } from "./consts/app";
 
+// interfaces
 import { tmPlatformType } from "./interfaces/app.interface";
 import {
   InformationScreenType,
@@ -14,18 +14,22 @@ import {
 } from "./interfaces/information-screen/informationScreen.interface";
 import { ITeachMeContext } from "./interfaces/teachme/teachme.interface";
 
+// utils & hooks
 import { getCoursesTotalStatus, parseCoursesBE } from "./utils/coursesUtils";
 import useAppManager from "./hooks/useAppManager";
 import useWindowResize from "./hooks/useWindowResize";
 
+// components
 import InformationScreen from "./layout/screens/information-screen/InformationScreen";
 import Debug from "./layout/debug/Debug";
 import Main from "./layout/main/Main";
 import Sidebar from "./layout/sidebar/Sidebar";
 import Minimize from "./components/buttons/minimize/Minimize";
 
+// styles
 import "../styles/index.less";
 
+// context
 export const TeachMeContext = createContext<ITeachMeContext | null>(null);
 
 export default function App() {
@@ -35,6 +39,7 @@ export default function App() {
     getUrlParamValueByName,
   } = useAppManager();
   const { windowWidth, windowHeight } = useWindowResize();
+
   const {
     timeoutIfUiTreeNotFound,
     appWrapperWidth,
@@ -43,7 +48,6 @@ export default function App() {
     webAppHeight,
   } = config;
 
-  const { platformError, teachmeError } = localization;
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
   const [walkmeSDKError, setWalkmeSDKError] = useState(null);
   const [teachmeApp, setTeachmeApp] = useState({} as WalkMeApp);
@@ -57,7 +61,6 @@ export default function App() {
   } as IInformationScreenData);
   const [globalCssProperties, setGlobalCssProperties] = useState({});
   const sidebarState = sidebarIsOpen ? "sidebar-open" : "sidebar-close";
-  const isDesktop = windowWidth >= desktopBreakPoint;
 
   /**
    * displayDebugInfo
@@ -82,6 +85,9 @@ export default function App() {
     }
   }, [initiated, isWebApp]);
 
+  /**
+   * set information screen data
+   */
   useEffect(() => {
     if (Boolean(walkmeSDKError)) {
       setTimeout(() => {
@@ -118,6 +124,8 @@ export default function App() {
         // teachmeApp Guard
         if (teachmeApp) {
           setTeachmeApp(teachmeApp);
+        } else {
+          throw new Error("Something is wrong, No teachmeApp");
         }
 
         const data = await walkme.content.getContent({
@@ -179,7 +187,8 @@ export default function App() {
      * window's width smallest than desktopBreakPoint window's,
      * and window height greater than webAppHeight (config property)
      */
-    const shouldUpdateCssProperties = !isDesktop && windowHeight > webAppHeight;
+    const shouldUpdateCssProperties =
+      windowWidth <= desktopBreakPoint && windowHeight > webAppHeight;
 
     if (shouldUpdateCssProperties) {
       setGlobalCssProperties({ "--webAppHeight": `${windowHeight}px` });
@@ -197,7 +206,7 @@ export default function App() {
     if (shouldCloseSidebar) {
       setSidebarIsOpen(false);
     }
-  }, [windowWidth, windowHeight, isDesktop]);
+  }, [windowWidth, windowHeight]);
 
   return (
     <div
