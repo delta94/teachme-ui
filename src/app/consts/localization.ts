@@ -10,6 +10,14 @@ const localization = {
   lessonDisabledMsg:
     "This lesson requires the completion of all previous lessons",
   courseDisabledMsg: "This course requires completion of all pervious",
+  informationScreen: {
+    loadingMassage: "Loading",
+    noConnectionMessage: {
+      title: "WalkMe can’t load due to internet connection",
+      text: "Check your connection and try again or contact your IT department",
+    },
+    defaultErrorMassage: "Something is wrong, please try again",
+  },
 };
 
 export default localization;

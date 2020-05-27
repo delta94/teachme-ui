@@ -1,35 +1,39 @@
-import React, { useEffect, createContext, useState } from 'react';
-import { HashRouter } from 'react-router-dom';
-import walkme, { ISdk, WalkMeApp } from '@walkme/sdk';
+import React, { useEffect, createContext, useState } from "react";
+import { HashRouter } from "react-router-dom";
+import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
 
-import { defaultInitialTMState, defaultUserData } from './consts/app';
-import localization from './consts/localization';
+import { defaultInitialTMState, defaultUserData } from "./consts/app";
+import localization from "./consts/localization";
 
-import { config } from './config';
+import { config } from "./config";
 
-import { tmPlatformType } from './interfaces/app.interface';
+import { tmPlatformType } from "./interfaces/app.interface";
 import {
   InformationScreenType,
   IInformationScreenData,
-} from './interfaces/information-screen/informationScreen.interface';
-import { ITeachMeContext } from './interfaces/teachme/teachme.interface';
+} from "./interfaces/information-screen/informationScreen.interface";
+import { ITeachMeContext } from "./interfaces/teachme/teachme.interface";
 
-import { getCoursesTotalStatus, parseCoursesBE } from './utils/coursesUtils';
-import useAppManager from './hooks/useAppManager';
-import useWindowResize from './hooks/useWindowResize';
+import { getCoursesTotalStatus, parseCoursesBE } from "./utils/coursesUtils";
+import useAppManager from "./hooks/useAppManager";
+import useWindowResize from "./hooks/useWindowResize";
 
-import InformationScreen from './layout/screens/information-screen/InformationScreen';
-import Debug from './layout/debug/Debug';
-import Main from './layout/main/Main';
-import Sidebar from './layout/sidebar/Sidebar';
-import Minimize from './components/buttons/minimize/Minimize';
+import InformationScreen from "./layout/screens/information-screen/InformationScreen";
+import Debug from "./layout/debug/Debug";
+import Main from "./layout/main/Main";
+import Sidebar from "./layout/sidebar/Sidebar";
+import Minimize from "./components/buttons/minimize/Minimize";
 
-import '../styles/index.less';
+import "../styles/index.less";
 
 export const TeachMeContext = createContext<ITeachMeContext | null>(null);
 
 export default function App() {
-  const { addGuidSpecificStyle, getDebugError, getUrlParamValueByName } = useAppManager();
+  const {
+    addGuidSpecificStyle,
+    getDebugError,
+    getUrlParamValueByName,
+  } = useAppManager();
   const { windowWidth, windowHeight } = useWindowResize();
   const {
     timeoutIfUiTreeNotFound,
@@ -41,6 +45,7 @@ export default function App() {
 
   const { platformError, teachmeError } = localization;
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
+  const [walkmeSDKError, setWalkmeSDKError] = useState(null);
   const [teachmeApp, setTeachmeApp] = useState({} as WalkMeApp);
   const [tmState, setTMState] = useState(defaultInitialTMState);
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
@@ -51,14 +56,14 @@ export default function App() {
     isWebApp,
   } as IInformationScreenData);
   const [globalCssProperties, setGlobalCssProperties] = useState({});
-  const sidebarState = sidebarIsOpen ? 'sidebar-open' : 'sidebar-close';
+  const sidebarState = sidebarIsOpen ? "sidebar-open" : "sidebar-close";
   const isDesktop = windowWidth >= desktopBreakPoint;
 
   /**
    * displayDebugInfo
    */
   const displayDebugInfo = () => {
-    setTMState(prevTMState => {
+    setTMState((prevTMState) => {
       return {
         ...prevTMState,
         debugError: getDebugError(),
@@ -77,81 +82,93 @@ export default function App() {
     }
   }, [initiated, isWebApp]);
 
+  useEffect(() => {
+    if (Boolean(walkmeSDKError)) {
+      setTimeout(() => {
+        setInformationScreen((prev) => {
+          return {
+            ...prev,
+            type: InformationScreenType.Error,
+            error: walkmeSDKError,
+          };
+        });
+      }, 300);
+    }
+  }, [walkmeSDKError]);
+
   /**
    * Initial SDK and
    */
   useEffect(() => {
     (async () => {
       let timeout;
-      let informationScreenData = informationScreen as IInformationScreenData;
-      const platformTypeParam = getUrlParamValueByName('platform');
-      const teachmeParam = getUrlParamValueByName('teachme');
+      const platformTypeParam = getUrlParamValueByName("platform");
 
-      if (!platformTypeParam || !teachmeParam) {
-        informationScreenData = {
-          type: InformationScreenType.NoConnection,
-          error: !platformTypeParam ? platformError : teachmeError,
-        };
-        setInformationScreen(informationScreenData);
-      } else {
-        try {
-          await walkme.init();
-          console.log('WalkMe ready =>', walkme);
+      try {
+        await walkme.init();
+        console.log("WalkMe ready =>", walkme);
 
-          // Walkme Guard
-          if (walkme) {
-            setWalkmeSDK(walkme);
-          }
-
-          const teachme = await walkme.apps.getApp('teachme');
-          const data = await walkme.content.getContent({ types: ['teachme'] });
-          const tmCourses = (data as any).teachme;
-          console.log('tmCourses =>', tmCourses);
-
-          if (!tmCourses) {
-            const errorMsg = 'Something is wrong, please try again later',
-              informationScreenData = {
-                type: InformationScreenType.NoConnection,
-                error: errorMsg,
-              };
-            setInformationScreen(informationScreenData);
-            throw new Error(errorMsg);
-          }
-
-          const parsedCourses = tmCourses ? parseCoursesBE(tmCourses) : null;
-          console.log('parsedCourses =>', parsedCourses);
-
-          // Teachme Guard
-          if (teachme) {
-            setTeachmeApp(teachme);
-          }
-
-          // set tmUser data
-          const tmUser = {
-            user: defaultUserData.user,
-            courses: {
-              percentCompletion: getCoursesTotalStatus(parsedCourses),
-            },
-          };
-
-          // Cleanups before set state
-          timeout = setTimeout(() => {
-            throw new Error(`Search timeout, could not get uiTree in ${timeoutIfUiTreeNotFound}ms`);
-          }, timeoutIfUiTreeNotFound);
-
-          clearTimeout(timeout);
-          setTMState({
-            ...tmState,
-            tmUser,
-            tmCourses: parsedCourses,
-            initiated: true,
-            platformType: platformTypeParam,
-            isWebApp: getUrlParamValueByName('tm-type') === tmPlatformType.Web,
-          });
-        } catch (err) {
-          console.error(err);
-          clearTimeout(timeout);
+        // Walkme Guard
+        if (walkme) {
+          setWalkmeSDK(walkme);
         }
+
+        const teachmeApp = await walkme.apps.getApp("teachme");
+
+        // teachmeApp Guard
+        if (teachmeApp) {
+          setTeachmeApp(teachmeApp);
+        }
+
+        const data = await walkme.content.getContent({
+          types: ["teachme"],
+          segmentation: true,
+        });
+
+        const tmCourses = (data as any).teachme;
+
+        if (tmCourses) {
+          console.log("tmCourses =>", tmCourses);
+        } else {
+          throw new Error("Something is wrong, No tmCourses");
+        }
+
+        const parsedCourses = tmCourses ? parseCoursesBE(tmCourses) : null;
+
+        if (parsedCourses) {
+          console.log("parsedCourses =>", parsedCourses);
+        } else {
+          throw new Error("Something is wrong, No parsedCourses");
+        }
+
+        // set tmUser data
+        const tmUser = {
+          user: defaultUserData.user,
+          courses: {
+            percentCompletion: getCoursesTotalStatus(parsedCourses),
+          },
+        };
+
+        // Cleanups before set state
+        timeout = setTimeout(() => {
+          throw new Error(
+            `Search timeout, could not get uiTree in ${timeoutIfUiTreeNotFound}ms`
+          );
+        }, timeoutIfUiTreeNotFound);
+
+        clearTimeout(timeout);
+        setTMState({
+          ...tmState,
+          tmUser,
+          tmCourses: parsedCourses,
+          initiated: true,
+          platformType: platformTypeParam,
+          isWebApp: getUrlParamValueByName("tm-type") === tmPlatformType.Web,
+        });
+      } catch (err) {
+        console.log("err ", err);
+        setWalkmeSDKError(err);
+        clearTimeout(timeout);
       }
     })();
   }, []);
@@ -165,7 +182,7 @@ export default function App() {
     const shouldUpdateCssProperties = !isDesktop && windowHeight > webAppHeight;
 
     if (shouldUpdateCssProperties) {
-      setGlobalCssProperties({ '--webAppHeight': `${windowHeight}px` });
+      setGlobalCssProperties({ "--webAppHeight": `${windowHeight}px` });
     } else {
       setGlobalCssProperties({});
     }
@@ -175,18 +192,22 @@ export default function App() {
      * if sidebar is open
      * and window width than appWrapperWidth (config property)
      */
-    const shouldCloseSidebar = isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
+    const shouldCloseSidebar =
+      isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
     if (shouldCloseSidebar) {
       setSidebarIsOpen(false);
     }
   }, [windowWidth, windowHeight, isDesktop]);
 
   return (
-    <HashRouter>
-      <div className={`app show wrapper`} style={globalCssProperties as React.CSSProperties}>
-        {informationScreen ? (
-          <InformationScreen {...informationScreen} isWebApp={isWebApp} />
-        ) : (
+    <div
+      className={`app show wrapper`}
+      style={globalCssProperties as React.CSSProperties}
+    >
+      {informationScreen ? (
+        <InformationScreen {...informationScreen} isWebApp={isWebApp} />
+      ) : (
+        <HashRouter>
           <TeachMeContext.Provider
             value={{
               walkmeSDK,
@@ -200,8 +221,8 @@ export default function App() {
             <Sidebar />
             <Main className={sidebarState} />
           </TeachMeContext.Provider>
-        )}
-      </div>
-    </HashRouter>
+        </HashRouter>
+      )}
+    </div>
   );
 }

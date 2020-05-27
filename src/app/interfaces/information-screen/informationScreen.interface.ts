@@ -6,7 +6,7 @@ export enum InformationScreenType {
 }
 
 export interface IInformationScreenData {
-  type?: InformationScreenType;
+  type: InformationScreenType;
   error?: string;
   isWebApp?: boolean;
 }
