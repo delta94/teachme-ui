@@ -171,6 +171,12 @@ export const parseCoursesBE = (courses: ICourseBE[]): ICourse[] => {
   return parsedCourses;
 };
 
+export const getCourseItemType = (type: string) => {
+  return Object.values(CourseItemType).includes(type as CourseItemType)
+    ? (type as CourseItemType)
+    : undefined;
+};
+
 export const parseCourseItems = ({
   courseId,
   items,
@@ -178,11 +184,8 @@ export const parseCourseItems = ({
   courseId: string;
   items: ICourseItemBE[];
 }): ICourseItem[] => {
-  let lessonNumber = 1;
-
   const parsedItems = items.map(
     (item: ICourseItemBE): ICourseItem => {
-      const isLessonType = item.type === CourseItemType.Lesson;
       const { childNodes, ...noChildNodes } = item;
       const tasks =
         item.childNodes &&
@@ -190,6 +193,10 @@ export const parseCourseItems = ({
           const parsedTask = {
             ...task,
             id: task.id.toString() as string,
+            // temporary solution preventing render unknown icon - the SDK data supposed to change
+            type: task.itemType
+              ? getCourseItemType(task.itemType)
+              : getCourseItemType(task.type),
           };
           const taskState = getCourseItemState(parsedTask);
           return { ...parsedTask, state: taskState };
@@ -199,15 +206,12 @@ export const parseCourseItems = ({
         ...noChildNodes,
         courseId,
         id: item.id.toString() as string,
-        lessonNumber: isLessonType ? lessonNumber : undefined,
+        // temporary solution preventing render unknown icon - the SDK data supposed to change
+        type: getCourseItemType(item.type),
         tasks,
       };
 
       const itemState = getCourseItemState(parsedItem);
-
-      if (isLessonType) {
-        lessonNumber = lessonNumber + 1;
-      }
 
       return { ...parsedItem, state: itemState };
     }

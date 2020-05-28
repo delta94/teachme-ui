@@ -65,7 +65,6 @@ export interface ICourseTask {
 }
 
 export interface ICourseItem extends ICourseTask {
-  lessonNumber?: number;
   tasks?: ICourseTask[];
 }
 
@@ -111,5 +110,6 @@ export interface ICourseItemBE {
   description?: string;
   properties: IProperties;
   type?: CourseItemType;
+  itemType?: CourseItemType;
   childNodes?: ICourseItemBE[];
 }
