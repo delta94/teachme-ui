@@ -32,7 +32,7 @@
 }
 
 .course-screen {
-  padding-right: 5px;
+  padding-right: 15px;
   max-height: var(--courseScreenMaxHeight);
 
   @media @tabletOnly {
@@ -127,6 +127,17 @@
             padding: 15px 40px 15px 22px;
             > * {
               .ellipsis();
+              @media @tabletOnly {
+                width: 600px;
+              }
+
+              @media @mobileOnly {
+                width: 500px;
+              }
+
+              @media @tinyOnly {
+                width: 260px;
+              }
             }
             .icon {
               &.dropdown {
