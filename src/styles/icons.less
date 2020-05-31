@@ -19,6 +19,20 @@
   transition: background-color 0.3s;
   pointer-events: none;
 
+  svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    fill: currentColor;
+    > * {
+      transform: color 0.3s, stroke 0.3s;
+    }
+  }
+
   &.tested {
     .doubleCheckMarkIcon();
   }
@@ -39,7 +53,8 @@
     .checkIcon();
   }
 
-  &.success {
+  &.success,
+  &.completed {
     .successIcon();
   }
 
@@ -90,17 +105,25 @@
 .doubleArrowsLeftIcon(@color: currentColor) {
   width: 8px;
   height: 6px;
-  background-color: @color;
-  -webkit-mask-image: var(--doubleArrowsLeftIcon);
-  mask-image: var(--doubleArrowsLeftIcon);
+  // background-color: @color;
+  // -webkit-mask-image: var(--doubleArrowsLeftIcon);
+  // mask-image: var(--doubleArrowsLeftIcon);
+
+  svg path {
+    fill: @color;
+  }
 }
 
 .doubleCheckMarkIcon(@color: var(--primary)) {
   width: 15px;
   height: 8px;
-  background-color: @color;
-  -webkit-mask-image: var(--doubleCheckMarkIcon);
-  mask-image: var(--doubleCheckMarkIcon);
+  // background-color: @color;
+  // -webkit-mask-image: var(--doubleCheckMarkIcon);
+  // mask-image: var(--doubleCheckMarkIcon);
+
+  svg path {
+    fill: @color;
+  }
 }
 
 .fillTriangleDown(@color: currentColor, @size: 4.5px) {
@@ -138,27 +161,39 @@
 .checkIcon () {
   height: 8px;
   width: 11px;
-  background-color: var(--primary);
-  -webkit-mask-image: var(--checkMarkIcon);
-  mask-image: var(--checkMarkIcon);
+  // background-color: var(--primary);
+  // -webkit-mask-image: var(--checkMarkIcon);
+  // mask-image: var(--checkMarkIcon);
 }
 
 .articleIcon () {
-  background-color: var(--iconBGLight);
-  -webkit-mask-image: var(--articleIcon);
-  mask-image: var(--articleIcon);
+  // background-color: var(--iconBGLight);
+  // -webkit-mask-image: var(--articleIcon);
+  // mask-image: var(--articleIcon);
+
+  svg path {
+    stroke: var(--iconBGLight);
+  }
 }
 
 .walkthruIcon () {
-  background-color: var(--iconBGLight);
-  -webkit-mask-image: var(--walkthruIcon);
-  mask-image: var(--walkthruIcon);
+  // background-color: var(--iconBGLight);
+  // -webkit-mask-image: var(--walkthruIcon);
+  // mask-image: var(--walkthruIcon);
+
+  svg path {
+    stroke: var(--iconBGLight);
+  }
 }
 
 .videoIcon () {
-  background-color: var(--iconBGLight);
-  -webkit-mask-image: var(--videoIcon);
-  mask-image: var(--videoIcon);
+  // background-color: var(--iconBGLight);
+  // -webkit-mask-image: var(--videoIcon);
+  // mask-image: var(--videoIcon);
+
+  svg path {
+    stroke: var(--iconBGLight);
+  }
 }
 
 .closeIcon () {
@@ -188,16 +223,19 @@
 }
 
 .successIcon() {
-  .checkIcon();
-  background-color: var(--success);
+  // .checkIcon();
+  // background-color: var(--success);
+
+  svg path {
+    fill: var(--primary);
+  }
 }
 
 .errorIcon() {
   .closeIcon();
 
-  &:before,
-  &:after {
-    background-color: var(--error);
+  svg path {
+    fill: var(--error);
   }
 }
 

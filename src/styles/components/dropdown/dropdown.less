@@ -57,6 +57,10 @@
           top: 22px;
           .triangleRight(var(--iconBGLight));
           transition: transform 0.3s, background-color 0.3s;
+
+          > svg path {
+            fill: var(--iconBGLight);
+          }
         }
       }
     }
@@ -111,7 +115,11 @@
       .dropdown-handler {
         &.open {
           .icon.dropdown {
-            background-color: var(--primary);
+            // background-color: var(--primary);
+
+            svg path {
+              fill: var(--primary);
+            }
           }
         }
       }

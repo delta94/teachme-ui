@@ -23,7 +23,11 @@
           color: var(--primary);
 
           > .icon {
-            background-color: var(--primary);
+            // background-color: var(--primary);
+
+            svg > * {
+              stroke: var(--primary);
+            }
           }
         }
       }
@@ -121,7 +125,7 @@
       }
     }
     .dropdown-wrapper {
-      &.collapsible:not(.disabled) {
+      &.collapsible {
         .dropdown-handler {
           .btn {
             padding: 15px 40px 15px 22px;
@@ -143,9 +147,16 @@
               &.dropdown {
                 .fillTriangleRight(var(--iconBGLight));
                 top: 22px;
+
+                svg {
+                  display: none;
+                }
               }
             }
           }
+        }
+
+        &:not(.disabled) {
           &.open {
             .btn .icon.dropdown {
               &:before {
