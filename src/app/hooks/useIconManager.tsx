@@ -1,5 +1,6 @@
 import React from "react";
 import { CourseState, TaskIcon } from "../interfaces/courses/courses.interface";
+import { ReactComponent as CheckIcon } from "../../images/icons/checkmark.svg";
 
 export enum Icon {
   Check = "check",
@@ -20,7 +21,11 @@ export default function useIconManager(): {
 } {
   const getIcon = (type: IconType): JSX.Element => {
     if (type === CourseState.Completed) {
-      return <span className={`icon ${Icon.Check}`}></span>;
+      return (
+        <span className={`icon ${Icon.Check}`}>
+          <CheckIcon />
+        </span>
+      );
     }
     return type && <span className={`icon ${type}`}></span>;
   };
