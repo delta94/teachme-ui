@@ -18,6 +18,20 @@ const localization = {
     },
     defaultErrorMassage: "Something is wrong, please try again",
   },
+  tmListItem: {
+    buttonLabel: {
+      start: "Start",
+      resume: "Resume",
+      completed: "Completed",
+    },
+    testLabel: {
+      tested: "Tested",
+      notTested: "Not tested",
+    },
+  },
+  header: {
+    backToCoursesLabel: "Back to Courses Menu",
+  },
 };
 
 export default localization;
