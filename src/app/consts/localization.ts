@@ -31,6 +31,12 @@ const localization = {
   },
   header: {
     backToCoursesLabel: "Back to Courses Menu",
+    userDetails: {
+      greeting: "Welcome Back",
+    },
+  },
+  progressBar: {
+    defaultTitle: "Overall progress",
   },
 };
 
