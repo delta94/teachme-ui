@@ -7,7 +7,11 @@ import {
   InformationScreenType,
 } from "../../../interfaces/information-screen/informationScreen.interface";
 
+// hooks
 import useViewManager from "../../../hooks/useViewManager";
+
+// styles
+import "../../../../styles/screens/information-screen/information-screen.less";
 
 export default function InformationScreen(props: IInformationScreenData) {
   const { type, error, isWebApp } = props;

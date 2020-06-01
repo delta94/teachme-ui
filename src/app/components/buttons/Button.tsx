@@ -1,5 +1,8 @@
 import React, { ReactElement } from "react";
 
+// styles
+import "../../../styles/components/button.less";
+
 export enum ButtonType {
   NoBorder = "no-border",
   None = "none",

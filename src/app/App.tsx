@@ -27,7 +27,7 @@ import Sidebar from "./layout/sidebar/Sidebar";
 import Minimize from "./components/buttons/minimize/Minimize";
 
 // styles
-import "../styles/index.less";
+import "../styles/views/app.less";
 
 // context
 export const TeachMeContext = createContext<ITeachMeContext | null>(null);

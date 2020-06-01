@@ -5,6 +5,9 @@ import CoursesListScreen from "./courses-list-screen/CoursesListScreen";
 import CourseScreen from "./course-screen/CourseScreen";
 import QuizScreen from "./quiz-screen/QuizScreen";
 
+// styles
+import "../../../../styles/screens/screen.less";
+
 export default function CoursesScreen() {
   return (
     <Switch>

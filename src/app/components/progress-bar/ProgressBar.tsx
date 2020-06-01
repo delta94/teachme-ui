@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+// styles
+import "../../../styles/components/progress-bar.less";
+
 export function ProgressBar({
   percentCompletion = 0,
   showTitle = false,

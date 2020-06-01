@@ -14,6 +14,9 @@ import RouteButton from "../../components/buttons/route-button/RouteButton";
 import useViewManager from "../../hooks/useViewManager";
 import { Icon } from "../../hooks/useIconManager";
 
+// styles
+import "../../../styles/layout/header.less";
+
 export default function Header() {
   const { tmState } = useContext(TeachMeContext);
   const { pathname } = useLocation();
