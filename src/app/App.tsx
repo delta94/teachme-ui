@@ -136,8 +136,8 @@ export default function App() {
         }
 
     
-          window.teachme = teachme
-          const tmCourses = await teachme.getContent();
+          window.teachme = teachmeApp
+          const tmCourses = await teachmeApp.getContent();
 
         if (tmCourses) {
           console.log("tmCourses =>", tmCourses);
