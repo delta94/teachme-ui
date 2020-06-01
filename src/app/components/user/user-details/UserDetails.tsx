@@ -1,5 +1,9 @@
 import React, { useContext } from "react";
+
+// context
 import { TeachMeContext } from "../../../App";
+
+// components
 import { ProgressBar } from "../../progress-bar/ProgressBar";
 
 export default function UserDetails({

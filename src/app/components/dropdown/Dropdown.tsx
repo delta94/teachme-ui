@@ -2,11 +2,11 @@ import React, { useState } from "react";
 
 // interfaces
 import { CourseState } from "../../interfaces/courses/courses.interface";
+import { IListItem, IListItemState } from "../list/list-item/ListItem";
 
 // components
 import Button, { ButtonType } from "../buttons/Button";
 import List from "../list/List";
-import { IListItem, IListItemState } from "../list/list-item/ListItem";
 import MessageContainer from "../message-container/MessageContainer";
 
 // hooks

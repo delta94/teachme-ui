@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { RouteComponentProps, useLocation } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 
+// context & utils
 import { TeachMeContext } from "../../../../App";
-import Iframe from "../../../../components/iframe/Iframe";
 import { getCourseById } from "../../../../utils/coursesUtils";
+
+// components
+import Iframe from "../../../../components/iframe/Iframe";
 
 // styles
 import "../../../../../styles/screens/courses-screen/quiz-screen.less";

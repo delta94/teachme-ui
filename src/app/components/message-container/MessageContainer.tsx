@@ -1,4 +1,6 @@
 import React from "react";
+
+// interfaces
 import { CourseState } from "../../interfaces/courses/courses.interface";
 
 export default function MessageContainer({

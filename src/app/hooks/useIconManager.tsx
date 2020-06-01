@@ -46,7 +46,7 @@ export default function useIconManager(): {
 } {
   const getIconComponent = (type: keyof typeof iconComponent) => {
     const Component = iconComponent[type];
-    console.log("getIconComponent ", Component);
+
     return Component && <Component />;
   };
 
