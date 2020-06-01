@@ -1,3 +1,5 @@
+@import "../../index.less";
+
 .dropdown-wrapper {
   position: relative;
   background-color: var(--white);
@@ -53,10 +55,16 @@
         transform: translateY(-50%);
 
         &.dropdown {
+          width: 8px;
+          height: 5px;
           right: 10px;
           top: 22px;
-          .triangleRight(var(--iconBGLight));
+          transform: rotate(-90deg) translateY(-50%);
           transition: transform 0.3s, background-color 0.3s;
+
+          > svg path {
+            fill: var(--iconBGLight);
+          }
         }
       }
     }
@@ -111,7 +119,11 @@
       .dropdown-handler {
         &.open {
           .icon.dropdown {
-            background-color: var(--primary);
+            // background-color: var(--primary);
+
+            svg path {
+              fill: var(--primary);
+            }
           }
         }
       }

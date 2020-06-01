@@ -4,6 +4,7 @@ import { RouteComponentProps } from "react-router-dom";
 import {
   ICourse,
   CourseState,
+  IQuiz,
 } from "../../../../interfaces/courses/courses.interface";
 import {
   getCourseById,
@@ -34,7 +35,12 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
   const defaultCourseData = { status: 0, state: CourseState.NotStarted };
   const { animateCoreElements } = useViewManager();
   const { courseId, taskId } = match.params;
-
+  const getQuizLabel = (quiz: IQuiz) => {
+    // buttonText - should deprecate soon
+    const { buttons, buttonText } = quiz.welcomeScreen;
+    const quizButtonLabel = buttons ? buttons[0].text : buttonText;
+    return quizButtonLabel;
+  };
   useEffect(() => {
     setCourse(null);
 
@@ -114,7 +120,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                     courseId: course.id,
                   })}
                   hideProgressBar
-                  overrideLabel={course.quiz.welcomeScreen.buttonText}
+                  overrideLabel={getQuizLabel(course.quiz)}
                   hideButtonIcon
                 />
               </div>

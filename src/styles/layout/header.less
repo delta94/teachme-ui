@@ -1,3 +1,5 @@
+@import "../index.less";
+
 .header {
   position: relative;
   display: flex;
@@ -6,13 +8,19 @@
     padding: 0 15px 0 0;
     max-width: var(--screenMaxWidth);
     justify-content: flex-start;
+
+    @media @tabletOnly {
+      padding: 0 20px;
+    }
   }
 
   .general-header {
     width: 100%;
+
     &.app.inner-page {
       height: 40px;
     }
+
     &.web {
       &.home-page {
         display: grid;

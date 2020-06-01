@@ -1,9 +1,15 @@
 import React from "react";
+
+// interfaces
 import {
   ICourseItem,
   CourseItemType,
 } from "../../../interfaces/courses/courses.interface";
+
+// utils
 import { getCourseItemState, parseTask } from "../../../utils/coursesUtils";
+
+// components
 import ListItem from "../list-item/ListItem";
 import LessonListItem from "../list-item/lesson-list-item/LessonListItem";
 

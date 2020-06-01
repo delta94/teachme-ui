@@ -1,9 +1,15 @@
 import React, { useContext } from "react";
-import { TeachMeContext } from "../../App";
+
+import localization from "../../consts/localization";
+
 import { parseToCourseListItems } from "../../utils/coursesUtils";
+
+import { TeachMeContext } from "../../App";
 import Dropdown from "../../components/dropdown/Dropdown";
 import Button, { ButtonType } from "../../components/buttons/Button";
-import localization from "../../consts/localization";
+import { ReactComponent as DoubleArrowsLeftIcon } from "../../../images/icons/double-arrows-left.svg";
+
+import "../../../styles/layout/sidebar.less";
 
 export default function Sidebar() {
   const { tmState, sidebar } = useContext(TeachMeContext);
@@ -26,7 +32,9 @@ export default function Sidebar() {
         }}
         tmButtonType={ButtonType.NoBorder}
       >
-        <span className="icon sidebar-handler"></span>
+        <span className="icon sidebar-handler">
+          <DoubleArrowsLeftIcon />
+        </span>
       </Button>
       <header className="title">
         <span className="text">All of your lessons</span>

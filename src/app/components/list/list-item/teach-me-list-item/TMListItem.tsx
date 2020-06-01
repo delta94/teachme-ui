@@ -1,18 +1,25 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
 
+// context & localization
+import { TeachMeContext } from "../../../../App";
+import localization from "../../../../consts/localization";
+
+// interfaces
 import {
   ICourseData,
   CourseState,
 } from "../../../../interfaces/courses/courses.interface";
-import { IListItem, IItemComponentProps } from "../ListItem";
+import { IItemComponentProps } from "../ListItem";
+
+// components
 import { ProgressBar } from "../../../progress-bar/ProgressBar";
 import Button, { ButtonType } from "../../../buttons/Button";
-
-import useListItemManager from "../../../../hooks/useListItemManager";
 import MessageContainer from "../../../message-container/MessageContainer";
-import { TeachMeContext } from "../../../../App";
+
+// hooks
+import useListItemManager from "../../../../hooks/useListItemManager";
 import useIconManager, { Icon } from "../../../../hooks/useIconManager";
+
 export interface ITMListItemProps extends IItemComponentProps<ICourseData> {
   hideProgressBar?: boolean;
   extraLabel?: string;
@@ -46,13 +53,19 @@ export default function TMListItem({
   const isCompleted =
     state === CourseState.Completed || state === CourseState.Tested;
   const isDisabled = state === CourseState.Disabled;
-
-  const buttonLabel =
-    status > 0 ? (isCompleted ? "Completed" : "Resume") : "Start";
+  const {
+    tmListItem: {
+      buttonLabel: { start, completed, resume },
+      testLabel: { tested, notTested },
+    },
+  } = localization;
+  const buttonLabelState =
+    status > 0 ? (isCompleted ? completed : resume) : start;
 
   const buttonIcon = !isCompleted && Icon.ArrowRight;
 
   const isTested = state === CourseState.Tested;
+  const testLabelState = isTested ? tested : notTested;
 
   const handleClick = () => {
     if (onSelect) {
@@ -112,12 +125,12 @@ export default function TMListItem({
             buttonClicked={handleClick}
           >
             <span className="btn-label">
-              {overrideLabel || `${buttonLabel} ${extraLabel}`}
+              {overrideLabel || `${buttonLabelState} ${extraLabel}`}
               {!hideButtonIcon && getIconByType(buttonIcon)}
             </span>
           </Button>
           <span className={`test-label ${(isTested && "tested") || ""}`}>
-            {isTested ? "Tested" : "Not tested"}
+            {testLabelState}
             {isTested && getIconByType(CourseState.Tested)}
           </span>
         </footer>

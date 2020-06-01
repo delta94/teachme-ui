@@ -1,5 +1,10 @@
 import React, { ReactElement } from "react";
+
+// components
 import ListItem, { IListItem, IItemComponentProps } from "./list-item/ListItem";
+
+// styles
+import "../../../styles/components/list/list.less";
 
 export default function List<T>({
   className,

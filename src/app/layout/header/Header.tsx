@@ -1,17 +1,27 @@
 import React, { useEffect, useRef, useContext } from "react";
-
-import { TeachMeContext } from "../../App";
-import useViewManager from "../../hooks/useViewManager";
-import UserDetails from "../../components/user/user-details/UserDetails";
 import { useLocation, Link } from "react-router-dom";
+
+// context & localization
+import { TeachMeContext } from "../../App";
+import localization from "../../consts/localization";
+
+// components
 import { ButtonType } from "../../components/buttons/Button";
+import UserDetails from "../../components/user/user-details/UserDetails";
 import RouteButton from "../../components/buttons/route-button/RouteButton";
+
+// hooks
+import useViewManager from "../../hooks/useViewManager";
 import { Icon } from "../../hooks/useIconManager";
+
+// styles
+import "../../../styles/layout/header.less";
 
 export default function Header() {
   const { tmState } = useContext(TeachMeContext);
   const { pathname } = useLocation();
   const { animateCoreElements } = useViewManager();
+
   const logo = useRef();
   const details = useRef();
   const innerHeader = useRef();
@@ -21,18 +31,16 @@ export default function Header() {
   const appTypeClass = isWebApp ? "web" : "app";
   const pageTypeClass = isHomePage ? "home-page" : "inner-page";
   const headerClass = `${appTypeClass} ${pageTypeClass}`;
+  const {
+    header: { backToCoursesLabel },
+  } = localization;
 
   useEffect(() => {
     if (isWebApp && isHomePage) {
       animateCoreElements({
-        elements: [logo.current],
+        elements: [logo.current, details.current],
         animateClassName: "fadeInDown",
         timeout: 0,
-      });
-      animateCoreElements({
-        elements: [details.current],
-        animateClassName: "fadeInDown",
-        timeout: 200,
       });
     }
     if (!isHomePage) {
@@ -58,7 +66,7 @@ export default function Header() {
   const innerPageHeader = (
     <div ref={innerHeader} className="inner-header topElement">
       <RouteButton
-        label="Back to Courses Menu"
+        label={backToCoursesLabel}
         iconType={Icon.BackArrow}
         id="back_to_courses"
         className="back-btn"

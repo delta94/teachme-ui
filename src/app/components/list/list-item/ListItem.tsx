@@ -1,15 +1,20 @@
 import React, { ReactElement, useContext } from "react";
 
+// context
+import { TeachMeContext } from "../../../App";
+
+// interfaces
 import {
   CourseState,
   CourseItemType,
 } from "../../../interfaces/courses/courses.interface";
 
+// hooks
 import useIconManager, { IconType } from "../../../hooks/useIconManager";
 import useListItemManager from "../../../hooks/useListItemManager";
 
+// components
 import MessageContainer from "../../message-container/MessageContainer";
-import { TeachMeContext } from "../../../App";
 
 export interface IItemComponentProps<T> {
   onSelect?: () => void;

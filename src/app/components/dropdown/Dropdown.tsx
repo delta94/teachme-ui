@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 
+// interfaces
+import { CourseState } from "../../interfaces/courses/courses.interface";
+import { IListItem, IListItemState } from "../list/list-item/ListItem";
+
+// components
 import Button, { ButtonType } from "../buttons/Button";
 import List from "../list/List";
-import { IListItem, IListItemState } from "../list/list-item/ListItem";
-import useIconManager, { IconType, Icon } from "../../hooks/useIconManager";
-import { CourseState } from "../../interfaces/courses/courses.interface";
 import MessageContainer from "../message-container/MessageContainer";
+
+// hooks
+import useIconManager, { IconType, Icon } from "../../hooks/useIconManager";
+
+// styles
+import "../../../styles/components/dropdown/dropdown.less";
 
 export default function Dropdown<T>({
   id,

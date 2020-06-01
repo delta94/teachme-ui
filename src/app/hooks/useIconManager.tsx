@@ -1,5 +1,6 @@
 import React from "react";
 import { CourseState, TaskIcon } from "../interfaces/courses/courses.interface";
+import { iconComponent } from "../consts/icons";
 
 export enum Icon {
   Check = "check",
@@ -18,11 +19,16 @@ export type IconType = Icon | CourseState | TaskIcon;
 export default function useIconManager(): {
   getIconByType: (type: IconType) => JSX.Element;
 } {
+  const getIconComponent = (type: keyof typeof iconComponent) => {
+    const Component = iconComponent[type];
+
+    return Component && <Component />;
+  };
+
   const getIcon = (type: IconType): JSX.Element => {
-    if (type === CourseState.Completed) {
-      return <span className={`icon ${Icon.Check}`}></span>;
-    }
-    return type && <span className={`icon ${type}`}></span>;
+    const TagName = getIconComponent(type as keyof typeof iconComponent);
+
+    return type && <span className={`icon ${type}`}>{TagName}</span>;
   };
 
   return {

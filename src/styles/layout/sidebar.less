@@ -1,3 +1,5 @@
+@import "../index.less";
+
 :root {
   --sidePadding: 25px;
   --handlerMaxWidth: 210px;
@@ -5,6 +7,7 @@
   --listItemMaxWidth: calc(var(--sidebarInnerMaxWidth) - 25px);
   --sidebarOpenTranslateX: translateX(-240px);
   --handlerTopPosition: 20px;
+  --arrowDownIcon: url("../../images/icons/arrow-down.svg");
 }
 
 .handlerExtension() {
@@ -100,7 +103,7 @@
       box-shadow: none;
 
       .dropdown-handler .btn .icon {
-        &.check {
+        &.completed {
           display: none;
         }
 
@@ -163,10 +166,19 @@
               }
 
               &:not(.completed) {
+                // arrow - right icon
                 .icon {
-                  .triangleRight(var(--neutral500));
+                  width: 8px;
+                  height: 6px;
                   left: 0;
-                  top: 3px;
+                  top: 2px;
+                  -webkit-mask-repeat: no-repeat;
+                  mask-repeat: no-repeat;
+                  background-repeat: no-repeat;
+                  background-color: var(--neutral500);
+                  -webkit-mask-image: var(--arrowDownIcon);
+                  mask-image: var(--arrowDownIcon);
+                  transform: rotate(-90deg);
                 }
 
                 &.disabled {
@@ -177,7 +189,7 @@
               }
 
               &.completed {
-                .icon.check {
+                .icon.completed {
                   left: 0;
                   top: 5px;
                 }

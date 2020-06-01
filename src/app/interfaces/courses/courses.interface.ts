@@ -36,6 +36,11 @@ export interface ICourseMedia {
   };
 }
 
+export interface IWMButton {
+  text: string;
+  id: string;
+}
+
 export interface IQuiz {
   id: string;
   title: string;
@@ -48,7 +53,8 @@ export interface IQuiz {
   media: ICourseMedia;
   properties: IProperties;
   welcomeScreen?: {
-    buttonText: string;
+    buttonText?: string; // should deprecate soon
+    buttons?: IWMButton[];
     description: string;
     title: string;
   };
@@ -65,7 +71,6 @@ export interface ICourseTask {
 }
 
 export interface ICourseItem extends ICourseTask {
-  lessonNumber?: number;
   tasks?: ICourseTask[];
 }
 
@@ -97,11 +102,14 @@ export interface IProperties {
   isCompleted?: boolean;
 }
 
+// TODO - add types
+export interface IQuizBE extends IQuiz {}
+
 export interface ICourseBE {
   id: number;
   title: string;
   items: ICourseItemBE[];
-  quiz?: any; // TODO - add types
+  quiz?: IQuizBE;
   properties?: IProperties;
 }
 
@@ -111,5 +119,6 @@ export interface ICourseItemBE {
   description?: string;
   properties: IProperties;
   type?: CourseItemType;
+  itemType?: CourseItemType;
   childNodes?: ICourseItemBE[];
 }
