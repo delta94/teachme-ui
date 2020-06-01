@@ -8,6 +8,11 @@ import { TeachMeContext } from "../../App";
 import Dropdown from "../../components/dropdown/Dropdown";
 import Button, { ButtonType } from "../../components/buttons/Button";
 import { ReactComponent as DoubleArrowsLeftIcon } from "../../../images/icons/double-arrows-left.svg";
+import {
+  CourseItemType,
+  CourseState,
+} from "../../interfaces/courses/courses.interface";
+import { Icon } from "../../hooks/useIconManager";
 
 export default function Sidebar() {
   const { tmState, sidebar } = useContext(TeachMeContext);

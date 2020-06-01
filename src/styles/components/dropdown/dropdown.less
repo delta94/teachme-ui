@@ -53,9 +53,11 @@
         transform: translateY(-50%);
 
         &.dropdown {
+          width: 8px;
+          height: 5px;
           right: 10px;
           top: 22px;
-          .triangleRight(var(--iconBGLight));
+          transform: rotate(-90deg) translateY(-50%);
           transition: transform 0.3s, background-color 0.3s;
 
           > svg path {
