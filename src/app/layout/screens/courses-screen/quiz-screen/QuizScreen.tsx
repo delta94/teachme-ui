@@ -13,7 +13,7 @@ export default function QuizScreen({ match }: RouteComponentProps<TParams>) {
   const { sidebar } = useContext(TeachMeContext);
   const { isOpen, setIsOpen } = sidebar;
   const { courseId } = match.params;
-  const quizBaseUrl = "http://localhost:9001/"; // "https://cdn.walkme.com/apps/wm-forms/index.html";
+  const quizBaseUrl = "https://cdn.walkme.com/apps/wm-forms/index.html";
   const [quiz, setQuiz] = useState(null);
 
   useEffect(() => {
