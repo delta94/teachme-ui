@@ -5,6 +5,9 @@ import { TeachMeContext } from "../../../../App";
 import Iframe from "../../../../components/iframe/Iframe";
 import { getCourseById } from "../../../../utils/coursesUtils";
 
+// styles
+import "../../../../../styles/screens/courses-screen/quiz-screen.less";
+
 type TParams = { courseId: string };
 
 export default function QuizScreen({ match }: RouteComponentProps<TParams>) {

@@ -1,4 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
+
+// styles
+import "../../../styles/components/iframe.less";
 
 export default function Iframe({
   isResponsive,

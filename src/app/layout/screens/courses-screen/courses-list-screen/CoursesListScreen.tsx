@@ -8,6 +8,7 @@ import UserDetails from "../../../../components/user/user-details/UserDetails";
 import { TeachMeContext } from "../../../../App";
 import { parseToCourseListItems } from "../../../../utils/coursesUtils";
 
+// styles
 import "../../../../../styles/screens/courses-screen/courses-list-screen.less";
 
 export default function CoursesListScreen() {
