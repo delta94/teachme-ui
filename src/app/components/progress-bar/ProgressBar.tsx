@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+// localization
+import localization from "../../consts/localization";
+
 // styles
 import "../../../styles/components/progress-bar.less";
 
@@ -16,6 +19,9 @@ export function ProgressBar({
 }) {
   const [progressValue, setProgressValue] = useState(0);
   const percentages = `${progressValue}%`;
+  const {
+    progressBar: { defaultTitle },
+  } = localization;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -30,7 +36,7 @@ export function ProgressBar({
       <div className="progress-bar-info">
         {showTitle && (
           <div className="title">
-            <span>{customTitle || "OVERALL PROGRESS"}</span>
+            <span className="text">{customTitle || defaultTitle}</span>
           </div>
         )}
         {showPercentages && <span className="percentages">{percentages}</span>}
