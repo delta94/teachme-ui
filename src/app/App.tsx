@@ -29,6 +29,13 @@ import Minimize from "./components/buttons/minimize/Minimize";
 // styles
 import "../styles/views/app.less";
 
+declare global {
+  interface Window {
+    walkme: any;
+    teachme: any;
+  }
+}
+
 // context
 export const TeachMeContext = createContext<ITeachMeContext | null>(null);
 
@@ -113,7 +120,7 @@ export default function App() {
       try {
         await walkme.init();
         console.log("WalkMe ready =>", walkme);
-
+          window.walkme = walkme
         // Walkme Guard
         if (walkme) {
           setWalkmeSDK(walkme);
@@ -128,12 +135,9 @@ export default function App() {
           throw new Error("Something is wrong, No teachmeApp");
         }
 
-        const data = await walkme.content.getContent({
-          types: ["teachme"],
-          segmentation: true,
-        });
-
-        const tmCourses = (data as any).teachme;
+    
+          window.teachme = teachmeApp
+          const tmCourses = await teachmeApp.getContent();
 
         if (tmCourses) {
           console.log("tmCourses =>", tmCourses);
