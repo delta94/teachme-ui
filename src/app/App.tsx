@@ -120,7 +120,10 @@ export default function App() {
       try {
         await walkme.init();
         console.log("WalkMe ready =>", walkme);
-          window.walkme = walkme
+
+        // set walkme global
+        window.walkme = walkme;
+
         // Walkme Guard
         if (walkme) {
           setWalkmeSDK(walkme);
@@ -135,9 +138,9 @@ export default function App() {
           throw new Error("Something is wrong, No teachmeApp");
         }
 
-    
-          window.teachme = teachmeApp
-          const tmCourses = await teachmeApp.getContent();
+        // set teachme global
+        window.teachme = teachmeApp;
+        const tmCourses = await teachmeApp.getContent();
 
         if (tmCourses) {
           console.log("tmCourses =>", tmCourses);
