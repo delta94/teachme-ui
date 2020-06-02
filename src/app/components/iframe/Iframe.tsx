@@ -14,7 +14,9 @@ export default function Iframe({
 }) {
   const iframe = React.useRef<HTMLIFrameElement>(null);
   const responsiveClass = isResponsive ? "responsive" : "";
+
   const iframeLoaded = () => {
+    // using postMessage
     if (data) {
       console.log("iframeLoaded data ", data);
       const iframeWin = iframe.current.contentWindow;
