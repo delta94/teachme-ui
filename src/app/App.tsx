@@ -27,6 +27,8 @@ import Sidebar from "./layout/sidebar/Sidebar";
 import Minimize from "./components/buttons/minimize/Minimize";
 
 // styles
+
+import "../styles/reset.less";
 import "../styles/views/app.less";
 
 declare global {
