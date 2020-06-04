@@ -30,7 +30,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
   const { tmCourses } = tmContext.tmState;
   const courseSection = useRef();
   const [course, setCourse] = useState(null as ICourse);
-  const [includeQuiz, setIncludeQuiz] = useState(false);
+  const [hasQuiz, setHasQuiz] = useState(false);
   const [selectedTask, setSelectedTask] = useState(undefined);
   const defaultCourseData = { status: 0, state: CourseState.NotStarted };
   const { animateCoreElements } = useViewManager();
@@ -81,9 +81,8 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
         animateClassName: "fadeInUp",
         timeout: timing.init,
       });
-      const courseIncludeQuiz = Boolean(course.quiz.welcomeScreen);
       const isTested = course.data.state === CourseState.Tested;
-      setIncludeQuiz(courseIncludeQuiz && !isTested);
+      setHasQuiz(Boolean(course.quiz) && !isTested);
     }
   }, [course, courseId]);
 
@@ -92,9 +91,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
       {course && (
         <section
           ref={courseSection}
-          className={`course animated-element ${
-            includeQuiz ? "with-quiz" : ""
-          }`}
+          className={`course animated-element ${hasQuiz ? "with-quiz" : ""}`}
         >
           <header className="course-information">
             <h3 className="screen-title">{course.title}</h3>
@@ -112,7 +109,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
                 selectedTaskId={selectedTask}
               />
             </div>
-            {includeQuiz && (
+            {hasQuiz && (
               <div className="course-quiz">
                 <TMListItem
                   item={parseQuizListItem({

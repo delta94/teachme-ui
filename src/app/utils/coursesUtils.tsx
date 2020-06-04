@@ -135,19 +135,21 @@ export const parseSingleCourseBE = ({
       },
     },
     data: parseCourseData(course),
-    quiz: {
-      ...quiz,
-      state:
-        quiz.welcomeScreen && quiz.properties.isCompleted
-          ? CourseState.Tested
-          : CourseState.NotStarted,
-      media: {
-        thumbnail: {
-          ratio_1_1: "quiz/quiz-ratio-1_1.jpg",
-          ratio_2_1: "quiz/quiz-ratio-2_1.jpg",
-        },
-      },
-    },
+    quiz: quiz
+      ? {
+          ...quiz,
+          state:
+            quiz.welcomeScreen && quiz.properties.isCompleted
+              ? CourseState.Tested
+              : CourseState.NotStarted,
+          media: {
+            thumbnail: {
+              ratio_1_1: "quiz/quiz-ratio-1_1.jpg",
+              ratio_2_1: "quiz/quiz-ratio-2_1.jpg",
+            },
+          },
+        }
+      : null,
   };
 };
 
