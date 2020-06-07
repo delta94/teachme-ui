@@ -77,7 +77,9 @@ export default function TMListItem({
 
   return (
     <div
-      className={`item tm-item-info ${isDisabled ? "disabled" : ""}`}
+      className={`item tm-item-info ${isDisabled ? "disabled" : ""}  ${
+        clickable ? "clickable" : ""
+      }`}
       onClick={() => {
         if (clickable) {
           handleClick();

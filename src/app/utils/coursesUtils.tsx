@@ -105,6 +105,7 @@ export const parseQuizListItem = ({
     title,
     description,
     link: `/quiz/${courseId}`,
+    clickable: true,
     data: {
       media: quiz.media,
       state: quiz.state,
