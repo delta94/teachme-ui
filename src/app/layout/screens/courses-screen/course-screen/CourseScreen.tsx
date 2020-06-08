@@ -30,18 +30,21 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
   const tmContext = useContext(TeachMeContext);
   const { tmCourses } = tmContext.tmState;
   const courseSection = useRef();
-  const [course, setCourse] = useState(null as ICourse);
-  const [hasQuiz, setHasQuiz] = useState(false);
-  const [selectedTask, setSelectedTask] = useState(undefined);
-  const defaultCourseData = { status: 0, state: CourseState.NotStarted };
   const { animateCoreElements } = useViewManager();
   const { courseId, taskId } = match.params;
+
+  const [course, setCourse] = useState(null as ICourse);
+  const [hasQuiz, setHasQuiz] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState(null as number);
+  const defaultCourseData = { status: 0, state: CourseState.NotStarted };
+
   const getQuizLabel = (quiz: IQuizBE) => {
     // buttonText - should deprecate soon
     const { buttons, buttonText } = quiz.welcomeScreen;
     const quizButtonLabel = buttons ? buttons[0].text : buttonText;
     return quizButtonLabel;
   };
+
   useEffect(() => {
     setCourse(null);
 
@@ -51,22 +54,24 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
         tmCourses,
         id: parseInt(match.params.courseId),
       });
+
       if (selectedCourse) {
         setCourse(selectedCourse);
       }
     }, 0);
+
     return () => clearTimeout(timer);
   }, [courseId]);
 
   useEffect(() => {
     // set selection for adding highlight className to element
     const timerIn = setTimeout(() => {
-      setSelectedTask(taskId);
+      setSelectedTaskId(parseInt(taskId));
     }, timing.init);
 
     // reset selection for removing highlight className
     const timerOut = setTimeout(() => {
-      setSelectedTask(undefined);
+      setSelectedTaskId(undefined);
     }, timing.reset);
 
     return () => {
@@ -107,7 +112,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
             <div className="course-lessons-wrapper">
               <CourseItemsList
                 items={course.items}
-                selectedTaskId={selectedTask}
+                selectedTaskId={selectedTaskId}
               />
             </div>
             {hasQuiz && (
