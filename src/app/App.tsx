@@ -141,7 +141,7 @@ export default function App() {
 
         // set teachme global
         window.teachme = teachmeApp;
-        const tmCourses = await teachmeApp.getContent();
+        let tmCourses = await teachmeApp.getContent();
 
         if (tmCourses) {
           console.log("tmCourses =>", tmCourses);

@@ -7,6 +7,7 @@ import {
   ICourseItem,
   IQuiz,
   ICourseData,
+  IQuizBE,
 } from "../interfaces/courses/courses.interface";
 import { IListItem } from "../components/list/list-item/ListItem";
 import localization from "../consts/localization";
@@ -96,10 +97,11 @@ export const parseQuizListItem = ({
   quiz,
   courseId,
 }: {
-  quiz: IQuiz;
+  quiz: IQuizBE;
   courseId: number;
 }) => {
   const { title, description } = quiz.welcomeScreen;
+
   return {
     id: courseId,
     title,
@@ -107,8 +109,16 @@ export const parseQuizListItem = ({
     link: `/quiz/${courseId}`,
     clickable: true,
     data: {
-      media: quiz.media,
-      state: quiz.state,
+      media: {
+        thumbnail: {
+          ratio_1_1: "quiz/quiz-ratio-1_1.jpg",
+          ratio_2_1: "quiz/quiz-ratio-2_1.jpg",
+        },
+      },
+      state:
+        quiz.welcomeScreen && quiz.properties.isCompleted
+          ? CourseState.Tested
+          : CourseState.NotStarted,
     },
   };
 };
@@ -136,21 +146,7 @@ export const parseSingleCourseBE = ({
       },
     },
     data: parseCourseData(course),
-    quiz: quiz
-      ? {
-          ...quiz,
-          state:
-            quiz.welcomeScreen && quiz.properties.isCompleted
-              ? CourseState.Tested
-              : CourseState.NotStarted,
-          media: {
-            thumbnail: {
-              ratio_1_1: "quiz/quiz-ratio-1_1.jpg",
-              ratio_2_1: "quiz/quiz-ratio-2_1.jpg",
-            },
-          },
-        }
-      : null,
+    quiz,
   };
 };
 
