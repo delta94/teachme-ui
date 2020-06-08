@@ -32,7 +32,6 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
   const courseSection = useRef();
   const { animateCoreElements } = useViewManager();
   const { courseId, taskId } = match.params;
-
   const [course, setCourse] = useState(null as ICourse);
   const [hasQuiz, setHasQuiz] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null as number);
@@ -87,8 +86,8 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
         animateClassName: "fadeInUp",
         timeout: timing.init,
       });
-      const isTested = course.data.state === CourseState.Tested;
-      setHasQuiz(Boolean(course.quiz) && !isTested);
+
+      setHasQuiz(Boolean(course.quiz));
     }
   }, [course, courseId]);
 
