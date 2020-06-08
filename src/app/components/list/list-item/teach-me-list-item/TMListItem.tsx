@@ -123,7 +123,7 @@ export default function TMListItem({
             tmButtonType={
               isCompleted ? ButtonType.Completed : ButtonType.Default
             }
-            id={id}
+            id={id.toString()}
             buttonClicked={handleClick}
           >
             <span className="btn-label">

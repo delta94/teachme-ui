@@ -18,7 +18,7 @@ export default function CourseItemsList({
   selectedTaskId,
 }: {
   items: ICourseItem[];
-  selectedTaskId?: string;
+  selectedTaskId?: number;
 }) {
   return (
     <ul className="course-items">

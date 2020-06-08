@@ -24,7 +24,7 @@ export interface ILessonData {
   state?: CourseState;
 }
 export interface ILessonListItem {
-  id: string;
+  id: number;
   title: string;
   data?: ILessonData;
 }
@@ -42,7 +42,7 @@ export interface IWMButton {
 }
 
 export interface IQuiz {
-  id: string;
+  id: number;
   title: string;
   link: string;
   description?: string;
@@ -61,8 +61,8 @@ export interface IQuiz {
 }
 
 export interface ICourseTask {
-  courseId?: string;
-  id: string;
+  courseId?: number;
+  id: number;
   title: string;
   description?: string;
   properties?: IProperties;
@@ -75,7 +75,7 @@ export interface ICourseItem extends ICourseTask {
 }
 
 export interface ICourse {
-  id: string;
+  id: number;
   title: string;
   properties?: IProperties;
   data?: {

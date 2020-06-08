@@ -48,7 +48,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
     const timer = setTimeout(() => {
       const selectedCourse = getCourseById({
         tmCourses,
-        id: match.params.courseId,
+        id: parseInt(match.params.courseId),
       });
       if (selectedCourse) {
         setCourse(selectedCourse);

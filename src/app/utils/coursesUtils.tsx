@@ -97,11 +97,11 @@ export const parseQuizListItem = ({
   courseId,
 }: {
   quiz: IQuiz;
-  courseId: string;
+  courseId: number;
 }) => {
   const { title, description } = quiz.welcomeScreen;
   return {
-    id: `quiz-${courseId}`,
+    id: courseId,
     title,
     description,
     link: `/quiz/${courseId}`,
@@ -123,7 +123,7 @@ export const parseSingleCourseBE = ({
   courseImg: number;
 }): ICourse => {
   const { quiz } = course;
-  const courseId = courseNumber.toString() as string;
+  const courseId = courseNumber;
 
   return {
     ...course,
@@ -184,7 +184,7 @@ export const parseCourseItems = ({
   courseId,
   items,
 }: {
-  courseId: string;
+  courseId: number;
   items: ICourseItemBE[];
 }): ICourseItem[] => {
   const parsedItems = items.map(
@@ -195,7 +195,7 @@ export const parseCourseItems = ({
         item.childNodes.map((task) => {
           const parsedTask = {
             ...task,
-            id: task.id.toString() as string,
+            id: task.id,
             // temporary solution preventing render unknown icon - the SDK data supposed to change
             type: task.itemType
               ? getCourseItemType(task.itemType)
@@ -208,7 +208,7 @@ export const parseCourseItems = ({
       const parsedItem = {
         ...noChildNodes,
         courseId,
-        id: item.id.toString() as string,
+        id: item.id,
         // temporary solution preventing render unknown icon - the SDK data supposed to change
         type: getCourseItemType(item.type),
         tasks,
@@ -228,7 +228,7 @@ export const getCourseById = ({
   id,
 }: {
   tmCourses: ICourse[];
-  id: string;
+  id: number;
 }): ICourse => tmCourses.find((course) => course.id === id);
 
 /**
