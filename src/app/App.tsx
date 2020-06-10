@@ -27,6 +27,7 @@ import Sidebar from "./layout/sidebar/Sidebar";
 import Minimize from "./components/buttons/minimize/Minimize";
 
 // styles
+import "../styles/reset.less";
 import "../styles/views/app.less";
 
 declare global {
@@ -140,7 +141,7 @@ export default function App() {
 
         // set teachme global
         window.teachme = teachmeApp;
-        const tmCourses = await teachmeApp.getContent();
+        let tmCourses = await teachmeApp.getContent();
 
         if (tmCourses) {
           console.log("tmCourses =>", tmCourses);

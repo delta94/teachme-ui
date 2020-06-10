@@ -77,7 +77,9 @@ export default function TMListItem({
 
   return (
     <div
-      className={`item tm-item-info ${isDisabled ? "disabled" : ""}`}
+      className={`item tm-item-info ${isDisabled ? "disabled" : ""}  ${
+        clickable ? "clickable" : ""
+      }`}
       onClick={() => {
         if (clickable) {
           handleClick();
@@ -121,7 +123,7 @@ export default function TMListItem({
             tmButtonType={
               isCompleted ? ButtonType.Completed : ButtonType.Default
             }
-            id={id}
+            id={id.toString()}
             buttonClicked={handleClick}
           >
             <span className="btn-label">

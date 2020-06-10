@@ -24,8 +24,8 @@ export interface IItemComponentProps<T> {
 export type IListItemState = CourseState;
 
 export interface IListItem<T> {
-  id: string;
-  courseId?: string;
+  id: number;
+  courseId?: number;
   title: string;
   subTitle?: string;
   description?: string;

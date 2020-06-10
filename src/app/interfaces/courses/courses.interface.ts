@@ -24,7 +24,7 @@ export interface ILessonData {
   state?: CourseState;
 }
 export interface ILessonListItem {
-  id: string;
+  id: number;
   title: string;
   data?: ILessonData;
 }
@@ -41,8 +41,39 @@ export interface IWMButton {
   id: string;
 }
 
+export interface IWMScreen {
+  buttonText?: string; // should deprecate soon
+  buttons?: IWMButton[];
+  description: string;
+  title: string;
+}
+
+export interface IWMAnswer {
+  id: number;
+  isCorrect: boolean;
+  text: string;
+}
+
+export interface IWMQuestion {
+  type: number;
+  id: number;
+  title: string;
+  description?: string;
+  explanation?: string;
+  answers: IWMAnswer[];
+}
+
+// TODO - add types
+export interface IQuizBE {
+  properties?: IProperties;
+  welcomeScreen?: IWMScreen;
+  failScreen?: IWMScreen;
+  successScreen?: IWMScreen;
+  questions?: IWMQuestion[];
+}
+
 export interface IQuiz {
-  id: string;
+  id: number;
   title: string;
   link: string;
   description?: string;
@@ -51,18 +82,11 @@ export interface IQuiz {
     state?: CourseState;
   };
   media: ICourseMedia;
-  properties: IProperties;
-  welcomeScreen?: {
-    buttonText?: string; // should deprecate soon
-    buttons?: IWMButton[];
-    description: string;
-    title: string;
-  };
 }
 
 export interface ICourseTask {
-  courseId?: string;
-  id: string;
+  courseId?: number;
+  id: number;
   title: string;
   description?: string;
   properties?: IProperties;
@@ -75,7 +99,7 @@ export interface ICourseItem extends ICourseTask {
 }
 
 export interface ICourse {
-  id: string;
+  id: number;
   title: string;
   properties?: IProperties;
   data?: {
@@ -84,7 +108,7 @@ export interface ICourse {
   };
   items?: ICourseItem[];
   media: ICourseMedia;
-  quiz?: IQuiz;
+  quiz?: IQuizBE;
 }
 
 export interface ICourseData {
@@ -102,9 +126,6 @@ export interface IProperties {
   isCompleted?: boolean;
 }
 
-// TODO - add types
-export interface IQuizBE extends IQuiz {}
-
 export interface ICourseBE {
   id: number;
   title: string;
@@ -113,12 +134,17 @@ export interface ICourseBE {
   properties?: IProperties;
 }
 
+export interface ICourseItemChildNodeBE extends ICourseItemBE {
+  courseId?: number;
+  lessonId?: number;
+}
 export interface ICourseItemBE {
   id: number;
+  courseId?: number;
   title: string;
   description?: string;
-  properties: IProperties;
+  properties?: IProperties;
   type?: CourseItemType;
   itemType?: CourseItemType;
-  childNodes?: ICourseItemBE[];
+  childNodes?: ICourseItemChildNodeBE[];
 }

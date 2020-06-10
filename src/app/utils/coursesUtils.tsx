@@ -7,6 +7,7 @@ import {
   ICourseItem,
   IQuiz,
   ICourseData,
+  IQuizBE,
 } from "../interfaces/courses/courses.interface";
 import { IListItem } from "../components/list/list-item/ListItem";
 import localization from "../consts/localization";
@@ -96,18 +97,28 @@ export const parseQuizListItem = ({
   quiz,
   courseId,
 }: {
-  quiz: IQuiz;
-  courseId: string;
+  quiz: IQuizBE;
+  courseId: number;
 }) => {
   const { title, description } = quiz.welcomeScreen;
+
   return {
-    id: `quiz-${courseId}`,
+    id: courseId,
     title,
     description,
     link: `/quiz/${courseId}`,
+    clickable: true,
     data: {
-      media: quiz.media,
-      state: quiz.state,
+      media: {
+        thumbnail: {
+          ratio_1_1: "quiz/quiz-ratio-1_1.jpg",
+          ratio_2_1: "quiz/quiz-ratio-2_1.jpg",
+        },
+      },
+      state:
+        quiz.welcomeScreen && quiz.properties.isCompleted
+          ? CourseState.Tested
+          : CourseState.NotStarted,
     },
   };
 };
@@ -122,7 +133,7 @@ export const parseSingleCourseBE = ({
   courseImg: number;
 }): ICourse => {
   const { quiz } = course;
-  const courseId = courseNumber.toString() as string;
+  const courseId = courseNumber;
 
   return {
     ...course,
@@ -135,19 +146,7 @@ export const parseSingleCourseBE = ({
       },
     },
     data: parseCourseData(course),
-    quiz: {
-      ...quiz,
-      state:
-        quiz.welcomeScreen && quiz.properties.isCompleted
-          ? CourseState.Tested
-          : CourseState.NotStarted,
-      media: {
-        thumbnail: {
-          ratio_1_1: "quiz/quiz-ratio-1_1.jpg",
-          ratio_2_1: "quiz/quiz-ratio-2_1.jpg",
-        },
-      },
-    },
+    quiz,
   };
 };
 
@@ -181,7 +180,7 @@ export const parseCourseItems = ({
   courseId,
   items,
 }: {
-  courseId: string;
+  courseId: number;
   items: ICourseItemBE[];
 }): ICourseItem[] => {
   const parsedItems = items.map(
@@ -192,7 +191,7 @@ export const parseCourseItems = ({
         item.childNodes.map((task) => {
           const parsedTask = {
             ...task,
-            id: task.id.toString() as string,
+            id: task.id,
             // temporary solution preventing render unknown icon - the SDK data supposed to change
             type: task.itemType
               ? getCourseItemType(task.itemType)
@@ -205,7 +204,7 @@ export const parseCourseItems = ({
       const parsedItem = {
         ...noChildNodes,
         courseId,
-        id: item.id.toString() as string,
+        id: item.id,
         // temporary solution preventing render unknown icon - the SDK data supposed to change
         type: getCourseItemType(item.type),
         tasks,
@@ -225,7 +224,7 @@ export const getCourseById = ({
   id,
 }: {
   tmCourses: ICourse[];
-  id: string;
+  id: number;
 }): ICourse => tmCourses.find((course) => course.id === id);
 
 /**
