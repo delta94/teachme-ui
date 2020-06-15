@@ -10,7 +10,7 @@ import { ICourseItem } from "../../../../../interfaces/courses/courses.interface
 import { parseTasksToItemList } from "../../../../../utils/coursesUtils";
 
 // components
-import Dropdown from "../../../dropdown/Dropdown";
+import Dropdown from "../../../dropdown";
 
 export default function LessonListItem({
   item,

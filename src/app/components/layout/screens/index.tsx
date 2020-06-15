@@ -1,9 +1,9 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import CoursesListScreen from "./courses-screen/courses-list-screen/CoursesListScreen";
-import CourseScreen from "./courses-screen/course-screen/CourseScreen";
-import QuizScreen from "./courses-screen/quiz-screen/QuizScreen";
+import CoursesListScreen from "./courses-screen/courses-list-screen";
+import CourseScreen from "./courses-screen/course-screen";
+import QuizScreen from "./courses-screen/quiz-screen";
 
 // styles
 import "./index.less";

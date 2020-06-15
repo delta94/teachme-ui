@@ -5,8 +5,8 @@ import localization from "../../../consts/localization";
 import { parseToCourseListItems } from "../../../utils/coursesUtils";
 
 import { TeachMeContext } from "../../../App";
-import Dropdown from "../../common/dropdown/Dropdown";
-import Button, { ButtonType } from "../../common/buttons/Button";
+import Dropdown from "../../common/dropdown";
+import Button, { ButtonType } from "../../common/buttons";
 import { ReactComponent as DoubleArrowsLeftIcon } from "../../../../images/icons/double-arrows-left.svg";
 
 import "./index.less";

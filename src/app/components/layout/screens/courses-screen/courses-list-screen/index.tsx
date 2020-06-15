@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 
-import { IListItem } from "../../../../common/list/list-item/ListItem";
+import { IListItem } from "../../../../common/list/list-item";
 import List from "../../../../common/list";
-import TMListItem from "../../../../common/list/list-item/teach-me-list-item/TMListItem";
+import TMListItem from "../../../../common/list/list-item/teach-me-list-item";
 import { ICourseData } from "../../../../../interfaces/courses/courses.interface";
-import UserDetails from "../../../../common/user/user-details/UserDetails";
+import UserDetails from "../../../../common/user/user-details";
 import { TeachMeContext } from "../../../../../App";
 import { parseToCourseListItems } from "../../../../../utils/coursesUtils";
 

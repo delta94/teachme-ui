@@ -1,6 +1,6 @@
 import React from "react";
-import Screens from "../screens/Screens";
-import Header from "../header/Header";
+import Screens from "../screens";
+import Header from "../header";
 
 // styles
 import "./index.less";

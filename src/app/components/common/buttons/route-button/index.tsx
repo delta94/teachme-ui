@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // components
-import Button, { ButtonType } from "../Button";
+import Button, { ButtonType } from "..";
 
 // hooks
 import useIconManager, { IconType } from "../../../../hooks/useIconManager";

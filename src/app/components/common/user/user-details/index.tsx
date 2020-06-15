@@ -5,7 +5,7 @@ import { TeachMeContext } from "../../../../App";
 import localization from "../../../../consts/localization";
 
 // components
-import { ProgressBar } from "../../progress-bar/ProgressBar";
+import { ProgressBar } from "../../progress-bar";
 
 export default function UserDetails({
   greeting,

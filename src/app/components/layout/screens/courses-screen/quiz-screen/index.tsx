@@ -5,7 +5,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { TeachMeContext } from "../../../../../App";
 
 // components
-import Iframe from "../../../../common/iframe/Iframe";
+import Iframe from "../../../../common/iframe";
 
 // styles
 import "./index.less";

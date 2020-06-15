@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { IListItem } from "../components/common/list/list-item/ListItem";
+import { IListItem } from "../components/common/list/list-item";
 import { ISdk } from "@walkme/sdk";
 
 export default function useListItemManager(walkmeSDK: ISdk) {

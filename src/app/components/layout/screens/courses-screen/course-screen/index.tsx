@@ -13,10 +13,10 @@ import {
 } from "../../../../../utils/coursesUtils";
 
 import { TeachMeContext } from "../../../../../App";
-import { ProgressBar } from "../../../../common/progress-bar/ProgressBar";
+import { ProgressBar } from "../../../../common/progress-bar";
 import useViewManager from "../../../../../hooks/useViewManager";
-import TMListItem from "../../../../common/list/list-item/teach-me-list-item/TMListItem";
-import CourseItemsList from "../../../../common/list/course-items-list/CourseItemsList";
+import TMListItem from "../../../../common/list/list-item/teach-me-list-item";
+import CourseItemsList from "../../../../common/list/course-items-list";
 
 // styles
 import "./index.less";

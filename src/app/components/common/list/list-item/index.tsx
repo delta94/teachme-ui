@@ -14,7 +14,7 @@ import useIconManager, { IconType } from "../../../../hooks/useIconManager";
 import useListItemManager from "../../../../hooks/useListItemManager";
 
 // components
-import MessageContainer from "../../message-container/MessageContainer";
+import MessageContainer from "../../message-container";
 
 export interface IItemComponentProps<T> {
   onSelect?: () => void;

@@ -10,8 +10,8 @@ import {
 import { getCourseItemState, parseTask } from "../../../../utils/coursesUtils";
 
 // components
-import ListItem from "../list-item/ListItem";
-import LessonListItem from "../list-item/lesson-list-item/LessonListItem";
+import ListItem from "../list-item";
+import LessonListItem from "../list-item/lesson-list-item";
 
 export default function CourseItemsList({
   items,

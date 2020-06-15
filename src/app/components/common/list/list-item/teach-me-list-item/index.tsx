@@ -9,12 +9,12 @@ import {
   ICourseData,
   CourseState,
 } from "../../../../../interfaces/courses/courses.interface";
-import { IItemComponentProps } from "../ListItem";
+import { IItemComponentProps } from "..";
 
 // components
-import { ProgressBar } from "../../../progress-bar/ProgressBar";
-import Button, { ButtonType } from "../../../buttons/Button";
-import MessageContainer from "../../../message-container/MessageContainer";
+import { ProgressBar } from "../../../progress-bar";
+import Button, { ButtonType } from "../../../buttons";
+import MessageContainer from "../../../message-container";
 
 // hooks
 import useListItemManager from "../../../../../hooks/useListItemManager";

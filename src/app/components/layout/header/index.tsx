@@ -6,9 +6,9 @@ import { TeachMeContext } from "../../../App";
 import localization from "../../../consts/localization";
 
 // components
-import { ButtonType } from "../../common/buttons/Button";
-import UserDetails from "../../common/user/user-details/UserDetails";
-import RouteButton from "../../common/buttons/route-button/RouteButton";
+import { ButtonType } from "../../common/buttons";
+import UserDetails from "../../common/user/user-details";
+import RouteButton from "../../common/buttons/route-button";
 
 // hooks
 import useViewManager from "../../../hooks/useViewManager";
