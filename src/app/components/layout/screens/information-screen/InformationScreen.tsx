@@ -11,7 +11,7 @@ import {
 import useViewManager from "../../../../hooks/useViewManager";
 
 // styles
-import "../../../../../styles/screens/information-screen/information-screen.less";
+import "./index.less";
 
 export default function InformationScreen(props: IInformationScreenData) {
   const { type, error, isWebApp } = props;

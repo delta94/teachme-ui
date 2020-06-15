@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import localization from "../../../consts/localization";
 
 // styles
-import "../../../../styles/components/progress-bar.less";
+import "./index.less";
 
 export function ProgressBar({
   percentCompletion = 0,

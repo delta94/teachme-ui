@@ -219,25 +219,25 @@ export default function App() {
       className={`app show wrapper`}
       style={globalCssProperties as React.CSSProperties}
     >
-      {informationScreen ? (
-        <InformationScreen {...informationScreen} isWebApp={isWebApp} />
-      ) : (
-        <HashRouter>
-          <TeachMeContext.Provider
-            value={{
-              walkmeSDK,
-              teachmeApp,
-              tmState,
-              sidebar: sidebarOptions,
-            }}
-          >
+      <TeachMeContext.Provider
+        value={{
+          walkmeSDK,
+          teachmeApp,
+          tmState,
+          sidebar: sidebarOptions,
+        }}
+      >
+        {informationScreen ? (
+          <InformationScreen {...informationScreen} isWebApp={isWebApp} />
+        ) : (
+          <HashRouter>
             <Debug />
             {isWebApp && <Minimize />}
             <Sidebar />
             <Main className={sidebarState} />
-          </TeachMeContext.Provider>
-        </HashRouter>
-      )}
+          </HashRouter>
+        )}
+      </TeachMeContext.Provider>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import { IListItem } from "../../../../common/list/list-item/ListItem";
-import List from "../../../../common/list/List";
+import List from "../../../../common/list";
 import TMListItem from "../../../../common/list/list-item/teach-me-list-item/TMListItem";
 import { ICourseData } from "../../../../../interfaces/courses/courses.interface";
 import UserDetails from "../../../../common/user/user-details/UserDetails";
@@ -9,7 +9,7 @@ import { TeachMeContext } from "../../../../../App";
 import { parseToCourseListItems } from "../../../../../utils/coursesUtils";
 
 // styles
-import "../../../../../../styles/screens/courses-screen/courses-list-screen.less";
+import "./index.less";
 
 export default function CoursesListScreen() {
   const tmContext = useContext(TeachMeContext);

@@ -1,5 +1,5 @@
 import React from "react";
-import CoursesScreen from "../screens/courses-screen/CoursesScreen";
+import Screens from "../screens/Screens";
 import Header from "../header/Header";
 
 // styles
@@ -9,7 +9,7 @@ export default function Main({ className = "" }: { className?: string }) {
   return (
     <div className={`main ${className}`}>
       <Header />
-      <CoursesScreen />
+      <Screens />
     </div>
   );
 }

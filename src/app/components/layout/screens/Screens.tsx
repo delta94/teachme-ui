@@ -1,14 +1,14 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import CoursesListScreen from "./courses-list-screen/CoursesListScreen";
-import CourseScreen from "./course-screen/CourseScreen";
-import QuizScreen from "./quiz-screen/QuizScreen";
+import CoursesListScreen from "./courses-screen/courses-list-screen/CoursesListScreen";
+import CourseScreen from "./courses-screen/course-screen/CourseScreen";
+import QuizScreen from "./courses-screen/quiz-screen/QuizScreen";
 
 // styles
-import "../../../../../styles/screens/screen.less";
+import "./index.less";
 
-export default function CoursesScreen() {
+export default function Screens() {
   return (
     <Switch>
       <Route exact path="/" component={CoursesListScreen} />

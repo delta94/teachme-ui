@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../../../../styles/components/iframe.less";
+import "./index.less";
 
 export default function Iframe({
   isResponsive,

@@ -9,7 +9,7 @@ import Dropdown from "../../common/dropdown/Dropdown";
 import Button, { ButtonType } from "../../common/buttons/Button";
 import { ReactComponent as DoubleArrowsLeftIcon } from "../../../../images/icons/double-arrows-left.svg";
 
-import "../../../../styles/layout/sidebar.less";
+import "./index.less";
 
 export default function Sidebar() {
   const { tmState, sidebar } = useContext(TeachMeContext);

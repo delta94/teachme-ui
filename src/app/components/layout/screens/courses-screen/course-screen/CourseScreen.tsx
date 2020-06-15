@@ -19,7 +19,7 @@ import TMListItem from "../../../../common/list/list-item/teach-me-list-item/TML
 import CourseItemsList from "../../../../common/list/course-items-list/CourseItemsList";
 
 // styles
-import "../../../../../../styles/screens/courses-screen/course-screen.less";
+import "./index.less";
 
 type TParams = { courseId: string; taskId: string };
 

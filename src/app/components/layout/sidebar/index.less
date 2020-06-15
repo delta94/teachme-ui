@@ -1,4 +1,4 @@
-@import "../globals.less";
+@import "../../../../styles/globals.less";
 
 :root {
   --sidePadding: 25px;
@@ -7,7 +7,7 @@
   --listItemMaxWidth: calc(var(--sidebarInnerMaxWidth) - 25px);
   --sidebarOpenTranslateX: translateX(-240px);
   --handlerTopPosition: 20px;
-  --arrowDownIcon: url("../../images/icons/arrow-down.svg");
+  --arrowDownIcon: url("../../../../images/icons/arrow-down.svg");
 }
 
 .handlerExtension() {
@@ -25,6 +25,7 @@
     background-color: var(--white);
     border-radius: 4px;
   }
+
   // Using pseudo - (after)
   // element for sidebar-toggle hiding shadow blur effect inside the sidebar
   &:after {

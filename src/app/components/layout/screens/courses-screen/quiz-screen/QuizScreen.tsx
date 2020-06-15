@@ -8,7 +8,7 @@ import { TeachMeContext } from "../../../../../App";
 import Iframe from "../../../../common/iframe/Iframe";
 
 // styles
-import "../../../../../../styles/screens/courses-screen/quiz-screen.less";
+import "./index.less";
 
 type TParams = { courseId: string };
 
