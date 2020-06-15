@@ -1,0 +1,18 @@
+.screen.quiz-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+
+  &:hover {
+    overflow-y: hidden;
+  }
+
+  .iframe-container.responsive {
+    max-width: var(--quizMaxSize);
+    padding-top: var(--quizMaxSize);
+    border: 1px solid var(--borderLightGray);
+    box-shadow: var(--elementShadow);
+    border-radius: 5px;
+  }
+}

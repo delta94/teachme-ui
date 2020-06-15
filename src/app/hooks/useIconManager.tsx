@@ -1,8 +1,9 @@
 import React from "react";
-import { CourseState, TaskIcon } from "../interfaces/courses/courses.interface";
+import {
+  CourseState,
+  TaskIcon,
+} from "../components/layout/screens/courses/interface";
 import { iconComponent } from "../consts/icons";
-
-import "../../styles/icons.less";
 
 export enum Icon {
   Check = "check",
