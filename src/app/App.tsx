@@ -160,7 +160,6 @@ export default function App() {
 
         // set tmUser data
         const tmUser = {
-          user: defaultUserData.user,
           courses: {
             percentCompletion: getCoursesTotalStatus(parsedCourses),
           },

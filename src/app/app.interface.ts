@@ -13,12 +13,7 @@ export enum tmPlatformType {
   Web = "web",
 }
 
-interface IUser {
-  firstName: string;
-  LastName: string;
-}
 export interface IUserData {
-  user: IUser;
   courses: {
     percentCompletion: number;
   };

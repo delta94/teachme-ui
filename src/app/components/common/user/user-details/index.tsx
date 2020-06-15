@@ -17,7 +17,6 @@ export default function UserDetails({
   const tmContext = useContext(TeachMeContext);
   const { tmUser } = tmContext.tmState;
   const {
-    user,
     courses: { percentCompletion },
   } = tmUser;
   const {
@@ -26,11 +25,7 @@ export default function UserDetails({
 
   return (
     <>
-      {greeting && (
-        <h2 className="greeting">
-          {userDetails.greeting}, {user.firstName}
-        </h2>
-      )}
+      {greeting && <h2 className="greeting">{userDetails.greeting}</h2>}
       {progressBar && (
         <ProgressBar percentCompletion={percentCompletion} showTitle />
       )}
