@@ -4,10 +4,13 @@ import React from "react";
 import {
   ICourseItem,
   CourseItemType,
-} from "../../../../interfaces/courses/courses.interface";
+} from "../../../layout/screens/courses/interface";
 
 // utils
-import { getCourseItemState, parseTask } from "../../../../utils/coursesUtils";
+import {
+  getCourseItemState,
+  parseTask,
+} from "../../../layout/screens/courses/utils";
 
 // components
 import ListItem from "../list-item";

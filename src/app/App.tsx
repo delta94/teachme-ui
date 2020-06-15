@@ -3,19 +3,21 @@ import { HashRouter } from "react-router-dom";
 import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
 
 // config && consts
-import { config } from "./config";
+import { config } from "./consts/config";
 import { defaultInitialTMState, defaultUserData } from "./consts/app";
 
 // interfaces
-import { tmPlatformType } from "./interfaces/app.interface";
+import { tmPlatformType, ITeachMeContext } from "./app.interface";
 import {
   InformationScreenType,
   IInformationScreenData,
-} from "./interfaces/information-screen/informationScreen.interface";
-import { ITeachMeContext } from "./interfaces/teachme/teachme.interface";
+} from "./components/layout/screens/information-screen/interface";
 
 // utils & hooks
-import { getCoursesTotalStatus, parseCoursesBE } from "./utils/coursesUtils";
+import {
+  getCoursesTotalStatus,
+  parseCoursesBE,
+} from "./components/layout/screens/courses/utils";
 import useAppManager from "./hooks/useAppManager";
 import useWindowResize from "./hooks/useWindowResize";
 
@@ -26,7 +28,8 @@ import Main from "./components/layout/main";
 import Sidebar from "./components/layout/sidebar";
 import Minimize from "./components/common/buttons/minimize";
 
-import "./index.less";
+// styles
+import "./app.less";
 
 declare global {
   interface Window {

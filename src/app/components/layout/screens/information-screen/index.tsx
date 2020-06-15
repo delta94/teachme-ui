@@ -2,10 +2,7 @@ import React, { useRef, useEffect } from "react";
 
 import localization from "../../../../consts/localization";
 
-import {
-  IInformationScreenData,
-  InformationScreenType,
-} from "../../../../interfaces/information-screen/informationScreen.interface";
+import { IInformationScreenData, InformationScreenType } from "./interface";
 
 // hooks
 import useViewManager from "../../../../hooks/useViewManager";

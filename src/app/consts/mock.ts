@@ -1,7 +1,7 @@
 import {
   ICourseBE,
   CourseItemType,
-} from "../interfaces/courses/courses.interface";
+} from "../components/layout/screens/courses/interface";
 
 export const mockDefaultData: ICourseBE[] = [
   {

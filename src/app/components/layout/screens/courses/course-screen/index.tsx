@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
-import { ICourse, CourseState, IQuiz, IQuizBE } from "../../courses/interface";
-import { getCourseById, parseQuizListItem } from "../../courses/utils";
+import { ICourse, CourseState, IQuiz, IQuizBE } from "../interface";
+import { getCourseById, parseQuizListItem } from "../utils";
 
 import { TeachMeContext } from "../../../../../App";
 import { ProgressBar } from "../../../../common/progress-bar";

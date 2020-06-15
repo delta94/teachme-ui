@@ -5,12 +5,11 @@ import {
   ICourseItemBE,
   CourseItemType,
   ICourseItem,
-  IQuiz,
   ICourseData,
   IQuizBE,
-} from "../interfaces/courses/courses.interface";
-import { IListItem } from "../components/common/list/list-item";
-import localization from "../consts/localization";
+} from "./interface";
+import { IListItem } from "../../../common/list/list-item";
+import localization from "../../../../consts/localization";
 
 export const parseToCourseListItems = (
   courses: ICourse[]

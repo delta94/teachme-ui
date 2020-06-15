@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // interfaces
-import { CourseState } from "../../../interfaces/courses/courses.interface";
+import { CourseState } from "../../layout/screens/courses/interface";
 import { IListItem, IListItemState } from "../list/list-item";
 
 // components

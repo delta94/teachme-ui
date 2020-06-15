@@ -8,7 +8,7 @@ import localization from "../../../../../consts/localization";
 import {
   ICourseData,
   CourseState,
-} from "../../../../../interfaces/courses/courses.interface";
+} from "../../../../layout/screens/courses/interface";
 import { IItemComponentProps } from "..";
 
 // components

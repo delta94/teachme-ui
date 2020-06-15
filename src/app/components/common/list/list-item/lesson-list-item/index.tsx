@@ -4,10 +4,10 @@ import React from "react";
 import localization from "../../../../../consts/localization";
 
 // interfaces
-import { ICourseItem } from "../../../../../interfaces/courses/courses.interface";
+import { ICourseItem } from "../../../../layout/screens/courses/interface";
 
 // utils
-import { parseTasksToItemList } from "../../../../../utils/coursesUtils";
+import { parseTasksToItemList } from "../../../../layout/screens/courses/utils";
 
 // components
 import Dropdown from "../../../dropdown";

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import localization from "../../../consts/localization";
 
-import { parseToCourseListItems } from "../../../utils/coursesUtils";
+import { parseToCourseListItems } from "../screens/courses/utils";
 
 import { TeachMeContext } from "../../../App";
 import Dropdown from "../../common/dropdown";

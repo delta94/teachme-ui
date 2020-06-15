@@ -1,7 +1,7 @@
 import React from "react";
 
 // interfaces
-import { CourseState } from "../../../interfaces/courses/courses.interface";
+import { CourseState } from "../../layout/screens/courses/interface";
 
 export default function MessageContainer({
   message,

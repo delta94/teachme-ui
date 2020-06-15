@@ -1,5 +1,5 @@
 import React from "react";
-import { config } from "../config";
+import { config } from "../consts/config";
 
 export default function useAppManager() {
   const getUrlParamValueByName = (name: string) => {

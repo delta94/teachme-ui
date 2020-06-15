@@ -7,7 +7,7 @@ import { TeachMeContext } from "../../../../App";
 import {
   CourseState,
   CourseItemType,
-} from "../../../../interfaces/courses/courses.interface";
+} from "../../../layout/screens/courses/interface";
 
 // hooks
 import useIconManager, { IconType } from "../../../../hooks/useIconManager";

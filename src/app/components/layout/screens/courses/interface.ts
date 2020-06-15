@@ -1,4 +1,4 @@
-import { Icon } from "../../hooks/useIconManager";
+import { Icon } from "../../../../hooks/useIconManager";
 
 export enum CourseState {
   Disabled = "disabled",
