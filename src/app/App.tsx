@@ -20,15 +20,13 @@ import useAppManager from "./hooks/useAppManager";
 import useWindowResize from "./hooks/useWindowResize";
 
 // components
-import InformationScreen from "./layout/screens/information-screen/InformationScreen";
-import Debug from "./layout/debug/Debug";
-import Main from "./layout/main/Main";
-import Sidebar from "./layout/sidebar/Sidebar";
-import Minimize from "./components/buttons/minimize/Minimize";
+import InformationScreen from "./components/layout/screens/information-screen/InformationScreen";
+import Debug from "./components/layout/debug/Debug";
+import Main from "./components/layout/main/Main";
+import Sidebar from "./components/layout/sidebar/Sidebar";
+import Minimize from "./components/common/buttons/minimize/Minimize";
 
-// styles
-import "../styles/reset.less";
-import "../styles/views/app.less";
+import "./index.less";
 
 declare global {
   interface Window {

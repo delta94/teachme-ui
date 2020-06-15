@@ -2,13 +2,13 @@ import React, { useContext, useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
 // context & utils
-import { TeachMeContext } from "../../../../App";
+import { TeachMeContext } from "../../../../../App";
 
-//components
-import Iframe from "../../../../components/common/iframe/Iframe";
+// components
+import Iframe from "../../../../common/iframe/Iframe";
 
 // styles
-import "../../../../../styles/screens/courses-screen/quiz-screen.less";
+import "../../../../../../styles/screens/courses-screen/quiz-screen.less";
 
 type TParams = { courseId: string };
 

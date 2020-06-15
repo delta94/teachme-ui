@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
 
-import { ReactComponent as DoubleArrowsLeftIcon } from "../../../images/icons/double-arrows-left.svg";
+import localization from "../../../consts/localization";
 
-import "../../../styles/layout/sidebar.less";
-import { TeachMeContext } from "../../App";
-import { parseToCourseListItems } from "../../utils/coursesUtils";
-import Button, { ButtonType } from "../../components/common/buttons/Button";
-import Dropdown from "../../components/common/dropdown/Dropdown";
-import localization from "../../consts/localization";
+import { parseToCourseListItems } from "../../../utils/coursesUtils";
+
+import { TeachMeContext } from "../../../App";
+import Dropdown from "../../common/dropdown/Dropdown";
+import Button, { ButtonType } from "../../common/buttons/Button";
+import { ReactComponent as DoubleArrowsLeftIcon } from "../../../../images/icons/double-arrows-left.svg";
+
+import "../../../../styles/layout/sidebar.less";
 
 export default function Sidebar() {
   const { tmState, sidebar } = useContext(TeachMeContext);

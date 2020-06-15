@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
 
-import { TeachMeContext } from "../../../../App";
-import { parseToCourseListItems } from "../../../../utils/coursesUtils";
-import UserDetails from "../../../../components/common/user/user-details/UserDetails";
-import List from "../../../../components/common/list/List";
-import { IListItem } from "../../../../components/common/list/list-item/ListItem";
-import { ICourseData } from "../../../../interfaces/courses/courses.interface";
-import TMListItem from "../../../../components/common/list/list-item/teach-me-list-item/TMListItem";
+import { IListItem } from "../../../../common/list/list-item/ListItem";
+import List from "../../../../common/list/List";
+import TMListItem from "../../../../common/list/list-item/teach-me-list-item/TMListItem";
+import { ICourseData } from "../../../../../interfaces/courses/courses.interface";
+import UserDetails from "../../../../common/user/user-details/UserDetails";
+import { TeachMeContext } from "../../../../../App";
+import { parseToCourseListItems } from "../../../../../utils/coursesUtils";
 
 // styles
-import "../../../../../styles/screens/courses-screen/courses-list-screen.less";
+import "../../../../../../styles/screens/courses-screen/courses-list-screen.less";
 
 export default function CoursesListScreen() {
   const tmContext = useContext(TeachMeContext);

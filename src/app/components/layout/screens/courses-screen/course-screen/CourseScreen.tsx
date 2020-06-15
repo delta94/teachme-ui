@@ -1,19 +1,25 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { TeachMeContext } from "../../../../App";
-import useViewManager from "../../../../hooks/useViewManager";
+
 import {
   ICourse,
   CourseState,
+  IQuiz,
   IQuizBE,
-} from "../../../../interfaces/courses/courses.interface";
+} from "../../../../../interfaces/courses/courses.interface";
 import {
   getCourseById,
   parseQuizListItem,
-} from "../../../../utils/coursesUtils";
-import { ProgressBar } from "../../../../components/common/progress-bar/ProgressBar";
-import CourseItemsList from "../../../../components/common/list/course-items-list/CourseItemsList";
-import TMListItem from "../../../../components/common/list/list-item/teach-me-list-item/TMListItem";
+} from "../../../../../utils/coursesUtils";
+
+import { TeachMeContext } from "../../../../../App";
+import { ProgressBar } from "../../../../common/progress-bar/ProgressBar";
+import useViewManager from "../../../../../hooks/useViewManager";
+import TMListItem from "../../../../common/list/list-item/teach-me-list-item/TMListItem";
+import CourseItemsList from "../../../../common/list/course-items-list/CourseItemsList";
+
+// styles
+import "../../../../../../styles/screens/courses-screen/course-screen.less";
 
 type TParams = { courseId: string; taskId: string };
 
