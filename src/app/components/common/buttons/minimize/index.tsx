@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 // context
-import { TeachMeContext } from "../../../../App";
+import { TeachMeContext } from "../../../../providers/TeachmeProvider";
 
 export default function Minimize() {
   const tmContext = useContext(TeachMeContext);

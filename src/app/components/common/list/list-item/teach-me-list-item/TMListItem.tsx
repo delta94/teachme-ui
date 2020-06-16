@@ -5,11 +5,11 @@ import { TeachMeContext } from "../../../../../providers/TeachmeProvider";
 import localization from "../../../../../constants/localization";
 
 // interfaces
+import { IItemComponentProps } from "..";
 import {
   ICourseData,
   CourseState,
 } from "../../../../layout/screens/courses/interface";
-import { IItemComponentProps } from "..";
 
 // components
 import { ProgressBar } from "../../../progress-bar";

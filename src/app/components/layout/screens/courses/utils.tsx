@@ -9,7 +9,7 @@ import {
   IQuizBE,
 } from "./interface";
 import { IListItem } from "../../../common/list/list-item";
-import localization from "../../../../consts/localization";
+import localization from "../../../../constants/localization";
 
 export const parseToCourseListItems = (
   courses: ICourse[]

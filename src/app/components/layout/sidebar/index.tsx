@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 
-import localization from "../../../consts/localization";
+import localization from "../../../constants/localization";
 
 import { parseToCourseListItems } from "../screens/courses/utils";
 
-import { TeachMeContext } from "../../../App";
+import { TeachMeContext } from "../../../providers/TeachmeProvider";
 import Dropdown from "../../common/dropdown";
 import Button, { ButtonType } from "../../common/buttons";
 import { ReactComponent as DoubleArrowsLeftIcon } from "../../../../images/icons/double-arrows-left.svg";
@@ -12,7 +12,10 @@ import { ReactComponent as DoubleArrowsLeftIcon } from "../../../../images/icons
 import "./index.less";
 
 export default function Sidebar() {
-  const { tmState, sidebar } = useContext(TeachMeContext);
+  const {
+    appState: { tmState },
+    sidebar,
+  } = useContext(TeachMeContext);
   const { isOpen, setIsOpen } = sidebar;
   const { tmCourses, isWebApp } = tmState;
   const courses = parseToCourseListItems(tmCourses);

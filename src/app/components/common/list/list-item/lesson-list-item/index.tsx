@@ -1,7 +1,7 @@
 import React from "react";
 
 // consts
-import localization from "../../../../../consts/localization";
+import localization from "../../../../../constants/localization";
 
 // interfaces
 import { ICourseItem } from "../../../../layout/screens/courses/interface";

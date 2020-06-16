@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 
 // context & consts
-import { TeachMeContext } from "../../../App";
-import localization from "../../../consts/localization";
+import { TeachMeContext } from "../../../providers/TeachmeProvider";
+import localization from "../../../constants/localization";
 
 // components
 import { ProgressBar } from "../progress-bar";
@@ -15,7 +15,7 @@ export default function UserDetails({
   progressBar?: boolean;
 }) {
   const tmContext = useContext(TeachMeContext);
-  const { tmUser } = tmContext.tmState;
+  const { tmUser } = tmContext.appState.tmState;
   const {
     courses: { percentCompletion },
   } = tmUser;

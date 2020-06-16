@@ -1,5 +1,6 @@
 import { WalkMeApp, ISdk } from "@walkme/sdk/dist/interfaces/sdk";
 import { ICourse } from "./components/layout/screens/courses/interface";
+import { IInformationScreenData } from "./components/layout/screens/information-screen/interface";
 
 export enum wmPlatformType {
   Mac = "mac",
@@ -28,14 +29,27 @@ export interface ITMState {
   tmUser: IUserData;
 }
 
-export interface sidebarOptions {
+export interface ISidebarOptions {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface ITeachMeContext {
+export interface IInfoScreenOptions {
+  informationScreen: IInformationScreenData;
+  setInformationScreen: React.Dispatch<
+    React.SetStateAction<IInformationScreenData>
+  >;
+}
+
+export interface IAppStateOptions {
   tmState: ITMState;
+  setTMState: React.Dispatch<React.SetStateAction<ITMState>>;
+}
+
+export interface ITeachMeContext {
+  appState: IAppStateOptions;
   walkmeSDK: ISdk;
   teachmeApp: WalkMeApp;
-  sidebar: sidebarOptions;
+  sidebar: ISidebarOptions;
+  infoScreen: IInfoScreenOptions;
 }

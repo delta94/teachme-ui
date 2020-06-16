@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useContext } from "react";
 import { useLocation, Link } from "react-router-dom";
 
 // context & localization
-import { TeachMeContext } from "../../../App";
-import localization from "../../../consts/localization";
+import { TeachMeContext } from "../../../providers/TeachmeProvider";
+import localization from "../../../constants/localization";
 
 // components
 import { ButtonType } from "../../common/buttons";
@@ -18,7 +18,9 @@ import { Icon } from "../../../hooks/useIconManager";
 import "./index.less";
 
 export default function Header() {
-  const { tmState } = useContext(TeachMeContext);
+  const {
+    appState: { tmState },
+  } = useContext(TeachMeContext);
   const { pathname } = useLocation();
   const { animateCoreElements } = useViewManager();
 

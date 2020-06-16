@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext } from "react";
 
 // context
-import { TeachMeContext } from "../../../../App";
+import { TeachMeContext } from "../../../../providers/TeachmeProvider";
 
 // interfaces
 import {

@@ -5,7 +5,7 @@ import List from "../../../../common/list";
 import TMListItem from "../../../../common/list/list-item/teach-me-list-item";
 import { ICourseData } from "../interface";
 import UserDetails from "../../../../common/user-details";
-import { TeachMeContext } from "../../../../../App";
+import { TeachMeContext } from "../../../../../providers/TeachmeProvider";
 import { parseToCourseListItems } from "../utils";
 
 // styles
@@ -13,7 +13,7 @@ import "./index.less";
 
 export default function CoursesListScreen() {
   const tmContext = useContext(TeachMeContext);
-  const { isWebApp, tmCourses } = tmContext.tmState;
+  const { isWebApp, tmCourses } = tmContext.appState.tmState;
   const coursesListItems = parseToCourseListItems(tmCourses);
 
   return (

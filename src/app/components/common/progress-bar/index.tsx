@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // localization
-import localization from "../../../consts/localization";
+import localization from "../../../constants/localization";
 
 // styles
 import "./index.less";

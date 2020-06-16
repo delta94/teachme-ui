@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { ICourse, CourseState, IQuiz, IQuizBE } from "../../courses/interface";
 import { getCourseById, parseQuizListItem } from "../../courses/utils";
 
-import { TeachMeContext } from "../../../../../App";
+import { TeachMeContext } from "../../../../../providers/TeachmeProvider";
 import { ProgressBar } from "../../../../common/progress-bar";
 import useViewManager from "../../../../../hooks/useViewManager";
 import TMListItem from "../../../../common/list/list-item/teach-me-list-item";
@@ -22,7 +22,7 @@ const timing = {
 
 export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
   const tmContext = useContext(TeachMeContext);
-  const { tmCourses } = tmContext.tmState;
+  const { tmCourses } = tmContext.appState.tmState;
   const courseSection = useRef();
   const { animateCoreElements } = useViewManager();
   const { courseId, taskId } = match.params;

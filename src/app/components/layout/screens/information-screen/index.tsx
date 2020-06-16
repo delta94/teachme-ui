@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 
-import localization from "../../../../consts/localization";
+import localization from "../../../../constants/localization";
 
 import { IInformationScreenData, InformationScreenType } from "./interface";
 

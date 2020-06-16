@@ -3,7 +3,7 @@ import {
   CourseState,
   TaskIcon,
 } from "../components/layout/screens/courses/interface";
-import { iconComponent } from "../consts/icons";
+import { iconComponent } from "../constants/icons";
 
 export enum Icon {
   Check = "check",

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { TeachMeContext } from "../../../App";
+import { TeachMeContext } from "../../../providers/TeachmeProvider";
 
 export default function Debug() {
   const tmContext = useContext(TeachMeContext);
-  const { debugError } = tmContext.tmState;
+  const { debugError } = tmContext.appState.tmState;
   if (Boolean(debugError)) {
     return null;
   }

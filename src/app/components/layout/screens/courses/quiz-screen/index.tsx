@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
 // context & utils
-import { TeachMeContext } from "../../../../../App";
+import { TeachMeContext } from "../../../../../providers/TeachmeProvider";
 
 // components
 import Iframe from "../../../../common/iframe";
