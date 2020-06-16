@@ -4,7 +4,7 @@ import { IListItem } from "../../../../common/list/list-item";
 import List from "../../../../common/list";
 import TMListItem from "../../../../common/list/list-item/teach-me-list-item";
 import { ICourseData } from "../../courses/interface";
-import UserDetails from "../../../../common/user/user-details";
+import UserDetails from "../../../../common/user-details";
 import { TeachMeContext } from "../../../../../App";
 import { parseToCourseListItems } from "../../courses/utils";
 

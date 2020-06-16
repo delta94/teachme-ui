@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 
 // context & consts
-import { TeachMeContext } from "../../../../App";
-import localization from "../../../../consts/localization";
+import { TeachMeContext } from "../../../App";
+import localization from "../../../consts/localization";
 
 // components
-import { ProgressBar } from "../../progress-bar";
+import { ProgressBar } from "../progress-bar";
 
 export default function UserDetails({
   greeting,

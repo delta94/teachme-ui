@@ -7,7 +7,7 @@ import localization from "../../../consts/localization";
 
 // components
 import { ButtonType } from "../../common/buttons";
-import UserDetails from "../../common/user/user-details";
+import UserDetails from "../../common/user-details";
 import RouteButton from "../../common/buttons/route-button";
 
 // hooks
