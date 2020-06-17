@@ -20,6 +20,8 @@ import MessageContainer from "../../../message-container";
 import useListItemManager from "../../../../../hooks/useListItemManager";
 import useIconManager, { Icon } from "../../../../../hooks/useIconManager";
 
+import "./index.less";
+
 export interface ITMListItemProps extends IItemComponentProps<ICourseData> {
   hideProgressBar?: boolean;
   extraLabel?: string;
