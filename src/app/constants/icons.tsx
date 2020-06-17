@@ -6,6 +6,7 @@ import { ReactComponent as VideoIcon } from "../../images/icons/Video.svg";
 import { ReactComponent as WalkthruIcon } from "../../images/icons/Walkthru.svg";
 import { ReactComponent as DoubleCheckmarksIcon } from "../../images/icons/double-checkmarks.svg";
 import { ReactComponent as BackArrowIcon } from "../../images/icons/back-arrow.svg";
+import { ReactComponent as NoResultsIcon } from "../../images/icons/no-results.svg";
 
 export const iconComponent = {
   check: CheckIcon,
@@ -23,4 +24,5 @@ export const iconComponent = {
   dropdown: ArrowIcon,
   tested: DoubleCheckmarksIcon,
   "back-arrow": BackArrowIcon,
+  "no-results": NoResultsIcon,
 };

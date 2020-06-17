@@ -1,9 +1,12 @@
 import React from "react";
 
-// styles
-import TeachmeProvider, { TeachMeContext } from "./providers/TeachmeProvider";
+// teachme provider
+import TeachmeProvider from "./providers/TeachmeProvider";
+
+// layout component
 import Layout from "./components/layout";
 
+// styles
 import "./app.less";
 
 export default function App() {

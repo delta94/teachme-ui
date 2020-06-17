@@ -1,37 +1,52 @@
 import React, { useContext } from "react";
+import cc from "classcat";
 
+// constants
 import localization from "../../../constants/localization";
 
+// utils
 import { parseToCourseListItems } from "../screens/courses/utils";
 
+// context
 import { TeachMeContext } from "../../../providers/TeachmeProvider";
+
+// components
 import Dropdown from "../../common/dropdown";
 import Button, { ButtonType } from "../../common/buttons";
 import { ReactComponent as DoubleArrowsLeftIcon } from "../../../../images/icons/double-arrows-left.svg";
 
+// styles
 import "./index.less";
 
+/**
+ * Sidebar appears only if isWebApp is true
+ */
 export default function Sidebar() {
   const {
-    appState: { tmState },
-    sidebar,
+    appState: {
+      tmState: { tmCourses, isWebApp },
+    },
+    sidebar: { sidebarIsOpen, setSidebarIsOpen },
   } = useContext(TeachMeContext);
-  const { isOpen, setIsOpen } = sidebar;
-  const { tmCourses, isWebApp } = tmState;
+  const {
+    course: courseText,
+    courseDisabledMsg,
+    sidebar: { sidebarCoursesTitle },
+  } = localization;
   const courses = parseToCourseListItems(tmCourses);
-  const sidebarStateClass = isOpen ? "open" : "close";
+  const sidebarClasses = { open: sidebarIsOpen, close: !sidebarIsOpen };
 
   if (!isWebApp) {
     return <></>;
   }
 
   return (
-    <div className={`sidebar ${sidebarStateClass}`}>
+    <div className={cc(["sidebar", sidebarClasses])}>
       <Button
         id="toggle-sidebar"
-        className={`toggle-sidebar ${sidebarStateClass}`}
+        className={cc(["toggle-sidebar", sidebarClasses])}
         buttonClicked={() => {
-          setIsOpen(!isOpen);
+          setSidebarIsOpen(!sidebarIsOpen);
         }}
         tmButtonType={ButtonType.NoBorder}
       >
@@ -40,7 +55,7 @@ export default function Sidebar() {
         </span>
       </Button>
       <header className="title">
-        <span className="text">All of your lessons</span>
+        <span className="text">{sidebarCoursesTitle}</span>
       </header>
       <section className="sidebar-courses-list">
         {courses.map((course) => {
@@ -50,7 +65,9 @@ export default function Sidebar() {
               className="list sidebar-single-course"
             >
               <header className="course-header">
-                <span className="text">Course {course.id}:</span>
+                <span className="text">
+                  {courseText} {course.id}:
+                </span>
               </header>
               <Dropdown
                 className="sidebar-courses"
@@ -60,7 +77,7 @@ export default function Sidebar() {
                 handler={{
                   state: course.data.state,
                 }}
-                disabledMsg={localization.courseDisabledMsg}
+                disabledMsg={courseDisabledMsg}
               />
             </div>
           );

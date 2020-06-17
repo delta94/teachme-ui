@@ -1,25 +1,27 @@
 import React, { createContext, useState, useEffect } from "react";
+// walkme SDK
 import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
 
+// interfaces
 import { ITeachMeContext, tmPlatformType } from "../app.interface";
 import {
   InformationScreenType,
   IInformationScreenData,
 } from "../components/layout/screens/information-screen/interface";
 
+// hooks & utils
 import useAppManager from "../hooks/useAppManager";
-import { config } from "../constants/config";
-
-import { defaultInitialTMState } from "../constants/app";
 import {
   parseCoursesBE,
   getCoursesTotalStatus,
 } from "../components/layout/screens/courses/utils";
 
+// constants
+import { config } from "../constants/config";
+import { defaultInitialTMState } from "../constants/app";
+
 // context
 export const TeachMeContext = createContext<ITeachMeContext | null>(null);
-
-type AppPropTypes = { children: React.ReactNode };
 
 declare global {
   interface Window {
@@ -28,27 +30,29 @@ declare global {
   }
 }
 
-export default function TeachmeProvider({ children }: AppPropTypes) {
+export default function TeachmeProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { timeoutIfUiTreeNotFound, debug } = config;
   const {
     addGuidSpecificStyle,
     getDebugError,
     getUrlParamValueByName,
   } = useAppManager();
-  const { timeoutIfUiTreeNotFound, debug } = config;
+
   const [walkmeSDK, setWalkmeSDK] = useState({} as ISdk);
   const [walkmeSDKError, setWalkmeSDKError] = useState(null);
   const [teachmeApp, setTeachmeApp] = useState({} as WalkMeApp);
   const [tmState, setTMState] = useState(defaultInitialTMState);
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const { initiated, isWebApp } = tmState;
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [informationScreen, setInformationScreen] = useState({
     type: InformationScreenType.Loading,
     isWebApp,
   } as IInformationScreenData);
 
-  /**
-   * displayDebugInfo
-   */
   const displayDebugInfo = () => {
     setTMState((prevTMState) => {
       return {
@@ -170,7 +174,7 @@ export default function TeachmeProvider({ children }: AppPropTypes) {
         walkmeSDK,
         teachmeApp,
         appState: { tmState, setTMState },
-        sidebar: { isOpen: sidebarIsOpen, setIsOpen: setSidebarIsOpen },
+        sidebar: { sidebarIsOpen, setSidebarIsOpen },
         infoScreen: { informationScreen, setInformationScreen },
       }}
     >

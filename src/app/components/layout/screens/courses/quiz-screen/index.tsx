@@ -14,7 +14,7 @@ type TParams = { courseId: string };
 
 export default function QuizScreen({ match }: RouteComponentProps<TParams>) {
   const { sidebar } = useContext(TeachMeContext);
-  const { isOpen, setIsOpen } = sidebar;
+  const { sidebarIsOpen, setSidebarIsOpen } = sidebar;
   const { courseId } = match.params;
   /**
    * while develop run teachme project and use this url
@@ -25,9 +25,9 @@ export default function QuizScreen({ match }: RouteComponentProps<TParams>) {
   const quizSrc = `${quizBaseUrl}${urlParams}&courseId=${courseId}`;
 
   useEffect(() => {
-    if (isOpen) {
+    if (sidebarIsOpen) {
       setTimeout(() => {
-        setIsOpen(false);
+        setSidebarIsOpen(false);
       }, 0);
     }
   }, []);

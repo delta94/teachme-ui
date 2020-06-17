@@ -1,9 +1,17 @@
 import React, { useEffect, useState, useContext } from "react";
+import cc from "classcat";
 import { HashRouter } from "react-router-dom";
 
+// context
 import { TeachMeContext } from "../../providers/TeachmeProvider";
+
+// hooks
 import useWindowResize from "../../hooks/useWindowResize";
+
+// constants
 import { config } from "../../constants/config";
+
+// components
 import InformationScreen from "./screens/information-screen";
 import Debug from "./debug";
 import Minimize from "../common/buttons/minimize";
@@ -11,27 +19,30 @@ import Sidebar from "./sidebar";
 import Main from "./main";
 
 export default function Layout() {
+  const { appWrapperWidth, desktopBreakPoint, webAppHeight } = config;
   const teachMeContext = useContext(TeachMeContext);
-
   const {
     appState: {
       tmState: { isWebApp },
     },
     infoScreen: { informationScreen },
-    sidebar: { isOpen, setIsOpen },
+    sidebar: { sidebarIsOpen, setSidebarIsOpen },
   } = teachMeContext;
 
   const { windowWidth, windowHeight } = useWindowResize();
-  const { appWrapperWidth, desktopBreakPoint, webAppHeight } = config;
   const [globalCssProperties, setGlobalCssProperties] = useState({});
-  const sidebarClass = isOpen ? "sidebar-open" : "sidebar-close";
+  const sidebarClasses = {
+    "sidebar-open": sidebarIsOpen,
+    "sidebar-close": !sidebarIsOpen,
+  };
 
+  /**
+   * Set css variables properties && sidebar
+   * according to windowWidth / windowHeight
+   */
   useEffect(() => {
-    /**
-     * shouldUpdateCssProperties
-     * window's width smallest than desktopBreakPoint window's,
-     * and window height greater than webAppHeight (config property)
-     */
+    // window's width smallest than desktopBreakPoint window's,
+    // and window height greater than webAppHeight (config property)
     const shouldUpdateCssProperties =
       windowWidth <= desktopBreakPoint && windowHeight > webAppHeight;
 
@@ -41,21 +52,17 @@ export default function Layout() {
       setGlobalCssProperties({});
     }
 
-    /**
-     * shouldCloseSidebar
-     * if sidebar is open
-     * and window width than appWrapperWidth (config property)
-     */
+    // if sidebar is open and window width than appWrapperWidth (config property)
     const shouldCloseSidebar =
-      isWebApp && isOpen && windowWidth < appWrapperWidth;
+      isWebApp && sidebarIsOpen && windowWidth < appWrapperWidth;
     if (shouldCloseSidebar) {
-      setIsOpen(false);
+      setSidebarIsOpen(false);
     }
   }, [windowWidth, windowHeight]);
 
   return (
     <div
-      className={`app show wrapper`}
+      className="app wrapper"
       style={globalCssProperties as React.CSSProperties}
     >
       {informationScreen ? (
@@ -65,7 +72,7 @@ export default function Layout() {
           <Debug />
           {isWebApp && <Minimize />}
           <Sidebar />
-          <Main className={sidebarClass} />
+          <Main className={cc(["toggle-sidebar", sidebarClasses])} />
         </HashRouter>
       )}
     </div>

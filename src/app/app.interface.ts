@@ -28,10 +28,9 @@ export interface ITMState {
   isWebApp: boolean;
   tmUser: IUserData;
 }
-
 export interface ISidebarOptions {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  sidebarIsOpen: boolean;
+  setSidebarIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IInfoScreenOptions {

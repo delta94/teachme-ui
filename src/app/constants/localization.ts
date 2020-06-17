@@ -2,6 +2,7 @@ const localization = {
   submit: "submit",
   next: "next",
   back: "back",
+  course: "Course",
   platformError:
     "Walkme did not return data, try setting a query param `?platform=mock`",
   teachmeError:
@@ -37,6 +38,9 @@ const localization = {
   },
   progressBar: {
     defaultTitle: "Overall progress",
+  },
+  sidebar: {
+    sidebarCoursesTitle: "All of your lessons",
   },
 };
 
