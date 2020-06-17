@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+// interfaces
+import { IProgressBarProps } from "./progressBar.interface";
+
 // localization
 import localization from "../../../constants/localization";
 
@@ -11,12 +14,7 @@ export function ProgressBar({
   showTitle = false,
   customTitle,
   showPercentages = false,
-}: {
-  percentCompletion: number;
-  showTitle?: boolean;
-  customTitle?: string;
-  showPercentages?: boolean;
-}) {
+}: IProgressBarProps) {
   const [progressValue, setProgressValue] = useState(0);
   const percentages = `${progressValue}%`;
   const {

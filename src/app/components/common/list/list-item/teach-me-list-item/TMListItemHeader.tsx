@@ -1,14 +1,13 @@
 import React from "react";
 
+// interfaces
+import { ITMListItemHeaderProps } from "../../list.interface";
+
 export default function TMListItemHeader({
   title,
   subTitle,
   description,
-}: {
-  title: string;
-  subTitle?: string;
-  description?: string;
-}) {
+}: ITMListItemHeaderProps) {
   return (
     <header>
       <h3 className="title" title={title}>

@@ -7,14 +7,14 @@ import { ITeachMeContext, tmPlatformType } from "../app.interface";
 import {
   InformationScreenType,
   IInformationScreenData,
-} from "../components/layout/screens/information-screen/interface";
+} from "../components/layout/screens/information-screen/informationScreen.interface";
 
 // hooks & utils
 import useAppManager from "../hooks/useAppManager";
 import {
   parseCoursesBE,
   getCoursesTotalStatus,
-} from "../components/layout/screens/courses/utils";
+} from "../components/layout/screens/courses/courses.utils";
 
 // constants
 import { config } from "../constants/config";

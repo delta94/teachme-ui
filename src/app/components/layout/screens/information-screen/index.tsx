@@ -5,7 +5,10 @@ import cc from "classcat";
 import localization from "../../../../constants/localization";
 
 // interfaces
-import { IInformationScreenData, InformationScreenType } from "./interface";
+import {
+  IInformationScreenData,
+  InformationScreenType,
+} from "./informationScreen.interface";
 
 // hooks
 import useViewManager from "../../../../hooks/useViewManager";

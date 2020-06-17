@@ -1,27 +1,10 @@
-import React, { ReactElement } from "react";
+import React from "react";
+
+// interfaces
+import { ButtonType, IButtonProps } from "./interface";
 
 // styles
 import "./index.less";
-
-export enum ButtonType {
-  NoBorder = "no-border",
-  None = "none",
-  Default = "default",
-  Danger = "danger",
-  Warning = "warning",
-  Help = "help",
-  Visited = "visited",
-  Completed = "completed",
-}
-
-interface IButtonProps {
-  id: string;
-  className?: string;
-  tmButtonType?: ButtonType;
-  type?: "button" | "submit" | "reset";
-  buttonClicked?: (id: string) => void;
-  children: ReactElement;
-}
 
 export default function Button(props: IButtonProps) {
   const {

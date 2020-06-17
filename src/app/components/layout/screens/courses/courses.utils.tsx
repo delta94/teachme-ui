@@ -1,3 +1,4 @@
+// interfaces
 import {
   ICourse,
   ICourseBE,
@@ -7,8 +8,9 @@ import {
   ICourseItem,
   ICourseData,
   IQuizBE,
-} from "./interface";
-import { IListItem } from "../../../common/list/list-item";
+} from "./courses.interface";
+import { IListItem } from "../../../common/list/list.interface";
+
 import localization from "../../../../constants/localization";
 
 export const parseToCourseListItems = (

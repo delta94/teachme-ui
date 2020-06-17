@@ -1,6 +1,6 @@
 import { WalkMeApp, ISdk } from "@walkme/sdk/dist/interfaces/sdk";
-import { ICourse } from "./components/layout/screens/courses/interface";
-import { IInformationScreenData } from "./components/layout/screens/information-screen/interface";
+import { ICourse } from "./components/layout/screens/courses/courses.interface";
+import { IInformationScreenData } from "./components/layout/screens/information-screen/informationScreen.interface";
 
 export enum wmPlatformType {
   Mac = "mac",

@@ -1,7 +1,10 @@
 import React, { ReactElement } from "react";
 
+// interfaces
+import { IListItem, IItemComponentProps } from "./list.interface";
+
 // components
-import ListItem, { IListItem, IItemComponentProps } from "./list-item";
+import ListItem from "./list-item";
 
 // styles
 import "./index.less";

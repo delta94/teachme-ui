@@ -14,7 +14,7 @@ import { config } from "../../constants/config";
 // components
 import InformationScreen from "./screens/information-screen";
 import Debug from "./debug";
-import Minimize from "../common/buttons/minimize";
+import Minimize from "../common/button/minimize";
 import Sidebar from "./sidebar";
 import Main from "./main";
 

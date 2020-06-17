@@ -3,8 +3,8 @@ import cc from "classcat";
 import { RouteComponentProps } from "react-router-dom";
 
 // interfaces
-import { ICourse, CourseState, IQuiz, IQuizBE } from "../interface";
-import { getCourseById, parseQuizListItem } from "../utils";
+import { ICourse, CourseState, IQuiz, IQuizBE } from "../courses.interface";
+import { getCourseById, parseQuizListItem } from "../courses.utils";
 
 // hooks
 import useViewManager from "../../../../../hooks/useViewManager";

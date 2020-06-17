@@ -1,18 +1,21 @@
 import React, { useContext } from "react";
 import cc from "classcat";
 
+// interfaces
+import { ButtonType } from "../../common/button/interface";
+
 // constants
 import localization from "../../../constants/localization";
 
 // utils
-import { parseToCourseListItems } from "../screens/courses/utils";
+import { parseToCourseListItems } from "../screens/courses/courses.utils";
 
 // context
 import { TeachMeContext } from "../../../providers/TeachmeProvider";
 
 // components
 import Dropdown from "../../common/dropdown";
-import Button, { ButtonType } from "../../common/buttons";
+import Button from "../../common/button";
 import { ReactComponent as DoubleArrowsLeftIcon } from "../../../../images/icons/double-arrows-left.svg";
 
 // styles

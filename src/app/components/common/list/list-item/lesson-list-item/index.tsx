@@ -4,10 +4,10 @@ import React from "react";
 import localization from "../../../../../constants/localization";
 
 // interfaces
-import { ICourseItem } from "../../../../layout/screens/courses/interface";
+import { ILessonListItemProps } from "../../list.interface";
 
 // utils
-import { parseTasksToItemList } from "../../../../layout/screens/courses/utils";
+import { parseTasksToItemList } from "../../../../layout/screens/courses/courses.utils";
 
 // components
 import Dropdown from "../../../dropdown";
@@ -16,11 +16,7 @@ export default function LessonListItem({
   item,
   isOpen,
   className = "",
-}: {
-  item: ICourseItem;
-  isOpen: boolean;
-  className?: string;
-}) {
+}: ILessonListItemProps) {
   return (
     <li className={`lesson-item ${className}`} key={`dropdown-${item.id}`}>
       <Dropdown

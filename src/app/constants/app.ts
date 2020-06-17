@@ -1,4 +1,4 @@
-import { ICourse } from "../components/layout/screens/courses/interface";
+import { ICourse } from "../components/layout/screens/courses/courses.interface";
 import { IUserData, ITMState } from "../app.interface";
 
 export const defaultUserData: IUserData = {

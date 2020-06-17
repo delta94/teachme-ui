@@ -4,11 +4,11 @@ import React, { useContext } from "react";
 import { TeachMeContext } from "../../../../../providers/TeachmeProvider";
 
 // interfaces
-import { ICourseData } from "../interface";
-import { IListItem } from "../../../../common/list/list-item";
+import { ICourseData } from "../courses.interface";
+import { IListItem } from "../../../../common/list/list.interface";
 
 // utils
-import { parseToCourseListItems } from "../utils";
+import { parseToCourseListItems } from "../courses.utils";
 
 // components
 import List from "../../../../common/list";

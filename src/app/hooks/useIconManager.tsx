@@ -2,7 +2,7 @@ import React from "react";
 import {
   CourseState,
   TaskIcon,
-} from "../components/layout/screens/courses/interface";
+} from "../components/layout/screens/courses/courses.interface";
 import { iconComponent } from "../constants/icons";
 
 export enum Icon {

@@ -3,55 +3,23 @@ import cc from "classcat";
 
 // context & localization
 import { TeachMeContext } from "../../../../../providers/TeachmeProvider";
-import localization from "../../../../../constants/localization";
 
 // interfaces
-import {
-  ICourseData,
-  CourseState,
-} from "../../../../layout/screens/courses/interface";
-import { IItemComponentProps } from "..";
-
-// components
-import { ProgressBar } from "../../../progress-bar";
-import Button, { ButtonType } from "../../../buttons";
-import MessageContainer from "../../../message-container";
+import { CourseState } from "../../../../layout/screens/courses/courses.interface";
 
 // hooks
 import useListItemManager from "../../../../../hooks/useListItemManager";
-import useIconManager, {
-  Icon,
-  IconType,
-} from "../../../../../hooks/useIconManager";
 
-// styles
-import "./index.less";
+// components
+import { ProgressBar } from "../../../progress-bar";
+import MessageContainer from "../../../message-container";
 import TMListItemThumbnail from "./TMListItemThumbnail";
 import TMListItemHeader from "./TMListItemHeader";
 import TMListItemFooter from "./TMListItemFooter";
+import { ITMListItemProps } from "../../list.interface";
 
-export interface ITMListItemProps extends IItemComponentProps<ICourseData> {
-  /**
-   * hideProgressBar:  an optional props - prevent rendering the progress bar
-   */
-  hideProgressBar?: boolean;
-  /**
-   * extraLabel: an optional props to render extra label next to buttonLabelState
-   */
-  extraLabel?: string;
-  /**
-   * overrideLabel: an optional props to override the button default text
-   */
-  overrideLabel?: string;
-  /**
-   * iconType: an optional props to override the default button icon text
-   */
-  iconType?: IconType;
-  /**
-   * hideButtonIcon: an optional props to hide button icon
-   */
-  hideButtonIcon?: boolean;
-}
+// styles
+import "./index.less";
 
 export default function TMListItem(props: ITMListItemProps) {
   const { item, hideProgressBar, onSelect, ...otherProps } = props;

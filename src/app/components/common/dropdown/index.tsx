@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import cc from "classcat";
 
 // interfaces
-import { CourseState } from "../../layout/screens/courses/interface";
-import { IListItem, IListItemState } from "../list/list-item";
+import { CourseState } from "../../layout/screens/courses/courses.interface";
+
+import { ButtonType } from "../button/interface";
+import { IListItem, IListItemState } from "../list/list.interface";
 
 // components
-import Button, { ButtonType } from "../buttons";
+import Button from "../button";
 import List from "../list";
 import MessageContainer from "../message-container";
 
@@ -15,6 +17,7 @@ import useIconManager, { IconType, Icon } from "../../../hooks/useIconManager";
 
 // styles
 import "./index.less";
+import { IDropdownProps } from "./dropdown.interface";
 
 export default function Dropdown<T>({
   id,
@@ -25,19 +28,7 @@ export default function Dropdown<T>({
   isCollapsible = true,
   handler,
   disabledMsg,
-}: {
-  id: string;
-  title: string;
-  items: IListItem<T>[];
-  className?: string;
-  isOpen?: boolean;
-  isCollapsible?: boolean;
-  handler?: {
-    state?: IListItemState;
-    iconType?: IconType;
-  };
-  disabledMsg?: string;
-}) {
+}: IDropdownProps<T>) {
   const [open, setOpen] = useState(isOpen);
   const { getIconByType } = useIconManager();
   const isDisabled = handler.state === CourseState.Disabled;

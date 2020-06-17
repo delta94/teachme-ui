@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useContext } from "react";
-import cc from "classcat";
-import { useLocation, Link } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
 
-// context
-import { TeachMeContext } from "../../../providers/TeachmeProvider";
+// interfaces
+import { ButtonType } from "../../common/button/interface";
 
 // constants
 import localization from "../../../constants/localization";
@@ -13,9 +11,7 @@ import useViewManager from "../../../hooks/useViewManager";
 import { Icon } from "../../../hooks/useIconManager";
 
 // components
-import { ButtonType } from "../../common/buttons";
-import UserDetails from "../../common/user-details";
-import RouteButton from "../../common/buttons/route-button";
+import RouteButton from "../../common/button/route-button";
 
 // styles
 import "./index.less";

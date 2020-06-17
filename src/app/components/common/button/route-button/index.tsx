@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// interfaces
+import { ButtonType, IRouteButtonProps } from "../interface";
+
 // components
-import Button, { ButtonType } from "..";
+import Button from "..";
 
 // hooks
-import useIconManager, { IconType } from "../../../../hooks/useIconManager";
+import useIconManager from "../../../../hooks/useIconManager";
 
 export default function RouteButton({
   id,
@@ -14,14 +17,7 @@ export default function RouteButton({
   linkTo,
   buttonType = ButtonType.None,
   className,
-}: {
-  id: string;
-  label: string;
-  linkTo: string;
-  buttonType?: ButtonType;
-  iconType?: IconType;
-  className?: string;
-}) {
+}: IRouteButtonProps) {
   const { getIconByType } = useIconManager();
 
   return (

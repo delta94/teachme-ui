@@ -1,28 +1,24 @@
 import React from "react";
 import cc from "classcat";
 
-import Button, { ButtonType } from "../../../buttons";
-import {
-  CourseState,
-  ICourseData,
-} from "../../../../layout/screens/courses/interface";
-import localization from "../../../../../constants/localization";
-import { IListItem } from "..";
-import useIconManager, {
-  Icon,
-  IconType,
-} from "../../../../../hooks/useIconManager";
-import { ITMListItemProps } from ".";
+// interfaces
+import { CourseState } from "../../../../layout/screens/courses/courses.interface";
+import { ITMListItemFooterProps } from "../../list.interface";
+import { ButtonType } from "../../../button/interface";
 
-type ITMListItemFooterProps = Omit<ITMListItemProps, "hideProgressBar">;
+// constants
+import localization from "../../../../../constants/localization";
+
+// hooks
+import useIconManager, { Icon } from "../../../../../hooks/useIconManager";
+
+// components
+import Button from "../../../button";
 
 export default function TMListItemFooter({
   itemButtonClicked,
   tmListItemFooter,
-}: {
-  itemButtonClicked?: () => void;
-  tmListItemFooter: ITMListItemFooterProps;
-}) {
+}: ITMListItemFooterProps) {
   const {
     item,
     extraLabel = "",

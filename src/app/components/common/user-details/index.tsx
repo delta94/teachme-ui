@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
 
+// interfaces
+import { IUserDetailsProps } from "./userDetails.interface";
+
 // context
 import { TeachMeContext } from "../../../providers/TeachmeProvider";
 
@@ -12,10 +15,7 @@ import { ProgressBar } from "../progress-bar";
 export default function UserDetails({
   greeting,
   progressBar,
-}: {
-  greeting?: boolean;
-  progressBar?: boolean;
-}) {
+}: IUserDetailsProps) {
   const tmContext = useContext(TeachMeContext);
   const {
     tmUser: {
