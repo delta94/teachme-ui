@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
-// context & utils
+// context
 import { TeachMeContext } from "../../../../../providers/TeachmeProvider";
 
 // components
@@ -16,14 +16,13 @@ export default function QuizScreen({ match }: RouteComponentProps<TParams>) {
   const { sidebar } = useContext(TeachMeContext);
   const { sidebarIsOpen, setSidebarIsOpen } = sidebar;
   const { courseId } = match.params;
-  /**
-   * while develop run teachme project and use this url
-   * localhost url: "http://localhost:9001/";
-   */
+
+  // localhost url: "http://localhost:9001/";
   const quizBaseUrl = "https://cdn.walkme.com/apps/wm-forms/index.html";
   const urlParams = window.location.search;
   const quizSrc = `${quizBaseUrl}${urlParams}&courseId=${courseId}`;
 
+  // using useEffect onload to close the sidebar
   useEffect(() => {
     if (sidebarIsOpen) {
       setTimeout(() => {

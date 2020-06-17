@@ -1,19 +1,29 @@
 import React, { useContext } from "react";
 
+// context
+import { TeachMeContext } from "../../../../../providers/TeachmeProvider";
+
+// interfaces
+import { ICourseData } from "../interface";
 import { IListItem } from "../../../../common/list/list-item";
+
+// utils
+import { parseToCourseListItems } from "../utils";
+
+// components
 import List from "../../../../common/list";
 import TMListItem from "../../../../common/list/list-item/teach-me-list-item";
-import { ICourseData } from "../interface";
 import UserDetails from "../../../../common/user-details";
-import { TeachMeContext } from "../../../../../providers/TeachmeProvider";
-import { parseToCourseListItems } from "../utils";
 
 // styles
 import "./index.less";
 
 export default function CoursesListScreen() {
-  const tmContext = useContext(TeachMeContext);
-  const { isWebApp, tmCourses } = tmContext.appState.tmState;
+  const {
+    appState: {
+      tmState: { isWebApp, tmCourses },
+    },
+  } = useContext(TeachMeContext);
   const coursesListItems = parseToCourseListItems(tmCourses);
 
   return (
@@ -23,15 +33,12 @@ export default function CoursesListScreen() {
           <UserDetails progressBar />
         </div>
       )}
-
-      {
-        <List
-          className="courses"
-          itemClassName="fadeInUp"
-          items={coursesListItems as IListItem<ICourseData>[]}
-          itemComponent={TMListItem}
-        />
-      }
+      <List
+        className="courses"
+        itemClassName="fadeInUp"
+        items={coursesListItems as IListItem<ICourseData>[]}
+        itemComponent={TMListItem}
+      />
     </div>
   );
 }

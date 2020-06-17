@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
+import cc from "classcat";
 import { RouteComponentProps } from "react-router-dom";
 
+// interfaces
 import { ICourse, CourseState, IQuiz, IQuizBE } from "../interface";
 import { getCourseById, parseQuizListItem } from "../utils";
 
+// hooks
+import useViewManager from "../../../../../hooks/useViewManager";
+
+// context
 import { TeachMeContext } from "../../../../../providers/TeachmeProvider";
 import { ProgressBar } from "../../../../common/progress-bar";
-import useViewManager from "../../../../../hooks/useViewManager";
 import TMListItem from "../../../../common/list/list-item/teach-me-list-item";
 import CourseItemsList from "../../../../common/list/course-items-list";
 
@@ -21,23 +26,29 @@ const timing = {
 };
 
 export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
-  const tmContext = useContext(TeachMeContext);
-  const { tmCourses } = tmContext.appState.tmState;
-  const courseSection = useRef();
-  const { animateCoreElements } = useViewManager();
   const { courseId, taskId } = match.params;
+  const {
+    appState: {
+      tmState: { tmCourses },
+    },
+  } = useContext(TeachMeContext);
+
   const [course, setCourse] = useState(null as ICourse);
   const [hasQuiz, setHasQuiz] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null as number);
-  const defaultCourseData = { status: 0, state: CourseState.NotStarted };
 
+  const defaultCourseData = { status: 0, state: CourseState.NotStarted };
+  const { animateCoreElements } = useViewManager();
+  const courseSection = useRef<HTMLDivElement>(null);
+
+  // TODO: buttonText - should deprecate soon
   const getQuizLabel = (quiz: IQuizBE) => {
-    // buttonText - should deprecate soon
     const { buttons, buttonText } = quiz.welcomeScreen;
     const quizButtonLabel = buttons ? buttons[0].text : buttonText;
     return quizButtonLabel;
   };
 
+  // Using useEffect according to courseId
   useEffect(() => {
     setCourse(null);
 
@@ -56,6 +67,8 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
     return () => clearTimeout(timer);
   }, [courseId]);
 
+  // Using useEffect according to taskId.
+  // setting the taskId to highlight the list item
   useEffect(() => {
     // set selection for adding highlight className to element
     const timerIn = setTimeout(() => {
@@ -73,6 +86,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
     };
   }, [taskId]);
 
+  // Using useEffect according to course & courseId.
   useEffect(() => {
     if (course) {
       animateCoreElements({
@@ -90,7 +104,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
       {course && (
         <section
           ref={courseSection}
-          className={`course animated-element ${hasQuiz ? "with-quiz" : ""}`}
+          className={cc(["course animated-element", { "with-quiz": hasQuiz }])}
         >
           <header className="course-information">
             <h3 className="screen-title">{course.title}</h3>

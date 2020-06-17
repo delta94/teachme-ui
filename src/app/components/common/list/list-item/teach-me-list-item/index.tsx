@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import cc from "classcat";
 
 // context & localization
 import { TeachMeContext } from "../../../../../providers/TeachmeProvider";
@@ -18,27 +19,43 @@ import MessageContainer from "../../../message-container";
 
 // hooks
 import useListItemManager from "../../../../../hooks/useListItemManager";
-import useIconManager, { Icon } from "../../../../../hooks/useIconManager";
+import useIconManager, {
+  Icon,
+  IconType,
+} from "../../../../../hooks/useIconManager";
 
+// styles
 import "./index.less";
+import TMListItemThumbnail from "./TMListItemThumbnail";
+import TMListItemHeader from "./TMListItemHeader";
+import TMListItemFooter from "./TMListItemFooter";
 
 export interface ITMListItemProps extends IItemComponentProps<ICourseData> {
+  /**
+   * hideProgressBar:  an optional props - prevent rendering the progress bar
+   */
   hideProgressBar?: boolean;
+  /**
+   * extraLabel: an optional props to render extra label next to buttonLabelState
+   */
   extraLabel?: string;
+  /**
+   * overrideLabel: an optional props to override the button default text
+   */
   overrideLabel?: string;
+  /**
+   * iconType: an optional props to override the default button icon text
+   */
+  iconType?: IconType;
+  /**
+   * hideButtonIcon: an optional props to hide button icon
+   */
   hideButtonIcon?: boolean;
 }
 
-export default function TMListItem({
-  item,
-  hideProgressBar,
-  extraLabel = "",
-  overrideLabel,
-  hideButtonIcon,
-  onSelect,
-}: ITMListItemProps) {
+export default function TMListItem(props: ITMListItemProps) {
+  const { item, hideProgressBar, onSelect, ...otherProps } = props;
   const {
-    id,
     title,
     subTitle,
     clickable,
@@ -46,28 +63,15 @@ export default function TMListItem({
     description = "",
     disabledMsg,
   } = item;
+  const {
+    status,
+    state,
+    media: { thumbnail },
+  } = data;
+
   const { walkmeSDK } = useContext(TeachMeContext);
   const { handleListItemClick } = useListItemManager(walkmeSDK);
-  const { getIconByType } = useIconManager();
-
-  const { status, state, media } = data;
-  const { thumbnail } = media;
-  const isCompleted =
-    state === CourseState.Completed || state === CourseState.Tested;
   const isDisabled = state === CourseState.Disabled;
-  const {
-    tmListItem: {
-      buttonLabel: { start, completed, resume },
-      testLabel: { tested, notTested },
-    },
-  } = localization;
-  const buttonLabelState =
-    status > 0 ? (isCompleted ? completed : resume) : start;
-
-  const buttonIcon = !isCompleted && Icon.ArrowRight;
-
-  const isTested = state === CourseState.Tested;
-  const testLabelState = isTested ? tested : notTested;
 
   const handleClick = () => {
     if (onSelect) {
@@ -79,9 +83,13 @@ export default function TMListItem({
 
   return (
     <div
-      className={`item tm-item-info ${isDisabled ? "disabled" : ""}  ${
-        clickable ? "clickable" : ""
-      }`}
+      className={cc([
+        "item tm-item-info",
+        {
+          disabled: isDisabled,
+          clickable: clickable,
+        },
+      ])}
       onClick={() => {
         if (clickable) {
           handleClick();
@@ -96,48 +104,22 @@ export default function TMListItem({
         />
       )}
       {thumbnail && (
-        <picture className="thumb">
-          <img
-            className="ratio_1_1"
-            src={require(`../../../../../../images/${thumbnail.ratio_1_1}`)}
-            alt={title}
-            title={title}
-          />
-          <img
-            className="ratio_2_1"
-            src={require(`../../../../../../images/${thumbnail.ratio_2_1}`)}
-            alt={title}
-            title={title}
-          />
-        </picture>
+        <TMListItemThumbnail
+          title={title}
+          thumbSrcRatio_1_1={require(`../../../../../../images/${thumbnail.ratio_1_1}`)}
+          thumbSrcRatio_2_1={require(`../../../../../../images/${thumbnail.ratio_2_1}`)}
+        />
       )}
       <article>
-        <header>
-          <h3 className="title" title={title}>
-            <span className="text">{title}</span>
-          </h3>
-          {subTitle && <span className="sub-title">{subTitle}</span>}
-          {description && <p className="description">{description}</p>}
-        </header>
-        <footer className="status-area">
-          <Button
-            className="action"
-            tmButtonType={
-              isCompleted ? ButtonType.Completed : ButtonType.Default
-            }
-            id={id.toString()}
-            buttonClicked={handleClick}
-          >
-            <span className="btn-label">
-              {overrideLabel || `${buttonLabelState} ${extraLabel}`}
-              {!hideButtonIcon && getIconByType(buttonIcon)}
-            </span>
-          </Button>
-          <span className={`test-label ${(isTested && "tested") || ""}`}>
-            {testLabelState}
-            {isTested && getIconByType(CourseState.Tested)}
-          </span>
-        </footer>
+        <TMListItemHeader
+          title={title}
+          subTitle={subTitle}
+          description={description}
+        />
+        <TMListItemFooter
+          itemButtonClicked={handleClick}
+          tmListItemFooter={{ item, ...otherProps }}
+        />
       </article>
       {!hideProgressBar && <ProgressBar percentCompletion={status} />}
     </div>

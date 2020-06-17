@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import cc from "classcat";
 
 // interfaces
 import { CourseState } from "../../layout/screens/courses/interface";
@@ -40,8 +41,10 @@ export default function Dropdown<T>({
   const [open, setOpen] = useState(isOpen);
   const { getIconByType } = useIconManager();
   const isDisabled = handler.state === CourseState.Disabled;
-  const collapsibleClass = isCollapsible ? "collapsible" : "";
-  const dropdownToggle = open ? "open" : "close";
+  const dropdownToggleClasses = {
+    open: open,
+    close: !open,
+  };
 
   const handlerClicked = () => {
     if (isCollapsible) {
@@ -51,18 +54,24 @@ export default function Dropdown<T>({
 
   return (
     <div
-      className={`dropdown-wrapper ${className} ${handler.state} ${collapsibleClass} ${dropdownToggle}`}
+      className={cc([
+        "dropdown-wrapper",
+        className,
+        handler.state,
+        {
+          collapsible: isCollapsible,
+          ...dropdownToggleClasses,
+        },
+      ])}
     >
       {isDisabled && disabledMsg && (
-        <>
-          <MessageContainer
-            message={disabledMsg}
-            className="disabled-message"
-            type={handler.state}
-          />
-        </>
+        <MessageContainer
+          message={disabledMsg}
+          className="disabled-message"
+          type={handler.state}
+        />
       )}
-      <header className={`dropdown-handler ${open ? "open" : "close"}`}>
+      <header className={cc(["dropdown-handler", dropdownToggleClasses])}>
         <Button
           id={id}
           tmButtonType={ButtonType.NoBorder}
@@ -74,7 +83,7 @@ export default function Dropdown<T>({
           </h4>
         </Button>
       </header>
-      <div className={`dropdown-items ${open ? "open" : "close"}`}>
+      <div className={cc(["dropdown-items", dropdownToggleClasses])}>
         <List className="dropdown-list" items={items} />
       </div>
     </div>
