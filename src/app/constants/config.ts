@@ -6,6 +6,7 @@ interface IConfig {
   appWrapperWidth: number;
   webAppHeight: number;
   desktopBreakPoint: number;
+  supportThemeStyles?: boolean;
 }
 
 export const config: IConfig = {

@@ -68,7 +68,7 @@ export default function TeachmeProvider({
   useEffect(() => {
     if (initiated) {
       if (debug) displayDebugInfo();
-      addGuidSpecificStyle();
+      if (config.supportThemeStyles) addGuidSpecificStyle();
       setInformationScreen(null as IInformationScreenData);
     }
   }, [initiated, isWebApp]);

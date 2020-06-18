@@ -1,0 +1,26 @@
+html {
+  --background: #010101;
+
+  --primary: #e20074;
+  --primaryHover: #dd84b3;
+
+  --primary100: #ffe0f1;
+
+  --secondary500: #824a68;
+
+  --secondary100: #2e252a;
+
+  --neutral900: #d1d1d1;
+
+  --neutral500: #616161;
+
+  --warning: #d23c89;
+
+  --border500: #fefefe3f;
+
+  --border100: #fefefe21;
+
+  --logoPath: url("https://s3.walkmeusercontent.com/4ef4c6add3574bd190c2c6bcd86c99b6/tmobile.png");
+  --logoWidth: 79px;
+  --logoHeight: 66px;
+}
