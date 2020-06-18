@@ -122,9 +122,21 @@
     }
     .dropdown-wrapper {
       &.collapsible {
+        &.open {
+          .dropdown-handler .btn {
+            border-radius: 5px 5px 0 0;
+          }
+        }
+
+        &.close {
+          .dropdown-handler .btn {
+            border-radius: 5px;
+          }
+        }
         .dropdown-handler {
           .btn {
             padding: 15px 40px 15px 22px;
+
             > * {
               .ellipsis();
               @media @tabletOnly {

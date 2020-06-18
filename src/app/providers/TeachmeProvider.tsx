@@ -68,7 +68,6 @@ export default function TeachmeProvider({
   useEffect(() => {
     if (initiated) {
       if (debug) displayDebugInfo();
-      if (config.supportThemeStyles) addGuidSpecificStyle();
       setInformationScreen(null as IInformationScreenData);
     }
   }, [initiated, isWebApp]);
@@ -97,7 +96,6 @@ export default function TeachmeProvider({
     (async () => {
       let timeout;
       const platformTypeParam = getUrlParamValueByName("platform");
-
       try {
         await walkme.init();
         console.log("WalkMe ready =>", walkme);

@@ -3,7 +3,7 @@ html {
 
   --primary: #e20074;
   --primaryHover: #dd84b3;
-
+  --primary300: #ff79c0;
   --primary100: #ffe0f1;
 
   --secondary500: #824a68;
@@ -23,4 +23,8 @@ html {
   --logoPath: url("https://s3.walkmeusercontent.com/4ef4c6add3574bd190c2c6bcd86c99b6/tmobile.png");
   --logoWidth: 79px;
   --logoHeight: 66px;
+
+  --elementShadow: 0 2px 1px rgba(255, 255, 255, 0.05);
+  --sidebarShadow: 0 0 20px rgba(255, 255, 255, 0.13);
+  --sidebarHandlerShadow: 3px 0px 7px rgba(255, 255, 255, 0.1);
 }

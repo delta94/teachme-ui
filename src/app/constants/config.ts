@@ -12,6 +12,7 @@ interface IConfig {
 export const config: IConfig = {
   debug: false,
   debug_appVersion: 0.12,
+  supportThemeStyles: true,
   timeoutIfUiTreeNotFound: 10000,
   searchInputDelay: 250,
   appWrapperWidth: 1200,
