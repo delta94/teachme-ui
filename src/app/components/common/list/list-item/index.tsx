@@ -1,13 +1,11 @@
-import React, { ReactElement, useContext } from "react";
+import React, { useContext } from "react";
 
 // context
-import { TeachMeContext } from "../../../../App";
+import { TeachMeContext } from "../../../../providers/TeachmeProvider";
 
 // interfaces
-import {
-  CourseState,
-  CourseItemType,
-} from "../../../layout/screens/courses/interface";
+import { CourseState } from "../../../layout/screens/courses/courses.interface";
+import { IListItemProps } from "../list.interface";
 
 // hooks
 import useIconManager, { IconType } from "../../../../hooks/useIconManager";
@@ -15,41 +13,6 @@ import useListItemManager from "../../../../hooks/useListItemManager";
 
 // components
 import MessageContainer from "../../message-container";
-
-export interface IItemComponentProps<T> {
-  onSelect?: () => void;
-  item: IListItem<T>;
-}
-
-export type IListItemState = CourseState;
-
-export interface IListItem<T> {
-  id: number;
-  courseId?: number;
-  title: string;
-  subTitle?: string;
-  description?: string;
-  link?: string;
-  clickable?: boolean;
-  useWalkMeSdk?: boolean;
-  state?: IListItemState;
-  type?: CourseItemType;
-  data?: T;
-  disabledMsg?: string;
-  tasks?: IListItem<{}>[];
-  primaryBtn?: {
-    label: string;
-  };
-}
-
-export interface IListItemProps<T> {
-  item: IListItem<T>;
-  className?: string;
-  state?: IListItemState;
-  type?: CourseItemType;
-  onSelect?: (selected: IListItem<T>) => void;
-  itemComponent?: (props?: IItemComponentProps<T>) => ReactElement;
-}
 
 export default function ListItem<T>({
   item,

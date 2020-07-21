@@ -2,8 +2,8 @@ import React from "react";
 import {
   CourseState,
   TaskIcon,
-} from "../components/layout/screens/courses/interface";
-import { iconComponent } from "../consts/icons";
+} from "../components/layout/screens/courses/courses.interface";
+import { iconComponent } from "../constants/icons";
 
 export enum Icon {
   Check = "check",
@@ -15,6 +15,7 @@ export enum Icon {
   ArrowRight = "arrow-right",
   BackArrow = "back-arrow",
   Dropdown = "dropdown",
+  NoResults = "no-results",
 }
 
 export type IconType = Icon | CourseState | TaskIcon;

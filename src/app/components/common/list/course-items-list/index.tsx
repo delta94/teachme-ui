@@ -4,13 +4,14 @@ import React from "react";
 import {
   ICourseItem,
   CourseItemType,
-} from "../../../layout/screens/courses/interface";
+} from "../../../layout/screens/courses/courses.interface";
+import { ICourseItemsListProps } from "../list.interface";
 
 // utils
 import {
   getCourseItemState,
   parseTask,
-} from "../../../layout/screens/courses/utils";
+} from "../../../layout/screens/courses/courses.utils";
 
 // components
 import ListItem from "../list-item";
@@ -19,10 +20,7 @@ import LessonListItem from "../list-item/lesson-list-item";
 export default function CourseItemsList({
   items,
   selectedTaskId,
-}: {
-  items: ICourseItem[];
-  selectedTaskId?: number;
-}) {
+}: ICourseItemsListProps) {
   return (
     <ul className="course-items">
       {items.map((item: ICourseItem, index: number) => {

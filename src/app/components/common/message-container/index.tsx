@@ -1,17 +1,14 @@
 import React from "react";
 
 // interfaces
-import { CourseState } from "../../layout/screens/courses/interface";
+import { CourseState } from "../../layout/screens/courses/courses.interface";
+import { IMessageContainerProps } from "./messageContainer.interface";
 
 export default function MessageContainer({
   message,
   type = CourseState.Disabled,
   className = "disabled-message",
-}: {
-  message: string;
-  type: CourseState;
-  className: string;
-}) {
+}: IMessageContainerProps) {
   return (
     <div className={`container-message ${className} ${type}`}>
       <span className="text">{message}</span>

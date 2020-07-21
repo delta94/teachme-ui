@@ -70,6 +70,16 @@
     .doubleArrowsLeftIcon(var(--iconBGLight));
     transform: rotate(180deg);
   }
+
+  &.no-results {
+    width: 85px;
+    height: 88px;
+
+    svg path {
+      stroke: currentColor;
+      fill: transparent;
+    }
+  }
 }
 
 .triangleDown(@color: currentColor) {
@@ -129,9 +139,13 @@
   .fillTriangleDown(@color, @size);
 }
 
-.backArrowIcon() {
+.backArrowIcon(@color: var(--primary300)) {
   height: 18px;
   width: 20px;
+
+  > svg path {
+    fill: @color;
+  }
 }
 
 .checkIcon () {

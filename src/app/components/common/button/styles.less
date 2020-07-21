@@ -1,0 +1,119 @@
+@import (reference) "../../../../styles/globals.less";
+
+:root {
+  --default: var(--primary);
+  --currentColor: var(--default);
+  --buttonSize: 30px;
+}
+
+.noBorder () {
+  border: none;
+  border-radius: 0;
+  max-width: fit-content;
+  background-color: transparent;
+
+  &:hover {
+    border: 0;
+    background-color: transparent;
+  }
+}
+
+.btn {
+  position: relative;
+  background-color: var(--primary100);
+  border: 1px solid var(--neutral900);
+  color: var(--neutral900);
+  border-radius: 15px;
+  height: var(--buttonSize);
+  min-width: 110px;
+  width: auto;
+  font-size: 11px;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: border 0.3s, background-color 0.3s, color 0.3s;
+
+  @media @tabletOnly {
+    min-width: 90px;
+    padding: 0 10px;
+  }
+
+  &.link {
+    .noBorder();
+    color: var(--primary);
+    text-decoration: underline;
+  }
+
+  &.default {
+    transition: min-width 0.3s, border 0.3s, background-color 0.3s, color 0.3s;
+    &.loading {
+      pointer-events: none;
+      background-color: transparent;
+      border: 2px solid var(--bgLight);
+      border-top: 2px solid var(--primary);
+      animation: loaderSpin 2s linear infinite;
+      animation-delay: 0.3s;
+      min-width: var(--buttonSize);
+      width: var(--buttonSize);
+      padding: 0;
+
+      > * {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  }
+
+  &.no-border {
+    .noBorder();
+  }
+
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: currentColor;
+      transition: none;
+    }
+  }
+
+  &.default {
+    background-color: var(--currentColor);
+    border: 1px solid var(--primary);
+    color: var(--white);
+  }
+
+  &.completed {
+    background-color: var(--white);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+
+    &:hover {
+      color: var(--white);
+    }
+  }
+
+  &:hover {
+    border: 1px solid var(--primaryHover);
+    background-color: var(--primaryHover);
+  }
+
+  .btn-label {
+    line-height: 11px;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: currentColor;
+
+    .icon {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+  }
+}

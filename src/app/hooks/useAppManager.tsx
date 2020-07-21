@@ -1,5 +1,5 @@
 import React from "react";
-import { config } from "../consts/config";
+import { config } from "../constants/config";
 
 export default function useAppManager() {
   const getUrlParamValueByName = (name: string) => {
@@ -14,14 +14,14 @@ export default function useAppManager() {
   const addGuidSpecificStyle = () => {
     const guid = getUrlParamValueByName("guid");
     console.log("addGuidSpecificStyle guid => ", guid);
-    // if (guid) {
-    //   const cssSrc = `styles/${guid}/main.css`;
-    //   const link = document.createElement("link");
-    //   link.rel = "stylesheet";
-    //   link.href = cssSrc;
+    if (guid) {
+      const cssSrc = `styles/${guid}.css`;
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = cssSrc;
 
-    //   document.body.append(link);
-    // }
+      document.body.append(link);
+    }
   };
 
   /**
