@@ -1,26 +1,23 @@
 import React, { useEffect } from "react";
 
-// teachme provider
 import TeachmeProvider from "./providers/TeachmeProvider";
-
-// layout component
+import { config } from "./constants/config";
+import useAppManager from "./hooks/useAppManager";
 import Layout from "./components/layout";
 
 // styles
-import "./app.less";
-import { config } from "./constants/config";
-import useAppManager from "./hooks/useAppManager";
+import "./styles.less";
 
 export default function App() {
-  const { addGuidSpecificStyle } = useAppManager();
+	const { addGuidSpecificStyle } = useAppManager();
 
-  useEffect(() => {
-    if (config.supportThemeStyles) addGuidSpecificStyle();
-  }, []);
+	useEffect(() => {
+		if (config.supportThemeStyles) addGuidSpecificStyle();
+	}, []);
 
-  return (
-    <TeachmeProvider>
-      <Layout />
-    </TeachmeProvider>
-  );
+	return (
+		<TeachmeProvider>
+			<Layout />
+		</TeachmeProvider>
+	);
 }

@@ -7,41 +7,41 @@ import { IProgressBarProps } from "./progressBar.interface";
 import localization from "../../../constants/localization";
 
 // styles
-import "./index.less";
+import "./styles.less";
 
 export function ProgressBar({
-  percentCompletion = 0,
-  showTitle = false,
-  customTitle,
-  showPercentages = false,
+	percentCompletion = 0,
+	showTitle = false,
+	customTitle,
+	showPercentages = false,
 }: IProgressBarProps) {
-  const [progressValue, setProgressValue] = useState(0);
-  const percentages = `${progressValue}%`;
-  const {
-    progressBar: { defaultTitle },
-  } = localization;
+	const [progressValue, setProgressValue] = useState(0);
+	const percentages = `${progressValue}%`;
+	const {
+		progressBar: { defaultTitle },
+	} = localization;
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setProgressValue(percentCompletion);
-    }, 300);
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setProgressValue(percentCompletion);
+		}, 300);
 
-    return () => clearTimeout(timer);
-  }, []);
+		return () => clearTimeout(timer);
+	}, []);
 
-  return (
-    <div className="progress-bar-wrapper">
-      <div className="progress-bar-info">
-        {showTitle && (
-          <div className="title">
-            <span className="text">{customTitle || defaultTitle}</span>
-          </div>
-        )}
-        {showPercentages && <span className="percentages">{percentages}</span>}
-      </div>
-      <div className="progress-bar">
-        <div className="value" style={{ width: percentages }}></div>
-      </div>
-    </div>
-  );
+	return (
+		<div className="progress-bar-wrapper">
+			<div className="progress-bar-info">
+				{showTitle && (
+					<div className="title">
+						<span className="text">{customTitle || defaultTitle}</span>
+					</div>
+				)}
+				{showPercentages && <span className="percentages">{percentages}</span>}
+			</div>
+			<div className="progress-bar">
+				<div className="value" style={{ width: percentages }}></div>
+			</div>
+		</div>
+	);
 }

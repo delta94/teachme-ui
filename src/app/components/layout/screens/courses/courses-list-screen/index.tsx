@@ -16,29 +16,29 @@ import TMListItem from "../../../../common/list/list-item/teach-me-list-item";
 import UserDetails from "../../../../common/user-details";
 
 // styles
-import "./index.less";
+import "./styles.less";
 
 export default function CoursesListScreen() {
-  const {
-    appState: {
-      tmState: { isWebApp, tmCourses },
-    },
-  } = useContext(TeachMeContext);
-  const coursesListItems = parseToCourseListItems(tmCourses);
+	const {
+		appState: {
+			tmState: { isWebApp, tmCourses },
+		},
+	} = useContext(TeachMeContext);
+	const coursesListItems = parseToCourseListItems(tmCourses);
 
-  return (
-    <div className="screen courses-screen">
-      {!isWebApp && (
-        <div className="user-details">
-          <UserDetails progressBar />
-        </div>
-      )}
-      <List
-        className="courses"
-        itemClassName="fadeInUp"
-        items={coursesListItems as IListItem<ICourseData>[]}
-        itemComponent={TMListItem}
-      />
-    </div>
-  );
+	return (
+		<div className="screen courses-screen">
+			{!isWebApp && (
+				<div className="user-details">
+					<UserDetails progressBar />
+				</div>
+			)}
+			<List
+				className="courses"
+				itemClassName="fadeInUp"
+				items={coursesListItems as IListItem<ICourseData>[]}
+				itemComponent={TMListItem}
+			/>
+		</div>
+	);
 }

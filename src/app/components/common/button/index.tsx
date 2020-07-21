@@ -4,32 +4,32 @@ import React from "react";
 import { ButtonType, IButtonProps } from "./interface";
 
 // styles
-import "./index.less";
+import "./styles.less";
 
 export default function Button(props: IButtonProps) {
-  const {
-    id,
-    tmButtonType = ButtonType.None,
-    type = "button",
-    children,
-    className = "",
-    buttonClicked,
-  } = props;
+	const {
+		id,
+		tmButtonType = ButtonType.None,
+		type = "button",
+		children,
+		className = "",
+		buttonClicked,
+	} = props;
 
-  const handleClick = () => {
-    if (buttonClicked) {
-      buttonClicked(id);
-    }
-  };
+	const handleClick = () => {
+		if (buttonClicked) {
+			buttonClicked(id);
+		}
+	};
 
-  return (
-    <button
-      id={`button-${id}`}
-      className={`btn ${className} ${tmButtonType}`}
-      type={type}
-      onClick={handleClick}
-    >
-      {children}
-    </button>
-  );
+	return (
+		<button
+			id={`button-${id}`}
+			className={`btn ${className} ${tmButtonType}`}
+			type={type}
+			onClick={handleClick}
+		>
+			{children}
+		</button>
+	);
 }

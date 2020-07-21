@@ -5,12 +5,12 @@ import cc from "classcat";
 import { IIframeProps } from "./iframe.interface";
 
 // styles
-import "./index.less";
+import "./styles.less";
 
 export default function Iframe({ isResponsive, src }: IIframeProps) {
-  return (
-    <section className={cc(["iframe-container", { responsive: isResponsive }])}>
-      <iframe src={src} frameBorder="0"></iframe>
-    </section>
-  );
+	return (
+		<section className={cc(["iframe-container", { responsive: isResponsive }])}>
+			<iframe src={src} frameBorder="0"></iframe>
+		</section>
+	);
 }

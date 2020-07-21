@@ -10,7 +10,7 @@ import HeaderHomePage from "./HeaderHomePage";
 import HeaderInnerPage from "./HeaderInnerPage";
 
 // styles
-import "./index.less";
+import "./styles.less";
 
 /**
  * Header component has 2 versions according to isWebApp & isHomepage:
@@ -18,34 +18,34 @@ import "./index.less";
  * HeaderInnerPage
  */
 export default function Header() {
-  const {
-    appState: {
-      tmState: { isWebApp },
-    },
-  } = useContext(TeachMeContext);
-  const { pathname } = useLocation();
-  const isHomePage = pathname === "/";
+	const {
+		appState: {
+			tmState: { isWebApp },
+		},
+	} = useContext(TeachMeContext);
+	const { pathname } = useLocation();
+	const isHomePage = pathname === "/";
 
-  if (isHomePage && !isWebApp) {
-    return <></>;
-  }
+	if (isHomePage && !isWebApp) {
+		return <></>;
+	}
 
-  return (
-    <div className="header">
-      <div
-        className={cc([
-          "general-header wrapper",
-          {
-            "home-page": isHomePage,
-            "inner-page": !isHomePage,
-            web: isWebApp,
-            app: !isWebApp,
-          },
-        ])}
-      >
-        {isHomePage && isWebApp && <HeaderHomePage />}
-        {!isHomePage && <HeaderInnerPage />}
-      </div>
-    </div>
-  );
+	return (
+		<div className="header">
+			<div
+				className={cc([
+					"general-header wrapper",
+					{
+						"home-page": isHomePage,
+						"inner-page": !isHomePage,
+						web: isWebApp,
+						app: !isWebApp,
+					},
+				])}
+			>
+				{isHomePage && isWebApp && <HeaderHomePage />}
+				{!isHomePage && <HeaderInnerPage />}
+			</div>
+		</div>
+	);
 }

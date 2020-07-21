@@ -5,16 +5,16 @@ import Screens from "../screens";
 import Header from "../header";
 
 // styles
-import "./index.less";
+import "./styles.less";
 
 /**
  * Main - using as main wrapper
  */
 export default function Main({ className = "" }: { className?: string }) {
-  return (
-    <div className={`main ${className}`}>
-      <Header />
-      <Screens />
-    </div>
-  );
+	return (
+		<div className={`main ${className}`}>
+			<Header />
+			<Screens />
+		</div>
+	);
 }
