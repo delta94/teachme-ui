@@ -126,15 +126,13 @@ export const parseQuizListItem = ({
 
 export const parseSingleCourseBE = ({
   course,
-  courseNumber,
   courseImg,
 }: {
   course: ICourseBE;
-  courseNumber: number;
   courseImg: number;
 }): ICourse => {
   const { quiz } = course;
-  const courseId = courseNumber;
+  const courseId = course.id;
 
   return {
     ...course,
@@ -159,8 +157,7 @@ export const parseCoursesBE = (courses: ICourseBE[]): ICourse[] => {
     const courseNumber = index + 1;
     const singleCourse = parseSingleCourseBE({
       course,
-      courseImg: courseImgNumber,
-      courseNumber,
+      courseImg: courseImgNumber
     });
     const resetCourseImgNumber = courseNumber % courseImgLength === 0;
     courseImgNumber = resetCourseImgNumber ? 1 : courseImgNumber + 1;
