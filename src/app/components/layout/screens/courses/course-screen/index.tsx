@@ -65,7 +65,7 @@ export default function CourseScreen({ match }: RouteComponentProps<TParams>) {
 		}, 0);
 
 		return () => clearTimeout(timer);
-	}, [courseId]);
+	}, [courseId, tmCourses]);
 
 	// Using useEffect according to taskId.
 	// setting the taskId to highlight the list item

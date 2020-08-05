@@ -119,28 +119,34 @@ export default function TeachmeProvider({
 
         // set teachme global
         window.teachme = teachmeApp;
-        let tmCourses = await teachmeApp.getContent();
 
-        if (tmCourses) {
-          console.log("tmCourses =>", tmCourses);
-        } else {
-          throw new Error("Something is wrong, No tmCourses");
+        const getParsedCourses = async () => {
+          let tmCourses = await teachmeApp.getContent();
+
+          if (tmCourses) {
+            console.log("tmCourses =>", tmCourses);
+          } else {
+            throw new Error("Something is wrong, No tmCourses");
+          }
+
+          const parsedCourses = tmCourses ? parseCoursesBE(tmCourses) : null;
+
+          if (parsedCourses) {
+            console.log("parsedCourses =>", parsedCourses);
+          } else {
+            throw new Error("Something is wrong, No parsedCourses");
+          }
+
+          // set tmUser data
+          const tmUser = {
+            courses: {
+              percentCompletion: getCoursesTotalStatus(parsedCourses),
+            },
+          };
+          return { tmUser, parsedCourses }
         }
 
-        const parsedCourses = tmCourses ? parseCoursesBE(tmCourses) : null;
-
-        if (parsedCourses) {
-          console.log("parsedCourses =>", parsedCourses);
-        } else {
-          throw new Error("Something is wrong, No parsedCourses");
-        }
-
-        // set tmUser data
-        const tmUser = {
-          courses: {
-            percentCompletion: getCoursesTotalStatus(parsedCourses),
-          },
-        };
+        const { tmUser, parsedCourses } = await getParsedCourses();
 
         // Cleanups before set state
         timeout = setTimeout(() => {
@@ -158,6 +164,14 @@ export default function TeachmeProvider({
           platformType: platformTypeParam,
           isWebApp: getUrlParamValueByName("tm-type") === tmPlatformType.Web,
         });
+
+        teachmeApp.bindToContentUpdate(async () => {
+          const { parsedCourses } = await getParsedCourses();
+          setTMState({
+            ...tmState,
+            tmCourses: parsedCourses
+          });
+        })
       } catch (err) {
         console.log("err ", err);
         setWalkmeSDKError(err);
