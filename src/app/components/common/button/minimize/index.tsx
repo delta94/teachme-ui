@@ -12,7 +12,7 @@ export default function Minimize() {
 
 	const handleClick = (e: any) => {
 		e.preventDefault();
-		walkmeSDK.platform.closeMe();
+		walkmeSDK.platform.hideMe();
 	};
 
 	return (
