@@ -20,8 +20,9 @@ export default function useListItemManager(walkmeSDK: ISdk) {
   };
 
   const handleWalkmeSDKClick = (item: IListItem<{}>) => {
+    debugger
     walkmeSDK.content.playById(item.type, item.id);
-    walkmeSDK.platform.closeMe();
+    walkmeSDK.platform.hideMe();
   };
 
   const handleListItemClick = (item: IListItem<{}>) => {
