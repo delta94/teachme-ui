@@ -18,7 +18,7 @@ export default function QuizScreen({ match }: RouteComponentProps<TParams>) {
 	const { courseId } = match.params;
 
 	// localhost url: "http://localhost:9001/";
-	const quizBaseUrl = "https://cdn.walkme.com/apps/wm-forms/index.html";
+	const quizBaseUrl = 'https://cdn2.walkmedev.com/adir/wm-forms/index.html';
 	const urlParams = window.location.search;
 	const quizSrc = `${quizBaseUrl}${urlParams}&courseId=${courseId}`;
 

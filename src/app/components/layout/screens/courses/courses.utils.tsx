@@ -236,7 +236,7 @@ export const getCoursesTotalStatus = (courses: ICourse[]) => {
   const coursesStatusArr = courses.map((course) => {
     return course.data.status;
   });
-  const sumCoursesStatus = coursesStatusArr.reduce(courseStatusReducer);
+  const sumCoursesStatus = coursesStatusArr.reduce(courseStatusReducer, 0);
   return sumCoursesStatus / courses.length;
 };
 
