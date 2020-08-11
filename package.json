@@ -20,7 +20,7 @@
   "homepage": "https://github.com/WalkMe/teachme-ui#readme",
   "dependencies": {
     "@types/react-router-dom": "^5.1.5",
-    "@walkme/sdk": "1.0.24-test",
+    "@walkme/sdk": "1.0.25",
     "classcat": "^4.1.0",
     "file-loader": "^6.0.0",
     "react": "^16.13.1",
