@@ -44,7 +44,7 @@ export default function TMListItemFooter({
     status > 0 ? (isCompleted ? completed : resume) : start;
   const buttonIcon = iconType || (!isCompleted && Icon.ArrowRight);
   const isTested = state === CourseState.Tested;
-  const testLabelState = isTested ? tested : notTested;
+  const testLabelState = isCompleted ? tested : notTested;
 
   return (
     <footer className="status-area">
