@@ -28,4 +28,5 @@ export interface IRouteButtonProps {
   buttonType?: ButtonType;
   iconType?: IconType;
   className?: string;
+  onClick? : (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
 }
