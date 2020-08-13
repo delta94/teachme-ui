@@ -94,6 +94,14 @@ export const parseCourseData = (course: ICourseBE) => {
   };
 };
 
+const getQuizState = (quiz: IQuizBE) => {
+  if(quiz.properties.isDisabled) {
+    return CourseState.Disabled
+  } else if(quiz.welcomeScreen && quiz.properties.isCompleted) {
+    return CourseState.Tested
+  }
+  return CourseState.NotStarted
+}
 export const parseQuizListItem = ({
   quiz,
   courseId,
@@ -103,12 +111,15 @@ export const parseQuizListItem = ({
 }) => {
   const { title, description } = quiz.welcomeScreen;
 
+  const state = getQuizState(quiz)
+
   return {
     id: courseId,
     title,
     description,
     link: `/quiz/${courseId}`,
-    clickable: true,
+    clickable: state !== CourseState.Disabled,
+    disabledMsg: "The quiz will be available after the completion of all course items",
     data: {
       media: {
         thumbnail: {
@@ -116,10 +127,7 @@ export const parseQuizListItem = ({
           ratio_2_1: "quiz/quiz-ratio-2_1.jpg",
         },
       },
-      state:
-        quiz.welcomeScreen && quiz.properties.isCompleted
-          ? CourseState.Tested
-          : CourseState.NotStarted,
+      state
     },
   };
 };
