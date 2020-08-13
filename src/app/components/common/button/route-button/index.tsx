@@ -17,12 +17,13 @@ export default function RouteButton({
   linkTo,
   buttonType = ButtonType.None,
   className,
+  onClick
 }: IRouteButtonProps) {
   const { getIconByType } = useIconManager();
 
   return (
     <Button className={className} id={id} tmButtonType={buttonType}>
-      <Link to={linkTo}>
+      <Link to={linkTo}  onClick={onClick}>
         <span className="btn-label">
           {getIconByType(iconType)}
           {label}

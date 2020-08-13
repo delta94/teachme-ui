@@ -51,4 +51,5 @@ export interface ITeachMeContext {
   teachmeApp: WalkMeApp;
   sidebar: ISidebarOptions;
   infoScreen: IInfoScreenOptions;
+  updateContent :  () => void
 }

@@ -89,6 +89,41 @@ export default function TeachmeProvider({
     }
   }, [walkmeSDKError]);
 
+  const getParsedCourses = async () => {
+    const teachmeApp = await walkme.apps.getApp("teachme");
+
+    // teachmeApp Guard
+    if (teachmeApp) {
+      setTeachmeApp(teachmeApp);
+    } else {
+      throw new Error("Something is wrong, No teachmeApp");
+    }
+
+    let tmCourses = await teachmeApp.getContent();
+
+    if (tmCourses) {
+      console.log("tmCourses =>", tmCourses);
+    } else {
+      throw new Error("Something is wrong, No tmCourses");
+    }
+
+    const parsedCourses = tmCourses ? parseCoursesBE(tmCourses) : null;
+
+    if (parsedCourses) {
+      console.log("parsedCourses =>", parsedCourses);
+    } else {
+      throw new Error("Something is wrong, No parsedCourses");
+    }
+
+    // set tmUser data
+    const tmUser = {
+      courses: {
+        percentCompletion: getCoursesTotalStatus(parsedCourses),
+      },
+    };
+    return { tmUser, parsedCourses }
+  }
+
   /**
    * Initial SDK and
    */
@@ -117,36 +152,10 @@ export default function TeachmeProvider({
           throw new Error("Something is wrong, No teachmeApp");
         }
 
+        const { tmUser, parsedCourses } = await getParsedCourses();
+
         // set teachme global
         window.teachme = teachmeApp;
-
-        const getParsedCourses = async () => {
-          let tmCourses = await teachmeApp.getContent();
-
-          if (tmCourses) {
-            console.log("tmCourses =>", tmCourses);
-          } else {
-            throw new Error("Something is wrong, No tmCourses");
-          }
-
-          const parsedCourses = tmCourses ? parseCoursesBE(tmCourses) : null;
-
-          if (parsedCourses) {
-            console.log("parsedCourses =>", parsedCourses);
-          } else {
-            throw new Error("Something is wrong, No parsedCourses");
-          }
-
-          // set tmUser data
-          const tmUser = {
-            courses: {
-              percentCompletion: getCoursesTotalStatus(parsedCourses),
-            },
-          };
-          return { tmUser, parsedCourses }
-        }
-
-        const { tmUser, parsedCourses } = await getParsedCourses();
 
         // Cleanups before set state
         timeout = setTimeout(() => {
@@ -165,13 +174,7 @@ export default function TeachmeProvider({
           isWebApp: getUrlParamValueByName("tm-type") === tmPlatformType.Web,
         });
 
-        teachmeApp.bindToContentUpdate(async () => {
-          const { parsedCourses } = await getParsedCourses();
-          setTMState({
-            ...tmState,
-            tmCourses: parsedCourses
-          });
-        })
+        teachmeApp.bindToContentUpdate(async () =>  updateContent());
       } catch (err) {
         console.log("err ", err);
         setWalkmeSDKError(err);
@@ -180,11 +183,20 @@ export default function TeachmeProvider({
     })();
   }, []);
 
+  const updateContent = async ()=>{
+    const { parsedCourses } = await getParsedCourses();
+    setTMState({
+      ...tmState,
+      tmCourses: parsedCourses
+    });
+  }
+
   return (
     <TeachMeContext.Provider
       value={{
         walkmeSDK,
         teachmeApp,
+        updateContent,
         appState: { tmState, setTMState },
         sidebar: { sidebarIsOpen, setSidebarIsOpen },
         infoScreen: { informationScreen, setInformationScreen },
