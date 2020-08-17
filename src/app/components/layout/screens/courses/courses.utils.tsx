@@ -17,7 +17,7 @@ export const parseToCourseListItems = (
   courses: ICourse[]
 ): IListItem<ICourseData>[] => {
   return courses.map((course) => {
-    const { id, title, media, data, items } = course;
+    const { id, title, media, data, items, quiz } = course;
     const { courseDisabledMsg } = localization;
     return {
       id,
@@ -34,6 +34,7 @@ export const parseToCourseListItems = (
       data: {
         ...data,
         media,
+        hasQuiz : quiz !== undefined
       },
     };
   });
