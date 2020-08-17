@@ -10,7 +10,7 @@ const localization = {
   listItemDisabledMsg: "This item is not completed and unavailable",
   lessonDisabledMsg:
     "This lesson requires the completion of all previous lessons",
-  courseDisabledMsg: "This course requires completion of all pervious",
+  courseDisabledMsg: "This course requires completion of all previous",
   informationScreen: {
     loadingMassage: "Loading",
     noConnectionMessage: {

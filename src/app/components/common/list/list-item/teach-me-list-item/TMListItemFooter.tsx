@@ -28,7 +28,7 @@ export default function TMListItemFooter({
   } = tmListItemFooter;
   const {
     id,
-    data: { status, state },
+    data: { status, state , hasQuiz},
   } = item;
   const {
     tmListItem: {
@@ -43,6 +43,7 @@ export default function TMListItemFooter({
   const buttonLabelState =
     status > 0 ? (isCompleted ? completed : resume) : start;
   const buttonIcon = iconType || (!isCompleted && Icon.ArrowRight);
+
   const isTested = state === CourseState.Tested;
   const testLabelState = isCompleted ? tested : notTested;
 
@@ -59,10 +60,10 @@ export default function TMListItemFooter({
           {!hideButtonIcon && getIconByType(buttonIcon)}
         </span>
       </Button>
-      <span className={cc(["test-label", { tested: isTested }])}>
+      {hasQuiz &&<span className={cc(["test-label", { tested: isTested }])}>
         {testLabelState}
         {isTested && getIconByType(CourseState.Tested)}
-      </span>
+      </span>}
     </footer>
   );
 }

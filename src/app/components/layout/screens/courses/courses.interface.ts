@@ -115,6 +115,7 @@ export interface ICourseData {
   state?: CourseState;
   status?: number;
   media?: ICourseMedia;
+  hasQuiz? : boolean;
 }
 
 export interface IProperties {
