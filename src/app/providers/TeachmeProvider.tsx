@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { ICourse } from '../components/layout/screens/courses/courses.interface'
 // walkme SDK
 import walkme, { ISdk, WalkMeApp } from "@walkme/sdk";
 
@@ -29,6 +30,12 @@ declare global {
     teachme: any;
   }
 }
+
+const getTmUser = ( parsedCourses: ICourse[] ) => ({
+  courses: {
+    percentCompletion: getCoursesTotalStatus(parsedCourses),
+  },
+})
 
 export default function TeachmeProvider({
   children,
@@ -116,11 +123,7 @@ export default function TeachmeProvider({
     }
 
     // set tmUser data
-    const tmUser = {
-      courses: {
-        percentCompletion: getCoursesTotalStatus(parsedCourses),
-      },
-    };
+    const tmUser = getTmUser(parsedCourses)
     return { tmUser, parsedCourses }
   }
 
@@ -185,8 +188,10 @@ export default function TeachmeProvider({
 
   const updateContent = async ()=>{
     const { parsedCourses } = await getParsedCourses();
+    const tmUser = getTmUser(parsedCourses)
     setTMState({
       ...tmState,
+      tmUser,
       tmCourses: parsedCourses
     });
   }
